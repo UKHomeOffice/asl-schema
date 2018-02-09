@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 
 const Schema = require('./schema');
 
-module.exports = db => {
+module.exports = settings => {
 
-  const sequelize = new Sequelize(db, { logging: false, operatorsAliases: false });
+  const db = new Sequelize(settings, { logging: false, operatorsAliases: false });
 
-  return Schema(sequelize);
+  return Schema(db);
 
 }
