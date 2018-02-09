@@ -1,0 +1,24 @@
+{
+  "name": "asl-schema",
+  "version": "1.0.0",
+  "description": "Sequelize schema for licensing models",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UKHomeOffice/asl-schema.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UKHomeOffice/asl-schema/issues"
+  },
+  "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
+  "dependencies": {
+    "pg": "^7.4.1",
+    "sequelize": "^4.33.1"
+  }
+}
