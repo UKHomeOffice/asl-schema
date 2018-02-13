@@ -2,16 +2,13 @@ const { UUID, UUIDV1, STRING } = require('sequelize');
 
 module.exports = db => {
 
-  const Place = db.define('place', {
+  const Profile = db.define('profile', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
     name: STRING,
-    site: STRING,
-    building: STRING,
-    floor: STRING,
-    suitability: STRING,
-    holding: STRING
+    email: STRING,
+    telephone: STRING
   });
 
-  return Place;
+  return Profile;
 
 };
