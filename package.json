@@ -20,5 +20,8 @@
   "dependencies": {
     "pg": "^7.4.1",
     "sequelize": "^4.33.1"
+  },
+  "publishConfig": {
+    "registry": "https://artifactory.digital.homeoffice.gov.uk/artifactory/api/npm/npm-virtual/"
   }
 }
