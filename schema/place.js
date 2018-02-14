@@ -1,4 +1,4 @@
-const { UUID, UUIDV1, STRING } = require('sequelize');
+const { UUID, UUIDV1, STRING, ARRAY } = require('sequelize');
 
 module.exports = db => {
 
