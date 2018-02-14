@@ -8,8 +8,8 @@ module.exports = db => {
     site: STRING,
     building: STRING,
     floor: STRING,
-    suitability: STRING,
-    holding: STRING
+    suitability: ARRAY(STRING),
+    holding: ARRAY(STRING)
   });
 
   return Place;
