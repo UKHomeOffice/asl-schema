@@ -28,7 +28,8 @@ module.exports = db => {
     Role,
     Profile,
 
-    sync: opts => db.sync(opts)
+    sync: opts => db.sync(opts),
+    close: () => db.close()
   };
 
 };
