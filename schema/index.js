@@ -26,7 +26,9 @@ module.exports = db => {
     Establishment,
     Place,
     Role,
-    Profile
+    Profile,
+
+    sync: opts => db.sync(opts)
   };
 
 };
