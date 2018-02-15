@@ -4,7 +4,11 @@ const Schema = require('./schema');
 
 module.exports = settings => {
 
-  const db = new Sequelize(settings, { logging: false, operatorsAliases: false });
+  const defaults = { dialect: 'postgres', logging: false, operatorsAliases: false };
+
+  settings = Object.assign(defaults, settings);
+
+  const db = new Sequelize(settings);
 
   return Schema(db);
 
