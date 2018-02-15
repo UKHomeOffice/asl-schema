@@ -10,6 +10,7 @@ module.exports = db => {
     issued: DATE,
     licenceNumber: STRING,
 
+    country: { type: ENUM('england', 'scotland', 'wales', 'ni'), allowNull: false },
     address: { type: STRING, allowNull: false },
     postcode: { type: STRING, allowNull: false },
     telephone: { type: STRING, allowNull: false },
