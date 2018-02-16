@@ -6,6 +6,7 @@ module.exports = db => {
 
     id: { type: STRING, primaryKey: true },
     name: { type: STRING, allowNull: false },
+    type: STRING,
     status: { type: ENUM('active', 'pending', 'inactive', 'expired', 'revoked'), defaultsTo: 'inactive' },
     issued: DATE,
     licenceNumber: STRING,

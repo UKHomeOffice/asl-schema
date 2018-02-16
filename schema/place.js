@@ -1,4 +1,4 @@
-const { UUID, UUIDV1, STRING, ARRAY } = require('sequelize');
+const { UUID, UUIDV1, STRING, ARRAY, TEXT } = require('sequelize');
 
 module.exports = db => {
 
@@ -9,7 +9,8 @@ module.exports = db => {
     building: STRING,
     floor: STRING,
     suitability: ARRAY(STRING),
-    holding: ARRAY(STRING)
+    holding: ARRAY(STRING),
+    notes: TEXT
   });
 
   return Place;
