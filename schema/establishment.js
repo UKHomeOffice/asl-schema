@@ -8,7 +8,8 @@ module.exports = db => {
     name: { type: STRING, allowNull: false },
     type: STRING,
     status: { type: ENUM('active', 'pending', 'inactive', 'expired', 'revoked'), defaultsTo: 'inactive' },
-    issued: DATE,
+    issueDate: DATE,
+    revocationDate: DATE,
     licenceNumber: STRING,
 
     country: { type: ENUM('england', 'scotland', 'wales', 'ni'), allowNull: false },
