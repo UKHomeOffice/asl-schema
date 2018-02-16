@@ -1,0 +1,18 @@
+Key, Target Key, Migration Notes
+named_individuals_id,,
+named_individuals_establishment_id,establishmentId,
+named_individuals_role,role.type,
+named_individuals_title,title,
+named_individuals_surname,lastName,
+named_individuals_forename,firstName,
+named_individuals_date_of_birth,dob,
+named_individuals_address,address,
+named_individuals_postcode,postcode,
+named_individuals_phone_no,telephone,
+named_individuals_email,email,
+named_individuals_qualifications,qualifications,
+named_individuals_course_year,certfication,"Likely to be eventually migrated to a separate relation to bind certifications to profiles, but migrate directly to a field for now."
+named_individuals_facilities,place.nacwoId,NACWO associated to a location via nacwoId field on a location
+named_individuals_declr,,
+named_individuals_created_at,,Automated from DB
+named_individuals_updated_at,,Automated from DB
