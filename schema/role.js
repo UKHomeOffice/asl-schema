@@ -13,7 +13,7 @@ module.exports = db => {
 
   const Role = db.define('role', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    migrated_id: { type: STRING, unique: true },
+    migrated_id: STRING,
     type: ROLES
   });
 
