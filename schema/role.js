@@ -1,4 +1,4 @@
-const { UUID, UUIDV1, ENUM } = require('sequelize');
+const { UUID, UUIDV1, ENUM, STRING } = require('sequelize');
 
 const ROLES = ENUM(
   'elh',
@@ -13,6 +13,7 @@ module.exports = db => {
 
   const Role = db.define('role', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
+    migrated_id: { type: STRING, unique: true },
     type: ROLES
   });
 

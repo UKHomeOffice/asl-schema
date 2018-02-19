@@ -4,6 +4,7 @@ module.exports = db => {
 
   const Place = db.define('place', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
+    migrated_id: { type: STRING, unique: true },
     name: STRING,
     site: STRING,
     building: STRING,

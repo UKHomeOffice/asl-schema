@@ -5,6 +5,7 @@ module.exports = db => {
   const Establishment = db.define('establishment', {
 
     id: { type: STRING, primaryKey: true },
+    migrated_id: { type: STRING, unique: true },
     name: { type: STRING, allowNull: false },
     type: STRING,
     status: { type: ENUM('active', 'pending', 'inactive', 'expired', 'revoked'), defaultsTo: 'inactive' },
@@ -14,8 +15,6 @@ module.exports = db => {
 
     country: { type: ENUM('england', 'scotland', 'wales', 'ni'), allowNull: false },
     address: { type: STRING, allowNull: false },
-    postcode: { type: STRING, allowNull: false },
-    telephone: { type: STRING, allowNull: false },
     email: { type: STRING, allowNull: false },
 
     procedure: { type: BOOLEAN, defaultsTo: false },
