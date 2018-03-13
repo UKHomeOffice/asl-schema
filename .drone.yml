@@ -1,0 +1,17 @@
+pipeline:
+
+  test:
+    image: node:8
+    commands:
+      - npm install
+      - npm test
+    when:
+      event: [push, pull_request, tag]
+
+  test:
+    image: node:8
+    commands:
+      - echo "_authToken=$${NPM_AUTH_TOKEN}" >> .npmrc
+      - npm publish
+    when:
+      event: tag
