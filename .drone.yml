@@ -13,6 +13,7 @@ pipeline:
     secrets:
       - npm_auth_token
     commands:
+      - echo "_authToken=$${NPM_AUTH_TOKEN}" >> .npmrc
       - npm publish
     when:
       event: tag
