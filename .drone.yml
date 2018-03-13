@@ -2,6 +2,8 @@ pipeline:
 
   test:
     image: node:8
+    secrets:
+      - npm_auth_token
     commands:
       - npm install
       - npm test
@@ -13,7 +15,6 @@ pipeline:
     secrets:
       - npm_auth_token
     commands:
-      - echo "_authToken=$${NPM_AUTH_TOKEN}" >> .npmrc
       - npm publish
     when:
       event: tag
