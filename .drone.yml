@@ -11,7 +11,7 @@ pipeline:
   publish:
     image: node:8
     secrets:
-      npm_auth_token
+      - npm_auth_token
     commands:
       - npm publish
     when:
