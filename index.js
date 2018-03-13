@@ -12,4 +12,4 @@ module.exports = settings => {
 
   return Schema(db);
 
-}
+};
