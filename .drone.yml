@@ -18,3 +18,7 @@ pipeline:
       - npm publish
     when:
       event: tag
+
+matrix:
+  NPM_AUTH_USERNAME:
+    - asl
