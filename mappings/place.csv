@@ -1,7 +1,7 @@
 Key, Target Key, Migration Notes,
 locations_id,,,
 locations_establishment_id,establishmentId,,
-locations_location,"site, building, floor",Attempt to parse into multiple fields,
+locations_location,"site, area",Attempt to parse into multiple fields,
 locations_area,name,,
 locations_suit_codes,suitability,Separate any notes on a code into “notes”,
 locations_hold_codes,holding,Separate any notes on a code into “notes”,
