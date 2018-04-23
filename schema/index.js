@@ -11,7 +11,8 @@ module.exports = db => {
   const Profile = ProfileModel(db);
 
   Establishment.places = Establishment.hasMany(Place);
-  Establishment.roles = Establishment.hasMany(Role);
+  Establishment.hasMany(Role);
+  Establishment.hasMany(Profile);
 
   Place.nacwo = Place.belongsTo(Role, { as: 'nacwo' });
   Place.establishment = Place.belongsTo(Establishment, { as: 'establishment' });
