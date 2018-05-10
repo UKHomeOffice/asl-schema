@@ -2,6 +2,7 @@ const EstablishmentModel = require('./establishment');
 const PlaceModel = require('./place');
 const RoleModel = require('./role');
 const ProfileModel = require('./profile');
+const AuthorisationModel = require('./authorisation');
 
 module.exports = db => {
 
@@ -9,8 +10,10 @@ module.exports = db => {
   const Place = PlaceModel(db);
   const Role = RoleModel(db);
   const Profile = ProfileModel(db);
+  const Authorisation = AuthorisationModel(db);
 
   Establishment.places = Establishment.hasMany(Place);
+  Establishment.authorisations = Establishment.hasMany(Authorisation);
   Establishment.hasMany(Role);
   Establishment.hasMany(Profile);
 
@@ -28,6 +31,7 @@ module.exports = db => {
     Place,
     Role,
     Profile,
+    Authorisation,
 
     sync: opts => db.sync(opts),
     close: () => db.close()
