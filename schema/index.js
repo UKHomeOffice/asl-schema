@@ -28,7 +28,8 @@ module.exports = db => {
 
   Profile.establishment = Profile.belongsTo(Establishment);
 
-  PIL.belongsTo(Profile);
+  PIL.profile = PIL.belongsTo(Profile);
+  Profile.pil = Profile.hasOne(PIL);
 
   return {
     Establishment,
