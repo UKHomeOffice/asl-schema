@@ -12,8 +12,8 @@ module.exports = db => {
     position: STRING,
     qualifications: STRING,
     certifications: STRING,
-    address: { type: STRING, allowNull: false },
-    postcode: { type: STRING, allowNull: false },
+    address: STRING,
+    postcode: STRING,
     email: { type: STRING, allowNull: false },
     telephone: { type: STRING, allowNull: false },
     notes: TEXT
