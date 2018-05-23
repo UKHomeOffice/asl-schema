@@ -27,6 +27,13 @@ module.exports = db => {
 
   });
 
+  Establishment.prototype.getPELH = function () {
+    return this.getRoles({ where: { type: 'pelh' } })
+      .then(roles => {
+        return roles[0] && roles[0].getProfile();
+      });
+  };
+
   return Establishment;
 
 };
