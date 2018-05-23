@@ -1,7 +1,7 @@
 const { UUID, UUIDV1, ENUM, STRING } = require('sequelize');
 
 const ROLES = ENUM(
-  'elh',
+  'pelh',
   'nacwo',
   'nvs',
   'nio',
