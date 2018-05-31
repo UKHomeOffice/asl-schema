@@ -4,6 +4,7 @@ const RoleModel = require('./role');
 const ProfileModel = require('./profile');
 const AuthorisationModel = require('./authorisation');
 const PILModel = require('./pil');
+const ProjectModel = require('./project');
 
 module.exports = db => {
 
@@ -13,6 +14,7 @@ module.exports = db => {
   const Profile = ProfileModel(db);
   const Authorisation = AuthorisationModel(db);
   const PIL = PILModel(db);
+  const Project = ProjectModel(db);
 
   Establishment.places = Establishment.hasMany(Place);
   Establishment.authorisations = Establishment.hasMany(Authorisation);
@@ -30,6 +32,9 @@ module.exports = db => {
 
   PIL.profile = PIL.belongsTo(Profile);
   Profile.pil = Profile.hasOne(PIL);
+
+  Project.holder = Project.belongsTo(Profile, { as: 'licenceHolder' });
+  Profile.hasMany(Project);
 
   return {
     Establishment,
