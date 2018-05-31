@@ -47,6 +47,7 @@ module.exports = db => {
     Profile,
     Authorisation,
     PIL,
+    Project,
 
     sync: opts => db.sync(opts),
     close: () => db.close()
