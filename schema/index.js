@@ -20,6 +20,7 @@ module.exports = db => {
   Establishment.authorisations = Establishment.hasMany(Authorisation);
   Establishment.hasMany(Role);
   Establishment.hasMany(Profile);
+  Establishment.hasMany(PIL);
   Establishment.hasMany(Project);
 
   Place.nacwo = Place.belongsTo(Role, { as: 'nacwo' });
@@ -31,12 +32,13 @@ module.exports = db => {
 
   Profile.establishment = Profile.belongsTo(Establishment);
 
+  PIL.establishment = PIL.belongsTo(Establishment);
   PIL.profile = PIL.belongsTo(Profile);
   Profile.pil = Profile.hasOne(PIL);
 
   Project.establishment = Project.belongsTo(Establishment);
   Project.holder = Project.belongsTo(Profile, { as: 'licenceHolder' });
-  Profile.hasMany(Project);
+  Profile.hasMany(Project, { foreignKey: 'licenceHolderId' });
 
   return {
     Establishment,
@@ -45,6 +47,7 @@ module.exports = db => {
     Profile,
     Authorisation,
     PIL,
+    Project,
 
     sync: opts => db.sync(opts),
     close: () => db.close()
