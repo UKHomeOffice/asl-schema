@@ -1,4 +1,4 @@
-const { STRING, ENUM, DATE, TEXT, UUID, UUIDV1 } = require('sequelize');
+const { STRING, ENUM, DATE, UUID, UUIDV1 } = require('sequelize');
 
 module.exports = db => {
 

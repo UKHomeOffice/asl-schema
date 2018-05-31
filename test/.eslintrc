@@ -1,0 +1,10 @@
+extends:
+  - "../.eslintrc"
+
+env:
+  jest: true
+
+rules:
+  implicit-dependencies/no-implicit:
+    - error
+    - dev: true
