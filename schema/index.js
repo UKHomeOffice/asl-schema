@@ -38,7 +38,7 @@ module.exports = db => {
 
   Project.establishment = Project.belongsTo(Establishment);
   Project.holder = Project.belongsTo(Profile, { as: 'licenceHolder' });
-  Profile.hasMany(Project);
+  Profile.hasMany(Project, { foreignKey: 'licenceHolderId' });
 
   return {
     Establishment,
