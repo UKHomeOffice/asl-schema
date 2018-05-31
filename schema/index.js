@@ -20,6 +20,7 @@ module.exports = db => {
   Establishment.authorisations = Establishment.hasMany(Authorisation);
   Establishment.hasMany(Role);
   Establishment.hasMany(Profile);
+  Establishment.hasMany(Project);
 
   Place.nacwo = Place.belongsTo(Role, { as: 'nacwo' });
   Place.establishment = Place.belongsTo(Establishment, { as: 'establishment' });
@@ -33,6 +34,7 @@ module.exports = db => {
   PIL.profile = PIL.belongsTo(Profile);
   Profile.pil = Profile.hasOne(PIL);
 
+  Project.establishment = Project.belongsTo(Establishment);
   Project.holder = Project.belongsTo(Profile, { as: 'licenceHolder' });
   Profile.hasMany(Project);
 
