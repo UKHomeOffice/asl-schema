@@ -3,6 +3,7 @@ const PlaceModel = require('./place');
 const RoleModel = require('./role');
 const ProfileModel = require('./profile');
 const AuthorisationModel = require('./authorisation');
+const TrainingModuleModel = require('./training-module');
 const PILModel = require('./pil');
 const ProjectModel = require('./project');
 
@@ -15,6 +16,7 @@ module.exports = db => {
   const Authorisation = AuthorisationModel(db);
   const PIL = PILModel(db);
   const Project = ProjectModel(db);
+  const TrainingModule = TrainingModuleModel(db);
 
   Establishment.places = Establishment.hasMany(Place);
   Establishment.authorisations = Establishment.hasMany(Authorisation);
@@ -29,6 +31,7 @@ module.exports = db => {
   Role.profile = Role.belongsTo(Profile);
   Role.hasMany(Place, { foreignKey: 'nacwoId' });
   Profile.hasMany(Role);
+  Profile.hasMany(TrainingModule, { foreignKey: 'profileId' });
 
   Profile.establishment = Profile.belongsTo(Establishment);
 
@@ -48,6 +51,7 @@ module.exports = db => {
     Authorisation,
     PIL,
     Project,
+    TrainingModule,
 
     sync: opts => db.sync(opts),
     close: () => db.close()
