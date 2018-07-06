@@ -5,7 +5,7 @@ module.exports = db => {
   const TrainingModule = db.define('trainingModule', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
     migrated_id: STRING,
-    number: STRING,
+    module: STRING,
     pass_date: DATEONLY,
     not_applicable: { type: BOOLEAN, defaultsTo: false },
     accrediting_body: STRING,

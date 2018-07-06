@@ -29,7 +29,6 @@ module.exports = db => {
   Place.establishment = Place.belongsTo(Establishment, { as: 'establishment' });
 
   Role.profile = Role.belongsTo(Profile);
-  TrainingModule.profile = TrainingModule.belongsTo(Profile);
   Role.hasMany(Place, { foreignKey: 'nacwoId' });
   Profile.hasMany(Role);
   Profile.hasMany(TrainingModule, { foreignKey: 'profileId' });
