@@ -1,4 +1,4 @@
-const { UUID, UUIDV1, STRING, ARRAY, TEXT } = require('sequelize');
+const { UUID, UUIDV1, STRING, ARRAY, TEXT, DATE, fn } = require('sequelize');
 
 module.exports = db => {
 
@@ -10,8 +10,24 @@ module.exports = db => {
     name: STRING,
     suitability: ARRAY(STRING),
     holding: ARRAY(STRING),
-    notes: TEXT
+    notes: TEXT,
+    deleted: DATE
+  }, {
+    defaultScope: {
+      where: {
+        deleted: null
+      }
+    },
+    scopes: {
+      all: {
+        where: {}
+      }
+    }
   });
+
+  Place.prototype.softDelete = function () {
+    return this.update({ deleted: fn('NOW') });
+  };
 
   return Place;
 
