@@ -6,6 +6,7 @@ module.exports = db => {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
     migrated_id: STRING,
     module: STRING,
+    species: STRING,
     pass_date: DATEONLY,
     not_applicable: { type: BOOLEAN, defaultsTo: false },
     accrediting_body: STRING,
