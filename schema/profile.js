@@ -5,6 +5,7 @@ module.exports = db => {
   const Profile = db.define('profile', {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
     migrated_id: STRING,
+    userId: { type: STRING, unique: true },
     title: { type: STRING, allowNull: false },
     firstName: { type: STRING, allowNull: false },
     lastName: { type: STRING, allowNull: false },
