@@ -6,7 +6,7 @@ module.exports = db => {
     id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
     migrated_id: STRING,
     userId: { type: STRING, unique: true },
-    title: { type: STRING, allowNull: false },
+    title: STRING,
     firstName: { type: STRING, allowNull: false },
     lastName: { type: STRING, allowNull: false },
     dob: DATEONLY,
@@ -16,7 +16,7 @@ module.exports = db => {
     address: STRING,
     postcode: STRING,
     email: { type: STRING, allowNull: false },
-    telephone: { type: STRING, allowNull: false },
+    telephone: STRING,
     notes: TEXT
   }, {
     getterMethods: {
