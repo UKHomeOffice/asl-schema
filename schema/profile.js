@@ -15,7 +15,7 @@ module.exports = db => {
     certifications: STRING,
     address: STRING,
     postcode: STRING,
-    email: { type: STRING, allowNull: false },
+    email: { type: STRING, allowNull: false, unique: true },
     telephone: STRING,
     notes: TEXT
   }, {
