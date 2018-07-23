@@ -1,6 +1,5 @@
-const { Op } = require('sequelize');
 const { merge } = require('lodash');
-const { STRING, ENUM, DATE, UUID, UUIDV1 } = require('sequelize');
+const { STRING, ENUM, DATE, UUID, UUIDV1, Op } = require('sequelize');
 
 module.exports = db => {
 

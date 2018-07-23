@@ -1,6 +1,5 @@
 const { merge, chain, omit } = require('lodash');
-const { Op } = require('sequelize');
-const { UUID, UUIDV1, STRING, DATEONLY, TEXT } = require('sequelize');
+const { UUID, UUIDV1, STRING, DATEONLY, TEXT, Op } = require('sequelize');
 
 module.exports = db => {
 
