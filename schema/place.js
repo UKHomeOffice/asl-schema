@@ -1,3 +1,4 @@
+const { uniq, flatten } = require('lodash');
 const { UUID, UUIDV1, STRING, ARRAY, TEXT, DATE, fn } = require('sequelize');
 
 module.exports = db => {
@@ -27,6 +28,22 @@ module.exports = db => {
 
   Place.prototype.softDelete = function () {
     return this.update({ deleted: fn('NOW') });
+  };
+
+  Place.getFilterOptions = ({ where, filters }) => {
+    return Promise.all(
+      ['site', 'suitability', 'holding'].map(filter =>
+        Place.aggregate(filter, 'DISTINCT', {
+          plain: false,
+          where
+        })
+          .then(result => ({
+            key: filter,
+            values: uniq(flatten(result.map(r => r.DISTINCT)))
+          }))
+      )
+    )
+      .then(filters => filters);
   };
 
   return Place;
