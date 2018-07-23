@@ -1,4 +1,4 @@
-const { merge } = require('lodash');
+const { merge, chain, omit } = require('lodash');
 const { Op } = require('sequelize');
 const { UUID, UUIDV1, STRING, DATEONLY, TEXT } = require('sequelize');
 
@@ -28,58 +28,92 @@ module.exports = db => {
     }
   });
 
-  Profile.searchAndCountAll = ({ search, ...rest }) => {
+  Profile.getFilterOptions = ({ where }) => {
+    return Profile.aggregate('type', 'DISTINCT', {
+      plain: false,
+      include: [{ model: db.models.role, duplicating: false }],
+      where: omit(where, 'roles')
+    })
+      .then(result => chain(result.map(r => r.DISTINCT))
+        .flatten()
+        .compact()
+        .uniq()
+        .value()
+        .sort()
+      );
+  };
 
-    const searchFullName = search => {
-      search = search.split(' ');
-      if (search.length > 1) {
-        return {
-          [Op.and]: [
-            { firstName: { [Op.iLike]: `%${search[0]}` } },
-            { lastName: { [Op.iLike]: `${search[1]}%` } }
-          ]
-        };
-      }
+  Profile.searchFullName = (search, prefix = '') => {
+    let firstName = 'firstName';
+    let lastName = 'lastName';
+    if (prefix) {
+      firstName = `$${prefix}.${firstName}$`;
+      lastName = `$${prefix}.${lastName}$`;
+    }
+    search = search.split(' ');
+    if (search.length > 1) {
       return {
-        [Op.or]: [
-          { firstName: { [Op.iLike]: `%${search[0]}%` } },
-          { lastName: { [Op.iLike]: `%${search[0]}%` } }
+        [Op.and]: [
+          { [firstName]: { [Op.iLike]: `%${search[0]}` } },
+          { [lastName]: { [Op.iLike]: `${search[1]}%` } }
         ]
       };
+    }
+    return {
+      [Op.or]: [
+        { [firstName]: { [Op.iLike]: `%${search[0]}%` } },
+        { [lastName]: { [Op.iLike]: `%${search[0]}%` } }
+      ]
+    };
+  };
+
+  Profile.searchAndCountAll = ({ search, ...rest }) => {
+
+    const roles = rest.where.roles;
+    rest.where = omit(rest.where, 'roles');
+
+    const where = {
+      [Op.and]: []
     };
 
-    const where = search
-      ? {
-        [Op.or]: [
-          searchFullName(search),
-          { '$pil.licenceNumber$': { [Op.iLike]: `%${search}%` } },
-          // cast ENUM field to TEXT for search
-          db.where(db.cast(db.col('type'), 'TEXT'), { [Op.eq]: search })
-        ]
-      }
-      : {};
+    if (search) {
+      where[Op.and].push(
+        {
+          [Op.or]: [
+            Profile.searchFullName(search),
+            { '$pil.licenceNumber$': { [Op.iLike]: `%${search}%` } }
+          ]
+        }
+      );
+    }
+
+    if (roles) {
+      where[Op.and].push(
+        db.where(
+          db.cast(db.col('roles.type'), 'TEXT'),
+          { [Op.eq]: roles }
+        )
+      );
+    }
+
+    const settings = merge({
+      where,
+      include: [{
+        model: db.models.role,
+        duplicating: false,
+        attributes: ['type']
+      },
+      {
+        model: db.models.pil,
+        duplicating: false,
+        attributes: ['licenceNumber']
+      }],
+      order: [['lastName', 'ASC'], ['firstName', 'ASC']]
+    }, rest);
 
     return Promise.all([
-      Profile.count(),
-      Profile.findAndCountAll(merge({
-        where,
-        include: [{
-          model: db.models.role,
-          duplicating: false,
-          attributes: ['type']
-        },
-        {
-          model: db.models.pil,
-          duplicating: false,
-          attributes: ['licenceNumber']
-        },
-        {
-          model: db.models.project,
-          duplicating: false,
-          attributes: ['title']
-        }],
-        order: [['lastName', 'ASC'], ['firstName', 'ASC']]
-      }, rest))
+      Profile.count({ where: rest.where }),
+      Profile.findAndCountAll(settings)
     ])
       .then(([ total, result ]) => {
         return {
@@ -90,5 +124,4 @@ module.exports = db => {
   };
 
   return Profile;
-
 };
