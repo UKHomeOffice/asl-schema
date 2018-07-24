@@ -7,6 +7,7 @@ const TrainingModuleModel = require('./training-module');
 const PILModel = require('./pil');
 const ProjectModel = require('./project');
 const PermissionModel = require('./permission');
+const InvitationModel = require('./invitation');
 
 module.exports = db => {
 
@@ -15,6 +16,7 @@ module.exports = db => {
   const Role = RoleModel(db);
   const Profile = ProfileModel(db);
   const Permission = PermissionModel(db);
+  const Invitation = InvitationModel(db);
   const Authorisation = AuthorisationModel(db);
   const PIL = PILModel(db);
   const Project = ProjectModel(db);
@@ -24,6 +26,7 @@ module.exports = db => {
   Establishment.authorisations = Establishment.hasMany(Authorisation);
   Establishment.hasMany(Role);
   Establishment.belongsToMany(Profile, { through: Permission });
+  Establishment.belongsToMany(Profile, { through: Invitation, as: 'invitations' });
   Establishment.hasMany(PIL);
   Establishment.hasMany(Project);
 
@@ -36,6 +39,7 @@ module.exports = db => {
   Profile.hasMany(TrainingModule, { foreignKey: 'profileId' });
 
   Profile.belongsToMany(Establishment, { through: Permission });
+  Profile.belongsToMany(Establishment, { through: Invitation, as: 'invitations' });
 
   PIL.establishment = PIL.belongsTo(Establishment);
   PIL.profile = PIL.belongsTo(Profile);
@@ -54,6 +58,8 @@ module.exports = db => {
     PIL,
     Project,
     TrainingModule,
+    Invitation,
+    Permission,
 
     sync: opts => db.sync(opts),
     close: () => db.close()
