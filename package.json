@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
+    "lodash": "^4.17.10",
     "pg": "^7.4.1",
     "sequelize": "^4.33.1"
   },

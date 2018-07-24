@@ -1,4 +1,5 @@
-const { STRING, ENUM, DATE, UUID, UUIDV1 } = require('sequelize');
+const { STRING, ENUM, DATE, UUID, UUIDV1, Op } = require('sequelize');
+const BaseQueryBuilder = require('../lib/query-builder');
 
 module.exports = db => {
 
@@ -13,6 +14,24 @@ module.exports = db => {
     licenceNumber: STRING
   });
 
-  return Project;
+  class QueryBuilder extends BaseQueryBuilder {
+    search(search) {
+      if (!search) {
+        return this;
+      }
+      return this.where({
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${search}%` } },
+          { licenceNumber: { [Op.iLike]: `%${search}%` } },
+          db.models.profile.searchFullName(search, 'licenceHolder')
+        ]
+      });
+    }
+  }
 
+  Project.query = query => {
+    return new QueryBuilder(Project, query);
+  };
+
+  return Project;
 };
