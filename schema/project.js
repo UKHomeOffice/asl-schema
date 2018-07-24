@@ -1,5 +1,5 @@
-const { merge } = require('lodash');
 const { STRING, ENUM, DATE, UUID, UUIDV1, Op } = require('sequelize');
+const BaseQueryBuilder = require('../lib/query-builder');
 
 module.exports = db => {
 
@@ -14,39 +14,24 @@ module.exports = db => {
     licenceNumber: STRING
   });
 
-  Project.searchAndCountAll = ({ search, where, ...rest }) => {
-    const establishmentId = where.establishmentId;
-    const expiryDate = where.expiryDate;
-    if (search) {
-      where = {
-        [Op.and]: [
-          where,
-          {
-            [Op.or]: [
-              { title: { [Op.iLike]: `%${search}%` } },
-              { licenceNumber: { [Op.iLike]: `%${search}%` } },
-              db.models.profile.searchFullName(search, 'licenceHolder')
-            ]
-          }
-        ]
-      };
-    }
-
-    const settings = merge({
-      where,
-      include: {
-        model: db.models.profile,
-        as: 'licenceHolder',
-        duplicating: false
+  class QueryBuilder extends BaseQueryBuilder {
+    search(search) {
+      if (!search) {
+        return this;
       }
-    }, rest);
+      return this.where({
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${search}%` } },
+          { licenceNumber: { [Op.iLike]: `%${search}%` } },
+          db.models.profile.searchFullName(search, 'licenceHolder')
+        ]
+      });
+    }
+  }
 
-    return Promise.all([
-      Project.count({ where: { establishmentId, expiryDate } }),
-      Project.findAndCountAll(settings)
-    ]);
+  Project.query = query => {
+    return new QueryBuilder(Project, query);
   };
 
   return Project;
-
 };

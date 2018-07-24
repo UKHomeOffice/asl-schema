@@ -1,5 +1,6 @@
-const { merge, chain, omit } = require('lodash');
+const { chain } = require('lodash');
 const { UUID, UUIDV1, STRING, DATEONLY, TEXT, Op } = require('sequelize');
+const BaseQueryBuilder = require('../lib/query-builder');
 
 module.exports = db => {
 
@@ -27,12 +28,8 @@ module.exports = db => {
     }
   });
 
-  Profile.getFilterOptions = ({ where }) => {
-    return Profile.aggregate('type', 'DISTINCT', {
-      plain: false,
-      include: [{ model: db.models.role, duplicating: false }],
-      where: omit(where, 'roles')
-    })
+  Profile.getFilterOptions = options => {
+    return Profile.aggregate('roles.type', 'DISTINCT', { ...options, plain: false })
       .then(result => chain(result.map(r => r.DISTINCT))
         .flatten()
         .compact()
@@ -66,60 +63,44 @@ module.exports = db => {
     };
   };
 
-  Profile.searchAndCountAll = ({ search, ...rest }) => {
-
-    const roles = rest.where.roles;
-    rest.where = omit(rest.where, 'roles');
-
-    const where = {
-      [Op.and]: []
-    };
-
-    if (search) {
-      where[Op.and].push(
-        {
-          [Op.or]: [
-            Profile.searchFullName(search),
-            { '$pil.licenceNumber$': { [Op.iLike]: `%${search}%` } }
-          ]
-        }
-      );
-    }
-
-    if (roles) {
-      where[Op.and].push(
-        db.where(
-          db.cast(db.col('roles.type'), 'TEXT'),
-          { [Op.eq]: roles }
-        )
-      );
-    }
-
-    const settings = merge({
-      where,
-      include: [{
-        model: db.models.role,
-        duplicating: false,
-        attributes: ['type']
-      },
-      {
-        model: db.models.pil,
-        duplicating: false,
-        attributes: ['licenceNumber']
-      }],
-      order: [['lastName', 'ASC'], ['firstName', 'ASC']]
-    }, rest);
-
-    return Promise.all([
-      Profile.count({ where: rest.where }),
-      Profile.findAndCountAll(settings)
-    ])
-      .then(([ total, result ]) => {
-        return {
-          ...result,
-          total
-        };
+  class QueryBuilder extends BaseQueryBuilder {
+    setEstablishment(id) {
+      return this._addToQuery({
+        include: [{
+          model: db.models.establishment,
+          where: { id },
+          duplicating: false
+        }]
       });
+    }
+
+    search(search) {
+      if (!search) {
+        return this;
+      }
+      return this.where({
+        [Op.or]: [
+          Profile.searchFullName(search),
+          { '$pil.licenceNumber$': { [Op.iLike]: `%${search}%` } }
+        ]
+      });
+    }
+
+    filterByRole(role) {
+      if (!role) {
+        return this;
+      }
+      return this.where({
+        [db.col('roles.type')]: db.where(
+          db.cast(db.col('roles.type'), 'TEXT'),
+          { [Op.eq]: role }
+        )
+      });
+    }
+  }
+
+  Profile.query = (query) => {
+    return new QueryBuilder(Profile, query);
   };
 
   return Profile;

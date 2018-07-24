@@ -1,5 +1,6 @@
 const { uniq, flatten } = require('lodash');
 const { UUID, UUIDV1, STRING, ARRAY, TEXT, DATE, fn } = require('sequelize');
+const QueryBuilder = require('../lib/query-builder');
 
 module.exports = db => {
 
@@ -30,12 +31,12 @@ module.exports = db => {
     return this.update({ deleted: fn('NOW') });
   };
 
-  Place.getFilterOptions = ({ where, filters }) => {
+  Place.getFilterOptions = options => {
     return Promise.all(
       ['site', 'suitability', 'holding'].map(filter =>
         Place.aggregate(filter, 'DISTINCT', {
-          plain: false,
-          where
+          ...options,
+          plain: false
         })
           .then(result => ({
             key: filter,
@@ -46,6 +47,9 @@ module.exports = db => {
       .then(filters => filters);
   };
 
-  return Place;
+  Place.query = () => {
+    return new QueryBuilder(Place);
+  };
 
+  return Place;
 };
