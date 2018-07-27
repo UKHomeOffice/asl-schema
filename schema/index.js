@@ -32,18 +32,18 @@ module.exports = db => {
 
   Role.profile = Role.belongsTo(Profile);
   Role.hasMany(Place, { foreignKey: 'nacwoId' });
+
   Profile.hasMany(Role);
   Profile.hasMany(TrainingModule, { foreignKey: 'profileId' });
-
   Profile.belongsToMany(Establishment, { through: Permission });
+  Profile.pil = Profile.hasOne(PIL);
+  Profile.hasMany(Project, { foreignKey: 'licenceHolderId' });
 
   PIL.establishment = PIL.belongsTo(Establishment);
   PIL.profile = PIL.belongsTo(Profile);
-  Profile.pil = Profile.hasOne(PIL);
 
   Project.establishment = Project.belongsTo(Establishment);
   Project.holder = Project.belongsTo(Profile, { as: 'licenceHolder' });
-  Profile.hasMany(Project, { foreignKey: 'licenceHolderId' });
 
   return {
     Establishment,

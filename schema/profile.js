@@ -97,6 +97,28 @@ module.exports = db => {
         )
       });
     }
+
+    hasPIL(pil) {
+      if (!pil) {
+        return this;
+      }
+      return this.where({
+        '$pil.id$': {
+          [Op.ne]: null
+        }
+      })
+    }
+
+    hasPPL(ppl) {
+      if (!ppl) {
+        return this;
+      }
+      return this.where({
+        '$projects.id$': {
+          [Op.ne]: null
+        }
+      })
+    }
   }
 
   Profile.query = (query) => {
