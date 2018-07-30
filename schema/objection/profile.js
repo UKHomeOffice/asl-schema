@@ -35,7 +35,6 @@ class Profile extends Model {
 
     const pilh = remove(roles, role => role === 'pilh');
     const pplh = remove(roles, role => role === 'pplh');
-    // const pplh = remove(roles, 'pplh')
 
     if (!roles.length) {
       roles = undefined;
@@ -72,11 +71,10 @@ class Profile extends Model {
         })
     }
 
-    if (pilh) {
+    if (pilh.length) {
       query.whereNot('pil.id', null)
     }
-
-    if (pplh) {
+    if (pplh.length) {
       query.whereNot('projects.id', null)
     }
 
