@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "mocha"
+    "test:unit": "mocha",
+    "seed": "knex seed:run"
   },
   "repository": {
     "type": "git",

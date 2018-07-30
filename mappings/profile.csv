@@ -1,6 +1,6 @@
 Key, Target Key, Migration Notes
 named_individuals_id,,
-named_individuals_establishment_id,establishmentId,
+named_individuals_establishmentId,establishmentId,
 named_individuals_role,role.type,
 named_individuals_title,title,
 named_individuals_surname,lastName,

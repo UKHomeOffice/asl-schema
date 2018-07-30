@@ -27,28 +27,33 @@ class Place extends Model {
     .then(filters => filters)
   }
 
-  static filter({ establishmentId, filters = {} }) {
+  static filter({ establishmentId, filters = {}, sort = {} }) {
 
     const query = this.query()
-      .select(ref('suitability').castTo('json'))
       .where({ establishmentId })
-      .orderBy('site')
-      .orderBy('area')
-      .orderBy('name')
 
     if (filters.site) {
       query.andWhere('site', 'in', filters.site)
     }
 
-    // if (filters.suitability) {
-    //   console.log(filters.suitability)
-    //   query.whereJsonSupersetOf(ref('suitability').castJson(), filters.suitability)
-    //   .debug()
-    // }
-    //
-    // if (filters.holding) {
-    //   query.andWhere('holding', 'contains', filters.holding)
-    // }
+    query.eager('nacwo.profile')
+
+    if (filters.suitability) {
+      query.whereJsonSupersetOf('suitability', filters.suitability)
+    }
+
+    if (filters.holding) {
+      query.whereJsonSupersetOf('holding', filters.holding)
+    }
+
+    if (sort) {
+      query.orderBy(sort.column, sort.ascending === 'true' ? 'ASC' : 'DESC')
+    } else {
+      query.orderBy('site')
+        .orderBy('area')
+        .orderBy('name')
+    }
+
 
     return query;
   }

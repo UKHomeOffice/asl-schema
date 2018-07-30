@@ -25,7 +25,7 @@ module.exports = settings => {
     useNullAsDefault: true,
     connection: {
       host: 'localhost',
-      database: 'asl'
+      database: 'asl-test'
     }
   };
 
@@ -34,5 +34,8 @@ module.exports = settings => {
   const knex = Knex(settings);
   Model.knex(knex);
 
-  return Schema;
+  return {
+    ...Schema,
+    knex
+  };
 };

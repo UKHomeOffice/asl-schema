@@ -1,3 +1,4 @@
+const { compact, remove } = require('lodash');
 const { Model } = require('objection');
 
 class Profile extends Model {
@@ -28,21 +29,31 @@ class Profile extends Model {
       .then(result => result[0].count);
   }
 
-  static search({ establishmentId, search, roles, pilh, pplh }) {
+  static search({ establishmentId, search, roles }) {
 
-    if (roles === '') {
+    roles = compact(roles);
+
+    const pilh = remove(roles, role => role === 'pilh');
+    const pplh = remove(roles, role => role === 'pplh');
+    // const pplh = remove(roles, 'pplh')
+
+    if (!roles.length) {
       roles = undefined;
+    }
+
+    if (Array.isArray(search)) {
+      search = search[0];
     }
 
     const query = this.query()
       .skipUndefined()
       .joinRelation('establishments')
       .where('establishments.id', establishmentId)
-      .distinct('profiles.*')
+      .distinct('profiles.*', 'roles.type', 'pil.licenceNumber')
       .leftJoinRelation('pil')
       .leftJoinRelation('projects')
       .leftJoinRelation('roles')
-      .andWhere('roles.type', roles)
+      .whereIn('roles.type', roles)
 
     if (search) {
       query

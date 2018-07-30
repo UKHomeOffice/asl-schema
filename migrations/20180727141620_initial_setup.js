@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
       table.boolean('killing').defaultTo(false);
       table.boolean('rehomes').defaultTo(false);
       table.text('conditions');
-      table.timestamps();
+      table.timestamps(false, true);
     })
 
     .createTable('authorisations', table => {
@@ -29,7 +29,7 @@ exports.up = function(knex, Promise) {
       table.enum('type', ['killing', 'rehomes']).notNull();
       table.text('method');
       table.text('description');
-      table.timestamps();
+      table.timestamps(false, true);
       table.string('establishmentId').references('id').inTable('establishments');
     })
 
@@ -49,16 +49,16 @@ exports.up = function(knex, Promise) {
       table.string('email').notNull().unique();
       table.string('telephone');
       table.text('notes');
-      table.timestamps();
+      table.timestamps(false, true);
     })
 
     .createTable('roles', table => {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('migrated_id');
       table.enum('type', ['pelh', 'nacwo', 'nvs', 'nio', 'ntco', 'holc']);
-      table.timestamps();
-      table.string('establishmentId').references('id').inTable('establishments');
+      table.string('establishmentId').references('id').inTable('establishments').onDelete('CASCADE');
       table.uuid('profileId').references('id').inTable('profiles');
+      table.timestamps(false, true);
     })
 
     .createTable('places', table => {
@@ -71,9 +71,9 @@ exports.up = function(knex, Promise) {
       table.jsonb('holding');
       table.text('notes');
       table.dateTime('deleted');
-      table.timestamps();
-      table.string('establishmentId').references('id').inTable('establishments');
-      table.uuid('nacwoId').references('id').inTable('roles');
+      table.timestamps(false, true);
+      table.string('establishmentId').references('id').inTable('establishments').onDelete('CASCADE');
+      table.uuid('nacwoId').references('id').inTable('roles').onDelete('CASCADE');
     })
 
     .createTable('projects', table => {
@@ -85,7 +85,7 @@ exports.up = function(knex, Promise) {
       table.dateTime('expiryDate');
       table.dateTime('revocationDate');
       table.string('licenceNumber');
-      table.timestamps();
+      table.timestamps(false, true);
       table.string('establishmentId').references('id').inTable('establishments');
       table.uuid('licenceHolderId').references('id').inTable('profiles');
     })
@@ -98,9 +98,9 @@ exports.up = function(knex, Promise) {
       table.dateTime('revocationDate');
       table.string('licenceNumber');
       table.text('conditions');
-      table.timestamps();
-      table.string('establishmentId').references('id').inTable('establishments');
-      table.uuid('profileId').references('id').inTable('profiles');
+      table.timestamps(false, true);
+      table.string('establishmentId').references('id').inTable('establishments').onDelete('SET NULL');
+      table.uuid('profileId').references('id').inTable('profiles').onDelete('CASCADE');
     })
 
     .createTable('trainingModules', table => {
@@ -115,15 +115,15 @@ exports.up = function(knex, Promise) {
       table.string('certificate_number');
       table.boolean('exemption').defaultsTo(false);
       table.text('exemption_description');
-      table.timestamps();
+      table.timestamps(false, true);
       table.uuid('profileId').references('id').inTable('profiles');
     })
 
     .createTable('permissions', table => {
       table.enum('role', ['basic', 'read', 'admin']).defaultsTo('basic').notNull();
-      table.timestamps();
-      table.string('establishmentId').references('id').inTable('establishments').notNull();
-      table.uuid('profileId').references('id').inTable('profiles').notNull();
+      table.timestamps(false, true);
+      table.string('establishmentId').references('id').inTable('establishments').notNull().onDelete('CASCADE');
+      table.uuid('profileId').references('id').inTable('profiles').notNull().onDelete('CASCADE');
     });
 };
 
