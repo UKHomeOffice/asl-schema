@@ -28,7 +28,6 @@ class BaseModel extends Model {
     if (!sort.column) {
       return query;
     }
-    console.log('SORT', sort)
     return query
       .orderBy(sort.column, sort.ascending === 'true' ? 'asc' : 'desc');
   }
