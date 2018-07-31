@@ -1,55 +1,83 @@
 const { uniq, flatten } = require('lodash');
-const { UUID, UUIDV1, STRING, ARRAY, TEXT, DATE, fn } = require('sequelize');
-const QueryBuilder = require('../lib/query-builder');
+const BaseModel = require('./base-model');
 
-module.exports = db => {
+class Place extends BaseModel {
+  static get tableName() {
+    return 'places';
+  }
 
-  const Place = db.define('place', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    migrated_id: STRING,
-    site: STRING,
-    area: STRING,
-    name: STRING,
-    suitability: ARRAY(STRING),
-    holding: ARRAY(STRING),
-    notes: TEXT,
-    deleted: DATE
-  }, {
-    defaultScope: {
-      where: {
-        deleted: null
-      }
-    },
-    scopes: {
-      all: {
-        where: {}
-      }
-    }
-  });
+  static count(establishmentId) {
+    return this.query()
+      .where({ establishmentId })
+      .count()
+      .then(result => result[0].count);
+  }
 
-  Place.prototype.softDelete = function () {
-    return this.update({ deleted: fn('NOW') });
-  };
-
-  Place.getFilterOptions = options => {
+  static getFilterOptions(establishmentId) {
     return Promise.all(
       ['site', 'suitability', 'holding'].map(filter =>
-        Place.aggregate(filter, 'DISTINCT', {
-          ...options,
-          plain: false
-        })
+        this.query()
+          .distinct(filter)
           .then(result => ({
             key: filter,
-            values: uniq(flatten(result.map(r => r.DISTINCT)))
+            values: uniq(flatten(result.map(r => r[filter])))
           }))
       )
     )
-      .then(filters => filters);
-  };
+    .then(filters => filters)
+  }
 
-  Place.query = () => {
-    return new QueryBuilder(Place);
-  };
+  static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
-  return Place;
-};
+    let query = this.query()
+      .where({ establishmentId })
+      .eager('nacwo.profile')
+
+    if (filters.site) {
+      query.andWhere('site', 'in', filters.site)
+    }
+
+    if (filters.suitability) {
+      query.whereJsonSupersetOf('suitability', filters.suitability)
+    }
+
+    if (filters.holding) {
+      query.whereJsonSupersetOf('holding', filters.holding)
+    }
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('site')
+        .orderBy('area')
+        .orderBy('name')
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    return query;
+  }
+
+  static get relationMappings() {
+    return {
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'places.establishmentId',
+          to: 'establishments.id'
+        }
+      },
+      nacwo: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/role`,
+        join: {
+          from: 'places.nacwoId',
+          to: 'roles.id'
+        }
+      }
+    };
+  }
+}
+
+module.exports = Place;

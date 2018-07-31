@@ -1,22 +1,34 @@
-const { UUID, UUIDV1, ENUM, STRING } = require('sequelize');
+const BaseModel = require('./base-model');
 
-const ROLES = ENUM(
-  'pelh',
-  'nacwo',
-  'nvs',
-  'nio',
-  'ntco',
-  'holc'
-);
+class Role extends BaseModel {
+  static get tableName() {
+    return 'roles';
+  }
 
-module.exports = db => {
+  static get relationMappings() {
+    return {
+      profile: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'roles.profileId',
+          to: 'profiles.id'
+        }
+      },
+      places: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/place`,
+        join: {
+          from: 'roles.id',
+          to: 'places.nacwoId'
+        }
+      }
+    };
+  }
 
-  const Role = db.define('role', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    migrated_id: STRING,
-    type: ROLES
-  });
+  getProfile() {
+    return this.$relatedQuery('profile');
+  }
+}
 
-  return Role;
-
-};
+module.exports = Role;

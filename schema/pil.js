@@ -1,19 +1,30 @@
-const { STRING, ENUM, DATE, TEXT, UUID, UUIDV1 } = require('sequelize');
+const BaseModel = require('./base-model');
 
-module.exports = db => {
+class PIL extends BaseModel {
+  static get tableName() {
+    return 'pils';
+  }
 
-  const PIL = db.define('pil', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
+  static get relationMappings() {
+    return {
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'pils.establishmentId',
+          to: 'establishments.id'
+        }
+      },
+      profile: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'pils.profileId',
+          to: 'profiles.id'
+        }
+      }
+    };
+  }
+}
 
-    migrated_id: STRING,
-    status: { type: ENUM('active', 'pending', 'inactive', 'expired', 'revoked'), defaultsTo: 'inactive' },
-    issueDate: DATE,
-    revocationDate: DATE,
-    licenceNumber: STRING,
-    conditions: TEXT
-
-  });
-
-  return PIL;
-
-};
+module.exports = PIL;

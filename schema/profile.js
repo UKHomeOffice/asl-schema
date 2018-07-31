@@ -1,129 +1,152 @@
-const { chain } = require('lodash');
-const { UUID, UUIDV1, STRING, DATEONLY, TEXT, Op } = require('sequelize');
-const BaseQueryBuilder = require('../lib/query-builder');
+const { compact, remove } = require('lodash');
+const BaseModel = require('./base-model');
 
-module.exports = db => {
+class Profile extends BaseModel {
+  static getTableName() {
+    return 'profiles';
+  }
 
-  const Profile = db.define('profile', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    migrated_id: STRING,
-    userId: { type: STRING, unique: true },
-    title: STRING,
-    firstName: { type: STRING, allowNull: false },
-    lastName: { type: STRING, allowNull: false },
-    dob: DATEONLY,
-    position: STRING,
-    qualifications: STRING,
-    certifications: STRING,
-    address: STRING,
-    postcode: STRING,
-    email: { type: STRING, allowNull: false, unique: true },
-    telephone: STRING,
-    notes: TEXT
-  }, {
-    getterMethods: {
-      name() {
-        return `${this.firstName} ${this.lastName}`;
-      }
-    }
-  });
+  static get virtualAttributes() {
+    return ['name'];
+  }
 
-  Profile.getFilterOptions = options => {
-    return Profile.aggregate('roles.type', 'DISTINCT', { ...options, plain: false })
-      .then(result => chain(result.map(r => r.DISTINCT))
-        .flatten()
-        .compact()
-        .uniq()
-        .value()
-        .sort()
-      );
-  };
+  name() {
+    return `${this.firstName} ${this.lastName}`;
+  }
 
-  Profile.searchFullName = (search, prefix = '') => {
+  static getFilterOptions(establishmentId) {
+    return this.query()
+      .joinRelation('roles')
+      .distinct('roles.type')
+      .then(roles => roles.map(r => r.type))
+  }
+
+  static count(establishmentId) {
+    return this.query()
+      .joinRelation('establishments')
+      .where('establishments.id', establishmentId)
+      .count()
+      .then(result => result[0].count);
+  }
+
+  static searchFullName({ query, search, prefix }) {
+    const parts = search.split(' ');
     let firstName = 'firstName';
     let lastName = 'lastName';
     if (prefix) {
-      firstName = `$${prefix}.${firstName}$`;
-      lastName = `$${prefix}.${lastName}$`;
+      firstName = `${prefix}.${firstName}`;
+      lastName = `${prefix}.${lastName}`;
     }
-    search = search.split(' ');
-    if (search.length > 1) {
-      return {
-        [Op.and]: [
-          { [firstName]: { [Op.iLike]: `%${search[0]}` } },
-          { [lastName]: { [Op.iLike]: `${search[1]}%` } }
-        ]
-      };
-    }
-    return {
-      [Op.or]: [
-        { [firstName]: { [Op.iLike]: `%${search[0]}%` } },
-        { [lastName]: { [Op.iLike]: `%${search[0]}%` } }
-      ]
-    };
-  };
-
-  class QueryBuilder extends BaseQueryBuilder {
-    setEstablishment(id) {
-      return this._addToQuery({
-        include: [{
-          model: db.models.establishment,
-          where: { id },
-          duplicating: false
-        }]
-      });
-    }
-
-    search(search) {
-      if (!search) {
-        return this;
-      }
-      return this.where({
-        [Op.or]: [
-          Profile.searchFullName(search),
-          { '$pil.licenceNumber$': { [Op.iLike]: `%${search}%` } }
-        ]
-      });
-    }
-
-    filterByRole(role) {
-      if (!role) {
-        return this;
-      }
-      return this.where({
-        [db.col('roles.type')]: db.where(
-          db.cast(db.col('roles.type'), 'TEXT'),
-          { [Op.eq]: role }
-        )
-      });
-    }
-
-    hasPIL(pil) {
-      if (!pil) {
-        return this;
-      }
-      return this.where({
-        '$pil.id$': {
-          [Op.ne]: null
-        }
-      })
-    }
-
-    hasPPL(ppl) {
-      if (!ppl) {
-        return this;
-      }
-      return this.where({
-        '$projects.id$': {
-          [Op.ne]: null
-        }
-      })
+    if (parts.length > 1) {
+      query
+        .where(firstName, 'iLike', `%${parts[0]}`)
+        .andWhere(lastName, 'iLike', `${parts[1]}%`)
+    } else {
+      query
+        .where(firstName, 'iLike', `%${search}%`)
+        .orWhere(lastName, 'iLike', `%${search}%`)
     }
   }
 
-  Profile.query = (query) => {
-    return new QueryBuilder(Profile, query);
-  };
+  static searchAndFilter({
+    establishmentId,
+    search,
+    limit,
+    offset,
+    sort = {},
+    filters = {}
+  }) {
+    let query = this.query()
+      .distinct('profiles.*', 'roles.type', 'pil.licenceNumber')
+      .joinRelation('establishments')
+      .where('establishments.id', establishmentId)
+      .leftJoinRelation('pil')
+      .leftJoinRelation('projects')
+      .leftJoinRelation('roles')
+      .eager('[pil, roles, projects]')
 
-  return Profile;
-};
+    if (filters.roles && filters.roles.length) {
+      const roles = compact(filters.roles);
+      // filter on pseudo roles
+      const customRoles = remove(roles, role => role === 'pilh' || role === 'pplh');
+
+      if (roles.length) {
+        query.whereIn('roles.type', roles)
+      }
+
+      if (customRoles.includes('pilh')) {
+        query.whereNot('pil.id', null)
+      }
+      if (customRoles.includes('pplh')) {
+        query.whereNot('projects.id', null)
+      }
+    }
+
+    if (search) {
+      query
+        .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
+        .orWhere(builder => this.searchFullName({ search, query: builder }))
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('lastName');
+    }
+
+    return query;
+  }
+
+  static get relationMappings() {
+    return {
+      roles: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/role`,
+        join: {
+          from: 'profiles.id',
+          to: 'roles.profileId'
+        }
+      },
+      trainingModules: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/training-module`,
+        join: {
+          from: 'profiles.id',
+          to: 'trainingModules.profileId'
+        }
+      },
+      establishments: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'profiles.id',
+          through: {
+            from: 'permissions.profileId',
+            to: 'permissions.establishmentId'
+          },
+          to: 'establishments.id'
+        }
+      },
+      pil: {
+        relation: this.HasOneRelation,
+        modelClass: `${__dirname}/pil`,
+        join: {
+          from: 'profiles.id',
+          to: 'pils.profileId'
+        }
+      },
+      projects: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/project`,
+        join: {
+          from: 'profiles.id',
+          to: 'projects.licenceHolderId'
+        }
+      }
+    };
+  }
+}
+
+module.exports = Profile;
