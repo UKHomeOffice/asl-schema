@@ -1,18 +1,70 @@
-const { STRING, ENUM, DATE, UUID, UUIDV1 } = require('sequelize');
+const BaseModel = require('./base-model');
+const Profile = require('./profile');
 
-module.exports = db => {
+class Project extends BaseModel {
+  static getTableName() {
+    return 'projects';
+  }
 
-  const Project = db.define('project', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    migrated_id: STRING,
-    status: { type: ENUM('active', 'pending', 'inactive', 'expired', 'revoked'), defaultsTo: 'inactive' },
-    title: { type: STRING, allowNull: false },
-    issueDate: DATE,
-    expiryDate: DATE,
-    revocationDate: DATE,
-    licenceNumber: STRING
-  });
+  static count(establishmentId) {
+    return this.query()
+      .where({ establishmentId })
+      .where('expiryDate', '>=', new Date())
+      .count()
+      .then(result => result[0].count);
+  }
 
-  return Project;
+  static search({ establishmentId, search, sort = {}, limit, offset }) {
+    let query = this.query()
+      .distinct('projects.*')
+      .where({ establishmentId })
+      .where('expiryDate', '>=', new Date())
+      .leftJoinRelation('licenceHolder')
+      .eager('licenceHolder');
 
-};
+    if (search) {
+      query.where('projectstitle', 'iLike', `%${search}%`)
+        .orWhere('licenceNumber', 'iLike', `%${search}%`)
+        .orWhere(builder => {
+          Profile.searchFullName({
+            search,
+            prefix: 'licenceHolder',
+            query: builder
+          });
+        });
+    }
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('expiryDate');
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    return query;
+  }
+
+  static get relationMappings() {
+    return {
+      licenceHolder: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'projects.licenceHolderId',
+          to: 'profiles.id'
+        }
+      },
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'projects.establishmentId',
+          to: 'establishments.id'
+        }
+      }
+    };
+  }
+}
+
+module.exports = Project;

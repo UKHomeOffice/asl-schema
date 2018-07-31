@@ -1,11 +1,9 @@
-const { ENUM } = require('sequelize');
+const BaseModel = require('./base-model');
 
-module.exports = db => {
+class Permission extends BaseModel {
+  static get tableName() {
+    return 'permissions';
+  }
+}
 
-  const Permission = db.define('permission', {
-    role: { type: ENUM('basic', 'read', 'admin'), defaultValue: 'basic', allowNull: false }
-  });
-
-  return Permission;
-
-};
+module.exports = Permission;
