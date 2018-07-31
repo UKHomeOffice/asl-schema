@@ -15,6 +15,6 @@ module.exports = connection => {
 
   return {
     ...Schema,
-    knex
+    destroy: cb => knex.destroy(cb)
   };
 };
