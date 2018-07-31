@@ -13,22 +13,22 @@ exports.seed = function(knex, Promise) {
               .insert({
                 profileId: id[0],
                 ...pick(role, ['establishmentId', 'type'])
-              })
-          })
+              });
+          });
       }))
-      .then(() => {
-        return knex('profiles').where({
-          firstName: 'Leonard',
-          lastName: 'Martin'
+        .then(() => {
+          return knex('profiles').where({
+            firstName: 'Leonard',
+            lastName: 'Martin'
+          })
+            .then(pelh => {
+              return knex('roles')
+                .insert({
+                  type: 'pelh',
+                  profileId: pelh[0].id,
+                  establishmentId: 8201
+                });
+            });
         })
-        .then(pelh => {
-          return knex('roles')
-            .insert({
-              type: 'pelh',
-              profileId: pelh[0].id,
-              establishmentId: 8201
-            })
-        })
-      })
     );
 };

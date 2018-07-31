@@ -69,7 +69,7 @@ class Establishment extends BaseModel {
       .then(roles => {
         return roles[0] && roles[0].getProfile();
       });
-  };
+  }
 }
 
 module.exports = Establishment;

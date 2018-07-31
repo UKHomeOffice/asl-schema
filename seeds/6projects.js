@@ -11,8 +11,8 @@ exports.seed = knex => {
               .insert({
                 licenceHolderId: sample(profiles).id,
                 ...project
-              })
-          })
-      }))
+              });
+          });
+      }));
     });
 };

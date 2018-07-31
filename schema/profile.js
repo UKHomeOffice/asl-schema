@@ -18,7 +18,7 @@ class Profile extends BaseModel {
     return this.query()
       .joinRelation('roles')
       .distinct('roles.type')
-      .then(roles => roles.map(r => r.type))
+      .then(roles => roles.map(r => r.type));
   }
 
   static count(establishmentId) {
@@ -40,11 +40,11 @@ class Profile extends BaseModel {
     if (parts.length > 1) {
       query
         .where(firstName, 'iLike', `%${parts[0]}`)
-        .andWhere(lastName, 'iLike', `${parts[1]}%`)
+        .andWhere(lastName, 'iLike', `${parts[1]}%`);
     } else {
       query
         .where(firstName, 'iLike', `%${search}%`)
-        .orWhere(lastName, 'iLike', `%${search}%`)
+        .orWhere(lastName, 'iLike', `%${search}%`);
     }
   }
 
@@ -63,7 +63,7 @@ class Profile extends BaseModel {
       .leftJoinRelation('pil')
       .leftJoinRelation('projects')
       .leftJoinRelation('roles')
-      .eager('[pil, roles, projects]')
+      .eager('[pil, roles, projects]');
 
     if (filters.roles && filters.roles.length) {
       const roles = compact(filters.roles);
@@ -71,21 +71,21 @@ class Profile extends BaseModel {
       const customRoles = remove(roles, role => role === 'pilh' || role === 'pplh');
 
       if (roles.length) {
-        query.whereIn('roles.type', roles)
+        query.whereIn('roles.type', roles);
       }
 
       if (customRoles.includes('pilh')) {
-        query.whereNot('pil.id', null)
+        query.whereNot('pil.id', null);
       }
       if (customRoles.includes('pplh')) {
-        query.whereNot('projects.id', null)
+        query.whereNot('projects.id', null);
       }
     }
 
     if (search) {
       query
         .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
-        .orWhere(builder => this.searchFullName({ search, query: builder }))
+        .orWhere(builder => this.searchFullName({ search, query: builder }));
     }
 
     query = this.paginate({ query, limit, offset });

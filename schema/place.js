@@ -24,25 +24,25 @@ class Place extends BaseModel {
           }))
       )
     )
-    .then(filters => filters)
+      .then(filters => filters);
   }
 
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
     let query = this.query()
       .where({ establishmentId })
-      .eager('nacwo.profile')
+      .eager('nacwo.profile');
 
     if (filters.site) {
-      query.andWhere('site', 'in', filters.site)
+      query.andWhere('site', 'in', filters.site);
     }
 
     if (filters.suitability) {
-      query.whereJsonSupersetOf('suitability', filters.suitability)
+      query.whereJsonSupersetOf('suitability', filters.suitability);
     }
 
     if (filters.holding) {
-      query.whereJsonSupersetOf('holding', filters.holding)
+      query.whereJsonSupersetOf('holding', filters.holding);
     }
 
     if (sort.column) {
@@ -50,7 +50,7 @@ class Place extends BaseModel {
     } else {
       query.orderBy('site')
         .orderBy('area')
-        .orderBy('name')
+        .orderBy('name');
     }
 
     query = this.paginate({ query, limit, offset });

@@ -1,4 +1,4 @@
-const { omit, pick, sample, mapValues } = require('lodash');
+const { sample, mapValues } = require('lodash');
 const places = require('./data/places.json');
 
 exports.seed = function(knex, Promise) {
@@ -17,8 +17,8 @@ exports.seed = function(knex, Promise) {
                   }
                   return val;
                 })
-              })
-          }))
-        })
-      });
+              });
+          }));
+        });
+    });
 };

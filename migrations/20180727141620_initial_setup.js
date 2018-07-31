@@ -138,5 +138,5 @@ exports.down = function(knex, Promise) {
     .dropTable('places')
     .dropTable('authorisations')
     .dropTable('establishments')
-    .raw('drop extension if exists "uuid-ossp"')
+    .raw('drop extension if exists "uuid-ossp"');
 };

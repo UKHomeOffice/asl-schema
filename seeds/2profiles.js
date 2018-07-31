@@ -18,8 +18,8 @@ exports.seed = function(knex, Promise) {
                   profileId: pId[0],
                   status: 'active',
                   ...pick(profile, ['conditions', 'establishmentId', 'issueDate', 'licenceNumber'])
-                })
-            })
+                });
+            });
         })
       ]);
     });

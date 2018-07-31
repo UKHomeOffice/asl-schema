@@ -20,7 +20,7 @@ class Project extends BaseModel {
       .where({ establishmentId })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
-      .eager('licenceHolder')
+      .eager('licenceHolder');
 
     if (search) {
       query.where('projectstitle', 'iLike', `%${search}%`)
@@ -30,8 +30,8 @@ class Project extends BaseModel {
             search,
             prefix: 'licenceHolder',
             query: builder
-          })
-        })
+          });
+        });
     }
 
     if (sort.column) {
