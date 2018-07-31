@@ -19,7 +19,7 @@ module.exports = {
                 ...pick(profile, ['conditions', 'establishmentId', 'issueDate', 'licenceNumber'])
               });
           });
-        })
+      })
     );
   },
   delete: knex => knex('profiles').del()

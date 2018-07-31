@@ -13,7 +13,7 @@ module.exports = {
                 ...project
               });
           });
-        })
+      })
     );
   },
   delete: knex => knex('projects').del()

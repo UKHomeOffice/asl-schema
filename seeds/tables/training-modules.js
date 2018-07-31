@@ -9,8 +9,8 @@ module.exports = {
         return knex('trainingModules').insert({
           ...trainingModule,
           profileId: sample(profiles).id
-        })
-      })))
+        });
+      })));
   },
   delete: knex => knex('trainingModules').del()
 };
