@@ -3,17 +3,12 @@ const Knex = require('knex');
 
 const Schema = require('./schema');
 
-module.exports = settings => {
-  const defaults = {
+module.exports = connection => {
+  const settings = {
     client: 'pg',
     useNullAsDefault: true,
-    connection: {
-      host: 'localhost',
-      database: 'asl-test'
-    }
+    connection
   };
-
-  settings = Object.assign(defaults, settings);
 
   const knex = Knex(settings);
   Model.knex(knex);
