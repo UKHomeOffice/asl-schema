@@ -4,9 +4,11 @@ const permissions = require('./tables/permissions');
 const roles = require('./tables/roles');
 const places = require('./tables/places');
 const projects = require('./tables/projects');
+const trainingModules = require('./tables/training-modules');
 
 exports.seed = knex => {
   return Promise.resolve()
+    .then(() => trainingModules.delete(knex))
     .then(() => projects.delete(knex))
     .then(() => places.delete(knex))
     .then(() => permissions.delete(knex))
@@ -18,5 +20,6 @@ exports.seed = knex => {
     .then(() => roles.populate(knex))
     .then(() => permissions.populate(knex))
     .then(() => places.populate(knex))
-    .then(() => projects.populate(knex));
+    .then(() => projects.populate(knex))
+    .then(() => trainingModules.populate(knex));
 };

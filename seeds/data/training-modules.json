@@ -1,0 +1,1002 @@
+[
+  {
+    "module": "E1",
+    "pass_date": "2012/10/16",
+    "not_applicable": true,
+    "accrediting_body": "New England Institute of Technology",
+    "other_accrediting_body": "",
+    "certificate_number": "471-64-6268",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2005/03/20",
+    "not_applicable": false,
+    "accrediting_body": "Ecole Supérieure de Commerce de Dijon",
+    "other_accrediting_body": "Fachhochschule Potsdam",
+    "certificate_number": "709-09-3563",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2014/10/28",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "743-33-9954",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2004/10/23",
+    "not_applicable": false,
+    "accrediting_body": "Ecole Supérieure de Chimie Physique Electronique de Lyon",
+    "other_accrediting_body": "",
+    "certificate_number": "569-73-0070",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2015/11/21",
+    "not_applicable": true,
+    "accrediting_body": "Nippon Institute of Technology",
+    "other_accrediting_body": "Universitas Lambung Mangkurat",
+    "certificate_number": "452-71-8819",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2002/12/15",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "451-27-3943",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2009/01/19",
+    "not_applicable": false,
+    "accrediting_body": "Tokyo University of Pharmacy and Life Science",
+    "other_accrediting_body": "",
+    "certificate_number": "215-95-5686",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2009/02/05",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "535-99-7326",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2011/12/05",
+    "not_applicable": false,
+    "accrediting_body": "Russian-Armenian (Slavonic) State University",
+    "other_accrediting_body": "Gift University",
+    "certificate_number": "493-19-3164",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2001/10/13",
+    "not_applicable": false,
+    "accrediting_body": "Western Oregon University",
+    "other_accrediting_body": "",
+    "certificate_number": "253-62-0885",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2000/06/15",
+    "not_applicable": true,
+    "accrediting_body": "Athens University of Economics and Business",
+    "other_accrediting_body": "",
+    "certificate_number": "363-60-5888",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2017/02/22",
+    "not_applicable": false,
+    "accrediting_body": "National Aviation Univesity",
+    "other_accrediting_body": "National Medical University O.O. Bogomolets",
+    "certificate_number": "130-43-2122",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2013/09/19",
+    "not_applicable": true,
+    "accrediting_body": "Technical University of Sofia",
+    "other_accrediting_body": "",
+    "certificate_number": "740-69-5452",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2004/06/04",
+    "not_applicable": false,
+    "accrediting_body": "Universidad de Oviedo",
+    "other_accrediting_body": "St. Augustine International University",
+    "certificate_number": "250-39-1354",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2014/12/30",
+    "not_applicable": false,
+    "accrediting_body": "Carleton College",
+    "other_accrediting_body": "",
+    "certificate_number": "821-63-7442",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2016/11/02",
+    "not_applicable": false,
+    "accrediting_body": "Averett College",
+    "other_accrediting_body": "",
+    "certificate_number": "378-33-2983",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2014/02/13",
+    "not_applicable": false,
+    "accrediting_body": "National University of Internal Affairs",
+    "other_accrediting_body": "",
+    "certificate_number": "263-47-5675",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2002/01/06",
+    "not_applicable": true,
+    "accrediting_body": "Universidade de Franca",
+    "other_accrediting_body": "Kent State University - Ashtabula",
+    "certificate_number": "299-18-4359",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2011/11/16",
+    "not_applicable": false,
+    "accrediting_body": "University of Development Alternative",
+    "other_accrediting_body": "",
+    "certificate_number": "194-29-3815",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2008/02/19",
+    "not_applicable": false,
+    "accrediting_body": "Chongqing University of Post and Telecommunications",
+    "other_accrediting_body": "",
+    "certificate_number": "815-40-3831",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2008/07/04",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "Makerere University",
+    "certificate_number": "158-12-1279",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2007/12/02",
+    "not_applicable": true,
+    "accrediting_body": "Ecole Superieure Robert de Sorbon",
+    "other_accrediting_body": "",
+    "certificate_number": "537-17-5189",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2007/12/01",
+    "not_applicable": true,
+    "accrediting_body": "Berean University of the Assemblies of God",
+    "other_accrediting_body": "",
+    "certificate_number": "434-04-3260",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2004/03/22",
+    "not_applicable": true,
+    "accrediting_body": "Universidad Pedagógica Nacional, Unidad León",
+    "other_accrediting_body": "",
+    "certificate_number": "777-36-1581",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2003/03/17",
+    "not_applicable": true,
+    "accrediting_body": "Rhodes University",
+    "other_accrediting_body": "",
+    "certificate_number": "420-65-1253",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2004/02/01",
+    "not_applicable": false,
+    "accrediting_body": "Westfield State College",
+    "other_accrediting_body": "",
+    "certificate_number": "228-23-5823",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2009/07/30",
+    "not_applicable": true,
+    "accrediting_body": "Omar Al-Mukhtar University",
+    "other_accrediting_body": "Volgograd State Academy of Physical Education",
+    "certificate_number": "327-49-1300",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2009/07/28",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "696-42-5769",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2005/02/01",
+    "not_applicable": false,
+    "accrediting_body": "Saratov State Medical University",
+    "other_accrediting_body": "",
+    "certificate_number": "148-11-1691",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2000/08/05",
+    "not_applicable": false,
+    "accrediting_body": "Universität Kassel",
+    "other_accrediting_body": "University of Reggio Calabria",
+    "certificate_number": "134-93-2543",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2004/09/04",
+    "not_applicable": false,
+    "accrediting_body": "University of Zambia",
+    "other_accrediting_body": "",
+    "certificate_number": "210-85-8013",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2003/08/27",
+    "not_applicable": true,
+    "accrediting_body": "Southwest Agricultural University",
+    "other_accrediting_body": "",
+    "certificate_number": "394-17-3531",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2011/05/31",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "504-53-8304",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2008/10/03",
+    "not_applicable": false,
+    "accrediting_body": "Lipscomb University",
+    "other_accrediting_body": "International Islamic University",
+    "certificate_number": "510-62-7964",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2013/03/31",
+    "not_applicable": false,
+    "accrediting_body": "Singapore Institute of Management (SIM)",
+    "other_accrediting_body": "",
+    "certificate_number": "204-29-4485",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2008/07/03",
+    "not_applicable": true,
+    "accrediting_body": "University of Medicine and Pharmacy of Cluj-Napoca",
+    "other_accrediting_body": "Kharkiv National University of Economics",
+    "certificate_number": "707-41-2465",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2002/03/23",
+    "not_applicable": false,
+    "accrediting_body": "Southern Medial University",
+    "other_accrediting_body": "",
+    "certificate_number": "724-72-9754",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2016/09/07",
+    "not_applicable": false,
+    "accrediting_body": "University of Hyderabad",
+    "other_accrediting_body": "",
+    "certificate_number": "613-80-1257",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2011/09/13",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "532-10-0789",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2012/04/25",
+    "not_applicable": true,
+    "accrediting_body": "Universidad Fray Luca Paccioli",
+    "other_accrediting_body": "",
+    "certificate_number": "411-70-3320",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2014/01/16",
+    "not_applicable": false,
+    "accrediting_body": "Asia University",
+    "other_accrediting_body": "",
+    "certificate_number": "521-45-8828",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2011/07/15",
+    "not_applicable": true,
+    "accrediting_body": "Higher Colleges of Technology",
+    "other_accrediting_body": "",
+    "certificate_number": "612-68-2934",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2015/06/29",
+    "not_applicable": true,
+    "accrediting_body": "Universidad de Puerto Rico, Ciencias Medicas",
+    "other_accrediting_body": "",
+    "certificate_number": "838-26-8891",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2000/04/18",
+    "not_applicable": true,
+    "accrediting_body": "Valdosta State University",
+    "other_accrediting_body": "",
+    "certificate_number": "726-45-5622",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2014/07/23",
+    "not_applicable": true,
+    "accrediting_body": "California College for Health Sciences",
+    "other_accrediting_body": "",
+    "certificate_number": "394-63-3200",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2016/02/19",
+    "not_applicable": true,
+    "accrediting_body": "West Chester University of Pennsylvania",
+    "other_accrediting_body": "",
+    "certificate_number": "346-77-7050",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2013/06/12",
+    "not_applicable": true,
+    "accrediting_body": "Azzahra University",
+    "other_accrediting_body": "",
+    "certificate_number": "314-59-5569",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2010/01/18",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "509-78-1329",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2007/11/10",
+    "not_applicable": false,
+    "accrediting_body": "NAES College",
+    "other_accrediting_body": "",
+    "certificate_number": "679-99-9689",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2014/12/21",
+    "not_applicable": true,
+    "accrediting_body": "Medical Academy of Latvia",
+    "other_accrediting_body": "East-Siberian State University",
+    "certificate_number": "877-03-4652",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2001/03/29",
+    "not_applicable": true,
+    "accrediting_body": "Institute of Advanced Legal Studies, University of London",
+    "other_accrediting_body": "",
+    "certificate_number": "153-76-2357",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2003/06/13",
+    "not_applicable": false,
+    "accrediting_body": "North China Electric Power University",
+    "other_accrediting_body": "",
+    "certificate_number": "587-38-3855",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2007/09/13",
+    "not_applicable": true,
+    "accrediting_body": "Siberian State Transport University",
+    "other_accrediting_body": "",
+    "certificate_number": "407-02-3936",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2008/06/05",
+    "not_applicable": false,
+    "accrediting_body": "Aga Khan University",
+    "other_accrediting_body": "",
+    "certificate_number": "131-37-5915",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2004/02/15",
+    "not_applicable": false,
+    "accrediting_body": "Tyumen State University",
+    "other_accrediting_body": "",
+    "certificate_number": "714-91-6349",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2014/11/22",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "697-62-4500",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2018/04/15",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "894-27-4157",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2009/11/07",
+    "not_applicable": true,
+    "accrediting_body": "Western Washington University",
+    "other_accrediting_body": "",
+    "certificate_number": "440-17-0712",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2010/04/08",
+    "not_applicable": true,
+    "accrediting_body": "University of New Mexico",
+    "other_accrediting_body": "Dagestan State University",
+    "certificate_number": "602-30-8318",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2013/01/27",
+    "not_applicable": true,
+    "accrediting_body": "Universidad de Antioquía",
+    "other_accrediting_body": "International School of Management ISM Dortmund",
+    "certificate_number": "675-02-0059",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2000/03/12",
+    "not_applicable": true,
+    "accrediting_body": "Transport and Telecommunication Institute",
+    "other_accrediting_body": "",
+    "certificate_number": "266-70-4596",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2006/02/22",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "781-81-4309",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2016/01/16",
+    "not_applicable": true,
+    "accrediting_body": "Indian Institute of Technology, Hyderabad",
+    "other_accrediting_body": "Pontifícia Universidade Católica do Rio Grande do Sul",
+    "certificate_number": "174-16-2751",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2012/12/06",
+    "not_applicable": true,
+    "accrediting_body": "Portland Community College",
+    "other_accrediting_body": "",
+    "certificate_number": "758-33-8832",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2014/09/04",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "654-04-4848",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2012/01/30",
+    "not_applicable": false,
+    "accrediting_body": "Marij State University",
+    "other_accrediting_body": "",
+    "certificate_number": "823-91-5574",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2002/03/02",
+    "not_applicable": true,
+    "accrediting_body": "International Islamic University, Islamabad",
+    "other_accrediting_body": "",
+    "certificate_number": "377-18-3284",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2004/09/17",
+    "not_applicable": true,
+    "accrediting_body": "Universidad del Pacifico",
+    "other_accrediting_body": "",
+    "certificate_number": "377-84-5975",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2016/05/24",
+    "not_applicable": true,
+    "accrediting_body": "Pacific Northwest College of Art",
+    "other_accrediting_body": "",
+    "certificate_number": "188-51-6592",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2012/03/08",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "863-57-3648",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2017/01/29",
+    "not_applicable": true,
+    "accrediting_body": "Thunderbird School of Global Management",
+    "other_accrediting_body": "Fachhochschule Nordhessen",
+    "certificate_number": "167-47-4526",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2002/04/20",
+    "not_applicable": true,
+    "accrediting_body": "Marlboro College",
+    "other_accrediting_body": "Capital University Law School",
+    "certificate_number": "865-76-9526",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2013/02/26",
+    "not_applicable": false,
+    "accrediting_body": "Kyungnam University",
+    "other_accrediting_body": "",
+    "certificate_number": "329-75-8469",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2016/07/22",
+    "not_applicable": true,
+    "accrediting_body": "State University of New York (SUNY)",
+    "other_accrediting_body": "",
+    "certificate_number": "133-63-6419",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E2",
+    "pass_date": "2016/01/15",
+    "not_applicable": false,
+    "accrediting_body": "Middle Tennessee State University",
+    "other_accrediting_body": "",
+    "certificate_number": "195-57-2833",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2016/06/05",
+    "not_applicable": false,
+    "accrediting_body": "Universidad Fidélitas",
+    "other_accrediting_body": "",
+    "certificate_number": "445-46-6880",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2014/02/16",
+    "not_applicable": true,
+    "accrediting_body": "University of Zululand",
+    "other_accrediting_body": "",
+    "certificate_number": "641-43-5814",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2008/02/15",
+    "not_applicable": true,
+    "accrediting_body": "Moscow State University",
+    "other_accrediting_body": "",
+    "certificate_number": "804-92-3235",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2007/03/25",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "173-03-2170",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "E1",
+    "pass_date": "2016/12/16",
+    "not_applicable": false,
+    "accrediting_body": "Universiti Islam Sultan Sharif Ali",
+    "other_accrediting_body": "",
+    "certificate_number": "262-57-5759",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2010/11/23",
+    "not_applicable": true,
+    "accrediting_body": "International School of Management",
+    "other_accrediting_body": "",
+    "certificate_number": "812-83-5434",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2003/02/12",
+    "not_applicable": true,
+    "accrediting_body": "Kisii University",
+    "other_accrediting_body": "",
+    "certificate_number": "174-73-2869",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2007/05/12",
+    "not_applicable": true,
+    "accrediting_body": "Florida Metropolitan University, Tampa College Brandon",
+    "other_accrediting_body": "",
+    "certificate_number": "612-88-4733",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2006/09/30",
+    "not_applicable": false,
+    "accrediting_body": "State Engineering University of Armenia",
+    "other_accrediting_body": "",
+    "certificate_number": "254-68-3039",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2008/12/21",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "220-80-6177",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2007/11/30",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "300-50-1402",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "2015/02/15",
+    "not_applicable": false,
+    "accrediting_body": "University of Zambia",
+    "other_accrediting_body": "",
+    "certificate_number": "318-20-2678",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2005/05/09",
+    "not_applicable": false,
+    "accrediting_body": "Siberian State Medical University",
+    "other_accrediting_body": "",
+    "certificate_number": "282-03-5303",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2003/12/30",
+    "not_applicable": true,
+    "accrediting_body": "Royal University of Bhutan",
+    "other_accrediting_body": "",
+    "certificate_number": "831-30-6853",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2006/07/21",
+    "not_applicable": false,
+    "accrediting_body": "Universitas Islam Sultan Agung",
+    "other_accrediting_body": "",
+    "certificate_number": "740-38-5952",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2005/01/04",
+    "not_applicable": true,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "707-37-1863",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2001/08/04",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "Estonian Academy of Music and Theatre",
+    "certificate_number": "246-36-3147",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2013/09/22",
+    "not_applicable": false,
+    "accrediting_body": "Walailak University",
+    "other_accrediting_body": "",
+    "certificate_number": "550-44-8665",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2004/05/07",
+    "not_applicable": true,
+    "accrediting_body": "University of Wamia and Masuria in Olsztyn",
+    "other_accrediting_body": "Dakota State University",
+    "certificate_number": "378-39-6656",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "Ks",
+    "pass_date": "2011/07/10",
+    "not_applicable": true,
+    "accrediting_body": "Central America Health Sciences University (Belize Medical College)",
+    "other_accrediting_body": "",
+    "certificate_number": "277-91-6200",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILB",
+    "pass_date": "1999/12/23",
+    "not_applicable": false,
+    "accrediting_body": "",
+    "other_accrediting_body": "",
+    "certificate_number": "230-08-6772",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2007/10/28",
+    "not_applicable": true,
+    "accrediting_body": "State University of New York Downstate Medical Center",
+    "other_accrediting_body": "",
+    "certificate_number": "881-58-9692",
+    "exemption": false,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAt",
+    "pass_date": "2007/05/24",
+    "not_applicable": true,
+    "accrediting_body": "University of Patras",
+    "other_accrediting_body": "",
+    "certificate_number": "599-24-8260",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILAs",
+    "pass_date": "2005/06/03",
+    "not_applicable": true,
+    "accrediting_body": "World Maritime University",
+    "other_accrediting_body": "",
+    "certificate_number": "171-46-7713",
+    "exemption": true,
+    "exemption_description": ""
+  },
+  {
+    "module": "PILC",
+    "pass_date": "2003/02/24",
+    "not_applicable": false,
+    "accrediting_body": "University of Waikato",
+    "other_accrediting_body": "",
+    "certificate_number": "479-92-0797",
+    "exemption": true,
+    "exemption_description": ""
+  }
+]
