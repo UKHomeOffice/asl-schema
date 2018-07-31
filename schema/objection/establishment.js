@@ -38,7 +38,8 @@ class Establishment extends Model {
           from: 'establishments.id',
           through: {
             from: 'permissions.establishmentId',
-            to: 'permissions.profileId'
+            to: 'permissions.profileId',
+            extra: ['role']
           },
           to: 'profiles.id'
         }
