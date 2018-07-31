@@ -22,5 +22,5 @@ module.exports = {
       })
     );
   },
-  delete: knex => knex('profiles').del()
+  delete: knex => knex('pils').del().then(() => knex('profiles').del())
 };

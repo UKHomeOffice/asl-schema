@@ -23,7 +23,7 @@ class Project extends BaseModel {
       .eager('licenceHolder');
 
     if (search) {
-      query.where('projectstitle', 'iLike', `%${search}%`)
+      query.where('projects.title', 'iLike', `%${search}%`)
         .orWhere('licenceNumber', 'iLike', `%${search}%`)
         .orWhere(builder => {
           Profile.searchFullName({
