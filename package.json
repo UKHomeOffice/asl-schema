@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "mocha"
+    "test:unit": "mocha",
+    "seed": "knex seed:run"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,10 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
-    "pg": "^7.4.1",
-    "sequelize": "^4.33.1"
+    "knex": "^0.15.2",
+    "lodash": "^4.17.10",
+    "objection": "^1.2.0",
+    "pg": "^7.4.1"
   },
   "publishConfig": {
     "registry": "https://artifactory.digital.homeoffice.gov.uk/artifactory/api/npm/npm-virtual/"

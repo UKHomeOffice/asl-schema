@@ -1,15 +1,20 @@
-const Sequelize = require('sequelize');
+const { Model } = require('objection');
+const Knex = require('knex');
 
 const Schema = require('./schema');
 
-module.exports = settings => {
+module.exports = connection => {
+  const settings = {
+    client: 'pg',
+    useNullAsDefault: true,
+    connection
+  };
 
-  const defaults = { dialect: 'postgres', logging: false, operatorsAliases: false };
+  const knex = Knex(settings);
+  Model.knex(knex);
 
-  settings = Object.assign(defaults, settings);
-
-  const db = new Sequelize(settings);
-
-  return Schema(db);
-
+  return {
+    ...Schema,
+    knex
+  };
 };

@@ -1,12 +1,9 @@
-const { UUID, UUIDV1, ENUM, TEXT } = require('sequelize');
+const BaseModel = require('./base-model');
 
-module.exports = db => {
-  const Authorisation = db.define('authorisation', {
-    id: { type: UUID, defaultValue: UUIDV1, primaryKey: true },
-    type: { type: ENUM('killing', 'rehomes'), allowNull: false },
-    method: TEXT,
-    description: TEXT
-  });
+class Authorisation extends BaseModel {
+  static get tableName() {
+    return 'authorisations';
+  }
+}
 
-  return Authorisation;
-};
+module.exports = Authorisation;
