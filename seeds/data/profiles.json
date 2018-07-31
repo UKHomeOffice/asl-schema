@@ -1,6 +1,7 @@
 [
   {
     "userId": "304cae96-0f56-492a-9f66-e99c2b3990c7",
+    "establishmentId": [8201, 8202],
     "title": "Dr",
     "firstName": "Leonard",
     "lastName": "Martin",
@@ -13,7 +14,11 @@
     "email": "vice-chancellor@croydon.ac.uk",
     "telephone": "01840 345 678",
     "licenceNumber": null,
-    "notes": ""
+    "notes": "",
+    "roles": [
+        { "establishmentId": 8201, "type": "pelh" },
+        { "establishmentId": 8202, "type": "pelh" }
+    ]
   },
   {
     "establishmentId": 8201,
@@ -974,5 +979,181 @@
     "issueDate": "2015-10-04",
     "licenceNumber": "YC-605440",
     "conditions": ""
+  },
+  {
+    "migrated_id": 17791,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Collins",
+    "firstName": "Kingsley",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082520",
+    "email": "abc1@croydon.ac.uk",
+    "qualifications": "HND in Agriculture",
+    "roles": [
+        { "establishmentId": 8201, "type": "nvs" }
+    ]
+  },
+  {
+    "migrated_id": 17801,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Harris",
+    "firstName": "Aaron",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082521",
+    "email": "abc2@croydon.ac.uk",
+    "qualifications": "BSc. B.VetMed. MRCVS",
+    "roles": [
+        { "establishmentId": 8201, "type": "nvs" }
+    ]
+  },
+  {
+    "migrated_id": 17811,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Peters",
+    "firstName": "Nathan",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082522",
+    "email": "abc3@croydon.ac.uk",
+    "qualifications": "BVetMed, MRCVS",
+    "roles": [
+        { "establishmentId": 8201, "type": "nvs" }
+    ]
+  },
+  {
+    "migrated_id": 17831,
+    "establishmentId": 8201,
+    "title": "Mrs",
+    "lastName": "Jones",
+    "firstName": "Lauren",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082523",
+    "email": "abc4@croydon.ac.uk",
+    "qualifications": "BSc (Hons)",
+    "roles": [
+        { "establishmentId": 8201, "type": "nio" }
+    ]
+  },
+  {
+    "migrated_id": 17841,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Sharp",
+    "firstName": "John",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082524",
+    "email": "abc5@croydon.ac.uk",
+    "qualifications": "HND in agriculture",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
+  },
+  {
+    "migrated_id": 17861,
+    "establishmentId": 8201,
+    "title": "Ms",
+    "lastName": "Alberts",
+    "firstName": "Megan",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082525",
+    "email": "abc6@croydon.ac.uk",
+    "qualifications": "BTEC first diploma, BTEC Life Sciences",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
+  },
+  {
+    "migrated_id": 17871,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Ayers",
+    "firstName": "Ian",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082526",
+    "email": "abc7@croydon.ac.uk",
+    "qualifications": "BSc Zoolgy with Marine Zoology",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
+  },
+  {
+    "migrated_id": 2404927,
+    "establishmentId": 8201,
+    "title": "Dr",
+    "lastName": "Alden",
+    "firstName": "Jason",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082527",
+    "email": "abc8@croydon.ac.uk",
+    "qualifications": "BA (Hons), PhD",
+    "roles": [
+        { "establishmentId": 8201, "type": "ntco" }
+    ]
+  },
+  {
+    "migrated_id": 2404929,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Proudfoot",
+    "firstName": "Brian",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082528",
+    "email": "abc9@croydon.ac.uk",
+    "qualifications": "NA",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
+  },
+  {
+    "migrated_id": 2404930,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Patton",
+    "firstName": "Benjamin",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082529",
+    "email": "abc10@croydon.ac.uk",
+    "qualifications": "NA",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
+  },
+  {
+    "migrated_id": 2404931,
+    "establishmentId": 8201,
+    "title": "Mr",
+    "lastName": "Tindall",
+    "firstName": "Gareth",
+    "dob": null,
+    "address": "14 Church Drive\nSutton\nLondon",
+    "postcode": "CR23 5FH",
+    "telephone": "07921 082530",
+    "email": "abc11@croydon.ac.uk",
+    "qualifications": "NA",
+    "roles": [
+        { "establishmentId": 8201, "type": "nacwo" }
+    ]
   }
 ]
