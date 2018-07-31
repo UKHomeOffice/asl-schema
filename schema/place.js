@@ -6,13 +6,6 @@ class Place extends BaseModel {
     return 'places';
   }
 
-  static count(establishmentId) {
-    return this.query()
-      .where({ establishmentId })
-      .count()
-      .then(result => result[0].count);
-  }
-
   static getFilterOptions(establishmentId) {
     return Promise.all(
       ['site', 'suitability', 'holding'].map(filter =>
