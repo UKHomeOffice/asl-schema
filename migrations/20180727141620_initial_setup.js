@@ -56,7 +56,7 @@ exports.up = function(knex, Promise) {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('migrated_id');
       table.enum('type', ['pelh', 'nacwo', 'nvs', 'nio', 'ntco', 'holc']);
-      table.string('establishmentId').references('id').inTable('establishments').onDelete('CASCADE');
+      table.string('establishmentId').references('id').inTable('establishments');
       table.uuid('profileId').references('id').inTable('profiles');
       table.timestamps(false, true);
     })
@@ -72,8 +72,8 @@ exports.up = function(knex, Promise) {
       table.text('notes');
       table.dateTime('deleted');
       table.timestamps(false, true);
-      table.string('establishmentId').references('id').inTable('establishments').onDelete('CASCADE');
-      table.uuid('nacwoId').references('id').inTable('roles').onDelete('CASCADE');
+      table.string('establishmentId').references('id').inTable('establishments');
+      table.uuid('nacwoId').references('id').inTable('roles');
     })
 
     .createTable('projects', table => {
@@ -99,8 +99,8 @@ exports.up = function(knex, Promise) {
       table.string('licenceNumber');
       table.text('conditions');
       table.timestamps(false, true);
-      table.string('establishmentId').references('id').inTable('establishments').onDelete('SET NULL');
-      table.uuid('profileId').references('id').inTable('profiles').onDelete('CASCADE');
+      table.string('establishmentId').references('id').inTable('establishments');
+      table.uuid('profileId').references('id').inTable('profiles');
     })
 
     .createTable('trainingModules', table => {
@@ -122,8 +122,8 @@ exports.up = function(knex, Promise) {
     .createTable('permissions', table => {
       table.enum('role', ['basic', 'read', 'admin']).defaultsTo('basic').notNull();
       table.timestamps(false, true);
-      table.string('establishmentId').references('id').inTable('establishments').notNull().onDelete('CASCADE');
-      table.uuid('profileId').references('id').inTable('profiles').notNull().onDelete('CASCADE');
+      table.string('establishmentId').references('id').inTable('establishments').notNull();
+      table.uuid('profileId').references('id').inTable('profiles').notNull();
     });
 };
 
