@@ -124,7 +124,8 @@ class Profile extends BaseModel {
           from: 'profiles.id',
           through: {
             from: 'permissions.profileId',
-            to: 'permissions.establishmentId'
+            to: 'permissions.establishmentId',
+            extra: ['role']
           },
           to: 'establishments.id'
         }
