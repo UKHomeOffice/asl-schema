@@ -4,6 +4,11 @@ const Knex = require('knex');
 const Schema = require('./schema');
 
 module.exports = connection => {
+
+  if (connection.username && !connection.user) {
+    connection.user = connection.username;
+  }
+
   const settings = {
     client: 'pg',
     useNullAsDefault: true,
