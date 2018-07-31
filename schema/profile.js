@@ -63,7 +63,7 @@ class Profile extends BaseModel {
       .leftJoinRelation('pil')
       .leftJoinRelation('projects')
       .leftJoinRelation('roles')
-      .eager('[pil, roles, projects]');
+      .eager('[pil, roles, projects, establishments]');
 
     if (filters.roles && filters.roles.length) {
       const roles = compact(filters.roles);

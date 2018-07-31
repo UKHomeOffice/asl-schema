@@ -10,8 +10,11 @@ class BaseModel extends Model {
   }
 
   static paginate({ query, limit, offset }) {
-    if (isUndefined(limit) || isUndefined(offset)) {
-      return query;
+    if (isUndefined(limit)) {
+      limit = 100;
+    }
+    if (isUndefined(offset)) {
+      offset = 0;
     }
     limit = parseInt(limit, 10);
     offset = parseInt(offset, 10);
@@ -21,7 +24,10 @@ class BaseModel extends Model {
       .page(page, limit);
   }
 
-  static orderBy({ query, sort }) {
+  static orderBy({ query, sort = {} }) {
+    if (!sort.column) {
+      return query;
+    }
     return query
       .orderBy(sort.column, sort.ascending === 'true' ? 'asc' : 'desc');
   }
