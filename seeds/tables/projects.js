@@ -1,10 +1,10 @@
 const { sample } = require('lodash');
-const projects = require('./data/projects.json');
+const projects = require('../data/projects.json');
 
-exports.seed = knex => {
-  return knex('projects').del()
-    .then(() => {
-      return Promise.all(projects.map(project => {
+module.exports = {
+  populate: knex => {
+    return Promise.all(
+      projects.map(project => {
         return knex('profiles')
           .then(profiles => {
             return knex('projects')
@@ -13,6 +13,8 @@ exports.seed = knex => {
                 ...project
               });
           });
-      }));
-    });
+        })
+    );
+  },
+  delete: knex => knex('projects').del()
 };
