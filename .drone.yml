@@ -29,7 +29,7 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag asl quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
+      - docker tag asl-schema quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
       - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
     when:
       event: tag
