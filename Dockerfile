@@ -11,4 +11,4 @@ RUN rm /app/.npmrc
 
 USER 999
 
-CMD npm run migrate && bash
+CMD npm run migrate && touch /app/alive

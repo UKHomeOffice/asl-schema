@@ -1,7 +1,9 @@
 ---
 - name: database-admin
-  recipe: worker
+  recipe: admin
   image: quay.io/ukhomeofficedigital/asl-schema:{{.DRONE_TAG}}
+  alive: '/app/alive'
+  ready: '/app/alive'
   env:
     DATABASE_HOST:
       secret: true
