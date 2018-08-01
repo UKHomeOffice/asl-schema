@@ -1,12 +1,57 @@
 const { isUndefined } = require('lodash');
 const { Model } = require('objection');
 
+class SoftDeleteQueryBuilder extends Model.QueryBuilder {
+  delete() {
+    this.mergeContext({
+      softDelete: true
+    });
+
+    return this.patch({
+      deleted: Model.fn().now()
+    });
+  }
+
+  unDelete() {
+    this.mergeContext({
+      undelete: true
+    });
+    return this.patch({
+      deleted: null
+    });
+  }
+
+  hardDelete() {
+    return super.delete();
+  }
+}
+
 class BaseModel extends Model {
+
+  static get QueryBuilder() {
+    return SoftDeleteQueryBuilder;
+  }
+
+  static query(...args) {
+    return super.query(...args)
+      .where(`${this.tableName}.deleted`, null);
+  }
+
+  static queryWithDeleted(...args) {
+    return super.query(...args);
+  }
+
+  static queryDeleted(...args) {
+    return super.query(...args)
+      .whereNot(`${this.tableName}.deleted`, null);
+  }
+
   static count(establishmentId) {
     return this.query()
       .where({ establishmentId })
       .count()
-      .then(result => result[0].count);
+      .then(results => results[0])
+      .then(result => result.count);
   }
 
   static paginate({ query, limit, offset }) {

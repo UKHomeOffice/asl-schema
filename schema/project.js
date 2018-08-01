@@ -2,7 +2,7 @@ const BaseModel = require('./base-model');
 const Profile = require('./profile');
 
 class Project extends BaseModel {
-  static getTableName() {
+  static get tableName() {
     return 'projects';
   }
 

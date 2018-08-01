@@ -2,7 +2,7 @@ const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
 
 class Profile extends BaseModel {
-  static getTableName() {
+  static get tableName() {
     return 'profiles';
   }
 

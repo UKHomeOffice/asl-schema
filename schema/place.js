@@ -24,7 +24,6 @@ class Place extends BaseModel {
 
     let query = this.query()
       .where({ establishmentId })
-      .where('deleted', null)
       .eager('nacwo.profile');
 
     if (filters.site) {
