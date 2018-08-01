@@ -10,15 +10,6 @@ pipeline:
     when:
       event: [push, pull_request, tag]
 
-  publish:
-    image: node:8
-    secrets:
-      - npm_auth_token
-    commands:
-      - npm publish
-    when:
-      event: tag
-
   build:
     image: docker:17.09.1
     secrets:
@@ -40,6 +31,15 @@ pipeline:
       - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
       - docker tag asl quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
       - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
+    when:
+      event: tag
+
+  publish:
+    image: node:8
+    secrets:
+      - npm_auth_token
+    commands:
+      - npm publish
     when:
       event: tag
 
