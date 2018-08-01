@@ -66,9 +66,8 @@ class Establishment extends BaseModel {
   getPELH() {
     return this.$relatedQuery('roles')
       .where('type', 'pelh')
-      .then(roles => {
-        return roles[0] && roles[0].getProfile();
-      });
+      .then(roles => roles[0])
+      .then(role => role && role.getProfile());
   }
 }
 

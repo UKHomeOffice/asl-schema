@@ -1,3 +1,8 @@
+try {
+  // eslint-disable-next-line implicit-dependencies/no-implicit
+  require('dotenv').config();
+} catch (e) {}
+
 module.exports = {
 
   development: {
