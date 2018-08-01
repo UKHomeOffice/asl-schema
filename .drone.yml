@@ -28,7 +28,6 @@ pipeline:
     commands:
       - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-schema .
     when:
-      branch: master
       event: tag
 
   image_to_quay:
@@ -42,7 +41,6 @@ pipeline:
       - docker tag asl quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
       - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
     when:
-      branch: master
       event: tag
 
   configure_deploy:
