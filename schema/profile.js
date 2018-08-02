@@ -16,6 +16,7 @@ class Profile extends BaseModel {
 
   static getFilterOptions(establishmentId) {
     return this.query()
+      .scopeToEstablishment('establishments.id', establishmentId)
       .joinRelation('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
@@ -23,8 +24,7 @@ class Profile extends BaseModel {
 
   static count(establishmentId) {
     return this.query()
-      .joinRelation('establishments')
-      .where('establishments.id', establishmentId)
+      .scopeToEstablishment('establishments.id', establishmentId)
       .count()
       .then(result => result[0].count);
   }
@@ -57,13 +57,10 @@ class Profile extends BaseModel {
     filters = {}
   }) {
     let query = this.query()
-      .distinct('profiles.*', 'roles.type', 'pil.licenceNumber')
-      .joinRelation('establishments')
-      .where('establishments.id', establishmentId)
-      .leftJoinRelation('pil')
-      .leftJoinRelation('projects')
-      .leftJoinRelation('roles')
-      .eager('[pil, roles, projects, establishments]');
+      .distinct('profiles.*')
+      .scopeToEstablishment('establishments.id', establishmentId)
+      .leftJoinRelation('[pil, projects, roles]')
+      .eager('[pil, projects, establishments, roles]');
 
     if (filters.roles && filters.roles.length) {
       const roles = compact(filters.roles);
@@ -110,7 +107,8 @@ class Profile extends BaseModel {
         join: {
           from: 'profiles.id',
           to: 'roles.profileId'
-        }
+        },
+        filter: f => f.skipUndefined().where('establishmentId', f.context().establishmentId)
       },
       trainingModules: {
         relation: this.HasManyRelation,
@@ -131,7 +129,8 @@ class Profile extends BaseModel {
             extra: ['role']
           },
           to: 'establishments.id'
-        }
+        },
+        filter: f => f.skipUndefined().where('establishments.id', f.context().establishmentId)
       },
       pil: {
         relation: this.HasOneRelation,
@@ -147,6 +146,9 @@ class Profile extends BaseModel {
         join: {
           from: 'profiles.id',
           to: 'projects.licenceHolderId'
+        },
+        filter: f => {
+          return f.skipUndefined().where('establishmentId', f.context().establishmentId);
         }
       }
     };

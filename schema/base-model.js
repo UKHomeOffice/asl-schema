@@ -24,6 +24,12 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
   hardDelete() {
     return super.delete();
   }
+
+  scopeToEstablishment(column, establishmentId) {
+    return this.mergeContext({ establishmentId })
+      .joinRelation('establishments')
+      .where(column, establishmentId);
+  }
 }
 
 class BaseModel extends Model {
