@@ -84,8 +84,11 @@ class Profile extends BaseModel {
 
     if (search) {
       query
-        .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
-        .orWhere(builder => this.searchFullName({ search, query: builder }));
+        .where(builder => {
+          return builder
+            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
+            .orWhere(builder => this.searchFullName({ search, query: builder }));
+        });
     }
 
     query = this.paginate({ query, limit, offset });
