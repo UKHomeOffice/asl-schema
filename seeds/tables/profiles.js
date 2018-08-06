@@ -13,7 +13,7 @@ module.exports = {
             return Promise.resolve()
               .then(() => {
                 const est = [].concat(profile.establishmentId).filter(Boolean);
-                return Promise.all(est.map(establishmentId => knex('permissions').insert({ establishmentId, profileId })));
+                return Promise.all(est.map(establishmentId => knex('permissions').insert({ establishmentId, profileId, role: 'admin' })));
               })
               .then(() => {
                 if (!profile.licenceNumber) {
