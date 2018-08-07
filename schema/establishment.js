@@ -44,6 +44,19 @@ class Establishment extends BaseModel {
           to: 'profiles.id'
         }
       },
+      invitations: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'establishments.id',
+          through: {
+            from: 'invitations.establishmentId',
+            to: 'invitations.profileId',
+            extra: ['token', 'role']
+          },
+          to: 'profiles.id'
+        }
+      },
       pils: {
         relation: this.HasManyRelation,
         modelClass: `${__dirname}/pil`,

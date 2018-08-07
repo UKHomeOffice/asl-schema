@@ -1,6 +1,7 @@
 const Authorisation = require('./authorisation');
 const Establishment = require('./establishment');
 const Permission = require('./permission');
+const Invitation = require('./invitation');
 const PIL = require('./pil');
 const Place = require('./place');
 const Profile = require('./profile');
@@ -12,6 +13,7 @@ module.exports = {
   Authorisation,
   Establishment,
   Permission,
+  Invitation,
   PIL,
   Place,
   Profile,

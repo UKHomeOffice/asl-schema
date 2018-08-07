@@ -132,6 +132,20 @@ class Profile extends BaseModel {
         },
         filter: f => f.skipUndefined().where('establishments.id', f.context().establishmentId)
       },
+      invitations: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'profiles.id',
+          through: {
+            from: 'invitations.profileId',
+            to: 'invitations.establishmentId',
+            extra: ['token', 'role']
+          },
+          to: 'establishments.id'
+        },
+        filter: f => f.skipUndefined().where('establishments.id', f.context().establishmentId)
+      },
       pil: {
         relation: this.HasOneRelation,
         modelClass: `${__dirname}/pil`,
