@@ -23,15 +23,18 @@ class Project extends BaseModel {
       .eager('licenceHolder');
 
     if (search) {
-      query.where('projects.title', 'iLike', `%${search}%`)
-        .orWhere('licenceNumber', 'iLike', `%${search}%`)
-        .orWhere(builder => {
-          Profile.searchFullName({
-            search,
-            prefix: 'licenceHolder',
-            query: builder
+      query.where(builder => {
+        return builder
+          .where('projects.title', 'iLike', `%${search}%`)
+          .orWhere('licenceNumber', 'iLike', `%${search}%`)
+          .orWhere(b => {
+            Profile.searchFullName({
+              search,
+              prefix: 'licenceHolder',
+              query: b
+            });
           });
-        });
+      });
     }
 
     if (sort.column) {
