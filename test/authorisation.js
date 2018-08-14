@@ -6,7 +6,10 @@ describe('Authorisation', () => {
     const badJson = {
       method: 'Placement in sanctuary'
     };
-    assert.throws(() => Authorisation.fromJson(badJson), 'ValidationError: type: is a required property');
+    assert.throws(
+      () => Authorisation.fromJson(badJson),
+      'ValidationError: type: is a required property'
+    );
   });
 
   it('throws a validation error when invalid enum values are provided', () => {
