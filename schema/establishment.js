@@ -5,6 +5,41 @@ class Establishment extends BaseModel {
     return 'establishments';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['name', 'address', 'email'],
+      properties: {
+        id: { type: 'integer' },
+        'migrated_id': { type: 'string' },
+        name: { type: 'string' },
+        type: { type: 'string' },
+        status: {
+          type: 'string',
+          enum: ['active', 'pending', 'inactive', 'expired', 'revoked']
+        },
+        issueDate: { type: 'string' },
+        revocationDate: { type: 'string' },
+        licenceNumber: { type: 'string' },
+        country: {
+          type: 'string',
+          enum: ['england', 'scotland', 'wales', 'ni']
+        },
+        address: { type: 'string' },
+        email: { type: 'string' },
+        procedure: { type: 'boolean' },
+        breeding: { type: 'boolean' },
+        supplying: { type: 'boolean' },
+        killing: { type: 'boolean' },
+        rehomes: { type: 'boolean' },
+        conditions: { type: 'boolean' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        deleted: { type: 'string' }
+      }
+    };
+  }
+
   static get relationMappings() {
     return {
       places: {

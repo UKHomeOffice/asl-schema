@@ -12,7 +12,7 @@ describe('Authorisation', () => {
     );
   });
 
-  it('throws a validation error when invalid enum values are provided', () => {
+  it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       type: 'petting'
     };
