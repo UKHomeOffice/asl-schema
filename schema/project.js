@@ -6,6 +6,30 @@ class Project extends BaseModel {
     return 'projects';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['title'],
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        status: {
+          type: 'string',
+          enum: ['active', 'pending', 'inactive', 'expired', 'revoked']
+        },
+        title: { type: 'string' },
+        issueDate: { type: 'string' },
+        expiryDate: { type: 'string' },
+        revocationDate: { type: 'string' },
+        licenceNumber: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        establishmentId: { type: 'string' },
+        licenceHolderId: { type: 'string' }
+      }
+    };
+  }
+
   static count(establishmentId) {
     return this.query()
       .where({ establishmentId })
