@@ -1,15 +1,13 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Place = require('../schema/place');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Place', () => {
   it('throws a validation error when invalid array values are provided', () => {
     const badJson = {
       suitability: [1, 2]
     };
-    assert.throws(
-      () => Place.fromJson(badJson),
-      'ValidationError: suitability[0]: should be string, suitability[1]: should be string'
-    );
+    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /should be string/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -19,6 +17,6 @@ describe('Place', () => {
       name: '94382',
       suitability: ['NHP', 'CAT', 'DOG']
     };
-    assert.equal(typeof Place.fromJson(goodJson), 'object');
+    expect(Place.fromJson(goodJson)).to.be.an('object');
   });
 });

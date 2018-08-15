@@ -1,5 +1,6 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Establishment = require('../schema/establishment');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Establishment', () => {
   it('throws a validation error when required properties are missing', () => {
@@ -7,10 +8,7 @@ describe('Establishment', () => {
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk'
     };
-    assert.throws(
-      () => Establishment.fromJson(badJson),
-      'ValidationError: name: is a required property'
-    );
+    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
 
   it('throws a validation error when invalid values are provided', () => {
@@ -20,10 +18,7 @@ describe('Establishment', () => {
       email: 'vice-chancellor@croydon.ac.uk',
       country: 'france'
     };
-    assert.throws(
-      () => Establishment.fromJson(badJson),
-      'ValidationError: country: should be equal to one of the allowed values'
-    );
+    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -33,6 +28,6 @@ describe('Establishment', () => {
       email: 'vice-chancellor@croydon.ac.uk',
       country: 'england'
     };
-    assert.equal(typeof Establishment.fromJson(goodJson), 'object');
+    expect(Establishment.fromJson(goodJson)).to.be.an('object');
   });
 });

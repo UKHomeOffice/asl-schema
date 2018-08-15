@@ -1,5 +1,6 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Project = require('../schema/project');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Project', () => {
   it('throws a validation error when required properties are missing', () => {
@@ -7,10 +8,7 @@ describe('Project', () => {
       status: 'active',
       issueDate: '2018-08-15'
     };
-    assert.throws(
-      () => Project.fromJson(badJson),
-      'ValidationError: title: is a required property'
-    );
+    expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
 
   it('throws a validation error when invalid values are provided', () => {
@@ -18,10 +16,7 @@ describe('Project', () => {
       title: 'Project X',
       status: 'delayed'
     };
-    assert.throws(
-      () => Project.fromJson(badJson),
-      'ValidationError: status: should be equal to one of the allowed values'
-    );
+    expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -29,6 +24,6 @@ describe('Project', () => {
       title: 'Project X',
       status: 'active'
     };
-    assert.equal(typeof Project.fromJson(goodJson), 'object');
+    expect(Project.fromJson(goodJson)).to.be.an('object');
   });
 });

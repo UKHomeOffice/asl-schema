@@ -1,25 +1,25 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Authorisation = require('../schema/authorisation');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Authorisation', () => {
+  it('throws a validation error when empty', () => {
+    const badJson = {};
+    expect(() => Authorisation.fromJson(badJson)).to.throw();
+  });
+
   it('throws a validation error when required properties are missing', () => {
     const badJson = {
       method: 'Placement in sanctuary'
     };
-    assert.throws(
-      () => Authorisation.fromJson(badJson),
-      'ValidationError: type: is a required property'
-    );
+    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
 
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       type: 'petting'
     };
-    assert.throws(
-      () => Authorisation.fromJson(badJson),
-      'ValidationError: type: should be equal to one of the allowed values'
-    );
+    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -27,6 +27,6 @@ describe('Authorisation', () => {
       type: 'rehomes',
       method: 'Placement in sanctuary'
     };
-    assert.equal(typeof Authorisation.fromJson(goodJson), 'object');
+    expect(Authorisation.fromJson(goodJson)).to.be.an('object');
   });
 });

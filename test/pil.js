@@ -1,15 +1,13 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Pil = require('../schema/pil');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Pil', () => {
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       status: 'ok'
     };
-    assert.throws(
-      () => Pil.fromJson(badJson),
-      'ValidationError: status: should be equal to one of the allowed values'
-    );
+    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -17,6 +15,6 @@ describe('Pil', () => {
       status: 'active',
       issueDate: '2018-08-14T09:00:00Z'
     };
-    assert.equal(typeof Pil.fromJson(goodJson), 'object');
+    expect(Pil.fromJson(goodJson)).to.be.an('object');
   });
 });

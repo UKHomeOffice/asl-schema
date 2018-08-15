@@ -1,5 +1,6 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Profile = require('../schema/profile');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Profile', () => {
   it('throws a validation error when required properties are missing', () => {
@@ -8,10 +9,7 @@ describe('Profile', () => {
       firstName: 'Jane',
       lastName: 'Doe'
     };
-    assert.throws(
-      () => Profile.fromJson(badJson),
-      'ValidationError: email: is a required property'
-    );
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
 
   it('throws a validation error when invalid values are provided', () => {
@@ -21,10 +19,7 @@ describe('Profile', () => {
       email: 'jane@example.com',
       telephone: 123456789
     };
-    assert.throws(
-      () => Profile.fromJson(badJson),
-      'ValidationError: telephone: should be string'
-    );
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should be string/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -33,6 +28,6 @@ describe('Profile', () => {
       lastName: 'Doe',
       email: 'jane@example.com'
     };
-    assert.equal(typeof Profile.fromJson(goodJson), 'object');
+    expect(Profile.fromJson(goodJson)).to.be.an('object');
   });
 });

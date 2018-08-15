@@ -1,5 +1,6 @@
-const assert = require('assert');
+const expect = require('chai').expect;
 const Role = require('../schema/role');
+const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Role', () => {
   it('throws a validation error when invalid values are provided', () => {
@@ -7,10 +8,7 @@ describe('Role', () => {
       establishmentId: '8201',
       type: 'super'
     };
-    assert.throws(
-      () => Role.fromJson(badJson),
-      'ValidationError: status: should be equal to one of the allowed values'
-    );
+    expect(() => Role.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -18,6 +16,6 @@ describe('Role', () => {
       establishmentId: '8201',
       type: 'pelh'
     };
-    assert.equal(typeof Role.fromJson(goodJson), 'object');
+    expect(Role.fromJson(goodJson)).to.be.an('object');
   });
 });
