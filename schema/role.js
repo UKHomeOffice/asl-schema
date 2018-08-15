@@ -5,6 +5,25 @@ class Role extends BaseModel {
     return 'roles';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: [],
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        type: {
+          type: 'string',
+          enum: ['pelh', 'nacwo', 'nvs', 'nio', 'ntco', 'holc']
+        },
+        establishmentId: { type: 'string' },
+        profileId: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
+      }
+    };
+  }
+
   static get relationMappings() {
     return {
       profile: {
