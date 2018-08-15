@@ -43,6 +43,18 @@ pipeline:
     when:
       event: tag
 
+  trigger_dev_deploy:
+    image: quay.io/ukhomeofficedigital/drone-trigger:latest
+    drone_server: https://drone.acp.homeoffice.gov.uk
+    repo: UKHomeOffice/asl-deploy-bot
+    branch: master
+    secrets:
+      - drone_token
+    params: REPO=${DRONE_REPO},PLUGIN_NUMBER=${DRONE_BUILD_NUMBER}
+    deploy_to: dev
+    when:
+      event: tag
+
   configure_deploy:
     image: node:8
     secrets:
