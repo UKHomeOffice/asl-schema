@@ -5,6 +5,29 @@ class PIL extends BaseModel {
     return 'pils';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: [],
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        status: {
+          type: 'string',
+          enum: ['active', 'pending', 'inactive', 'expired', 'revoked']
+        },
+        issueDate: { type: 'string' },
+        revocationDate: { type: 'string' },
+        licenceNumber: { type: 'string' },
+        conditions: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        establishmentId: { type: 'string' },
+        profileId: { type: 'string' }
+      }
+    };
+  }
+
   static get relationMappings() {
     return {
       establishment: {
