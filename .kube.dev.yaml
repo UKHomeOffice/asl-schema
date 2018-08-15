@@ -1,7 +1,7 @@
 ---
 - name: database-admin
   recipe: admin
-  image: quay.io/ukhomeofficedigital/asl-schema:{{.DRONE_COMMIT_SHA}}
+  image: quay.io/ukhomeofficedigital/asl-schema:{{.DRONE_TAG}}
   env:
     DATABASE_HOST:
       secret: true

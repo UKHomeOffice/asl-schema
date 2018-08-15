@@ -19,8 +19,7 @@ pipeline:
     commands:
       - docker build -t asl-schema .
     when:
-      branch: master
-      event: push
+      event: tag
 
   image_to_quay:
     image: docker:17.09.1
@@ -30,11 +29,10 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag asl-schema quay.io/ukhomeofficedigital/asl-schema:$${DRONE_COMMIT_SHA}
-      - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_COMMIT_SHA}
+      - docker tag asl-schema quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
+      - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
     when:
-      branch: master
-      event: push
+      event: tag
 
   publish:
     image: node:8
@@ -43,8 +41,7 @@ pipeline:
     commands:
       - npm publish
     when:
-      branch: master
-      event: push
+      event: tag
 
   trigger_dev_deploy:
     image: quay.io/ukhomeofficedigital/drone-trigger:latest
@@ -56,8 +53,7 @@ pipeline:
     params: REPO=${DRONE_REPO},PLUGIN_NUMBER=${DRONE_BUILD_NUMBER}
     deploy_to: dev
     when:
-      branch: master
-      event: push
+      event: tag
 
   configure_deploy:
     image: node:8
