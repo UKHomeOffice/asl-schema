@@ -19,13 +19,15 @@ class Place extends BaseModel {
         suitability: {
           type: 'array',
           items: {
-            type: 'string'
+            type: 'string',
+            enum: ['SA', 'LA', 'AQ', 'AV', 'DOG', 'CAT', 'EQU', 'NHP']
           }
         },
         holding: {
           type: 'array',
           items: {
-            type: 'string'
+            type: 'string',
+            enum: ['STH', 'LTH', 'NOH', 'SEP', 'NSEP']
           }
         },
         notes: { type: 'string' },
