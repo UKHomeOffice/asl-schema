@@ -8,7 +8,7 @@ describe('Pil', () => {
     };
     assert.throws(
       () => Pil.fromJson(badJson),
-      'ValidationError: country: should be equal to one of the allowed values'
+      'ValidationError: status: should be equal to one of the allowed values'
     );
   });
 

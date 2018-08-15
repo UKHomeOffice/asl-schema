@@ -6,6 +6,37 @@ class Place extends BaseModel {
     return 'places';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: [],
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        site: { type: 'string' },
+        area: { type: 'string' },
+        name: { type: 'string' },
+        suitability: {
+          type: 'array',
+          items: {
+            type: 'string'
+          }
+        },
+        holding: {
+          type: 'array',
+          items: {
+            type: 'string'
+          }
+        },
+        notes: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        establishmentId: { type: 'string' },
+        nacwoId: { type: 'string' }
+      }
+    };
+  }
+
   static getFilterOptions(establishmentId) {
     return Promise.all(
       ['site', 'suitability', 'holding'].map(filter =>
