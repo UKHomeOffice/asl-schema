@@ -6,6 +6,33 @@ class Profile extends BaseModel {
     return 'profiles';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['firstName', 'lastName', 'email'],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        userId: { type: 'string' },
+        title: { type: 'string' },
+        firstName: { type: 'string' },
+        lastName: { type: 'string' },
+        email: { type: 'string' },
+        dob: { type: 'string' },
+        position: { type: 'string' },
+        qualifications: { type: 'string' },
+        certifications: { type: 'string' },
+        address: { type: 'string' },
+        postcode: { type: 'string' },
+        telephone: { type: 'string' },
+        notes: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
+      }
+    };
+  }
+
   static get virtualAttributes() {
     return ['name'];
   }

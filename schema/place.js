@@ -1,9 +1,44 @@
 const { uniq, flatten } = require('lodash');
 const BaseModel = require('./base-model');
+const { suitabilityCodes, holdingCodes } = require('@asl/constants');
 
 class Place extends BaseModel {
   static get tableName() {
     return 'places';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['site', 'name', 'suitability', 'holding', 'establishmentId'],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        site: { type: 'string' },
+        area: { type: 'string' },
+        name: { type: 'string' },
+        suitability: {
+          type: 'array',
+          items: {
+            type: 'string',
+            enum: suitabilityCodes
+          }
+        },
+        holding: {
+          type: 'array',
+          items: {
+            type: 'string',
+            enum: holdingCodes
+          }
+        },
+        notes: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        establishmentId: { type: 'string' },
+        nacwoId: { type: 'string' }
+      }
+    };
   }
 
   static getFilterOptions(establishmentId) {

@@ -1,8 +1,29 @@
 const BaseModel = require('./base-model');
+const { roles } = require('@asl/constants');
 
 class Role extends BaseModel {
   static get tableName() {
     return 'roles';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['type', 'establishmentId', 'profileId'],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        type: {
+          type: 'string',
+          enum: roles
+        },
+        establishmentId: { type: 'string' },
+        profileId: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
+      }
+    };
   }
 
   static get relationMappings() {

@@ -1,9 +1,35 @@
 const BaseModel = require('./base-model');
 const Profile = require('./profile');
+const { projectStatuses } = require('@asl/constants');
 
 class Project extends BaseModel {
   static get tableName() {
     return 'projects';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['title', 'establishmentId'],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        status: {
+          type: 'string',
+          enum: projectStatuses
+        },
+        title: { type: 'string' },
+        issueDate: { type: 'string' },
+        expiryDate: { type: 'string' },
+        revocationDate: { type: 'string' },
+        licenceNumber: { type: 'string' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
+        establishmentId: { type: 'string' },
+        licenceHolderId: { type: 'string' }
+      }
+    };
   }
 
   static count(establishmentId) {

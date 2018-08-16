@@ -1,8 +1,44 @@
 const BaseModel = require('./base-model');
+const { establishmentStatuses, establishmentCountries } = require('@asl/constants');
 
 class Establishment extends BaseModel {
   static get tableName() {
     return 'establishments';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['name', 'address', 'country', 'email'],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'integer' },
+        'migrated_id': { type: 'string' },
+        name: { type: 'string' },
+        type: { type: 'string' },
+        status: {
+          type: 'string',
+          enum: establishmentStatuses
+        },
+        issueDate: { type: 'string' },
+        revocationDate: { type: 'string' },
+        licenceNumber: { type: 'string' },
+        country: {
+          type: 'string',
+          enum: establishmentCountries
+        },
+        address: { type: 'string' },
+        email: { type: 'string' },
+        procedure: { type: 'boolean' },
+        breeding: { type: 'boolean' },
+        supplying: { type: 'boolean' },
+        killing: { type: 'boolean' },
+        rehomes: { type: 'boolean' },
+        conditions: { type: 'boolean' },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
+      }
+    };
   }
 
   static get relationMappings() {
