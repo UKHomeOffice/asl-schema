@@ -12,7 +12,6 @@ exports.up = function(knex, Promise) {
     .dropTableIfExists('authorisations')
     .dropTableIfExists('establishments')
     .raw('create extension if not exists "uuid-ossp"')
-
     .createTable('establishments', table => {
       table.string('id').primary();
       table.string('migrated_id');
