@@ -8,7 +8,7 @@ class Establishment extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['name', 'address', 'email'],
+      required: ['name', 'address', 'country', 'email'],
       properties: {
         id: { type: 'integer' },
         'migrated_id': { type: 'string' },
