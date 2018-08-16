@@ -8,7 +8,7 @@ class PIL extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [],
+      required: ['establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string' },

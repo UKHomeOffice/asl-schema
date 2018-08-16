@@ -8,7 +8,7 @@ class Authorisation extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['type'],
+      required: ['type', 'method', 'description'],
       additionalProperties: false,
       properties: {
         id: { type: 'string' },

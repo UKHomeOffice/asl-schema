@@ -3,9 +3,18 @@ const Role = require('../schema/role');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Role', () => {
+  it('throws a validation error when required properties are missing', () => {
+    const badJson = {
+      establishmentId: 'abcd-1234',
+      profileId: '1234567'
+    };
+    expect(() => Role.fromJson(badJson)).to.throw(ValidationError, /required/);
+  });
+
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
-      establishmentId: '8201',
+      establishmentId: 'abcd-1234',
+      profileId: '1234567',
       type: 'super'
     };
     expect(() => Role.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
@@ -13,7 +22,8 @@ describe('Role', () => {
 
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
-      establishmentId: '8201',
+      establishmentId: 'abcd-1234',
+      profileId: '1234567',
       type: 'pelh',
       unknown: 'example'
     };
@@ -22,7 +32,8 @@ describe('Role', () => {
 
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
-      establishmentId: '8201',
+      establishmentId: 'abcd-1234',
+      profileId: '1234567',
       type: 'pelh'
     };
     expect(Role.fromJson(goodJson)).to.be.an('object');

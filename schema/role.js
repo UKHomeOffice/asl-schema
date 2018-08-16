@@ -8,7 +8,7 @@ class Role extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [],
+      required: ['type', 'establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string' },

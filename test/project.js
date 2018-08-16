@@ -6,7 +6,8 @@ describe('Project', () => {
   it('throws a validation error when required properties are missing', () => {
     const badJson = {
       status: 'active',
-      issueDate: '2018-08-15'
+      issueDate: '2018-08-15',
+      establishmentId: '1234abcd'
     };
     expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
@@ -14,7 +15,8 @@ describe('Project', () => {
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       title: 'Project X',
-      status: 'delayed'
+      status: 'delayed',
+      establishmentId: '1234abcd'
     };
     expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
@@ -22,7 +24,7 @@ describe('Project', () => {
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       title: 'Project X',
-      status: 'active',
+      establishmentId: '1234abcd',
       unknown: 'example'
     };
     expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
@@ -31,7 +33,7 @@ describe('Project', () => {
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       title: 'Project X',
-      status: 'active'
+      establishmentId: '1234abcd'
     };
     expect(Project.fromJson(goodJson)).to.be.an('object');
   });

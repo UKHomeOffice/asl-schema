@@ -3,8 +3,17 @@ const Pil = require('../schema/pil');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Pil', () => {
+  it('throws a validation error when required properties are missing', () => {
+    const badJson = {
+      establishmentId: 'abcd-1234'
+    };
+    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /required/);
+  });
+
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
+      establishmentId: '1234abcd',
+      profileId: 'abcd1234',
       status: 'ok'
     };
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
@@ -12,8 +21,8 @@ describe('Pil', () => {
 
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
-      status: 'active',
-      issueDate: '2018-08-14T09:00:00Z',
+      establishmentId: '1234abcd',
+      profileId: 'abcd1234',
       unknown: 'example'
     };
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
@@ -21,8 +30,8 @@ describe('Pil', () => {
 
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
-      status: 'active',
-      issueDate: '2018-08-14T09:00:00Z'
+      establishmentId: '1234abcd',
+      profileId: 'abcd1234'
     };
     expect(Pil.fromJson(goodJson)).to.be.an('object');
   });

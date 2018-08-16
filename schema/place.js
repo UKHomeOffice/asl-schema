@@ -9,7 +9,7 @@ class Place extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [],
+      required: ['site', 'name', 'suitability', 'holding', 'establishmentId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
