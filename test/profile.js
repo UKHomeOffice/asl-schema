@@ -22,6 +22,16 @@ describe('Profile', () => {
     expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should be string/);
   });
 
+  it('throws a validation error when unknown properties are provided', () => {
+    const badJson = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@example.com',
+      unknown: 'example'
+    };
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+  });
+
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       firstName: 'Jane',

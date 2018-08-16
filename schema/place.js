@@ -10,6 +10,7 @@ class Place extends BaseModel {
     return {
       type: 'object',
       required: [],
+      additionalProperties: false,
       properties: {
         id: { type: 'string' },
         'migrated_id': { type: 'string' },

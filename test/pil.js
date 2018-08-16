@@ -10,6 +10,15 @@ describe('Pil', () => {
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
+  it('throws a validation error when unknown properties are provided', () => {
+    const badJson = {
+      status: 'active',
+      issueDate: '2018-08-14T09:00:00Z',
+      unknown: 'example'
+    };
+    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+  });
+
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       status: 'active',

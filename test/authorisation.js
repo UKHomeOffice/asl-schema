@@ -22,6 +22,15 @@ describe('Authorisation', () => {
     expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
+  it('throws a validation error when unknown properties are provided', () => {
+    const badJson = {
+      type: 'rehomes',
+      method: 'Placement in sanctuary',
+      unknown: 'example'
+    };
+    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+  });
+
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       type: 'rehomes',

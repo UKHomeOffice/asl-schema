@@ -20,6 +20,16 @@ describe('Permission', () => {
     expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
+  it('throws a validation error when unknown properties are provided', () => {
+    const badJson = {
+      role: 'basic',
+      establishmentId: 'abcd-1234',
+      profileId: '1234567',
+      unknown: 'example'
+    };
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+  });
+
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       role: 'basic',

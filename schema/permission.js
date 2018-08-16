@@ -9,6 +9,7 @@ class Permission extends BaseModel {
     return {
       type: 'object',
       required: ['role', 'establishmentId', 'profileId'],
+      additionalProperties: false,
       properties: {
         role: {
           type: 'string',

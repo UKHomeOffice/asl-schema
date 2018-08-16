@@ -9,6 +9,7 @@ class Authorisation extends BaseModel {
     return {
       type: 'object',
       required: ['type'],
+      additionalProperties: false,
       properties: {
         id: { type: 'string' },
         type: {
@@ -19,8 +20,7 @@ class Authorisation extends BaseModel {
         description: { type: 'string' },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
-        establishmentId: { type: 'string' },
-        deleted: { type: 'string' }
+        establishmentId: { type: 'string' }
       }
     };
   }

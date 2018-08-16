@@ -10,6 +10,7 @@ class Project extends BaseModel {
     return {
       type: 'object',
       required: ['title'],
+      additionalProperties: false,
       properties: {
         id: { type: 'string' },
         'migrated_id': { type: 'string' },

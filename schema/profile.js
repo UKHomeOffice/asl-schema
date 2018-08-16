@@ -10,6 +10,7 @@ class Profile extends BaseModel {
     return {
       type: 'object',
       required: ['firstName', 'lastName', 'email'],
+      additionalProperties: false,
       properties: {
         id: { type: 'string' },
         'migrated_id': { type: 'string' },

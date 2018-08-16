@@ -9,6 +9,7 @@ class Invitation extends BaseModel {
     return {
       type: 'object',
       required: ['role', 'establishmentId', 'profileId'],
+      additionalProperties: false,
       properties: {
         token: { type: 'string' },
         role: {
