@@ -1,6 +1,6 @@
 const BaseModel = require('./base-model');
 const Profile = require('./profile');
-const aslConstants = require('@asl/constants');
+const { projectStatuses } = require('@asl/constants');
 
 class Project extends BaseModel {
   static get tableName() {
@@ -17,7 +17,7 @@ class Project extends BaseModel {
         'migrated_id': { type: 'string' },
         status: {
           type: 'string',
-          enum: aslConstants.projectStatuses
+          enum: projectStatuses
         },
         title: { type: 'string' },
         issueDate: { type: 'string' },

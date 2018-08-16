@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const aslConstants = require('@asl/constants');
+const { authorisationTypes } = require('@asl/constants');
 
 class Authorisation extends BaseModel {
   static get tableName() {
@@ -15,7 +15,7 @@ class Authorisation extends BaseModel {
         id: { type: 'string' },
         type: {
           type: 'string',
-          enum: aslConstants.authorisationTypes
+          enum: authorisationTypes
         },
         method: { type: 'string' },
         description: { type: 'string' },
