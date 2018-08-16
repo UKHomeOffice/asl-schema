@@ -1,4 +1,5 @@
 const BaseModel = require('./base-model');
+const aslConstants = require('@asl/constants');
 
 class Establishment extends BaseModel {
   static get tableName() {
@@ -17,7 +18,7 @@ class Establishment extends BaseModel {
         type: { type: 'string' },
         status: {
           type: 'string',
-          enum: ['active', 'pending', 'inactive', 'expired', 'revoked']
+          enum: aslConstants.establishmentStatuses
         },
         issueDate: { type: 'string' },
         revocationDate: { type: 'string' },

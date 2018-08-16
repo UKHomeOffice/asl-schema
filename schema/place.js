@@ -1,5 +1,6 @@
 const { uniq, flatten } = require('lodash');
 const BaseModel = require('./base-model');
+const aslConstants = require('@asl/constants');
 
 class Place extends BaseModel {
   static get tableName() {
@@ -21,14 +22,14 @@ class Place extends BaseModel {
           type: 'array',
           items: {
             type: 'string',
-            enum: ['SA', 'LA', 'AQ', 'AV', 'DOG', 'CAT', 'EQU', 'NHP']
+            enum: aslConstants.suitabilityCodes
           }
         },
         holding: {
           type: 'array',
           items: {
             type: 'string',
-            enum: ['STH', 'LTH', 'NOH', 'SEP', 'NSEP']
+            enum: aslConstants.holdingCodes
           }
         },
         notes: { type: 'string' },

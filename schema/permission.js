@@ -1,4 +1,5 @@
 const BaseModel = require('./base-model');
+const aslConstants = require('@asl/constants');
 
 class Permission extends BaseModel {
   static get tableName() {
@@ -13,7 +14,7 @@ class Permission extends BaseModel {
       properties: {
         role: {
           type: 'string',
-          enum: ['basic', 'read', 'admin']
+          enum: aslConstants.externalPermissions
         },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },

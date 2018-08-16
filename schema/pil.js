@@ -1,4 +1,5 @@
 const BaseModel = require('./base-model');
+const aslConstants = require('@asl/constants');
 
 class PIL extends BaseModel {
   static get tableName() {
@@ -15,7 +16,7 @@ class PIL extends BaseModel {
         'migrated_id': { type: 'string' },
         status: {
           type: 'string',
-          enum: ['active', 'pending', 'inactive', 'expired', 'revoked']
+          enum: aslConstants.pilStatuses
         },
         issueDate: { type: 'string' },
         revocationDate: { type: 'string' },
