@@ -17,9 +17,9 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - docker build -t asl-schema .
+      - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-schema .
     when:
-      event: tag
+      event: [tag, pull_request]
 
   image_to_quay:
     image: docker:17.09.1

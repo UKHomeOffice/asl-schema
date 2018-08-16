@@ -1,5 +1,8 @@
 FROM quay.io/ukhomeofficedigital/nodejs-base:v8
 
+ARG NPM_AUTH_USERNAME
+ARG NPM_AUTH_TOKEN
+
 RUN npm install -g npm@6
 
 COPY package.json /app/package.json
