@@ -20,14 +20,14 @@ class Project extends BaseModel {
           enum: projectStatuses
         },
         title: { type: 'string' },
-        issueDate: { type: 'string' },
-        expiryDate: { type: 'string' },
-        revocationDate: { type: 'string' },
-        licenceNumber: { type: 'string' },
+        issueDate: { type: ['string', 'null'] },
+        expiryDate: { type: ['string', 'null'] },
+        revocationDate: { type: ['string', 'null'] },
+        licenceNumber: { type: ['string', 'null'] },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
         establishmentId: { type: 'string' },
-        licenceHolderId: { type: 'string' }
+        licenceHolderId: { type: ['string', 'null'] }
       }
     };
   }

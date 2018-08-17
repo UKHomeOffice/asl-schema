@@ -19,7 +19,8 @@ describe('Authorisation', () => {
     const badJson = {
       type: 'placement',
       method: 'Placement in sanctuary',
-      description: 'Rehome in a certified sanctuary'
+      description: 'Rehome in a certified sanctuary',
+      establishmentId: '100'
     };
     expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
@@ -29,6 +30,7 @@ describe('Authorisation', () => {
       type: 'rehomes',
       method: 'Placement in sanctuary',
       description: 'Rehome in a certified sanctuary',
+      establishmentId: '100',
       unknown: 'example'
     };
     expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
@@ -38,7 +40,8 @@ describe('Authorisation', () => {
     const goodJson = {
       type: 'rehomes',
       method: 'Placement in sanctuary',
-      description: 'Rehome in a certified sanctuary'
+      description: 'Rehome in a certified sanctuary',
+      establishmentId: '100'
     };
     expect(Authorisation.fromJson(goodJson)).to.be.an('object');
   });

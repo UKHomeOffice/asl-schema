@@ -15,14 +15,14 @@ class Establishment extends BaseModel {
         id: { type: 'integer' },
         'migrated_id': { type: 'string' },
         name: { type: 'string' },
-        type: { type: 'string' },
+        type: { type: ['string', 'null'] },
         status: {
           type: 'string',
           enum: establishmentStatuses
         },
-        issueDate: { type: 'string' },
-        revocationDate: { type: 'string' },
-        licenceNumber: { type: 'string' },
+        issueDate: { type: ['string', 'null'] },
+        revocationDate: { type: ['string', 'null'] },
+        licenceNumber: { type: ['string', 'null'] },
         country: {
           type: 'string',
           enum: establishmentCountries

@@ -16,7 +16,7 @@ class Place extends BaseModel {
         id: { type: 'string' },
         'migrated_id': { type: 'string' },
         site: { type: 'string' },
-        area: { type: 'string' },
+        area: { type: ['string', 'null'] },
         name: { type: 'string' },
         suitability: {
           type: 'array',
@@ -32,11 +32,11 @@ class Place extends BaseModel {
             enum: holdingCodes
           }
         },
-        notes: { type: 'string' },
+        notes: { type: ['string', 'null'] },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
         establishmentId: { type: 'string' },
-        nacwoId: { type: 'string' }
+        nacwoId: { type: ['string', 'null'] }
       }
     };
   }

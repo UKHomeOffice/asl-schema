@@ -37,4 +37,13 @@ describe('Project', () => {
     };
     expect(Project.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      title: 'Project X',
+      establishmentId: '1234abcd',
+      revocationDate: null
+    };
+    expect(Project.fromJson(goodJson)).to.be.an('object');
+  });
 });

@@ -40,4 +40,14 @@ describe('Profile', () => {
     };
     expect(Profile.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@example.com',
+      title: null
+    };
+    expect(Profile.fromJson(goodJson)).to.be.an('object');
+  });
 });
