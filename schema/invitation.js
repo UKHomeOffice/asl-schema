@@ -12,13 +12,13 @@ class Invitation extends BaseModel {
       required: ['role', 'establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
-        token: { type: ['string', 'null'] },
+        token: { type: 'string' },
         role: {
           type: 'string',
           enum: externalPermissions
         },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
         establishmentId: { type: 'string' },
         profileId: { type: 'string' }
       }

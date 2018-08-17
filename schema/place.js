@@ -13,8 +13,8 @@ class Place extends BaseModel {
       required: ['site', 'name', 'suitability', 'holding', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'] },
-        'migrated_id': { type: ['string', 'null'] },
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
         site: { type: 'string' },
         area: { type: ['string', 'null'] },
         name: { type: 'string' },
@@ -33,8 +33,8 @@ class Place extends BaseModel {
           }
         },
         notes: { type: ['string', 'null'] },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
         establishmentId: { type: 'string' },
         nacwoId: { type: ['string', 'null'] }
       }

@@ -45,16 +45,4 @@ describe('Authorisation', () => {
     };
     expect(Authorisation.fromJson(goodJson)).to.be.an('object');
   });
-
-  it('allows null values for non-required fields', () => {
-    const goodJson = {
-      id: null,
-      type: 'rehomes',
-      method: 'Placement in sanctuary',
-      description: 'Rehome in a certified sanctuary',
-      establishmentId: '100',
-      'created_at': null
-    };
-    expect(Authorisation.fromJson(goodJson)).to.be.an('object');
-  });
 });

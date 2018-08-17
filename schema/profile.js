@@ -12,9 +12,9 @@ class Profile extends BaseModel {
       required: ['firstName', 'lastName', 'email'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'] },
-        'migrated_id': { type: ['string', 'null'] },
-        userId: { type: ['string', 'null'] },
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
+        userid: { type: 'string' },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
         lastName: { type: 'string' },
@@ -27,8 +27,8 @@ class Profile extends BaseModel {
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] }
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
       }
     };
   }

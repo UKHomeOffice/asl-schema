@@ -12,15 +12,15 @@ class Authorisation extends BaseModel {
       required: ['type', 'method', 'description', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'] },
+        id: { type: 'string' },
         type: {
           type: 'string',
           enum: authorisationTypes
         },
         method: { type: 'string' },
         description: { type: 'string' },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
         establishmentId: { type: 'string' }
       }
     };

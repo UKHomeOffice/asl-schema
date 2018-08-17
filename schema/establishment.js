@@ -12,12 +12,12 @@ class Establishment extends BaseModel {
       required: ['name', 'address', 'country', 'email'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'] },
-        'migrated_id': { type: ['string', 'null'] },
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
         status: {
-          type: ['string', 'null'],
+          type: 'string',
           enum: establishmentStatuses
         },
         issueDate: { type: ['string', 'null'] },
@@ -35,8 +35,8 @@ class Establishment extends BaseModel {
         killing: { type: 'boolean' },
         rehomes: { type: 'boolean' },
         conditions: { type: 'boolean' },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] }
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' }
       }
     };
   }

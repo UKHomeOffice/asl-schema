@@ -12,18 +12,18 @@ class PIL extends BaseModel {
       required: ['establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'] },
-        'migrated_id': { type: ['string', 'null'] },
+        id: { type: 'string' },
+        'migrated_id': { type: 'string' },
         status: {
-          type: ['string', 'null'],
+          type: 'string',
           enum: pilStatuses
         },
         issueDate: { type: ['string', 'null'] },
         revocationDate: { type: ['string', 'null'] },
         licenceNumber: { type: ['string', 'null'] },
         conditions: { type: ['string', 'null'] },
-        'created_at': { type: ['string', 'null'] },
-        'updated_at': { type: ['string', 'null'] },
+        'created_at': { type: 'string' },
+        'updated_at': { type: 'string' },
         establishmentId: { type: 'string' },
         profileId: { type: 'string' }
       }

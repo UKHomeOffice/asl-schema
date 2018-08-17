@@ -38,14 +38,4 @@ describe('Role', () => {
     };
     expect(Role.fromJson(goodJson)).to.be.an('object');
   });
-
-  it('allows null values for non-required fields', () => {
-    const goodJson = {
-      establishmentId: 'abcd-1234',
-      profileId: '1234567',
-      type: 'pelh',
-      id: null
-    };
-    expect(Role.fromJson(goodJson)).to.be.an('object');
-  });
 });
