@@ -38,6 +38,7 @@ module.exports = {
   },
   delete: knex => knex('pils').del()
     .then(() => knex('permissions').del())
+    .then(() => knex('invitations').del())
     .then(() => knex('roles').del())
     .then(() => knex('profiles').del())
 };
