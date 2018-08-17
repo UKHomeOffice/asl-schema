@@ -29,12 +29,12 @@ class Establishment extends BaseModel {
         },
         address: { type: 'string' },
         email: { type: 'string' },
-        procedure: { type: ['boolean', null] },
-        breeding: { type: ['boolean', null] },
-        supplying: { type: ['boolean', null] },
-        killing: { type: ['boolean', null] },
-        rehomes: { type: ['boolean', null] },
-        conditions: { type: ['boolean', null] },
+        procedure: { type: 'boolean' },
+        breeding: { type: 'boolean' },
+        supplying: { type: 'boolean' },
+        killing: { type: 'boolean' },
+        rehomes: { type: 'boolean' },
+        conditions: { type: 'boolean' },
         'created_at': { type: ['string', 'null'] },
         'updated_at': { type: ['string', 'null'] }
       }
