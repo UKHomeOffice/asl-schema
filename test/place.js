@@ -37,4 +37,17 @@ describe('Place', () => {
     };
     expect(Place.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      site: 'Lunar House 3rd floor',
+      area: '6.08',
+      name: '94382',
+      suitability: ['NHP', 'CAT', 'DOG'],
+      holding: ['STH', 'LTH'],
+      establishmentId: '1234abcd',
+      notes: null
+    };
+    expect(Place.fromJson(goodJson)).to.be.an('object');
+  });
 });

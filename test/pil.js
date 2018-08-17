@@ -35,4 +35,13 @@ describe('Pil', () => {
     };
     expect(Pil.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      establishmentId: '1234abcd',
+      profileId: 'abcd1234',
+      revocationDate: null
+    };
+    expect(Pil.fromJson(goodJson)).to.be.an('object');
+  });
 });

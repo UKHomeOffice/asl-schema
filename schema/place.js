@@ -13,10 +13,10 @@ class Place extends BaseModel {
       required: ['site', 'name', 'suitability', 'holding', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        id: { type: ['string', 'null'] },
+        'migrated_id': { type: ['string', 'null'] },
         site: { type: 'string' },
-        area: { type: 'string' },
+        area: { type: ['string', 'null'] },
         name: { type: 'string' },
         suitability: {
           type: 'array',
@@ -32,11 +32,11 @@ class Place extends BaseModel {
             enum: holdingCodes
           }
         },
-        notes: { type: 'string' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        notes: { type: ['string', 'null'] },
+        'created_at': { type: ['string', 'null'] },
+        'updated_at': { type: ['string', 'null'] },
         establishmentId: { type: 'string' },
-        nacwoId: { type: 'string' }
+        nacwoId: { type: ['string', 'null'] }
       }
     };
   }

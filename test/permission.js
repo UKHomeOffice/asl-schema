@@ -38,4 +38,14 @@ describe('Permission', () => {
     };
     expect(Permission.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      role: 'basic',
+      establishmentId: 'abcd-1234',
+      profileId: '1234567',
+      'created_at': null
+    };
+    expect(Permission.fromJson(goodJson)).to.be.an('object');
+  });
 });

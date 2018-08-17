@@ -12,31 +12,31 @@ class Establishment extends BaseModel {
       required: ['name', 'address', 'country', 'email'],
       additionalProperties: false,
       properties: {
-        id: { type: 'integer' },
-        'migrated_id': { type: 'string' },
+        id: { type: ['string', 'null'] },
+        'migrated_id': { type: ['string', 'null'] },
         name: { type: 'string' },
-        type: { type: 'string' },
+        type: { type: ['string', 'null'] },
         status: {
-          type: 'string',
+          type: ['string', 'null'],
           enum: establishmentStatuses
         },
-        issueDate: { type: 'string' },
-        revocationDate: { type: 'string' },
-        licenceNumber: { type: 'string' },
+        issueDate: { type: ['string', 'null'] },
+        revocationDate: { type: ['string', 'null'] },
+        licenceNumber: { type: ['string', 'null'] },
         country: {
           type: 'string',
           enum: establishmentCountries
         },
         address: { type: 'string' },
         email: { type: 'string' },
-        procedure: { type: 'boolean' },
-        breeding: { type: 'boolean' },
-        supplying: { type: 'boolean' },
-        killing: { type: 'boolean' },
-        rehomes: { type: 'boolean' },
-        conditions: { type: 'boolean' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' }
+        procedure: { type: ['boolean', null] },
+        breeding: { type: ['boolean', null] },
+        supplying: { type: ['boolean', null] },
+        killing: { type: ['boolean', null] },
+        rehomes: { type: ['boolean', null] },
+        conditions: { type: ['boolean', null] },
+        'created_at': { type: ['string', 'null'] },
+        'updated_at': { type: ['string', 'null'] }
       }
     };
   }

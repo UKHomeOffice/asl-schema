@@ -16,8 +16,8 @@ class Permission extends BaseModel {
           type: 'string',
           enum: externalPermissions
         },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        'created_at': { type: ['string', 'null'] },
+        'updated_at': { type: ['string', 'null'] },
         establishmentId: { type: 'string' },
         profileId: { type: 'string' }
       }

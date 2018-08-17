@@ -13,21 +13,21 @@ class Project extends BaseModel {
       required: ['title', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        id: { type: ['string', 'null'] },
+        'migrated_id': { type: ['string', 'null'] },
         status: {
-          type: 'string',
+          type: ['string', 'null'],
           enum: projectStatuses
         },
         title: { type: 'string' },
-        issueDate: { type: 'string' },
-        expiryDate: { type: 'string' },
-        revocationDate: { type: 'string' },
-        licenceNumber: { type: 'string' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        issueDate: { type: ['string', 'null'] },
+        expiryDate: { type: ['string', 'null'] },
+        revocationDate: { type: ['string', 'null'] },
+        licenceNumber: { type: ['string', 'null'] },
+        'created_at': { type: ['string', 'null'] },
+        'updated_at': { type: ['string', 'null'] },
         establishmentId: { type: 'string' },
-        licenceHolderId: { type: 'string' }
+        licenceHolderId: { type: ['string', 'null'] }
       }
     };
   }

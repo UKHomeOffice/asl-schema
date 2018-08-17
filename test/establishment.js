@@ -41,4 +41,16 @@ describe('Establishment', () => {
     };
     expect(Establishment.fromJson(goodJson)).to.be.an('object');
   });
+
+  it('allows null values for non-required fields', () => {
+    const goodJson = {
+      name: 'University of Croydon',
+      address: 'University of Croydon',
+      email: 'vice-chancellor@croydon.ac.uk',
+      country: 'england',
+      revocationDate: null,
+      licenceNumber: null
+    };
+    expect(Establishment.fromJson(goodJson)).to.be.an('object');
+  });
 });
