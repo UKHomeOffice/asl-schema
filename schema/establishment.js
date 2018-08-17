@@ -12,7 +12,7 @@ class Establishment extends BaseModel {
       required: ['name', 'address', 'country', 'email'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
+        id: { type: 'integer' },
         'migrated_id': { type: 'string' },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
