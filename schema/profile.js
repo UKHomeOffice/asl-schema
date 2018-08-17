@@ -14,7 +14,7 @@ class Profile extends BaseModel {
       properties: {
         id: { type: 'string' },
         'migrated_id': { type: 'string' },
-        userid: { type: 'string' },
+        userId: { type: 'string' },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
         lastName: { type: 'string' },
