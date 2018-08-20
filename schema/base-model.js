@@ -82,6 +82,14 @@ class BaseModel extends Model {
     return query
       .orderBy(sort.column, sort.ascending === 'true' ? 'asc' : 'desc');
   }
+
+  static validate(data) {
+    try {
+      this.fromJson(data);
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 module.exports = BaseModel;
