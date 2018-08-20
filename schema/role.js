@@ -18,7 +18,7 @@ class Role extends BaseModel {
           type: 'string',
           enum: roles
         },
-        establishmentId: { type: 'string' },
+        establishmentId: { type: 'integer' },
         profileId: { type: 'string' },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' }

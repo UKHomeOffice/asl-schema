@@ -18,7 +18,7 @@ class Permission extends BaseModel {
         },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
-        establishmentId: { type: 'string' },
+        establishmentId: { type: 'integer' },
         profileId: { type: 'string' }
       }
     };

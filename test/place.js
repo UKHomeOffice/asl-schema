@@ -9,7 +9,7 @@ describe('Place', () => {
       name: '94382',
       suitability: [1, 2],
       holding: ['STH', 'LTH'],
-      establishmentId: '1234abcd'
+      establishmentId: 100
     };
     expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /should be string/);
   });
@@ -20,7 +20,7 @@ describe('Place', () => {
       name: '94382',
       suitability: ['NHP', 'CAT', 'DOG'],
       holding: ['STH', 'LTH'],
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       unknown: 'example'
     };
     expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
@@ -33,7 +33,7 @@ describe('Place', () => {
       name: '94382',
       suitability: ['NHP', 'CAT', 'DOG'],
       holding: ['STH', 'LTH'],
-      establishmentId: '1234abcd'
+      establishmentId: 100
     };
     expect(Place.fromJson(goodJson)).to.be.an('object');
   });
@@ -45,7 +45,7 @@ describe('Place', () => {
       name: '94382',
       suitability: ['NHP', 'CAT', 'DOG'],
       holding: ['STH', 'LTH'],
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       notes: null
     };
     expect(Place.fromJson(goodJson)).to.be.an('object');

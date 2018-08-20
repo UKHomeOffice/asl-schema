@@ -23,7 +23,7 @@ describe('Permission', () => {
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       role: 'basic',
-      establishmentId: 'abcd-1234',
+      establishmentId: 100,
       profileId: '1234567',
       unknown: 'example'
     };
@@ -33,7 +33,7 @@ describe('Permission', () => {
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
       role: 'basic',
-      establishmentId: 'abcd-1234',
+      establishmentId: 100,
       profileId: '1234567'
     };
     expect(Permission.fromJson(goodJson)).to.be.an('object');
