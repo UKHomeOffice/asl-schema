@@ -21,7 +21,8 @@ class Authorisation extends BaseModel {
         description: { type: 'string' },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
-        establishmentId: { type: 'integer' }
+        establishmentId: { type: 'integer' },
+        deleted: { type: ['string', 'null'] }
       }
     };
   }
