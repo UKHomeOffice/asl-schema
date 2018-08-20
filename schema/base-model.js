@@ -1,5 +1,6 @@
 const { isUndefined } = require('lodash');
 const { Model } = require('objection');
+const ValidationError = require('./validation-error');
 
 class SoftDeleteQueryBuilder extends Model.QueryBuilder {
   delete() {
@@ -87,7 +88,7 @@ class BaseModel extends Model {
     try {
       this.fromJson(data);
     } catch (error) {
-      return error;
+      return new ValidationError(error);
     }
   }
 }
