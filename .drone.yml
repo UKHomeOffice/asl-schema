@@ -1,12 +1,21 @@
 pipeline:
 
   test:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
-      - npm install
+      - npm ci
       - npm test
+    when:
+      event: [push, pull_request, tag]
+
+  audit:
+    image: node:10
+    secrets:
+      - npm_auth_token
+    commands:
+      - npx @lennym/ciaudit
     when:
       event: [push, pull_request, tag]
 
@@ -35,7 +44,7 @@ pipeline:
       event: tag
 
   publish:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
@@ -56,7 +65,7 @@ pipeline:
       event: tag
 
   configure_deploy:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
