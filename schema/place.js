@@ -35,7 +35,7 @@ class Place extends BaseModel {
         notes: { type: ['string', 'null'] },
         'created_at': { type: 'string' },
         'updated_at': { type: 'string' },
-        establishmentId: { type: 'string' },
+        establishmentId: { type: 'integer' },
         nacwoId: { type: ['string', 'null'] }
       }
     };
