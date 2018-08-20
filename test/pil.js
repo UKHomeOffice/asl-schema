@@ -12,7 +12,7 @@ describe('Pil', () => {
 
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       profileId: 'abcd1234',
       status: 'ok'
     };
@@ -21,7 +21,7 @@ describe('Pil', () => {
 
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       profileId: 'abcd1234',
       unknown: 'example'
     };
@@ -30,7 +30,7 @@ describe('Pil', () => {
 
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       profileId: 'abcd1234'
     };
     expect(Pil.fromJson(goodJson)).to.be.an('object');
@@ -38,7 +38,7 @@ describe('Pil', () => {
 
   it('allows null values for non-required fields', () => {
     const goodJson = {
-      establishmentId: '1234abcd',
+      establishmentId: 100,
       profileId: 'abcd1234',
       revocationDate: null
     };
