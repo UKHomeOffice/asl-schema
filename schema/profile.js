@@ -28,7 +28,8 @@ class Profile extends BaseModel {
         telephone: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
         'created_at': { type: 'string' },
-        'updated_at': { type: 'string' }
+        'updated_at': { type: 'string' },
+        deleted: { type: ['string', 'null'] }
       }
     };
   }

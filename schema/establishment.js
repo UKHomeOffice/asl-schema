@@ -36,7 +36,8 @@ class Establishment extends BaseModel {
         rehomes: { type: 'boolean' },
         conditions: { type: 'boolean' },
         'created_at': { type: 'string' },
-        'updated_at': { type: 'string' }
+        'updated_at': { type: 'string' },
+        deleted: { type: ['string', 'null'] }
       }
     };
   }
