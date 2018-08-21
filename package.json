@@ -4,9 +4,10 @@
   "description": "Sequelize schema for licensing models",
   "main": "index.js",
   "scripts": {
+    "pretest:unit": "NODE_ENV=test npm run migrate",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "mocha",
+    "test:unit": "mocha --recursive",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run"

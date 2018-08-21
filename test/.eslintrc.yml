@@ -2,7 +2,7 @@ extends:
   - "../.eslintrc.yml"
 
 env:
-  jest: true
+  mocha: true
 
 rules:
   implicit-dependencies/no-implicit:

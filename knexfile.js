@@ -5,6 +5,15 @@ try {
 
 module.exports = {
 
+  test: {
+    client: 'postgresql',
+    connection: {
+      host: process.env.DATABASE_HOST || 'localhost',
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME || 'asl-test'
+    }
+  },
+
   development: {
     client: 'postgresql',
     connection: {
