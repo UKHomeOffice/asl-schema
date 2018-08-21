@@ -3,8 +3,7 @@ class ValidationError extends Error {
     if (typeof error === 'string') {
       super(error);
     } else if (typeof error === 'object') {
-      super();
-      Object.assign(this, error);
+      super(error.message);
     } else {
       super('validation error');
     }
