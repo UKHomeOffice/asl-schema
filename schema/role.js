@@ -13,7 +13,7 @@ class Role extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        'migrated_id': { type: ['string', 'null'] },
         type: {
           type: 'string',
           enum: roles

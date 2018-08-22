@@ -14,7 +14,7 @@ class Project extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        'migrated_id': { type: ['string', 'null'] },
         status: {
           type: 'string',
           enum: projectStatuses

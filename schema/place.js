@@ -14,7 +14,7 @@ class Place extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        'migrated_id': { type: ['string', 'null'] },
         site: { type: 'string' },
         area: { type: ['string', 'null'] },
         name: { type: 'string' },

@@ -13,7 +13,7 @@ class Establishment extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'integer' },
-        'migrated_id': { type: 'string' },
+        'migrated_id': { type: ['string', 'null'] },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
         status: {

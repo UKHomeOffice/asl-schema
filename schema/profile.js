@@ -13,7 +13,7 @@ class Profile extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
-        'migrated_id': { type: 'string' },
+        'migrated_id': { type: ['string', 'null'] },
         userId: { type: 'string' },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
