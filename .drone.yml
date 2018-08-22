@@ -4,6 +4,12 @@ pipeline:
     image: node:10
     secrets:
       - npm_auth_token
+    environment:
+      - POSTGRES_USER=asl-test
+      - POSTGRES_HOST=database
+      - DATABASE_NAME=asl-test
+      - DATABASE_HOST=database
+      - DATABASE_USERNAME=asl-test
     commands:
       - npm ci
       - npm test
@@ -91,6 +97,12 @@ pipeline:
     when:
       environment: dev
       event: deployment
+
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=asl-test
 
 matrix:
   NPM_AUTH_USERNAME:

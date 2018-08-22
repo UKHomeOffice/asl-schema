@@ -13,7 +13,7 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
     });
   }
 
-  unDelete() {
+  undelete() {
     this.mergeContext({
       undelete: true
     });
@@ -30,6 +30,20 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
     return this.mergeContext({ establishmentId })
       .joinRelation('establishments')
       .where(column, establishmentId);
+  }
+
+  upsert(model, where) {
+    return Promise.resolve()
+      .then(() => {
+        if (model.id) {
+          return this.findById(model.id).update(model);
+        } else if (where) {
+          return this.where(where).update(model);
+        }
+      })
+      // returning('*') is to get around a bug in objection where it tries to return `id` by default
+      // because sometimes we don't have an id column we need to override this
+      .then(count => count || this.insert(model).returning('*'));
   }
 }
 
