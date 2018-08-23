@@ -31,20 +31,6 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
       .joinRelation('establishments')
       .where(column, establishmentId);
   }
-
-  upsert(model, where) {
-    return Promise.resolve()
-      .then(() => {
-        if (model.id) {
-          return this.findById(model.id).update(model);
-        } else if (where) {
-          return this.where(where).update(model);
-        }
-      })
-      // returning('*') is to get around a bug in objection where it tries to return `id` by default
-      // because sometimes we don't have an id column we need to override this
-      .then(count => count || this.insert(model).returning('*'));
-  }
 }
 
 class BaseModel extends Model {
@@ -73,6 +59,20 @@ class BaseModel extends Model {
       .count()
       .then(results => results[0])
       .then(result => result.count);
+  }
+
+  static upsert(model, where) {
+    return Promise.resolve()
+      .then(() => {
+        if (model.id) {
+          return this.queryWithDeleted().findById(model.id).update(model);
+        } else if (where) {
+          return this.queryWithDeleted().where(where).update(model);
+        }
+      })
+      // returning('*') is to get around a bug in objection where it tries to return `id` by default
+      // because sometimes we don't have an id column we need to override this
+      .then(count => count || this.query().insert(model).returning('*'));
   }
 
   static paginate({ query, limit, offset }) {
