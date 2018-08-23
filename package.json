@@ -27,6 +27,7 @@
     "@asl/constants": "^0.0.1",
     "knex": "^0.15.2",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "objection": "^1.2.0",
     "pg": "^7.4.1"
   },
@@ -38,7 +39,6 @@
     "dotenv": "^6.0.0",
     "eslint": "^4.18.2",
     "eslint-config-lennym": "^1.4.0",
-    "mocha": "^5.2.0",
-    "moment": "^2.22.2"
+    "mocha": "^5.2.0"
   }
 }
