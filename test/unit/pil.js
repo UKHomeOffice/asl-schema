@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Pil = require('../schema/pil');
+const Pil = require('../../schema/pil');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Pil', () => {

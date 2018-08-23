@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Place = require('../schema/place');
+const Place = require('../../schema/place');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Place', () => {

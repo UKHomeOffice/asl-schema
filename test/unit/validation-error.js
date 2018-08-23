@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const ValidationError = require('../schema/validation-error');
+const ValidationError = require('../../schema/validation-error');
 const ObjectionValidationError = require('objection/lib/model/ValidationError');
 
 describe('ValidationError', () => {
