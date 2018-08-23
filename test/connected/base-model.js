@@ -1,3 +1,4 @@
+const moment = require('moment');
 const assert = require('assert');
 const db = require('./helpers/db');
 const BaseModel = require('../../schema/base-model');
@@ -74,7 +75,7 @@ describe('Base Model', () => {
           .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
           .then(() => this.Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
           .then(model => {
-            assert(model.deleted instanceof Date);
+            assert(moment(model.deleted).isValid());
           });
       });
 

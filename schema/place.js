@@ -46,6 +46,7 @@ class Place extends BaseModel {
     return Promise.all(
       ['site', 'suitability', 'holding'].map(filter =>
         this.query()
+          .where({ establishmentId })
           .distinct(filter)
           .then(result => ({
             key: filter,
