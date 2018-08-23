@@ -1,10 +1,11 @@
 const expect = require('chai').expect;
-const Establishment = require('../schema/establishment');
+const Establishment = require('../../schema/establishment');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Establishment', () => {
   it('throws a validation error when required properties are missing', () => {
     const badJson = {
+      id: 80001,
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk'
     };
@@ -13,6 +14,7 @@ describe('Establishment', () => {
 
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
+      id: 80001,
       name: 'University of Croydon',
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk',
@@ -23,6 +25,7 @@ describe('Establishment', () => {
 
   it('throws a validation error when unknown values are provided', () => {
     const badJson = {
+      id: 80001,
       name: 'University of Croydon',
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk',
@@ -34,6 +37,7 @@ describe('Establishment', () => {
 
   it('successfully instantiates when given a valid schema', () => {
     const goodJson = {
+      id: 80001,
       name: 'University of Croydon',
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk',
@@ -44,6 +48,7 @@ describe('Establishment', () => {
 
   it('allows null values for non-required fields', () => {
     const goodJson = {
+      id: 80001,
       name: 'University of Croydon',
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk',

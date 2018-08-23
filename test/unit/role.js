@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Role = require('../schema/role');
+const Role = require('../../schema/role');
 const ValidationError = require('objection/lib/model/ValidationError');
 
 describe('Role', () => {

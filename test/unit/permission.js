@@ -1,23 +1,23 @@
 const expect = require('chai').expect;
-const Invitation = require('../schema/invitation');
+const Permission = require('../../schema/permission');
 const ValidationError = require('objection/lib/model/ValidationError');
 
-describe('Invitation', () => {
+describe('Permission', () => {
   it('throws a validation error when required properties are missing', () => {
     const badJson = {
-      establishmentId: 100,
+      establishmentId: 'abcd-1234',
       profileId: '1234567'
     };
-    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /required/);
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /required/);
   });
 
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       role: 'super',
-      establishmentId: 100,
+      establishmentId: 'abcd-1234',
       profileId: '1234567'
     };
-    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -27,7 +27,7 @@ describe('Invitation', () => {
       profileId: '1234567',
       unknown: 'example'
     };
-    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
@@ -36,6 +36,6 @@ describe('Invitation', () => {
       establishmentId: 100,
       profileId: '1234567'
     };
-    expect(Invitation.fromJson(goodJson)).to.be.an('object');
+    expect(Permission.fromJson(goodJson)).to.be.an('object');
   });
 });

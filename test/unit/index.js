@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Schema = require('../schema');
+const Schema = require('../../schema');
 
 describe('Schema', () => {
 
