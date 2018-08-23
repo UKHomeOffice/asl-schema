@@ -20,8 +20,8 @@ class Role extends BaseModel {
         },
         establishmentId: { type: 'integer' },
         profileId: { type: 'string' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
       }
     };

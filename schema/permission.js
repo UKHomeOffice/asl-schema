@@ -12,15 +12,12 @@ class Permission extends BaseModel {
       required: ['role', 'establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
-        role: {
-          type: 'string',
-          enum: externalPermissions
-        },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        role: { type: 'string', enum: externalPermissions },
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         profileId: { type: 'string' },
-        deleted: { type: ['string', 'null'] }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

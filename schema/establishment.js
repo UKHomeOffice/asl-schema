@@ -16,28 +16,22 @@ class Establishment extends BaseModel {
         'migrated_id': { type: ['string', 'null'] },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
-        status: {
-          type: 'string',
-          enum: establishmentStatuses
-        },
-        issueDate: { type: ['string', 'null'] },
-        revocationDate: { type: ['string', 'null'] },
+        status: { type: 'string', enum: establishmentStatuses },
+        issueDate: { type: ['string', 'null'], format: 'date-time' },
+        revocationDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
-        country: {
-          type: 'string',
-          enum: establishmentCountries
-        },
+        country: { type: 'string', enum: establishmentCountries },
         address: { type: 'string' },
-        email: { type: 'string' },
+        email: { type: 'string', format: 'email' },
         procedure: { type: 'boolean' },
         breeding: { type: 'boolean' },
         supplying: { type: 'boolean' },
         killing: { type: 'boolean' },
         rehomes: { type: 'boolean' },
         conditions: { type: 'boolean' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
-        deleted: { type: ['string', 'null'] }
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

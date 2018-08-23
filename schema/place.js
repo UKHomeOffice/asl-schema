@@ -1,6 +1,7 @@
 const { uniq, flatten } = require('lodash');
 const BaseModel = require('./base-model');
 const { suitabilityCodes, holdingCodes } = require('@asl/constants');
+const { uuid } = require('../lib/regex-validation');
 
 class Place extends BaseModel {
   static get tableName() {
@@ -13,7 +14,7 @@ class Place extends BaseModel {
       required: ['site', 'name', 'suitability', 'holding', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
+        id: { type: 'string', pattern: uuid.v4 },
         'migrated_id': { type: ['string', 'null'] },
         site: { type: 'string' },
         area: { type: ['string', 'null'] },
@@ -33,11 +34,11 @@ class Place extends BaseModel {
           }
         },
         notes: { type: ['string', 'null'] },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         nacwoId: { type: ['string', 'null'] },
-        deleted: { type: ['string', 'null'] }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }
