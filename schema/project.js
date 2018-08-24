@@ -1,6 +1,7 @@
 const BaseModel = require('./base-model');
 const Profile = require('./profile');
 const { projectStatuses } = require('@asl/constants');
+const { uuid } = require('../lib/regex-validation');
 
 class Project extends BaseModel {
   static get tableName() {
@@ -13,22 +14,19 @@ class Project extends BaseModel {
       required: ['title', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
+        id: { type: 'string', pattern: uuid.v4 },
         'migrated_id': { type: ['string', 'null'] },
-        status: {
-          type: 'string',
-          enum: projectStatuses
-        },
+        status: { type: 'string', enum: projectStatuses },
         title: { type: 'string' },
-        issueDate: { type: ['string', 'null'] },
-        expiryDate: { type: ['string', 'null'] },
-        revocationDate: { type: ['string', 'null'] },
+        issueDate: { type: ['string', 'null'], format: 'date-time' },
+        expiryDate: { type: ['string', 'null'], format: 'date-time' },
+        revocationDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         licenceHolderId: { type: ['string', 'null'] },
-        deleted: { type: ['string', 'null'] }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

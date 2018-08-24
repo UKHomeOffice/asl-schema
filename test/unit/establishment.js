@@ -23,6 +23,18 @@ describe('Establishment', () => {
     expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
   });
 
+  it('throws a validation error when an invalid issue date is provided', () => {
+    const badJson = {
+      id: 80001,
+      name: 'University of Croydon',
+      address: 'University of Croydon',
+      email: 'vice-chancellor@croydon.ac.uk',
+      country: 'england',
+      issueDate: '2018-47-92T18:00:00Z'
+    };
+    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /issueDate: should match format/);
+  });
+
   it('throws a validation error when unknown values are provided', () => {
     const badJson = {
       id: 80001,
@@ -41,7 +53,8 @@ describe('Establishment', () => {
       name: 'University of Croydon',
       address: 'University of Croydon',
       email: 'vice-chancellor@croydon.ac.uk',
-      country: 'england'
+      country: 'england',
+      issueDate: '2018-02-17T18:00:00Z'
     };
     expect(Establishment.fromJson(goodJson)).to.be.an('object');
   });

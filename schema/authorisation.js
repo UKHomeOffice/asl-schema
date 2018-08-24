@@ -1,5 +1,6 @@
 const BaseModel = require('./base-model');
 const { authorisationTypes } = require('@asl/constants');
+const { uuid } = require('../lib/regex-validation');
 
 class Authorisation extends BaseModel {
   static get tableName() {
@@ -12,17 +13,14 @@ class Authorisation extends BaseModel {
       required: ['type', 'method', 'description', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
-        type: {
-          type: 'string',
-          enum: authorisationTypes
-        },
+        id: { type: 'string', pattern: uuid.v4 },
+        type: { type: 'string', enum: authorisationTypes },
         method: { type: 'string' },
         description: { type: 'string' },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
-        deleted: { type: ['string', 'null'] }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

@@ -1,5 +1,6 @@
 const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
+const { date, uuid } = require('../lib/regex-validation');
 
 class Profile extends BaseModel {
   static get tableName() {
@@ -12,14 +13,14 @@ class Profile extends BaseModel {
       required: ['firstName', 'lastName', 'email'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string' },
+        id: { type: 'string', pattern: uuid.v4 },
         'migrated_id': { type: ['string', 'null'] },
         userId: { type: 'string' },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
         lastName: { type: 'string' },
-        email: { type: 'string' },
-        dob: { type: ['string', 'null'] },
+        email: { type: 'string', format: 'email' },
+        dob: { type: ['string', 'null'], pattern: date.yearMonthDay },
         position: { type: ['string', 'null'] },
         qualifications: { type: ['string', 'null'] },
         certifications: { type: ['string', 'null'] },
@@ -27,9 +28,9 @@ class Profile extends BaseModel {
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
-        'created_at': { type: 'string' },
-        'updated_at': { type: 'string' },
-        deleted: { type: ['string', 'null'] }
+        'created_at': { type: 'string', format: 'date-time' },
+        'updated_at': { type: 'string', format: 'date-time' },
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

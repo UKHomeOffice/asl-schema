@@ -22,6 +22,26 @@ describe('Profile', () => {
     expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should be string/);
   });
 
+  it('throws a validation error when invalid email is provided', () => {
+    const badJson = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane.com',
+      dob: '2000-40-89'
+    };
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should match pattern/);
+  });
+
+  it('throws a validation error when invalid dob is provided', () => {
+    const badJson = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@example.com',
+      dob: '2000-40-89'
+    };
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should match pattern/);
+  });
+
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       firstName: 'Jane',
@@ -36,7 +56,9 @@ describe('Profile', () => {
     const goodJson = {
       firstName: 'Jane',
       lastName: 'Doe',
-      email: 'jane@example.com'
+      email: 'jane@example.com',
+      dob: '1974-01-21',
+      'created_at': '2017-10-02T15:00:00Z'
     };
     expect(Profile.fromJson(goodJson)).to.be.an('object');
   });
