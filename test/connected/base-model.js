@@ -26,7 +26,8 @@ describe('Base Model', () => {
           return this.Model.query().insert([
             {
               id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
-              type: 'killing'
+              type: 'killing',
+              method: 'captive bolt'
             },
             {
               id: '561dfe21-fc2a-420f-8bb6-100b1f1e2735',
@@ -102,7 +103,7 @@ describe('Base Model', () => {
     describe('upsert', () => {
       it('updates a model if found by id', () => {
         return Promise.resolve()
-          .then(() => this.Model.query().upsert({
+          .then(() => this.Model.upsert({
             id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
             type: 'rehomes'
           }))
@@ -114,7 +115,7 @@ describe('Base Model', () => {
 
       it('updates a model if found by where clause', () => {
         return Promise.resolve()
-          .then(() => this.Model.query().upsert({
+          .then(() => this.Model.upsert({
             type: 'rehomes'
           }, {
             type: 'killing'
@@ -127,7 +128,16 @@ describe('Base Model', () => {
 
       it('inserts a model if no id or where clause provided', () => {
         return Promise.resolve()
-          .then(() => this.Model.query().upsert({ type: 'rehomes' }))
+          .then(() => this.Model.upsert({ type: 'rehomes' }))
+          .then(() => this.Model.query())
+          .then(models => {
+            assert.deepEqual(models.length, 3);
+          });
+      });
+
+      it('inserts a model if no model found with where clause', () => {
+        return Promise.resolve()
+          .then(() => this.Model.upsert({ type: 'killing' }, { method: 'bazooka' }))
           .then(() => this.Model.query())
           .then(models => {
             assert.deepEqual(models.length, 3);
