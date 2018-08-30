@@ -21,10 +21,9 @@ module.exports = {
         return knex('profiles')
           .first()
           .then(profile => {
-            return knex('projects').insert({
-              licenceHolderId: profile.id,
-              ...project
-            });
+            return knex('projects')
+              .where('licenceNumber', project.licenceNumber)
+              .update({ licenceHolderId: profile.id });
           });
       })
     );
