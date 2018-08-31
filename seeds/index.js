@@ -16,5 +16,6 @@ exports.seed = knex => {
     .then(() => profiles.populate(knex))
     .then(() => places.populate(knex))
     .then(() => projects.populate(knex))
+    .then(() => projects.populateList(knex))
     .then(() => trainingModules.populate(knex));
 };
