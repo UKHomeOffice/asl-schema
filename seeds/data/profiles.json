@@ -21,6 +21,60 @@
     ]
   },
   {
+    "userId": "ae7458db-4688-452b-bddb-ea3971dd02bc",
+    "title": "Mr",
+    "firstName": "Read",
+    "lastName": "Only",
+    "dob": "1985-09-24",
+    "email": "read.only@croydon.ac.uk",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "read"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "read"
+      }
+    ]
+  },
+  {
+    "userId": "f4c6fe14-15b4-403b-89e6-7e31913284c1",
+    "title": "Mr",
+    "firstName": "Basic",
+    "lastName": "User",
+    "dob": "1970-10-27",
+    "email": "basic.user@croydon.ac.uk",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "userId": "33d2022b-37ba-47e6-aea3-ba3d3ecf2dd4",
+    "title": "Mr",
+    "firstName": "Mixed",
+    "lastName": "Permissions",
+    "dob": "1985-09-24",
+    "email": "mixed.permissions@croydon.ac.uk",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "read"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "establishmentId": 8201,
     "title": "Mrs",
     "firstName": "Cele",
