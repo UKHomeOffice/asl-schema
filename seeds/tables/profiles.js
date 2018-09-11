@@ -1,12 +1,21 @@
 const { omit, pick } = require('lodash');
 const profiles = require('../data/profiles.json');
+const projects = require('../data/projects.json');
 
 module.exports = {
   populate: knex => {
     return Promise.all(
       profiles.map(profile => {
         return knex('profiles')
-          .insert(omit(profile, ['conditions', 'establishmentId', 'issueDate', 'licenceNumber', 'roles', 'permissions']))
+          .insert(omit(profile, [
+            'conditions',
+            'establishmentId',
+            'issueDate',
+            'licenceNumber',
+            'roles',
+            'permissions',
+            'projectId'
+          ]))
           .returning('id')
           .then(ids => ids[0])
           .then(profileId => {
@@ -35,6 +44,17 @@ module.exports = {
                     profileId,
                     status: 'active',
                     ...pick(profile, ['conditions', 'establishmentId', 'issueDate', 'licenceNumber'])
+                  });
+              })
+              .then(() => {
+                if (!profile.projectId) {
+                  return;
+                }
+                console.log(profile.projectId);
+                return knex('projects')
+                  .insert({
+                    licenceHolderId: profileId,
+                    ...projects.find(p => p.id === profile.projectId)
                   });
               })
               .then(() => {

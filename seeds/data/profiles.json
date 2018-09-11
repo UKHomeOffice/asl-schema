@@ -9,7 +9,7 @@
     "position": "University Vice-Chancellor",
     "qualifications": "BLib",
     "certifications": "",
-    "address": "Lunar House\nSydenham Road,\nCroydon\nLondon\nCR0 2FH",
+    "address": "Lunar House\nSydenham Road,\nCroydon\nLondon",
     "postcode": "CR0 2YF",
     "email": "vice-chancellor@croydon.ac.uk",
     "telephone": "01840 345 678",
@@ -45,6 +45,7 @@
     "lastName": "User",
     "dob": "1970-10-27",
     "email": "basic.user@croydon.ac.uk",
+    "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "permissions": [
       {
         "establishmentId": 8201,

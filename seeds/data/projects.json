@@ -1,5 +1,13 @@
 [
   {
+    "id": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
+    "establishmentId": 8201,
+    "title": "Basic user project",
+    "issueDate": "2017-02-05",
+    "expiryDate": "2019-10-01",
+    "licenceNumber": "PR-250872"
+  },
+  {
     "establishmentId": 8201,
     "title": "Search for the luminescent aether",
     "issueDate": "2016-02-05",

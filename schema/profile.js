@@ -1,5 +1,7 @@
+const { ref } = require('objection');
 const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
+const Role = require('./role');
 const { date, uuid } = require('../lib/regex-validation');
 
 class Profile extends BaseModel {
@@ -35,6 +37,37 @@ class Profile extends BaseModel {
     };
   }
 
+  static scopeToParams(params) {
+    return {
+      getAll: () => this.getProfiles(params),
+      getNamed: () => this.getNamedProfiles(params)
+    };
+  }
+
+  static scopeSingle(params) {
+    return {
+      get: () => this.get(params),
+      getNamed: () => this.getNamed(params)
+    };
+  }
+
+  static get({ query, id, establishmentId }) {
+    query = query || this.query();
+    return query
+      .findById(id)
+      .where('establishments.id', establishmentId)
+      .joinRelation('establishments')
+      .eager('[roles.places, establishments, pil, projects, trainingModules]');
+  }
+
+  static getNamed({ userId, ...params }) {
+    const query = this.query().where(builder => {
+      return builder.whereExists(Role.query().select(1).where('profiles.id', ref('roles.profileId')))
+        .orWhere('profiles.id', userId);
+    });
+    return this.get({ query, ...params });
+  }
+
   static get virtualAttributes() {
     return ['name'];
   }
@@ -43,16 +76,20 @@ class Profile extends BaseModel {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  static getFilterOptions(establishmentId) {
-    return this.query()
+  static getFilterOptions({ query, establishmentId }) {
+    query = query || this.query();
+
+    return query
       .scopeToEstablishment('establishments.id', establishmentId)
       .joinRelation('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
   }
 
-  static count(establishmentId) {
-    return this.query()
+  static count({ query, establishmentId }) {
+    query = query || this.query();
+
+    return query
       .scopeToEstablishment('establishments.id', establishmentId)
       .count()
       .then(result => result[0].count);
@@ -78,18 +115,28 @@ class Profile extends BaseModel {
   }
 
   static searchAndFilter({
+    query,
     establishmentId,
     search,
+    filters = {},
     limit,
     offset,
-    sort = {},
-    filters = {}
+    sort = {}
   }) {
-    let query = this.query()
+    query = query || this.query();
+
+    query
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId)
       .leftJoinRelation('[pil, projects, roles]')
-      .eager('[pil, projects, establishments, roles]');
+      .eager('[pil, projects, establishments, roles]')
+      .where(builder => {
+        if (search) {
+          return builder
+            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
+            .orWhere(builder => this.searchFullName({ search, query: builder }));
+        }
+      });
 
     if (filters.roles && filters.roles.length) {
       const roles = compact(filters.roles);
@@ -108,15 +155,6 @@ class Profile extends BaseModel {
       }
     }
 
-    if (search) {
-      query
-        .where(builder => {
-          return builder
-            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
-            .orWhere(builder => this.searchFullName({ search, query: builder }));
-        });
-    }
-
     query = this.paginate({ query, limit, offset });
 
     if (sort.column) {
@@ -126,6 +164,32 @@ class Profile extends BaseModel {
     }
 
     return query;
+  }
+
+  static getProfiles(params) {
+    return Promise.all([
+      this.getFilterOptions(params),
+      this.count(params),
+      this.searchAndFilter(params)
+    ])
+      .then(([filters, total, profiles]) => ({ filters, total, profiles }));
+  }
+
+  static getNamedProfiles({ userId, ...params }) {
+    const namedPeople = () => {
+      return this.query()
+        .where(builder => {
+          return builder.whereExists(Role.query().select(1).where('profiles.id', ref('roles.profileId')))
+            .orWhere('profiles.id', userId);
+        });
+    };
+
+    return Promise.all([
+      this.getFilterOptions({ query: namedPeople(), ...params }),
+      this.count({ query: namedPeople(), ...params }),
+      this.searchAndFilter({ query: namedPeople(), ...params })
+    ])
+      .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
 
   static get relationMappings() {
