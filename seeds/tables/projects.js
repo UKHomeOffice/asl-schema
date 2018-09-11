@@ -4,7 +4,7 @@ const projects = require('../data/projects.json');
 module.exports = {
   populate: knex => {
     return Promise.all(
-      projects.map(project => {
+      projects.filter(p => !p.id).map(project => {
         return knex('profiles').then(profiles => {
           return knex('projects').insert({
             licenceHolderId: sample(profiles).id,
@@ -15,10 +15,11 @@ module.exports = {
     );
   },
   populateList: knex => {
-    const projectsList = sampleSize(projects, 5);
+    const projectsList = sampleSize(projects.filter(p => !p.id), 5);
     return Promise.all(
       projectsList.map(project => {
         return knex('profiles')
+          .where('firstName', '!=', 'Basic')
           .first()
           .then(profile => {
             return knex('projects')

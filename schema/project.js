@@ -31,36 +31,87 @@ class Project extends BaseModel {
     };
   }
 
-  static count(establishmentId) {
+  static scopeToParams(params) {
+    return {
+      getAll: () => this.getProjects(params),
+      getOwn: () => this.getOwnProjects(params)
+    };
+  }
+
+  static scopeSingle(params) {
+    return {
+      get: () => this.get(params),
+      getOwn: () => this.getOwn(params)
+    };
+  }
+
+  static get({ establishmentId, id }) {
     return this.query()
+      .scopeToEstablishment('establishmentId', establishmentId)
+      .findById(id)
+      .eager('licenceHolder');
+  }
+
+  static getOwn({ establishmentId, id, licenceHolderId }) {
+    return this.query()
+      .scopeToEstablishment('establishmentId', establishmentId)
+      .where({ licenceHolderId })
+      .findById(id)
+      .eager('licenceHolder');
+  }
+
+  static getOwnProjects({
+    user,
+    ...props
+  }) {
+    return Promise.all([
+      this.count({ query: this.query().where({ licenceHolderId: user.id }), ...props }),
+      this.search({ query: this.query().where({ licenceHolderId: user.id }), ...props })
+    ])
+      .then(([total, projects]) => ({ total, projects }));
+  }
+
+  static getProjects(props) {
+    return Promise.all([
+      this.count(props),
+      this.search(props)
+    ])
+      .then(([total, projects]) => ({ total, projects }));
+  }
+
+  static count({ query, establishmentId }) {
+    query = query || this.query();
+
+    return query
       .where({ establishmentId })
       .where('expiryDate', '>=', new Date())
       .count()
       .then(result => result[0].count);
   }
 
-  static search({ establishmentId, search, sort = {}, limit, offset }) {
-    let query = this.query()
+  static search({ query, establishmentId, search, sort = {}, limit, offset }) {
+    query = query || this.query();
+
+    query
       .distinct('projects.*')
       .where({ establishmentId })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
-      .eager('licenceHolder');
-
-    if (search) {
-      query.where(builder => {
-        return builder
-          .where('projects.title', 'iLike', `%${search}%`)
-          .orWhere('licenceNumber', 'iLike', `%${search}%`)
-          .orWhere(b => {
-            Profile.searchFullName({
-              search,
-              prefix: 'licenceHolder',
-              query: b
+      .eager('licenceHolder')
+      .where(builder => {
+        if (search) {
+          return builder
+            .where('projects.title', 'iLike', `%${search}%`)
+            .orWhere('licenceNumber', 'iLike', `%${search}%`)
+            .orWhere(b => {
+              Profile.searchFullName({
+                search,
+                prefix: 'licenceHolder',
+                query: b
+              });
             });
-          });
+        }
       });
-    }
 
     if (sort.column) {
       query = this.orderBy({ query, sort });
