@@ -137,7 +137,7 @@ describe('Project model', () => {
 
     describe('getOwnProjects', () => {
       it('returns only the users non-expired projects', () => {
-        const expectedTiles = [
+        const expectedTitles = [
           'Anti cancer research',
           'Some more research'
         ];
@@ -153,7 +153,7 @@ describe('Project model', () => {
           }))
           .then(({ projects: { results } }) => {
             assert.deepEqual(results.length, 2);
-            expectedTiles.forEach(title => {
+            expectedTitles.forEach(title => {
               assert.ok(results.find(p => p.title === title));
             });
 
