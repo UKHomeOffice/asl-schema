@@ -121,4 +121,82 @@ describe('Project model', () => {
         });
     });
   });
+
+  describe('scoped methods', () => {
+    it('exports a scopeToParams method which exposes scoped getAll and getNamed methods', () => {
+      const projects = this.models.Project.scopeToParams({});
+      assert.ok(projects.getOwn);
+      assert.ok(projects.getAll);
+    });
+
+    it('exports a scopeSingle method which exposes scoped getAll and getNamed methods', () => {
+      const project = this.models.Project.scopeSingle({});
+      assert.ok(project.getOwn);
+      assert.ok(project.get);
+    });
+
+    describe('getOwnProjects', () => {
+      it('returns only the users non-expired projects', () => {
+        const expectedTitles = [
+          'Anti cancer research',
+          'Some more research'
+        ];
+        const notExpectedTitles = [
+          'Some expired research',
+          'Some more expired research',
+          'Hair loss prevention'
+        ];
+        return Promise.resolve()
+          .then(() => this.models.Project.getOwnProjects({
+            licenceHolderId: '781d8d17-9c00-4f3d-8734-c1a469426546',
+            establishmentId: 8201
+          }))
+          .then(({ projects: { results } }) => {
+            assert.deepEqual(results.length, 2);
+            expectedTitles.forEach(title => {
+              assert.ok(results.find(p => p.title === title));
+            });
+
+            notExpectedTitles.forEach(title => {
+              assert.deepEqual(results.find(p => p.title === title), null);
+            });
+          });
+      });
+    });
+
+    describe('getOwn', () => {
+      it('can retrieve own project', () => {
+        const licenceHolderId = '781d8d17-9c00-4f3d-8734-c1a469426546';
+        const title = 'Anti cancer research';
+        return Promise.resolve()
+          .then(() => this.models.Project.query().where({ title }))
+          .then(projects => projects[0])
+          .then(({ id }) => this.models.Project.getOwn({
+            licenceHolderId,
+            establishmentId: 8201,
+            id
+          }))
+          .then(project => {
+            assert.ok(project);
+            assert.deepEqual(project.title, title);
+          });
+      });
+
+      it('cannot retrieve other projects', () => {
+        const licenceHolderId = '781d8d17-9c00-4f3d-8734-c1a469426546';
+        const title = 'Hair loss prevention';
+        return Promise.resolve()
+          .then(() => this.models.Project.query().where({ title }))
+          .then(projects => projects[0])
+          .then(({ id }) => this.models.Project.getOwn({
+            licenceHolderId,
+            establishmentId: 8201,
+            id
+          }))
+          .then(project => {
+            assert.deepEqual(project, null);
+          });
+      });
+    });
+  });
 });

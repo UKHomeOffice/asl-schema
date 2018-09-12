@@ -16,7 +16,7 @@ describe('Profile model', () => {
           name: 'An establishment',
           email: 'an@establishment.com',
           country: 'england',
-          address: '123 Somwhere street',
+          address: '123 Somewhere street',
           profiles: [
             {
               firstName: 'Vincent',
@@ -267,6 +267,108 @@ describe('Profile model', () => {
           assert.deepEqual(profiles.results[1].firstName, 'Keith');
           assert.deepEqual(profiles.results[2].firstName, 'Bruce');
         });
+    });
+  });
+
+  describe('scoped methods', () => {
+    it('exports a scopeToParams method which exposes scoped getAll and getNamed methods', () => {
+      const profiles = this.models.Profile.scopeToParams({});
+      assert.ok(profiles.getNamed);
+      assert.ok(profiles.getAll);
+    });
+
+    it('exports a scopeSingle method which exposes scoped get and getNamed methods', () => {
+      const profile = this.models.Profile.scopeSingle({});
+      assert.ok(profile.getNamed);
+      assert.ok(profile.get);
+    });
+
+    describe('getNamedProfiles', () => {
+      it('only returns named people and own profile', () => {
+        const expected = [
+          'vincent@malloy.com',
+          'keith@lemon.com',
+          'bruce@forsyth.com'
+        ];
+        const notExpected = [
+          'sterling@archer.com',
+          'stuart@litte.com'
+        ];
+        return Promise.resolve()
+          .then(() => this.models.Profile.query().where({ email: expected[0] }))
+          .then(profiles => profiles[0])
+          .then(profile => this.models.Profile.getNamedProfiles({
+            userId: profile.id,
+            establishmentId: 8201
+          }))
+          .then(({ profiles }) => {
+            assert.deepEqual(profiles.results.length, 3);
+            expected.forEach(email => {
+              assert.ok(profiles.results.find(p => p.email === email));
+            });
+            notExpected.forEach(email => {
+              assert.deepEqual(profiles.results.find(p => p.email === email), null);
+            });
+          });
+      });
+    });
+
+    describe('getNamed', () => {
+      it('can retrieve own profile', () => {
+        const email = 'vincent@malloy.com';
+        return Promise.resolve()
+          .then(() => this.models.Profile.query().where({ email: 'vincent@malloy.com' }))
+          .then(profiles => profiles[0])
+          .then(profile => this.models.Profile.getNamed({
+            id: profile.id,
+            userId: profile.id,
+            establishmentId: 8201
+          }))
+          .then(profile => {
+            assert.ok(profile);
+            assert.deepEqual(profile.email, email);
+          });
+      });
+
+      it('can retrieve the profile of a named person', () => {
+        const email = 'vincent@malloy.com';
+        const namedPersonEmail = 'keith@lemon.com';
+
+        return Promise.all([
+          this.models.Profile.query().where({ email }),
+          this.models.Profile.query().where({ email: namedPersonEmail })
+        ])
+          .then(([userProfile, namedPersonProfile]) => {
+            return this.models.Profile.getNamed({
+              id: namedPersonProfile[0].id,
+              userId: userProfile[0].id,
+              establishmentId: 8201
+            });
+          })
+          .then(profile => {
+            assert.deepEqual(profile.email, namedPersonEmail);
+          });
+      });
+
+      it('cannot retrieve the profile of non named person', () => {
+        const email = 'vincent@malloy.com';
+        const requestedProfileEmail = 'sterling@archer.com';
+
+        return Promise.all([
+          this.models.Profile.query().where({ email }),
+          this.models.Profile.query().where({ email: requestedProfileEmail })
+        ])
+          .then(([userProfile, requestedProfile]) => {
+            return this.models.Profile.getNamed({
+              id: requestedProfile[0].id,
+              userId: userProfile[0].id,
+              establishmentId: 8201
+            });
+          })
+          .then(profile => {
+            assert.deepEqual(profile, null);
+          });
+      });
     });
   });
 });
