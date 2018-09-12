@@ -47,26 +47,26 @@ class Project extends BaseModel {
 
   static get({ establishmentId, id }) {
     return this.query()
-      .scopeToEstablishment('establishmentId', establishmentId)
+      .where({ establishmentId })
       .findById(id)
       .eager('licenceHolder');
   }
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
     return this.query()
-      .scopeToEstablishment('establishmentId', establishmentId)
+      .where({ establishmentId })
       .where({ licenceHolderId })
       .findById(id)
       .eager('licenceHolder');
   }
 
   static getOwnProjects({
-    user,
+    userId,
     ...props
   }) {
     return Promise.all([
-      this.count({ query: this.query().where({ licenceHolderId: user.id }), ...props }),
-      this.search({ query: this.query().where({ licenceHolderId: user.id }), ...props })
+      this.count({ query: this.query().where({ licenceHolderId: userId }), ...props }),
+      this.search({ query: this.query().where({ licenceHolderId: userId }), ...props })
     ])
       .then(([total, projects]) => ({ total, projects }));
   }
