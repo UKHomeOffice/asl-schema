@@ -61,12 +61,12 @@ class Project extends BaseModel {
   }
 
   static getOwnProjects({
-    userId,
+    licenceHolderId,
     ...props
   }) {
     return Promise.all([
-      this.count({ query: this.query().where({ licenceHolderId: userId }), ...props }),
-      this.search({ query: this.query().where({ licenceHolderId: userId }), ...props })
+      this.count({ query: this.query().where({ licenceHolderId }), ...props }),
+      this.search({ query: this.query().where({ licenceHolderId }), ...props })
     ])
       .then(([total, projects]) => ({ total, projects }));
   }

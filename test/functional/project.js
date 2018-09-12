@@ -148,7 +148,7 @@ describe('Project model', () => {
         ];
         return Promise.resolve()
           .then(() => this.models.Project.getOwnProjects({
-            userId: '781d8d17-9c00-4f3d-8734-c1a469426546',
+            licenceHolderId: '781d8d17-9c00-4f3d-8734-c1a469426546',
             establishmentId: 8201
           }))
           .then(({ projects: { results } }) => {
