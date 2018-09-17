@@ -13,9 +13,13 @@ const parseFn = val => {
   return val === null ? null : moment(val).toISOString();
 };
 
+const dateParseFn = val => {
+  return val === null ? null : moment(val).format('YYYY-DD-MM');
+}
+
 types.setTypeParser(TIMESTAMPTZ_OID, parseFn);
 types.setTypeParser(TIMESTAMP_OID, parseFn);
-types.setTypeParser(DATE_OID, parseFn);
+types.setTypeParser(DATE_OID, dateParseFn);
 
 module.exports = connection => {
 
