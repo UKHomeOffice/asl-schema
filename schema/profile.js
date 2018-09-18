@@ -17,7 +17,7 @@ class Profile extends BaseModel {
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         'migrated_id': { type: ['string', 'null'] },
-        userId: { type: 'string' },
+        userId: { type: ['string', 'null'] },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
         lastName: { type: 'string' },
