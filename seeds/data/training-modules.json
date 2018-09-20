@@ -30,7 +30,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/10/23",
     "not_applicable": false,
     "accrediting_body": "Ecole Supérieure de Chimie Physique Electronique de Lyon",
@@ -70,7 +71,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2009/02/05",
     "not_applicable": false,
     "accrediting_body": "",
@@ -80,7 +82,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2011/12/05",
     "not_applicable": false,
     "accrediting_body": "Russian-Armenian (Slavonic) State University",
@@ -130,7 +133,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/06/04",
     "not_applicable": false,
     "accrediting_body": "Universidad de Oviedo",
@@ -300,7 +304,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/09/04",
     "not_applicable": false,
     "accrediting_body": "University of Zambia",
@@ -390,7 +395,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2012/04/25",
     "not_applicable": true,
     "accrediting_body": "Universidad Fray Luca Paccioli",
@@ -430,7 +436,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2000/04/18",
     "not_applicable": true,
     "accrediting_body": "Valdosta State University",
@@ -540,7 +547,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/02/15",
     "not_applicable": false,
     "accrediting_body": "Tyumen State University",
@@ -580,7 +588,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2010/04/08",
     "not_applicable": true,
     "accrediting_body": "University of New Mexico",
@@ -710,7 +719,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2002/04/20",
     "not_applicable": true,
     "accrediting_body": "Marlboro College",
@@ -800,7 +810,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2010/11/23",
     "not_applicable": true,
     "accrediting_body": "International School of Management",
@@ -900,7 +911,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2005/01/04",
     "not_applicable": true,
     "accrediting_body": "",
@@ -970,7 +982,8 @@
     "exemption_description": ""
   },
   {
-    "module": "PILAt",
+    "module": "PILAt", 
+    "species": ["rats", "rabbits"],
     "pass_date": "2007/05/24",
     "not_applicable": true,
     "accrediting_body": "University of Patras",
