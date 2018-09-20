@@ -1,4 +1,4 @@
-const { sample } = require('lodash');
+const { sample, mapValues } = require('lodash');
 const trainingModules = require('../data/training-modules.json');
 
 module.exports = {
@@ -7,8 +7,13 @@ module.exports = {
       .then(() => knex('profiles'))
       .then(profiles => Promise.all(trainingModules.map(trainingModule => {
         return knex('trainingModules').insert({
-          ...trainingModule,
-          profileId: sample(profiles).id
+          profileId: sample(profiles).id,
+          ...mapValues(trainingModule, (val, key) => {
+            if (key === 'species') {
+              return JSON.stringify(val);
+            }
+            return val;
+          })
         });
       })));
   },

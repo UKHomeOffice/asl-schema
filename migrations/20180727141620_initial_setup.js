@@ -116,7 +116,7 @@ exports.up = function(knex, Promise) {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('migrated_id');
       table.string('module');
-      table.array('species');
+      table.jsonb('species');
       table.date('pass_date');
       table.boolean('not_applicable').defaultsTo(false);
       table.string('accrediting_body');
