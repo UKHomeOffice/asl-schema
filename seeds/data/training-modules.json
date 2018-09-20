@@ -31,7 +31,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/10/23",
     "not_applicable": false,
     "accrediting_body": "Ecole Supérieure de Chimie Physique Electronique de Lyon",
@@ -72,7 +72,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2009/02/05",
     "not_applicable": false,
     "accrediting_body": "",
@@ -83,7 +83,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2011/12/05",
     "not_applicable": false,
     "accrediting_body": "Russian-Armenian (Slavonic) State University",
@@ -134,7 +134,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/06/04",
     "not_applicable": false,
     "accrediting_body": "Universidad de Oviedo",
@@ -305,7 +305,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/09/04",
     "not_applicable": false,
     "accrediting_body": "University of Zambia",
@@ -396,7 +396,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2012/04/25",
     "not_applicable": true,
     "accrediting_body": "Universidad Fray Luca Paccioli",
@@ -437,7 +437,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2000/04/18",
     "not_applicable": true,
     "accrediting_body": "Valdosta State University",
@@ -548,7 +548,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2004/02/15",
     "not_applicable": false,
     "accrediting_body": "Tyumen State University",
@@ -589,7 +589,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2010/04/08",
     "not_applicable": true,
     "accrediting_body": "University of New Mexico",
@@ -720,7 +720,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2002/04/20",
     "not_applicable": true,
     "accrediting_body": "Marlboro College",
@@ -811,7 +811,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2010/11/23",
     "not_applicable": true,
     "accrediting_body": "International School of Management",
@@ -912,7 +912,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2005/01/04",
     "not_applicable": true,
     "accrediting_body": "",
@@ -983,7 +983,7 @@
   },
   {
     "module": "PILAt", 
-    "species": ["rats", "shwabbits"],
+    "species": ["rats", "rabbits"],
     "pass_date": "2007/05/24",
     "not_applicable": true,
     "accrediting_body": "University of Patras",
