@@ -9,7 +9,7 @@ class TrainingModule extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [],
+      required: ['profileId', 'module'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
@@ -28,7 +28,7 @@ class TrainingModule extends BaseModel {
         certificate_number: { type: 'string' },
         exemption: { type: 'boolean' },
         exemption_description: { type: 'text' },
-        profileId: { type: 'string' },
+        profileId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
         'created_at': { type: 'string', format: 'date-time' },
         'updated_at': { type: 'string', format: 'date-time' },
