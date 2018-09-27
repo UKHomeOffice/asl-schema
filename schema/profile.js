@@ -30,6 +30,10 @@ class Profile extends BaseModel {
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
+        'asru_user': { type: 'boolean' },
+        'asru_admin': { type: 'boolean' },
+        'asru_licensing': { type: 'boolean' },
+        'asru_inspector': { type: 'boolean' },
         'created_at': { type: 'string', format: 'date-time' },
         'updated_at': { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
