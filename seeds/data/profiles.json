@@ -76,6 +76,18 @@
     ]
   },
   {
+    "userId": "0c3679b6-730e-4ce0-a943-3f9694ab7e9b",
+    "title": "Dr",
+    "firstName": "Inspector",
+    "lastName": "Morse",
+    "dob": "1985-09-24",
+    "email": "asru-inspector@homeoffice.gov.uk",
+    "asru_user": true,
+    "asru_admin": true,
+    "asru_inspector": true,
+    "asru_licensing": false
+  },
+  {
     "establishmentId": 8201,
     "title": "Mrs",
     "firstName": "Cele",
