@@ -14,7 +14,7 @@ const parseFn = val => {
 };
 
 const dateParseFn = val => {
-  return val === null ? null : moment(val).format('YYYY-DD-MM');
+  return val === null ? null : moment(val).format('YYYY-MM-DD');
 };
 
 types.setTypeParser(TIMESTAMPTZ_OID, parseFn);
