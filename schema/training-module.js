@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+const { date, uuid } = require('../lib/regex-validation');
 
 class TrainingModule extends BaseModel {
   static get tableName() {
@@ -21,7 +21,7 @@ class TrainingModule extends BaseModel {
             type: 'string'
           }
         },
-        pass_date: { type: 'string', format: 'date-time' },
+        pass_date: { type: 'string', pattern: date.yearMonthDay },
         not_applicable: { type: 'boolean' },
         accrediting_body: { type: 'string' },
         other_accrediting_body: { type: 'string' },
