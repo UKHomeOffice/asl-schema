@@ -6,8 +6,8 @@ module.exports = {
     return Promise.resolve()
       .then(() => knex('profiles'))
       .then(profiles => Promise.all(trainingModules.map(trainingModule => {
-        return knex('trainingModules').insert({
-          profileId: sample(profiles).id,
+        return knex('training_modules').insert({
+          profile_id: sample(profiles).id,
           ...mapValues(trainingModule, (val, key) => {
             if (key === 'species') {
               return JSON.stringify(val);
@@ -17,5 +17,5 @@ module.exports = {
         });
       })));
   },
-  delete: knex => knex('trainingModules').del()
+  delete: knex => knex('training_modules').del()
 };
