@@ -212,7 +212,7 @@ class Profile extends BaseModel {
         modelClass: `${__dirname}/training-module`,
         join: {
           from: 'profiles.id',
-          to: 'trainingModules.profileId'
+          to: 'training_modules.profile_id'
         }
       },
       establishments: {

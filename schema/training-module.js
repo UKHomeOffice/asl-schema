@@ -3,17 +3,17 @@ const { uuid } = require('../lib/regex-validation');
 
 class TrainingModule extends BaseModel {
   static get tableName() {
-    return 'trainingModules';
+    return 'training_modules';
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['profileId', 'module'],
+      required: ['profile_id', 'module'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        'migrated_id': { type: ['string', 'null'] },
+        migrated_id: { type: ['string', 'null'] },
         module: { type: 'string' },
         species: {
           type: 'array',
@@ -28,10 +28,9 @@ class TrainingModule extends BaseModel {
         certificate_number: { type: 'string' },
         exemption: { type: 'boolean' },
         exemption_description: { type: 'text' },
-        profileId: { type: 'string', pattern: uuid.v4 },
-        establishmentId: { type: 'integer' },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        profile_id: { type: 'string', pattern: uuid.v4 },
+        created_at: { type: 'string', format: 'date-time' },
+        updated_at: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
