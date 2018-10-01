@@ -107,7 +107,7 @@ class Establishment extends BaseModel {
     };
   }
 
-  count() {
+  static count() {
     return this.query()
       .count()
       .then(results => results[0])
