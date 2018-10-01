@@ -9,16 +9,19 @@ class TrainingModule extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['profile_id', 'module'],
+      required: ['profile_id'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         migrated_id: { type: ['string', 'null'] },
-        module: { type: 'string' },
-        species: {
+        modules: {
           type: 'array',
           items: {
-            type: 'string'
+            type: 'object',
+            properties: {
+              module: { type: 'string' },
+              species: { type: 'array', items: { type: 'string' } }
+            }
           }
         },
         pass_date: { type: 'string', pattern: date.yearMonthDay },
