@@ -107,6 +107,13 @@ class Establishment extends BaseModel {
     };
   }
 
+  count() {
+    return this.query()
+      .count()
+      .then(results => results[0])
+      .then(result => result.count);
+  }
+
   getPELH() {
     return this.$relatedQuery('roles')
       .where('type', 'pelh')
