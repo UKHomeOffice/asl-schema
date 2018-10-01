@@ -88,6 +88,18 @@
     "asru_licensing": false
   },
   {
+    "userId": "dee8605d-2113-4411-8a0a-dc131af87a76",
+    "title": "Miss",
+    "firstName": "Li Sen",
+    "lastName": "Xing",
+    "dob": "1985-09-24",
+    "email": "asru-licensing@homeoffice.gov.uk",
+    "asru_user": true,
+    "asru_admin": true,
+    "asru_inspector": false,
+    "asru_licensing": true
+  },
+  {
     "establishmentId": 8201,
     "title": "Mrs",
     "firstName": "Cele",
