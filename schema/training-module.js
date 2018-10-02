@@ -12,7 +12,7 @@ class TrainingModule extends BaseModel {
       required: ['profile_id'],
       additionalProperties: false,
       properties: {
-        id: { type: ['string', 'null'], pattern: uuid.v4 },
+        id: { type: 'string', pattern: uuid.v4 },
         migrated_id: { type: ['string', 'null'] },
         modules: {
           type: ['array', 'null'],
@@ -25,11 +25,11 @@ class TrainingModule extends BaseModel {
           }
         },
         pass_date: { type: 'string', pattern: date.yearMonthDay },
-        not_applicable: { type: ['boolean', 'null'] },
+        not_applicable: { type: 'boolean' },
         accrediting_body: { type: ['string', 'null'] },
         other_accrediting_body: { type: ['string', 'null'] },
         certificate_number: { type: ['string', 'null'] },
-        exemption: { type: ['boolean', 'null'] },
+        exemption: { type: 'boolean' },
         exemption_description: { type: ['text', 'null'] },
         profile_id: { type: 'string', pattern: uuid.v4 },
         created_at: { type: 'string', format: 'date-time' },
