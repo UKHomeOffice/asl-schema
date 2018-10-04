@@ -23,7 +23,7 @@ class PIL extends BaseModel {
         created_at: { type: 'string', format: 'date-time' },
         updated_at: { type: 'string', format: 'date-time' },
         establishment_id: { type: 'integer' },
-        profile_id: { type: 'string' },
+        profile_id: { type: 'string', pattern: uuid.v4 },
         deleted: { type: ['string', 'null'], format: 'date-time' },
         procedures: {
           type: ['array', 'null'],
