@@ -93,7 +93,7 @@ class Establishment extends BaseModel {
         modelClass: `${__dirname}/pil`,
         join: {
           from: 'establishments.id',
-          to: 'pils.establishmentId'
+          to: 'pils.establishment_id'
         }
       },
       projects: {

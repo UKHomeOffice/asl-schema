@@ -9,9 +9,9 @@ module.exports = {
         return knex('profiles')
           .insert(omit(profile, [
             'conditions',
-            'establishmentId',
-            'issueDate',
-            'licenceNumber',
+            'establishment_id',
+            'issue_date',
+            'licence_number',
             'roles',
             'permissions',
             'projectId'
@@ -36,14 +36,14 @@ module.exports = {
                 })));
               })
               .then(() => {
-                if (!profile.licenceNumber) {
+                if (!profile.licence_number) {
                   return;
                 }
                 return knex('pils')
                   .insert({
-                    profileId,
+                    profile_id: profileId,
                     status: 'active',
-                    ...pick(profile, ['conditions', 'establishmentId', 'issueDate', 'licenceNumber'])
+                    ...pick(profile, ['conditions', 'establishment_id', 'issue_date', 'licence_number'])
                   });
               })
               .then(() => {
