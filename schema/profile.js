@@ -137,7 +137,7 @@ class Profile extends BaseModel {
       .where(builder => {
         if (search) {
           return builder
-            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
+            .where('pil.licence_number', 'iLike', search && `%${search}%`)
             .orWhere(builder => this.searchFullName({ search, query: builder }));
         }
       });
@@ -248,7 +248,7 @@ class Profile extends BaseModel {
         modelClass: `${__dirname}/pil`,
         join: {
           from: 'profiles.id',
-          to: 'pils.profileId'
+          to: 'pils.profile_id'
         }
       },
       projects: {
