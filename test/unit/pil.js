@@ -13,7 +13,7 @@ describe('Pil', () => {
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       establishment_id: 100,
-      profile_id: 'abcd1234',
+      profile_id: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       status: 'ok'
     };
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /allowed values/);
@@ -23,7 +23,7 @@ describe('Pil', () => {
     const badJson = {
       id: 'this is not a uuid v4',
       establishment_id: 100,
-      profile_id: 'abcd1234',
+      profile_id: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       revocationDate: null
     };
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /id: should match pattern/);
@@ -32,7 +32,7 @@ describe('Pil', () => {
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       establishment_id: 100,
-      profile_id: 'abcd1234',
+      profile_id: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       unknown: 'example'
     };
     expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
@@ -42,7 +42,7 @@ describe('Pil', () => {
     const goodJson = {
       id: 'e19980f1-ebb7-4a1a-af57-8162736a1252',
       establishment_id: 100,
-      profile_id: 'abcd1234'
+      profile_id: '8EAF8190-2312-4EC9-A5A4-806ED573301F'
     };
     expect(Pil.fromJson(goodJson)).to.be.an('object');
   });
@@ -50,7 +50,7 @@ describe('Pil', () => {
   it('allows null values for non-required fields', () => {
     const goodJson = {
       establishment_id: 100,
-      profile_id: 'abcd1234',
+      profile_id: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       revocation_date: null
     };
     expect(Pil.fromJson(goodJson)).to.be.an('object');
