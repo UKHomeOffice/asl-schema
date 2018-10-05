@@ -37,7 +37,7 @@ To query the database, we use [Objection.js ORM](http://vincit.github.io/objecti
 To generate migration:
 
 ```bash
-knex migrate:make <_migration-file-name_>
+knex migrate:make <migration-file-name>
 ```
 The migration is generated with:
 
