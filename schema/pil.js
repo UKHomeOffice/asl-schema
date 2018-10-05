@@ -10,27 +10,27 @@ class PIL extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['establishment_id', 'profile_id'],
+      required: ['establishmentId', 'profileId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        migrated_id: { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         status: { type: 'string', enum: pilStatuses },
-        issue_date: { type: ['string', 'null'], format: 'date-time' },
-        revocation_date: { type: ['string', 'null'], format: 'date-time' },
-        licence_number: { type: ['string', 'null'] },
+        issueDate: { type: ['string', 'null'], format: 'date-time' },
+        revocationDate: { type: ['string', 'null'], format: 'date-time' },
+        licenceNumber: { type: ['string', 'null'] },
         conditions: { type: ['string', 'null'] },
-        created_at: { type: 'string', format: 'date-time' },
-        updated_at: { type: 'string', format: 'date-time' },
-        establishment_id: { type: 'integer' },
-        profile_id: { type: 'string', pattern: uuid.v4 },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
+        establishmentId: { type: 'integer' },
+        profileId: { type: 'string', pattern: uuid.v4 },
         deleted: { type: ['string', 'null'], format: 'date-time' },
         procedures: {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        cat_d_notes: { type: ['string', 'null'] },
-        cat_f_notes: { type: ['string', 'null'] }
+        catDNotes: { type: ['string', 'null'] },
+        catFNotes: { type: ['string', 'null'] }
       }
     };
   }

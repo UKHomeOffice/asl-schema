@@ -13,7 +13,7 @@ class Establishment extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'integer' },
-        'migrated_id': { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
         status: { type: 'string', enum: establishmentStatuses },
@@ -29,8 +29,8 @@ class Establishment extends BaseModel {
         killing: { type: 'boolean' },
         rehomes: { type: 'boolean' },
         conditions: { type: 'boolean' },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
@@ -93,7 +93,7 @@ class Establishment extends BaseModel {
         modelClass: `${__dirname}/pil`,
         join: {
           from: 'establishments.id',
-          to: 'pils.establishment_id'
+          to: 'pils.establishmentId'
         }
       },
       projects: {

@@ -16,7 +16,7 @@ class Profile extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        'migrated_id': { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         userId: { type: ['string', 'null'] },
         title: { type: ['string', 'null'] },
         firstName: { type: 'string' },
@@ -34,8 +34,8 @@ class Profile extends BaseModel {
         'asru_admin': { type: 'boolean' },
         'asru_licensing': { type: 'boolean' },
         'asru_inspector': { type: 'boolean' },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
