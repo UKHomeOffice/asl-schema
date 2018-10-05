@@ -98,6 +98,18 @@ pipeline:
       environment: dev
       event: deployment
 
+  dev_seed:
+    image: quay.io/ukhomeofficedigital/kd:v0.5.0
+    secrets:
+      - kube_server
+      - kube_token_dev
+    commands:
+      - POD=$(kubectl --server=$${KUBE_SERVER} --namespace=asl-dev --token=$${KUBE_TOKEN_DEV} --insecure-skip-tls-verify=true get pods -o=jsonpath={.items[0].metadata.name} -l=name==database-admin)
+      - kubectl --server=$${KUBE_SERVER} --namespace=asl-dev --token=$${KUBE_TOKEN_DEV} --insecure-skip-tls-verify=true exec $POD -- npm run seed
+    when:
+      environment: dev
+      event: deployment
+
 services:
   database:
     image: postgres
