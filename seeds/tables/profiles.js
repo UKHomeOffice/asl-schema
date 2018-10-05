@@ -9,7 +9,6 @@ module.exports = {
         return knex('profiles')
           .insert(omit(profile, [
             'conditions',
-            'establishment_id',
             'issue_date',
             'licence_number',
             'roles',
@@ -23,17 +22,10 @@ module.exports = {
               .then(() => {
                 if (profile.permissions) {
                   return Promise.all(profile.permissions.map(permission => knex('permissions').insert({
-                    establishmentId: permission.establishmentId,
-                    role: permission.role,
+                    ...permission,
                     profileId
                   })));
                 }
-                const est = [].concat(profile.establishmentId).filter(Boolean);
-                return Promise.all(est.map(establishmentId => knex('permissions').insert({
-                  establishmentId,
-                  profileId,
-                  role: 'admin'
-                })));
               })
               .then(() => {
                 if (!profile.licence_number) {
