@@ -26,21 +26,55 @@ The following environment variables are required:
 
 * `DATABASE_NAME` - the name of your postgres database
 
-### Database setup
+### Implementation
 
-Scripts for setting up a local database with dev data are available in the [`asl-schema` project](https://github.com/ukhomeoffice/asl-schema). First clone that repo and install the dependencies. Then run the following commands in the schema project directory:
+To facilitate database connection using postgres, migrations, and seeds we use [knex](https://knexjs.org/).
 
-To setup the inital table schemas:
+To query the database, we use [Objection.js ORM](http://vincit.github.io/objection.js/#introduction).
 
+### Migrations
+
+To generate migration:
+
+```bash
+knex migrate:make <_migration-file-name_>
 ```
+The migration is generated with:
+
+```js
+exports.up = function(knex, Promise) {
+  
+};
+
+exports.down = function(knex, Promise) {
+  
+};
+```
+
+The migration goes within the body of the ```exports.up``` function.
+
+To undo migration, use ```exports.down```.
+
+For examples, check out folder ```migrations```.
+
+To run the migration:
+
+```bash
 npm run migrate
 ```
 
-To seed the database with a development dataset:
+**Note**: it will run _all_ migrations in the folder 
 
+To rollback migration:
+
+```bash
+npm run rollback
 ```
+
+### Database Seeding
+
+To seed , or add initial test data to the database:
+
+```bash
 npm run seed
 ```
-
-_Note: these scripts will require the database described by `DATABASE_NAME` to be created before they can run. If running against services run with [`asl-conductor`](https://github.com/ukhomeoffice/asl-conductor) then this will be done automatically._
-
