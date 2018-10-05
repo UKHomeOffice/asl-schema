@@ -1,4 +1,4 @@
-const { omit, pick } = require('lodash');
+const { omit } = require('lodash');
 const profiles = require('../data/profiles.json');
 const projects = require('../data/projects.json');
 
@@ -8,9 +8,7 @@ module.exports = {
       profiles.map(profile => {
         return knex('profiles')
           .insert(omit(profile, [
-            'conditions',
-            'issue_date',
-            'licence_number',
+            'pil',
             'roles',
             'permissions',
             'projectId'
@@ -28,21 +26,20 @@ module.exports = {
                 }
               })
               .then(() => {
-                if (!profile.licence_number) {
-                  return;
+                if (profile.pil && profile.permissions.length) {
+                  return knex('pils')
+                    .insert({
+                      ...profile.pil,
+                      establishment_id: profile.permissions[0].establishmentId,
+                      profile_id: profileId,
+                      status: 'active'
+                    });
                 }
-                return knex('pils')
-                  .insert({
-                    profile_id: profileId,
-                    status: 'active',
-                    ...pick(profile, ['conditions', 'establishment_id', 'issue_date', 'licence_number'])
-                  });
               })
               .then(() => {
                 if (!profile.projectId) {
                   return;
                 }
-                console.log(profile.projectId);
                 return knex('projects')
                   .insert({
                     licenceHolderId: profileId,
@@ -50,10 +47,11 @@ module.exports = {
                   });
               })
               .then(() => {
-                const roles = [].concat(profile.roles).filter(Boolean);
-                return Promise.all(roles.map(role => {
-                  return knex('roles').insert({ ...role, profileId });
-                }));
+                if (profile.roles) {
+                  return Promise.all(profile.roles.map(role => {
+                    return knex('roles').insert({ ...role, profileId });
+                  }));
+                }
               });
           });
       })
