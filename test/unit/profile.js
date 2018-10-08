@@ -57,8 +57,7 @@ describe('Profile', () => {
       firstName: 'Jane',
       lastName: 'Doe',
       email: 'jane@example.com',
-      dob: '1974-01-21',
-      'created_at': '2017-10-02T15:00:00Z'
+      dob: '1974-01-21'
     };
     expect(Profile.fromJson(goodJson)).to.be.an('object');
   });
