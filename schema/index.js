@@ -8,6 +8,7 @@ const Profile = require('./profile');
 const Project = require('./project');
 const Role = require('./role');
 const TrainingModule = require('./training-module');
+const Changelog = require('./changelog');
 
 module.exports = {
   Authorisation,
@@ -19,5 +20,6 @@ module.exports = {
   Profile,
   Project,
   Role,
-  TrainingModule
+  TrainingModule,
+  Changelog
 };
