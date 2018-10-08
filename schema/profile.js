@@ -30,10 +30,10 @@ class Profile extends BaseModel {
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
-        'asru_user': { type: 'boolean' },
-        'asru_admin': { type: 'boolean' },
-        'asru_licensing': { type: 'boolean' },
-        'asru_inspector': { type: 'boolean' },
+        asruUser: { type: 'boolean' },
+        asruAdmin: { type: 'boolean' },
+        asruLicensing: { type: 'boolean' },
+        asruInspector: { type: 'boolean' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
@@ -137,7 +137,7 @@ class Profile extends BaseModel {
       .where(builder => {
         if (search) {
           return builder
-            .where('pil.licence_number', 'iLike', search && `%${search}%`)
+            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
             .orWhere(builder => this.searchFullName({ search, query: builder }));
         }
       });
@@ -212,7 +212,7 @@ class Profile extends BaseModel {
         modelClass: `${__dirname}/training-module`,
         join: {
           from: 'profiles.id',
-          to: 'training_modules.profile_id'
+          to: 'training_modules.profileId'
         }
       },
       establishments: {
@@ -248,7 +248,7 @@ class Profile extends BaseModel {
         modelClass: `${__dirname}/pil`,
         join: {
           from: 'profiles.id',
-          to: 'pils.profile_id'
+          to: 'pils.profileId'
         }
       },
       projects: {
