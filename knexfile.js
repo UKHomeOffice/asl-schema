@@ -25,6 +25,7 @@ let development = {
   }
 };
 
+// DO NOT enable SNAKE_MAPPER for migrations! @see https://github.com/tgriesser/knex/issues/2644
 if (process.env.SNAKE_MAPPER) {
   test = { ...test, ...knexSnakeCaseMappers() };
   development = { ...development, ...knexSnakeCaseMappers() };
