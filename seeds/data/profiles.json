@@ -118,7 +118,8 @@
     "pil": {
         "issueDate": "2015-03-20",
         "licenceNumber": "YW-052506",
-        "conditions": ""
+        "conditions": "",
+        "notesCatD": "Lorem ipsum"
     }
   },
   {
