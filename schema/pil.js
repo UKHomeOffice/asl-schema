@@ -29,8 +29,8 @@ class PIL extends BaseModel {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        catDNotes: { type: ['string', 'null'] },
-        catFNotes: { type: ['string', 'null'] }
+        notesCatD: { type: ['string', 'null'] },
+        notesCatF: { type: ['string', 'null'] }
       }
     };
   }

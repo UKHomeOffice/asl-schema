@@ -30,7 +30,7 @@ module.exports = {
                   return knex('pils')
                     .insert({
                       ...profile.pil,
-                      establishment_id: profile.permissions[0].establishmentId,
+                      establishmentId: profile.permissions[0].establishmentId,
                       profileId,
                       status: 'active'
                     });
