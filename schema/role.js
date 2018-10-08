@@ -13,15 +13,15 @@ class Role extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string' },
-        'migrated_id': { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         type: {
           type: 'string',
           enum: roles
         },
         establishmentId: { type: 'integer' },
         profileId: { type: 'string' },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
       }
     };

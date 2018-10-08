@@ -31,7 +31,7 @@ module.exports = {
                     .insert({
                       ...profile.pil,
                       establishment_id: profile.permissions[0].establishmentId,
-                      profile_id: profileId,
+                      profileId,
                       status: 'active'
                     });
                 }

@@ -9,11 +9,11 @@ class TrainingModule extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['profile_id'],
+      required: ['profileId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        migrated_id: { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         modules: {
           type: ['array', 'null'],
           items: {
@@ -24,16 +24,16 @@ class TrainingModule extends BaseModel {
             }
           }
         },
-        pass_date: { type: 'string', pattern: date.yearMonthDay },
-        not_applicable: { type: 'boolean' },
-        accrediting_body: { type: ['string', 'null'] },
-        other_accrediting_body: { type: ['string', 'null'] },
-        certificate_number: { type: ['string', 'null'] },
+        passDate: { type: 'string', pattern: date.yearMonthDay },
+        notApplicable: { type: 'boolean' },
+        accreditingBody: { type: ['string', 'null'] },
+        otherAccreditingBody: { type: ['string', 'null'] },
+        certificateNumber: { type: ['string', 'null'] },
         exemption: { type: 'boolean' },
-        exemption_description: { type: ['text', 'null'] },
-        profile_id: { type: 'string', pattern: uuid.v4 },
-        created_at: { type: 'string', format: 'date-time' },
-        updated_at: { type: 'string', format: 'date-time' },
+        exemptionDescription: { type: ['text', 'null'] },
+        profileId: { type: 'string', pattern: uuid.v4 },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };

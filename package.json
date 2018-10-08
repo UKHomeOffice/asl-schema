@@ -11,7 +11,7 @@
     "test:functional": "mocha ./test/functional --recursive",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "seed": "SNAKE_MAPPER=true knex seed:run"
   },
   "repository": {
     "type": "git",

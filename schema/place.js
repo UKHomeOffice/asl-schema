@@ -15,7 +15,7 @@ class Place extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        'migrated_id': { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         site: { type: 'string' },
         area: { type: ['string', 'null'] },
         name: { type: 'string' },
@@ -34,8 +34,8 @@ class Place extends BaseModel {
           }
         },
         notes: { type: ['string', 'null'] },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         nacwoId: { type: ['string', 'null'] },
         deleted: { type: ['string', 'null'], format: 'date-time' }

@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+const { Model, knexSnakeCaseMappers } = require('objection');
 const Knex = require('knex');
 const Schema = require('./schema');
 
@@ -30,7 +30,8 @@ module.exports = connection => {
   const settings = {
     client: 'pg',
     useNullAsDefault: true,
-    connection
+    connection,
+    ...knexSnakeCaseMappers()
   };
 
   const knex = Knex(settings);

@@ -1,11 +1,15 @@
+const { knexSnakeCaseMappers } = require('objection');
+
 try {
   // eslint-disable-next-line implicit-dependencies/no-implicit
   require('dotenv').config();
 } catch (e) {}
 
-module.exports = {
+const snakeCaseMapper = process.env.SNAKE_MAPPER ? knexSnakeCaseMappers() : {};
 
+module.exports = {
   test: {
+    ...snakeCaseMapper,
     client: 'postgresql',
     connection: {
       host: process.env.DATABASE_HOST || 'localhost',
@@ -13,8 +17,8 @@ module.exports = {
       user: process.env.DATABASE_USERNAME || 'asl-test'
     }
   },
-
   development: {
+    ...snakeCaseMapper,
     client: 'postgresql',
     connection: {
       host: process.env.DATABASE_HOST,
@@ -24,5 +28,4 @@ module.exports = {
       password: process.env.DATABASE_PASSWORD
     }
   }
-
 };

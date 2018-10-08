@@ -17,8 +17,8 @@ class Authorisation extends BaseModel {
         type: { type: 'string', enum: authorisationTypes },
         method: { type: 'string' },
         description: { type: 'string' },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }

@@ -15,15 +15,15 @@ class Project extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        'migrated_id': { type: ['string', 'null'] },
+        migratedId: { type: ['string', 'null'] },
         status: { type: 'string', enum: projectStatuses },
         title: { type: 'string' },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         expiryDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
-        'created_at': { type: 'string', format: 'date-time' },
-        'updated_at': { type: 'string', format: 'date-time' },
+        createdAt: { type: 'string', format: 'date-time' },
+        updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         licenceHolderId: { type: ['string', 'null'] },
         deleted: { type: ['string', 'null'], format: 'date-time' }

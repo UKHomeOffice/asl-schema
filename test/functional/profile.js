@@ -28,8 +28,8 @@ describe('Profile model', () => {
               lastName: 'Archer',
               email: 'sterling@archer.com',
               pil: {
-                establishment_id: 8201,
-                licence_number: 'ABC-123-02'
+                establishmentId: 8201,
+                licenceNumber: 'ABC-123-02'
               }
             },
             {
@@ -37,8 +37,8 @@ describe('Profile model', () => {
               lastName: 'Lemon',
               email: 'keith@lemon.com',
               pil: {
-                establishment_id: 8201,
-                licence_number: 'ABC-123-03'
+                establishmentId: 8201,
+                licenceNumber: 'ABC-123-03'
               },
               roles: [{
                 establishmentId: 8201,
@@ -50,8 +50,8 @@ describe('Profile model', () => {
               lastName: 'Forsyth',
               email: 'bruce@forsyth.com',
               pil: {
-                establishment_id: 8201,
-                licence_number: 'ABC-123-04'
+                establishmentId: 8201,
+                licenceNumber: 'ABC-123-04'
               },
               roles: [{
                 establishmentId: 8201,
@@ -81,8 +81,8 @@ describe('Profile model', () => {
               lastName: 'Powers',
               email: 'groovy@baby.com',
               pil: {
-                establishment_id: 8202,
-                licence_number: 'ABC-123-06'
+                establishmentId: 8202,
+                licenceNumber: 'ABC-123-06'
               }
             },
             {
@@ -90,8 +90,8 @@ describe('Profile model', () => {
               lastName: 'Kent',
               email: 'super@man.com',
               pil: {
-                establishment_id: 8202,
-                licence_number: 'ABC-123-07'
+                establishmentId: 8202,
+                licenceNumber: 'ABC-123-07'
               }
             }
           ]
@@ -148,7 +148,7 @@ describe('Profile model', () => {
         });
     });
 
-    it('can search on licence_number', () => {
+    it('can search on licenceNumber', () => {
       const opts = {
         establishmentId: 8201,
         search: '03'
