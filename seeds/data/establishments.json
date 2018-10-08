@@ -1,7 +1,7 @@
 [
   {
     "id": 8201,
-    "migrated_id": 8201,
+    "migratedId": 8201,
     "name": "University of Croydon",
     "type": "University, medical school",
     "status": "active",
@@ -17,12 +17,12 @@
     "killing": 1,
     "rehomes": 1,
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
-    "created_at": "08/01/2014 10:27",
-    "updated_at": "07/04/2017 10:54"
+    "createdAt": "08/01/2014 10:27",
+    "updatedAt": "07/04/2017 10:54"
   },
   {
     "id": 8202,
-    "migrated_id": 8202,
+    "migratedId": 8202,
     "name": "Marvell Pharmaceutical",
     "type": "University, medical school",
     "status": "active",
@@ -38,7 +38,7 @@
     "killing": 1,
     "rehomes": 1,
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
-    "created_at": "08/01/2014 10:27",
-    "updated_at": "07/04/2017 10:54"
+    "createdAt": "08/01/2014 10:27",
+    "updatedAt": "07/04/2017 10:54"
   }
 ]

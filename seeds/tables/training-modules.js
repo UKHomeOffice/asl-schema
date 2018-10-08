@@ -7,7 +7,7 @@ module.exports = {
       .then(() => knex('profiles'))
       .then(profiles => Promise.all(trainingModules.map(trainingModule => {
         return knex('training_modules').insert({
-          profile_id: sample(profiles).id,
+          profileId: sample(profiles).id,
           ...mapValues(trainingModule, (val, key) => {
             if (key === 'species') {
               return JSON.stringify(val);
