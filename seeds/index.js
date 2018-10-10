@@ -6,6 +6,7 @@ const trainingModules = require('./tables/training-modules');
 
 exports.seed = knex => {
   return Promise.resolve()
+    .then(() => knex => knex('changelog').del())
     .then(() => trainingModules.delete(knex))
     .then(() => projects.delete(knex))
     .then(() => places.delete(knex))
