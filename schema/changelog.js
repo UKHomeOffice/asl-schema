@@ -13,13 +13,13 @@ class Changelog extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['messageId', 'changedBy', 'modelId', 'action', 'modelType', 'state'],
+      required: ['messageId', 'changedBy', 'action', 'modelType', 'state'],
       additionalProperties: false,
       properties: {
         messageId: { type: 'string', pattern: uuid.v4 },
         changedBy: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: ['string', 'null'], pattern: uuid.v4 },
-        modelId: { type: 'string', pattern: uuid.v4 },
+        modelId: { type: ['string', 'null'] },
         modelType: { type: 'string' },
         action: { type: 'string' },
         state: { type: 'object' },
