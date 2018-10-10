@@ -2,6 +2,7 @@ const Schema = require('../../../');
 const settings = require('../../../knexfile').test;
 
 const tables = [
+  'Changelog',
   'Project',
   'Permission',
   'Invitation',
