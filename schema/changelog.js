@@ -6,14 +6,23 @@ class Changelog extends BaseModel {
     return 'changelog';
   }
 
+  static get idColumn() {
+    return 'message_id';
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'message'],
+      required: ['messageId', 'changedBy', 'modelId', 'action', 'modelType', 'state'],
       additionalProperties: false,
       properties: {
-        id: { type: 'string', pattern: uuid.v4 },
-        message: { type: 'object' },
+        messageId: { type: 'string', pattern: uuid.v4 },
+        changedBy: { type: 'string', pattern: uuid.v4 },
+        establishmentId: { type: ['string', 'null'], pattern: uuid.v4 },
+        modelId: { type: 'string', pattern: uuid.v4 },
+        action: { type: 'string' },
+        modelType: { type: 'string' },
+        state: { type: 'object' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], formate: 'date-time' }
