@@ -6,8 +6,8 @@ exports.up = function(knex, Promise) {
       table.uuid('changed_by').references('id').inTable('profiles').notNull();
       table.integer('establishment_id').references('id').inTable('establishments');
       table.uuid('model_id').notNull();
-      table.string('action').notNull();
       table.string('model_type').notNull();
+      table.string('action').notNull();
       table.jsonb('state').notNull();
       table.timestamps(false, true);
       table.dateTime('deleted');
