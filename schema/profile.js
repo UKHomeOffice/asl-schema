@@ -59,6 +59,7 @@ class Profile extends BaseModel {
     query = query || this.query();
     return query
       .findById(id)
+      .skipUndefined()
       .where('establishments.id', establishmentId)
       .joinRelation('establishments')
       .eager('[roles.places, establishments, pil, projects, trainingModules]');
