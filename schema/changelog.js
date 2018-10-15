@@ -18,7 +18,7 @@ class Changelog extends BaseModel {
       properties: {
         messageId: { type: 'string', pattern: uuid.v4 },
         changedBy: { type: 'string', pattern: uuid.v4 },
-        establishmentId: { type: ['string', 'null'], pattern: uuid.v4 },
+        establishmentId: { type: ['string', 'null'] },
         modelId: { type: ['string', 'null'] },
         modelType: { type: 'string' },
         action: { type: 'string' },
