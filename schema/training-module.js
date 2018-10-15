@@ -30,7 +30,7 @@ class TrainingModule extends BaseModel {
         otherAccreditingBody: { type: ['string', 'null'] },
         certificateNumber: { type: ['string', 'null'] },
         exemption: { type: 'boolean' },
-        exemptionDescription: { type: ['text', 'null'] },
+        exemptionDescription: { type: ['string', 'null'] },
         profileId: { type: 'string', pattern: uuid.v4 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
