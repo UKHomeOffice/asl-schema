@@ -57,11 +57,15 @@ class Profile extends BaseModel {
 
   static get({ query, id, establishmentId }) {
     query = query || this.query();
-    return query
+    console.log(establishmentId)
+    query
       .findById(id)
       .skipUndefined()
-      .where('establishments.id', establishmentId)
-      .joinRelation('establishments')
+
+    if (establishmentId) {
+      query.scopeToEstablishment('establishments.id', establishmentId)
+    }
+    return query
       .eager('[roles.places, establishments, pil, projects, trainingModules]');
   }
 
