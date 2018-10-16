@@ -1,4 +1,6 @@
+const Knex = require('knex');
 const Schema = require('../../../');
+const BaseModel = require('../../../schema/base-model');
 const settings = require('../../../knexfile').test;
 
 const tables = [
@@ -16,7 +18,10 @@ const tables = [
 ];
 
 module.exports = {
-  init: () => Schema(settings.connection),
+  init: () => {
+    BaseModel.knex(Knex(settings));
+    return Schema(settings.connection);
+  },
   clean: schema => {
     return tables.reduce((p, table) => {
       return p.then(() => schema[table].queryWithDeleted().hardDelete());

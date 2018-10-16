@@ -1,10 +1,11 @@
 const assert = require('assert');
-const Schema = require('../../schema');
+const Schema = require('../../');
 
 describe('Schema', () => {
 
   it('can initialise without error', () => {
-    assert.equal(typeof Schema, 'object');
+    assert.equal(typeof Schema, 'function');
+    assert.doesNotThrow(() => Schema({}));
   });
 
 });

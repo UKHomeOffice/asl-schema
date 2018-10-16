@@ -1,4 +1,4 @@
-const { Model, knexSnakeCaseMappers } = require('objection');
+const { knexSnakeCaseMappers } = require('objection');
 const Knex = require('knex');
 const Schema = require('./schema');
 
@@ -35,10 +35,11 @@ module.exports = connection => {
   };
 
   const knex = Knex(settings);
-  Model.knex(knex);
+
+  const schema = Schema(knex);
 
   return {
-    ...Schema,
+    ...schema,
     destroy: cb => knex.destroy(cb)
   };
 };
