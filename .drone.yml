@@ -65,7 +65,7 @@ pipeline:
     branch: master
     secrets:
       - drone_token
-    params: REPO=${DRONE_REPO},PLUGIN_NUMBER=${DRONE_BUILD_NUMBER}
+    params: REPO=${DRONE_REPO},PLUGIN_NUMBER=${DRONE_BUILD_NUMBER},DEPLOY_VERSION=${DRONE_TAG},DEPLOY_SERVICE=asl-schema
     deploy_to: dev
     when:
       event: tag
