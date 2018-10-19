@@ -9,7 +9,7 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
     });
 
     return this.patch({
-      deleted: BaseModel.fn().now()
+      deleted: this.knex().fn.now()
     });
   }
 

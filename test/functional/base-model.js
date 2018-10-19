@@ -1,5 +1,7 @@
 const moment = require('moment');
 const assert = require('assert');
+const Knex = require('knex');
+const settings = require('../../knexfile').test;
 const db = require('./helpers/db');
 const BaseModel = require('../../schema/base-model');
 
@@ -15,8 +17,8 @@ describe('Base Model', () => {
           return 'authorisations';
         }
       }
-      this.Model = Model;
       this.db = db.init();
+      this.Model = Model.bindKnex(Knex(settings));
     });
 
     beforeEach(() => {
