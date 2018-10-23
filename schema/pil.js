@@ -30,8 +30,7 @@ class PIL extends BaseModel {
           items: { type: 'string' }
         },
         notesCatD: { type: ['string', 'null'] },
-        notesCatF: { type: ['string', 'null'] },
-        submittedAt: { type: ['string', 'null'], format: 'date-time' }
+        notesCatF: { type: ['string', 'null'] }
       }
     };
   }
