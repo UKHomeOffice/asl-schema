@@ -70,8 +70,7 @@ pipeline:
         --service asl-schema
         --version $${DRONE_TAG}
     when:
-      branch: master
-      event: push
+      event: tag
 
 services:
   database:
