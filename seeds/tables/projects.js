@@ -5,12 +5,15 @@ module.exports = {
   populate: knex => {
     return Promise.all(
       projects.filter(p => !p.id).map(project => {
-        return knex('profiles').then(profiles => {
-          return knex('projects').insert({
-            licenceHolderId: sample(profiles).id,
-            ...project
+        return knex('profiles')
+          .where('firstName', '!=', 'Basic')
+          .then(profiles => {
+            return knex('projects')
+              .insert({
+                licenceHolderId: sample(profiles).id,
+                ...project
+              });
           });
-        });
       })
     );
   },
