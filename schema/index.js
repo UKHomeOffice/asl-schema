@@ -7,7 +7,8 @@ const Place = require('./place');
 const Profile = require('./profile');
 const Project = require('./project');
 const Role = require('./role');
-const TrainingModule = require('./training-module');
+const Certificate = require('./Certificate');
+const Exemption = require('./exemption');
 const Changelog = require('./changelog');
 
 module.exports = db => ({
@@ -20,6 +21,7 @@ module.exports = db => ({
   Profile: Profile.bindKnex(db),
   Project: Project.bindKnex(db),
   Role: Role.bindKnex(db),
-  TrainingModule: TrainingModule.bindKnex(db),
+  Certificate: Certificate.bindKnex(db),
+  Exemption: Exemption.bindKnex(db),
   Changelog: Changelog.bindKnex(db)
 });

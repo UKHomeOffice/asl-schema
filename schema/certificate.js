@@ -1,9 +1,10 @@
 const BaseModel = require('./base-model');
 const { date, uuid } = require('../lib/regex-validation');
+const { moduleCodes } = require('@asl/constants');
 
-class TrainingModule extends BaseModel {
+class Certificate extends BaseModel {
   static get tableName() {
-    return 'training_modules';
+    return 'certificates';
   }
 
   static get jsonSchema() {
@@ -19,7 +20,7 @@ class TrainingModule extends BaseModel {
           items: {
             type: 'object',
             properties: {
-              module: { type: 'string' },
+              module: { type: 'string', enum: moduleCodes },
               species: { type: 'array', items: { type: 'string' } }
             }
           }
@@ -29,8 +30,6 @@ class TrainingModule extends BaseModel {
         accreditingBody: { type: ['string', 'null'] },
         otherAccreditingBody: { type: ['string', 'null'] },
         certificateNumber: { type: ['string', 'null'] },
-        exemption: { type: 'boolean' },
-        exemptionDescription: { type: ['string', 'null'] },
         profileId: { type: 'string', pattern: uuid.v4 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
@@ -41,4 +40,4 @@ class TrainingModule extends BaseModel {
 
 }
 
-module.exports = TrainingModule;
+module.exports = Certificate;
