@@ -7,7 +7,7 @@ const Place = require('./place');
 const Profile = require('./profile');
 const Project = require('./project');
 const Role = require('./role');
-const Certificate = require('./Certificate');
+const Certificate = require('./certificate');
 const Exemption = require('./exemption');
 const Changelog = require('./changelog');
 
