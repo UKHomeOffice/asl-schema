@@ -8,6 +8,8 @@ exports.seed = knex => {
     .then(() => knex => knex('changelog').del())
     .then(() => projects.delete(knex))
     .then(() => places.delete(knex))
+    .then(() => knex('certificates').del())
+    .then(() => knex('exemptions').del())
     .then(() => profiles.delete(knex))
     .then(() => establishments.delete(knex))
 
