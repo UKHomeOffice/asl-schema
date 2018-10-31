@@ -65,7 +65,7 @@ class Profile extends BaseModel {
       query.scopeToEstablishment('establishments.id', establishmentId);
     }
     return query
-      .eager('[roles.places, establishments, pil, projects, trainingModules]');
+      .eager('[roles.places, establishments, pil, projects, certificates, exemptions]');
   }
 
   static getNamed({ userId, ...params }) {
@@ -211,12 +211,20 @@ class Profile extends BaseModel {
         },
         filter: f => f.skipUndefined().where('establishmentId', f.context().establishmentId)
       },
-      trainingModules: {
+      certificates: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/training-module`,
+        modelClass: `${__dirname}/certificate`,
         join: {
           from: 'profiles.id',
-          to: 'training_modules.profileId'
+          to: 'certificates.profileId'
+        }
+      },
+      exemptions: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/exemption`,
+        join: {
+          from: 'profiles.id',
+          to: 'exemptions.profileId'
         }
       },
       establishments: {

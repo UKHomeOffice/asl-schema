@@ -10,7 +10,8 @@ const tables = [
   'PIL',
   'Place',
   'Role',
-  'TrainingModule',
+  'Certificate',
+  'Exemption',
   'Profile',
   'Establishment'
 ];
