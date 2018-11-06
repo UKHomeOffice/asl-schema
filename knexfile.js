@@ -15,6 +15,10 @@ module.exports = {
       host: process.env.DATABASE_HOST || 'localhost',
       database: process.env.DATABASE_NAME,
       user: process.env.DATABASE_USERNAME || 'postgres'
+    },
+    pool: {
+      min: 1,
+      max: 2
     }
   },
   development: {
@@ -26,6 +30,10 @@ module.exports = {
       port: process.env.DATABASE_PORT,
       user: process.env.DATABASE_USERNAME || 'postgres',
       password: process.env.DATABASE_PASSWORD
+    },
+    pool: {
+      min: 1,
+      max: 2
     }
   }
 };
