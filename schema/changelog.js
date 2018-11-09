@@ -13,7 +13,7 @@ class Changelog extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['messageId', 'changedBy', 'action', 'modelType', 'state'],
+      required: ['messageId', 'action', 'modelType', 'state'],
       additionalProperties: false,
       properties: {
         messageId: { type: 'string', pattern: uuid.v4 },

@@ -9,7 +9,7 @@ class Invitation extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['role', 'establishmentId', 'profileId'],
+      required: ['role', 'establishmentId', 'email', 'token'],
       additionalProperties: false,
       properties: {
         token: { type: 'string' },
@@ -17,7 +17,7 @@ class Invitation extends BaseModel {
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
-        profileId: { type: 'string' },
+        email: { type: 'string' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
