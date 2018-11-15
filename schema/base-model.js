@@ -61,18 +61,18 @@ class BaseModel extends Model {
       .then(result => result.count);
   }
 
-  static upsert(model, where) {
+  static upsert(model, where, transaction) {
     return Promise.resolve()
       .then(() => {
         if (model.id) {
-          return this.queryWithDeleted().findById(model.id).update(model);
+          return this.queryWithDeleted(transaction).findById(model.id).update({ deleted: null, ...model });
         } else if (where) {
-          return this.queryWithDeleted().where(where).update(model);
+          return this.queryWithDeleted(transaction).where(where).update({ deleted: null, ...model });
         }
       })
       // returning('*') is to get around a bug in objection where it tries to return `id` by default
       // because sometimes we don't have an id column we need to override this
-      .then(count => count || this.query().insert(model).returning('*'));
+      .then(count => count || this.query(transaction).insert(model).returning('*'));
   }
 
   static paginate({ query, limit, offset }) {
