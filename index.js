@@ -1,4 +1,4 @@
-const { knexSnakeCaseMappers } = require('objection');
+const { knexSnakeCaseMappers, transaction } = require('objection');
 const Knex = require('knex');
 const Schema = require('./schema');
 
@@ -41,6 +41,7 @@ module.exports = connection => {
 
   return {
     ...schema,
+    transaction: () => transaction.start(knex),
     destroy: cb => knex.destroy(cb)
   };
 };
