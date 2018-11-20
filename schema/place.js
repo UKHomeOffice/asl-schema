@@ -33,7 +33,7 @@ class Place extends BaseModel {
             enum: holdingCodes
           }
         },
-        notes: { type: ['string', 'null'] },
+        restrictions: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
