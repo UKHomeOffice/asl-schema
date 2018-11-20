@@ -78,7 +78,7 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.jsonb('suitability');
       table.jsonb('holding');
-      table.text('restrictions');
+      table.text('notes');
       table.dateTime('deleted');
       table.timestamps(false, true);
       table.string('establishmentId').references('id').inTable('establishments');
