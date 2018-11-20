@@ -46,7 +46,7 @@ describe('Place', () => {
       suitability: ['NHP', 'CAT', 'DOG'],
       holding: ['STH', 'LTH'],
       establishmentId: 100,
-      notes: null
+      restrictions: null
     };
     expect(Place.fromJson(goodJson)).to.be.an('object');
   });
