@@ -24,6 +24,36 @@ class Invitation extends BaseModel {
       }
     };
   }
+
+  static getInvitations(props) {
+    return Promise.all([
+      this.count(props),
+      this.paginate(props)
+    ])
+      .then(([total, invitations]) => ({ total, invitations }));
+  }
+
+  static count({ establishmentId }) {
+    return this.query()
+      .where({ establishmentId })
+      .count()
+      .then(results => results[0])
+      .then(result => result.count);
+  }
+
+  static paginate({ establishmentId, sort = {}, limit, offset }) {
+    let query = this.query().where({ establishmentId });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('createdAt');
+    }
+
+    query = super.paginate({ query, limit, offset });
+
+    return query;
+  }
 }
 
 module.exports = Invitation;
