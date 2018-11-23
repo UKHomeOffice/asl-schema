@@ -54,6 +54,20 @@ class Invitation extends BaseModel {
 
     return query;
   }
+
+  static get relationMappings() {
+    return {
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'invitations.establishmentId',
+          to: 'establishments.id'
+        }
+      }
+    };
+  }
+
 }
 
 module.exports = Invitation;
