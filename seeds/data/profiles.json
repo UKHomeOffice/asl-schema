@@ -41,7 +41,7 @@
       { "establishmentId": 8201, "type": "ntco" }
     ],
     "permissions": [
-      { "establishmentId": 8201, "role": "admin" }
+      { "establishmentId": 8201, "role": "basic" }
     ]
   },
   {
