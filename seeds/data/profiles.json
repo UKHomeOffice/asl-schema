@@ -30,6 +30,21 @@
     ]
   },
   {
+    "id": "0b2d1c52-f8e4-4d16-b58c-0ce80ca58d0c",
+    "userId": "ba836eae-28b7-408e-99e5-dae65d40db4d",
+    "title": "Dr",
+    "firstName": "Neil",
+    "lastName": "Down",
+    "dob": "1962-07-19",
+    "email": "ntco@example.com",
+    "roles": [
+      { "establishmentId": 8201, "type": "ntco" }
+    ],
+    "permissions": [
+      { "establishmentId": 8201, "role": "basic" }
+    ]
+  },
+  {
     "id": "e1ef893c-0766-4ccb-b1f8-d13238deac23",
     "userId": "ae7458db-4688-452b-bddb-ea3971dd02bc",
     "title": "Mr",
@@ -1346,7 +1361,7 @@
   },
   {
     "migratedId": 2404927,
-    "permissions": [ { "establishmentId": 8201 } ],
+    "permissions": [ { "establishmentId": 8202 } ],
     "title": "Dr",
     "lastName": "Alden",
     "firstName": "Jason",
@@ -1357,7 +1372,7 @@
     "email": "abc8@croydon.ac.uk",
     "qualifications": "BA (Hons), PhD",
     "roles": [
-        { "establishmentId": 8201, "type": "ntco" }
+        { "establishmentId": 8202, "type": "ntco" }
     ]
   },
   {
