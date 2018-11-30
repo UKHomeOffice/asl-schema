@@ -134,7 +134,7 @@ class Profile extends BaseModel {
     query = query || this.query();
 
     query
-      .distinct('profiles.*')
+      .distinct('profiles.*', 'pil.licenceNumber')
       .scopeToEstablishment('establishments.id', establishmentId)
       .leftJoinRelation('[pil, projects, roles]')
       .eager('[pil, projects, establishments, roles]')
