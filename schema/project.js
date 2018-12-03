@@ -93,7 +93,7 @@ class Project extends BaseModel {
     query = query || this.query();
 
     query
-      .distinct('projects.*')
+      .distinct('projects.*', 'licenceHolder.lastName')
       .where({ establishmentId })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
