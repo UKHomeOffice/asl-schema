@@ -261,6 +261,9 @@ class Profile extends BaseModel {
         join: {
           from: 'profiles.id',
           to: 'pils.profileId'
+        },
+        filter: f => {
+          return f.skipUndefined().where('establishmentId', f.context().establishmentId);
         }
       },
       projects: {
