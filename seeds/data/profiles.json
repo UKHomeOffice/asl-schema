@@ -184,18 +184,39 @@
     }
   },
   {
-    "permissions": [ { "establishmentId": 8201 } ],
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "read"
+      }
+    ],
     "title": "Mr",
     "firstName": "Ignaz",
     "lastName": "Middell",
     "dob": "1996-08-19",
     "email": "imiddell4@yandex.ru",
     "telephone": 9571822531,
-    "pil": {
+    "pil": 
+      {
         "issueDate": "2015-11-13",
         "licenceNumber": "PF-361444",
-        "conditions": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis."
-    }
+        "conditions": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
+        "establishmentId": 8201
+      },
+    "roles": [
+      {
+        "establishmentId": 8201,
+        "type": "ntco"
+      },
+      {
+        "establishmentId": 8202,
+        "type": "nvs"
+      }
+    ]
   },
   {
     "permissions": [ { "establishmentId": 8201 } ],
