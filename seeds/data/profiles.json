@@ -64,6 +64,25 @@
     ]
   },
   {
+    "id": "e1ef893c-0766-49f0-87ca-b11b1ad1e147",
+    "userId": "ae7458db-4688-403b-89e6-7e31913284c1",
+    "title": "Ms",
+    "firstName": "Ella",
+    "lastName": "Bella",
+    "dob": "1985-09-24",
+    "email": "ella.bella@croydon.ac.uk",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "read"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "read"
+      }
+    ]
+  },
+  {
     "id": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "userId": "f4c6fe14-15b4-403b-89e6-7e31913284c1",
     "title": "Mr",
