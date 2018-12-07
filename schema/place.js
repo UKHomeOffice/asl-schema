@@ -61,7 +61,8 @@ class Place extends BaseModel {
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
     let query = this.query()
-      .where({ establishmentId })
+      .joinRelation('nacwo.profile')
+      .where({ 'places.establishmentId': establishmentId })
       .eager('nacwo.profile');
 
     if (filters.site) {
