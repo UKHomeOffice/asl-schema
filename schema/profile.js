@@ -211,6 +211,19 @@ class Profile extends BaseModel {
         },
         filter: f => f.skipUndefined().where('establishmentId', f.context().establishmentId)
       },
+      places: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/place`,
+        join: {
+          from: 'profiles.id',
+          through: {
+            modelClass: `${__dirname}/role`,
+            from: 'roles.profileId',
+            to: 'roles.id'
+          },
+          to: 'places.nacwoId'
+        }
+      },
       certificates: {
         relation: this.HasManyRelation,
         modelClass: `${__dirname}/certificate`,

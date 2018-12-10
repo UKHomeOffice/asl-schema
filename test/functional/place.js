@@ -17,41 +17,68 @@ describe('Place model', () => {
           email: 'an@establishment.com',
           country: 'england',
           address: '123 Somwhere street',
+          profiles: [{
+            '#id': 'nacwo',
+            firstName: 'Vincent',
+            lastName: 'Malloy',
+            email: 'vincent@price.com'
+          }, {
+            '#id': 'nacwo2',
+            firstName: 'Sterling',
+            lastName: 'Archer',
+            email: 'sterline@archer.com'
+          }],
           places: [
             {
+              '#id': 'place1',
               site: 'A site',
               name: 'A name',
               suitability: ['SA', 'LA'],
               holding: ['NOH', 'NSEP']
             },
             {
+              '#id': 'place2',
               site: 'B site',
               name: 'B name',
               suitability: ['SA'],
               holding: ['NOH']
             },
             {
+              '#id': 'place3',
               site: 'C site',
               name: 'C name',
               suitability: ['LA', 'DOG'],
-              holding: ['SEP'],
-              nacwo: {
-                establishmentId: 8201,
-                type: 'nacwo',
-                profile: {
-                  firstName: 'Vincent',
-                  lastName: 'Malloy',
-                  email: 'vincent@price.com'
-                }
-              }
+              holding: ['SEP']
             },
             {
+              '#id': 'place4',
               site: 'D site',
               name: 'D name',
               suitability: ['AQ', 'AV'],
               holding: ['NSEP']
             }
-          ]
+          ],
+          roles: [{
+            type: 'nacwo',
+            profile: {
+              '#ref': 'nacwo'
+            },
+            places: [{
+              '#ref': 'place3'
+            }, {
+              '#ref': 'place4'
+            }]
+          }, {
+            type: 'nacwo',
+            profile: {
+              '#ref': 'nacwo2'
+            },
+            places: [{
+              '#ref': 'place1'
+            }, {
+              '#ref': 'place2'
+            }]
+          }]
         },
         {
           id: 8202,
@@ -212,7 +239,27 @@ describe('Place model', () => {
         });
     });
 
-    it('eager loads nacwo.profile', () => {
+    it('can sort by nacwo lastName', () => {
+      const opts = {
+        establishmentId: 8201,
+        sort: {
+          column: 'nacwo.lastName',
+          ascending: 'true'
+        }
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          assert.deepEqual(places.total, 4);
+          assert.deepEqual(places.results.length, 4);
+          assert.deepEqual(places.results[0].nacwo.lastName, 'Archer');
+          assert.deepEqual(places.results[1].nacwo.lastName, 'Archer');
+          assert.deepEqual(places.results[2].nacwo.lastName, 'Malloy');
+          assert.deepEqual(places.results[3].nacwo.lastName, 'Malloy');
+        });
+    });
+
+    it('eager loads nacwo', () => {
       const opts = {
         establishmentId: 8201,
         filters: {
@@ -224,7 +271,7 @@ describe('Place model', () => {
         .then(() => this.models.Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
-          assert.deepEqual(places.results[0].nacwo.profile.firstName, 'Vincent');
+          assert.deepEqual(places.results[0].nacwo.firstName, 'Vincent');
         });
     });
   });
