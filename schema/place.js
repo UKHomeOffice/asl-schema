@@ -61,9 +61,10 @@ class Place extends BaseModel {
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
     let query = this.query()
-      .joinRelation('nacwo.profile')
+      .distinct('places.*', 'nacwo.lastName')
+      .leftJoinRelation('nacwo')
       .where({ 'places.establishmentId': establishmentId })
-      .eager('nacwo.profile');
+      .eager('nacwo');
 
     if (filters.site) {
       query.andWhere('site', 'in', filters.site);
@@ -101,11 +102,16 @@ class Place extends BaseModel {
         }
       },
       nacwo: {
-        relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/role`,
+        relation: this.HasOneThroughRelation,
+        modelClass: `${__dirname}/profile`,
         join: {
           from: 'places.nacwoId',
-          to: 'roles.id'
+          through: {
+            modelClass: `${__dirname}/role`,
+            from: 'roles.id',
+            to: 'roles.profileId'
+          },
+          to: 'profiles.id'
         }
       }
     };
