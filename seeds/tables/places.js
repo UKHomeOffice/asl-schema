@@ -9,7 +9,7 @@ module.exports = {
         return Promise.all(places.map(place => {
           return knex('places')
             .insert({
-              nacwoId: sample(nacwos).id,
+              nacwoId: place.nacwoId || sample(nacwos).id,
               ...mapValues(place, (val, key) => {
                 if (key === 'holding' || key === 'suitability') {
                   return JSON.stringify(val);
