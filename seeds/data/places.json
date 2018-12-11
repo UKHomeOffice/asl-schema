@@ -5,7 +5,7 @@
 {"establishmentId":8201,"site":"Lunar House 3rd floor","name":"67","area":6.59,"suitability":["AQ","CAT","AV"],"holding":["SEP","STH"], "restrictions": "Lorem ipsum dolor sit amet"},
 {"establishmentId":8201,"site":"Lunar House 3rd floor","name":"94382","area":6.08,"suitability":["EQU","NHP","SA"],"holding":["LTH"], "restrictions": "Lorem ipsum dolor sit amet"},
 {"establishmentId":8201,"site":"The Marquis of Granby Replenishment Centre","name":"84","area":2.06,"suitability":["EQU","CAT"],"holding":["STH","LTH"], "restrictions": "Lorem ipsum dolor sit amet"},
-{"establishmentId":8201,"site":"2 Marsham Street","name":"377","area":2.27,"suitability":["NHP","CAT","DOG"],"holding":["SEP"], "restrictions": "Lorem ipsum dolor sit amet"},
+{"establishmentId":8201,"site":"2 Marsham Street","name":"377","area":2.27,"suitability":["NHP","CAT","DOG"],"holding":["SEP"], "restrictions": "Lorem ipsum dolor sit amet", "nacwoId": "232b302b-136b-4452-ba1c-1e5a867212a1"},
 {"establishmentId":8201,"site":"Regus Building","name":"52","area":8.13,"suitability":["AV"],"holding":["STH","SEP"], "restrictions": "Lorem ipsum dolor sit amet"},
 {"establishmentId":8201,"site":"Regus Building","name":"14","area":null,"suitability":["DOG","EQU"],"holding":["STH","NOH"], "restrictions": "Lorem ipsum dolor sit amet"},
 {"establishmentId":8201,"site":"Vulcan House","name":"23","area":8.89,"suitability":["SA"],"holding":["SEP","LTH"], "restrictions": "Lorem ipsum dolor sit amet"},

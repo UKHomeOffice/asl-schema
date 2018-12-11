@@ -1396,7 +1396,7 @@
     "email": "abc7@croydon.ac.uk",
     "qualifications": "BSc Zoolgy with Marine Zoology",
     "roles": [
-        { "establishmentId": 8201, "type": "nacwo" }
+        { "id": "232b302b-136b-4452-ba1c-1e5a867212a1", "establishmentId": 8201, "type": "nacwo" }
     ]
   },
   {
