@@ -7,6 +7,7 @@ module.exports = {
       projects.filter(p => !p.id).map(project => {
         return knex('profiles')
           .where('firstName', '!=', 'Basic')
+          .andWhere('asruUser', false)
           .then(profiles => {
             return knex('projects')
               .insert({
@@ -23,6 +24,7 @@ module.exports = {
       projectsList.map(project => {
         return knex('profiles')
           .where('firstName', '!=', 'Basic')
+          .andWhere('asruUser', false)
           .first()
           .then(profile => {
             return knex('projects')
