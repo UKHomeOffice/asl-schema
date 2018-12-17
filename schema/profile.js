@@ -87,8 +87,11 @@ class Profile extends BaseModel {
   static getFilterOptions({ query, establishmentId }) {
     query = query || this.query();
 
+    if (establishmentId) {
+      query.scopeToEstablishment('establishments.id', establishmentId);
+    }
+
     return query
-      .scopeToEstablishment('establishments.id', establishmentId)
       .joinRelation('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
@@ -97,8 +100,11 @@ class Profile extends BaseModel {
   static count({ query, establishmentId }) {
     query = query || this.query();
 
+    if (establishmentId) {
+      query.scopeToEstablishment('establishments.id', establishmentId);
+    }
+
     return query
-      .scopeToEstablishment('establishments.id', establishmentId)
       .count()
       .then(result => result[0].count);
   }
@@ -133,9 +139,12 @@ class Profile extends BaseModel {
   }) {
     query = query || this.query();
 
+    if (establishmentId) {
+      query.scopeToEstablishment('establishments.id', establishmentId);
+    }
+
     query
       .distinct('profiles.*', 'pil.licenceNumber')
-      .scopeToEstablishment('establishments.id', establishmentId)
       .leftJoinRelation('[pil, projects, roles]')
       .eager('[pil, projects, establishments, roles]')
       .where(builder => {
