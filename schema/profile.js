@@ -94,11 +94,28 @@ class Profile extends BaseModel {
       .then(roles => roles.map(r => r.type));
   }
 
+  static getFilterOptionsUnscoped({ query }) {
+    query = query || this.query();
+
+    return query
+      .joinRelation('roles')
+      .distinct('roles.type')
+      .then(roles => roles.map(r => r.type));
+  }
+
   static count({ query, establishmentId }) {
     query = query || this.query();
 
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
+      .count()
+      .then(result => result[0].count);
+  }
+
+  static countUnscoped({ query }) {
+    query = query || this.query();
+
+    return query
       .count()
       .then(result => result[0].count);
   }
@@ -174,11 +191,69 @@ class Profile extends BaseModel {
     return query;
   }
 
+  static searchAndFilterUnscoped({
+    query,
+    search,
+    filters = {},
+    limit,
+    offset,
+    sort = {}
+  }) {
+    query = query || this.query();
+
+    query
+      .distinct('profiles.*', 'pil.licenceNumber')
+      .leftJoinRelation('[pil, projects, roles]')
+      .eager('[pil, projects, establishments, roles]')
+      .where(builder => {
+        if (search) {
+          return builder
+            .orWhere(builder => this.searchFullName({ search, query: builder }));
+        }
+      });
+
+    if (filters.roles && filters.roles.length) {
+      const roles = compact(filters.roles);
+      // filter on pseudo roles
+      const customRoles = remove(roles, role => role === 'pilh' || role === 'pplh');
+
+      if (roles.length) {
+        query.whereIn('roles.type', roles);
+      }
+
+      if (customRoles.includes('pilh')) {
+        query.whereNot('pil.id', null);
+      }
+      if (customRoles.includes('pplh')) {
+        query.whereNot('projects.id', null);
+      }
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('lastName');
+    }
+
+    return query;
+  }
+
   static getProfiles(params) {
     return Promise.all([
       this.getFilterOptions(params),
       this.count(params),
       this.searchAndFilter(params)
+    ])
+      .then(([filters, total, profiles]) => ({ filters, total, profiles }));
+  }
+
+  static getProfilesUnscoped(params) {
+    return Promise.all([
+      this.getFilterOptionsUnscoped(params),
+      this.countUnscoped(params),
+      this.searchAndFilterUnscoped(params)
     ])
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
