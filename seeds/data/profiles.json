@@ -506,16 +506,11 @@
   {
     "permissions": [ { "establishmentId": 8201 } ],
     "title": "Prof",
-    "firstName": "Mano",
-    "lastName": "Yanele",
+    "firstName": "Hasnø",
+    "lastName": "Pil",
     "dob": "1950-03-22",
-    "email": "myaneleo@bizjournals.com",
-    "telephone": 4996576030,
-    "pil": {
-        "issueDate": "2014-09-26",
-        "licenceNumber": "CF-498239",
-        "conditions": "In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus."
-    }
+    "email": "hasnø.pil@example.com",
+    "telephone": 4996576030
   },
   {
     "permissions": [ { "establishmentId": 8201 } ],
