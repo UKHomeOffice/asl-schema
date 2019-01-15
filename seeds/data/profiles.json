@@ -219,7 +219,7 @@
     "dob": "1996-08-19",
     "email": "imiddell4@yandex.ru",
     "telephone": 9571822531,
-    "pil": 
+    "pil":
       {
         "issueDate": "2015-11-13",
         "licenceNumber": "PF-361444",
@@ -1471,5 +1471,11 @@
     "email": "asruadmin@homeoffice.gov.uk",
     "asruUser": true,
     "asruAdmin": true
+  },
+  {
+    "lastName": "User",
+    "firstName": "Unaffiliated",
+    "dob": "1980-01-01",
+    "email": "unaffiliated@example.com"
   }
 ]
