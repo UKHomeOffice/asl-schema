@@ -1462,5 +1462,14 @@
     "roles": [
         { "establishmentId": 8201, "type": "nacwo" }
     ]
+  },
+  {
+    "userId": "6805f567-bec5-44b7-84d6-63181614bad7",
+    "lastName": "Admin",
+    "firstName": "Asru",
+    "dob": "1980-01-01",
+    "email": "asruadmin@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": true
   }
 ]
