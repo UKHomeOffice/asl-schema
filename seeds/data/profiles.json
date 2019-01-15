@@ -129,7 +129,7 @@
     "dob": "1985-09-24",
     "email": "asru-inspector@homeoffice.gov.uk",
     "asruUser": true,
-    "asruAdmin": true,
+    "asruAdmin": false,
     "asruInspector": true,
     "asruLicensing": false
   },
@@ -141,7 +141,7 @@
     "dob": "1985-09-24",
     "email": "asru-licensing@homeoffice.gov.uk",
     "asruUser": true,
-    "asruAdmin": true,
+    "asruAdmin": false,
     "asruInspector": false,
     "asruLicensing": true
   },
