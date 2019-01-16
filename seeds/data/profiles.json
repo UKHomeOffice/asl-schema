@@ -50,7 +50,7 @@
     "firstName": "Yuz",
     "lastName": "Lez",
     "dob": "1981-01-22",
-    "email": "ntco@example.com",
+    "email": "basicntco@example.com",
     "roles": [
       { "establishmentId": 8201, "type": "ntco" }
     ],
