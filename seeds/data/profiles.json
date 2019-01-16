@@ -45,6 +45,20 @@
     ]
   },
   {
+    "userId": "57cf3ba7-c990-42b2-ad67-405a359ed59a",
+    "title": "Dr",
+    "firstName": "Yuz",
+    "lastName": "Lez",
+    "dob": "1981-01-22",
+    "email": "ntco@example.com",
+    "roles": [
+      { "establishmentId": 8201, "type": "ntco" }
+    ],
+    "permissions": [
+      { "establishmentId": 8201, "role": "basic" }
+    ]
+  },
+  {
     "id": "e1ef893c-0766-4ccb-b1f8-d13238deac23",
     "userId": "ae7458db-4688-452b-bddb-ea3971dd02bc",
     "title": "Mr",
