@@ -41,6 +41,20 @@
       { "establishmentId": 8201, "type": "ntco" }
     ],
     "permissions": [
+      { "establishmentId": 8201, "role": "read" }
+    ]
+  },
+  {
+    "userId": "57cf3ba7-c990-42b2-ad67-405a359ed59a",
+    "title": "Dr",
+    "firstName": "Yuz",
+    "lastName": "Lez",
+    "dob": "1981-01-22",
+    "email": "ntco@example.com",
+    "roles": [
+      { "establishmentId": 8201, "type": "ntco" }
+    ],
+    "permissions": [
       { "establishmentId": 8201, "role": "basic" }
     ]
   },
