@@ -883,12 +883,7 @@
     "lastName": "Wyburn",
     "dob": "1987-02-14",
     "email": "gwyburn1e@baidu.com",
-    "telephone": 1825885674,
-    "pil": {
-        "issueDate": "2015-03-25",
-        "licenceNumber": "VB-723007",
-        "conditions": ""
-    }
+    "telephone": 1825885674
   },
   {
     "permissions": [ { "establishmentId": 8201 } ],
