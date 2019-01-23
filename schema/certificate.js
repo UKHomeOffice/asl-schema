@@ -21,7 +21,10 @@ class Certificate extends BaseModel {
             type: 'object',
             properties: {
               module: { type: 'string', enum: moduleCodes },
-              species: { type: 'array', items: { type: 'string' } }
+              species: {
+                type: ['array', 'null'],
+                items: { type: 'string' }
+              }
             }
           }
         },
