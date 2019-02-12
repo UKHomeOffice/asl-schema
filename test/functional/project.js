@@ -3,6 +3,8 @@ const assert = require('assert');
 const db = require('./helpers/db');
 const moment = require('moment');
 
+const GRANTED_ID = '06271be3-df1a-41c7-82ac-e9c42cbb1c19';
+
 describe('Project model', () => {
 
   before(() => {
@@ -69,7 +71,28 @@ describe('Project model', () => {
             }
           }
         ]
-      }, { insertMissing: true, relate: true }));
+      }, { insertMissing: true, relate: true }))
+      .then(() => this.models.ProjectVersion.query().upsertGraph([
+        {
+          id: GRANTED_ID,
+          data: {
+            title: 'A title'
+          },
+          children: [
+            {
+              data: {
+                title: 'B title'
+              }
+            },
+            {
+              data: {
+                title: 'C title'
+              }
+            }
+          ]
+        }
+      ], { insertMissing: true, relate: true }))
+      .then(() => this.models.Project.query().where({ title: 'Anti cancer research' }).patch({ grantedId: GRANTED_ID }));
   });
 
   afterEach(() => {
@@ -91,6 +114,18 @@ describe('Project model', () => {
         .then(projects => {
           assert.deepEqual(projects.total, 1);
           assert.deepEqual(projects.results[0].title, 'Anti cancer research');
+        });
+    });
+
+    it('eager loads granted projectVersion', () => {
+      const opts = {
+        establishmentId: 8201,
+        search: 'Anti cancer research'
+      };
+      return Promise.resolve()
+        .then(() => this.models.Project.search(opts))
+        .then(projects => {
+          assert.deepEqual(projects.results[0].granted.data.title, 'A title');
         });
     });
 

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "be5e86d3-09f1-41df-a5f0-19b741fe66ce",
+    "data": {
+      "title": "Search for the luminescent aether",
+      "project-aim": "This is the aim of the granted project"
+    }
+  },
+  {
+    "parentId": "be5e86d3-09f1-41df-a5f0-19b741fe66ce",
+    "data": {
+      "title": "Search for the luminescent aether",
+      "project-aim": "This is the aim of the first amendment"
+    }
+  },
+  {
+    "parentId": "be5e86d3-09f1-41df-a5f0-19b741fe66ce",
+    "data": {
+      "title": "Search for the luminescent aether",
+      "project-aim": "This is the aim of the second amendment"
+    }
+  }
+]
