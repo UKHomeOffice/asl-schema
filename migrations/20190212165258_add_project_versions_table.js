@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
     })
     .table('projects', table => {
       table.uuid('granted_id').references('id').inTable('project_versions');
+      table.integer('schema_version').notNull().defaultTo(1);
     });
 };
 
@@ -18,6 +19,7 @@ exports.down = function(knex, Promise) {
   return knex.schema
     .table('projects', table => {
       table.dropColumn('granted_id');
+      table.dropColumn('schema_version');
     })
     .dropTableIfExists('project_versions')
 };

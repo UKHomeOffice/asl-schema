@@ -17,6 +17,7 @@ class Project extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         grantedId: { type: ['string', 'null'], pattern: uuid.v4 },
         migratedId: { type: ['string', 'null'] },
+        schemaVersion: { type: 'integer' },
         status: { type: 'string', enum: projectStatuses },
         title: { type: 'string' },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
