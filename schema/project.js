@@ -16,6 +16,7 @@ class Project extends BaseModel {
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         migratedId: { type: ['string', 'null'] },
+        schemaVersion: { type: 'integer' },
         status: { type: 'string', enum: projectStatuses },
         title: { type: 'string' },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
@@ -89,12 +90,12 @@ class Project extends BaseModel {
       .then(result => result[0].count);
   }
 
-  static search({ query, establishmentId, search, sort = {}, limit, offset }) {
+  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset }) {
     query = query || this.query();
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where({ establishmentId })
+      .where({ establishmentId, status })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
       .eager('licenceHolder')
@@ -140,6 +141,14 @@ class Project extends BaseModel {
         join: {
           from: 'projects.establishmentId',
           to: 'establishments.id'
+        }
+      },
+      version: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/project-version`,
+        join: {
+          from: 'projects.id',
+          to: 'projectVersions.projectId'
         }
       }
     };

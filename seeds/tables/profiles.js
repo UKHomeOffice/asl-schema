@@ -1,6 +1,5 @@
 const { omit } = require('lodash');
 const profiles = require('../data/profiles.json');
-const projects = require('../data/projects.json');
 
 module.exports = {
   populate: knex => {
@@ -35,16 +34,6 @@ module.exports = {
                       status: 'active'
                     });
                 }
-              })
-              .then(() => {
-                if (!profile.projectId) {
-                  return;
-                }
-                return knex('projects')
-                  .insert({
-                    licenceHolderId: profileId,
-                    ...projects.find(p => p.id === profile.projectId)
-                  });
               })
               .then(() => {
                 if (profile.roles) {
