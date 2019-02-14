@@ -15,9 +15,9 @@ exports.seed = knex => {
     .then(() => establishments.delete(knex))
 
     .then(() => establishments.populate(knex))
+    .then(() => projectVersions.populate(knex))
     .then(() => profiles.populate(knex))
     .then(() => places.populate(knex))
-    .then(() => projectVersions.populate(knex))
     .then(() => projects.populate(knex))
     .then(() => projects.populateList(knex));
 };

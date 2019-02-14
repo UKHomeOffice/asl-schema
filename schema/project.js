@@ -15,7 +15,7 @@ class Project extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        grantedId: { type: ['string', 'null'], pattern: uuid.v4 },
+        versionId: { type: ['string', 'null'], pattern: uuid.v4 },
         migratedId: { type: ['string', 'null'] },
         schemaVersion: { type: 'integer' },
         status: { type: 'string', enum: projectStatuses },
@@ -51,7 +51,7 @@ class Project extends BaseModel {
     return this.query()
       .where({ establishmentId })
       .findById(id)
-      .eager('[licenceHolder, granted]');
+      .eager('[licenceHolder, version]');
   }
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
@@ -59,7 +59,7 @@ class Project extends BaseModel {
       .where({ establishmentId })
       .where({ licenceHolderId })
       .findById(id)
-      .eager('[licenceHolder, granted]');
+      .eager('[licenceHolder, version]');
   }
 
   static getOwnProjects({
@@ -91,15 +91,15 @@ class Project extends BaseModel {
       .then(result => result[0].count);
   }
 
-  static search({ query, establishmentId, search, sort = {}, limit, offset }) {
+  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset }) {
     query = query || this.query();
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where({ establishmentId })
+      .where({ establishmentId, status })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
-      .eager('[licenceHolder, granted]')
+      .eager('[licenceHolder, version]')
       .where(builder => {
         if (search) {
           return builder
@@ -144,11 +144,11 @@ class Project extends BaseModel {
           to: 'establishments.id'
         }
       },
-      granted: {
+      version: {
         relation: this.HasOneRelation,
         modelClass: `${__dirname}/project-version`,
         join: {
-          from: 'projects.grantedId',
+          from: 'projects.versionId',
           to: 'projectVersions.id'
         }
       }
