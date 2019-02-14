@@ -13,7 +13,9 @@ class ProjectVersion extends BaseModel {
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         data: { type: ['object', 'null'] },
-        parentId: { type: ['string', 'null'], pattern: uuid.v4 },
+        projectId: { type: 'string', pattern: uuid.v4 },
+        grantedAt: { type: ['string', 'null'], format: 'date-time' },
+        submittedAt: { type: ['string', 'null'], format: 'date-time' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
@@ -24,25 +26,17 @@ class ProjectVersion extends BaseModel {
   static get(id) {
     return this.query()
       .findById(id)
-      .eager('[children, parent]');
+      .eager('project');
   }
 
   static get relationMappings() {
     return {
-      children: {
-        relation: this.HasManyRelation,
-        modelClass: this,
-        join: {
-          from: 'projectVersions.id',
-          to: 'projectVersions.parentId'
-        }
-      },
-      parent: {
+      project: {
         relation: this.BelongsToOneRelation,
-        modelClass: this,
+        modelClass: `${__dirname}/project`,
         join: {
-          from: 'projectVersions.parentId',
-          to: 'projectVersions.id'
+          from: 'projectVersions.projectId',
+          to: 'projects.id'
         }
       }
     };

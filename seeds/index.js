@@ -7,6 +7,7 @@ const projectVersions = require('./tables/project-versions');
 exports.seed = knex => {
   return Promise.resolve()
     .then(() => knex => knex('changelog').del())
+    .then(() => projectVersions.delete(knex))
     .then(() => projects.delete(knex))
     .then(() => places.delete(knex))
     .then(() => knex('certificates').del())
@@ -15,9 +16,9 @@ exports.seed = knex => {
     .then(() => establishments.delete(knex))
 
     .then(() => establishments.populate(knex))
-    .then(() => projectVersions.populate(knex))
     .then(() => profiles.populate(knex))
     .then(() => places.populate(knex))
     .then(() => projects.populate(knex))
-    .then(() => projects.populateList(knex));
+    .then(() => projects.populateList(knex))
+    .then(() => projectVersions.populate(knex));
 };

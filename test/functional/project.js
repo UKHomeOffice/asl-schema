@@ -3,8 +3,6 @@ const assert = require('assert');
 const db = require('./helpers/db');
 const moment = require('moment');
 
-const VERSION_ID = '06271be3-df1a-41c7-82ac-e9c42cbb1c19';
-
 describe('Project model', () => {
 
   before(() => {
@@ -71,28 +69,7 @@ describe('Project model', () => {
             }
           }
         ]
-      }, { insertMissing: true, relate: true }))
-      .then(() => this.models.ProjectVersion.query().upsertGraph([
-        {
-          id: VERSION_ID,
-          data: {
-            title: 'A title'
-          },
-          children: [
-            {
-              data: {
-                title: 'B title'
-              }
-            },
-            {
-              data: {
-                title: 'C title'
-              }
-            }
-          ]
-        }
-      ], { insertMissing: true, relate: true }))
-      .then(() => this.models.Project.query().where({ title: 'Anti cancer research' }).patch({ versionId: VERSION_ID }));
+      }, { insertMissing: true, relate: true }));
   });
 
   afterEach(() => {
@@ -107,7 +84,8 @@ describe('Project model', () => {
     it('can search on project title', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'Anti cancer research'
+        search: 'Anti cancer research',
+        status: 'inactive'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
@@ -117,22 +95,11 @@ describe('Project model', () => {
         });
     });
 
-    it('eager loads linked projectVersion', () => {
-      const opts = {
-        establishmentId: 8201,
-        search: 'Anti cancer research'
-      };
-      return Promise.resolve()
-        .then(() => this.models.Project.search(opts))
-        .then(projects => {
-          assert.deepEqual(projects.results[0].version.data.title, 'A title');
-        });
-    });
-
     it('omits expired projects', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'expired research'
+        search: 'expired research',
+        status: 'inactive'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
@@ -144,7 +111,8 @@ describe('Project model', () => {
     it('can search on licenceHolder name', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'Vincent Malloy'
+        search: 'Vincent Malloy',
+        status: 'inactive'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
@@ -184,7 +152,8 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => this.models.Project.getOwnProjects({
             licenceHolderId: '781d8d17-9c00-4f3d-8734-c1a469426546',
-            establishmentId: 8201
+            establishmentId: 8201,
+            status: 'inactive'
           }))
           .then(({ projects: { results } }) => {
             assert.deepEqual(results.length, 2);

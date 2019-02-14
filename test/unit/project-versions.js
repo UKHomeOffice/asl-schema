@@ -27,7 +27,8 @@ describe('ProjectVersion', () => {
   it('allows null values for non-required fields', () => {
     const goodJson = {
       data: { c: 'd' },
-      parentId: null
+      submittedAt: null,
+      grantedAt: null
     };
     expect(ProjectVersion.fromJson(goodJson)).to.be.an('object');
   });

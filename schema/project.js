@@ -15,7 +15,6 @@ class Project extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        versionId: { type: ['string', 'null'], pattern: uuid.v4 },
         migratedId: { type: ['string', 'null'] },
         schemaVersion: { type: 'integer' },
         status: { type: 'string', enum: projectStatuses },
@@ -51,7 +50,7 @@ class Project extends BaseModel {
     return this.query()
       .where({ establishmentId })
       .findById(id)
-      .eager('[licenceHolder, version]');
+      .eager('licenceHolder');
   }
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
@@ -59,7 +58,7 @@ class Project extends BaseModel {
       .where({ establishmentId })
       .where({ licenceHolderId })
       .findById(id)
-      .eager('[licenceHolder, version]');
+      .eager('licenceHolder');
   }
 
   static getOwnProjects({
@@ -99,7 +98,7 @@ class Project extends BaseModel {
       .where({ establishmentId, status })
       .where('expiryDate', '>=', new Date())
       .leftJoinRelation('licenceHolder')
-      .eager('[licenceHolder, version]')
+      .eager('licenceHolder')
       .where(builder => {
         if (search) {
           return builder
@@ -145,11 +144,11 @@ class Project extends BaseModel {
         }
       },
       version: {
-        relation: this.HasOneRelation,
+        relation: this.HasManyRelation,
         modelClass: `${__dirname}/project-version`,
         join: {
-          from: 'projects.versionId',
-          to: 'projectVersions.id'
+          from: 'projects.id',
+          to: 'projectVersions.projectId'
         }
       }
     };

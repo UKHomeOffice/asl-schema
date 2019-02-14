@@ -1,179 +1,179 @@
 [
   {
     "id": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "establishmentId": 8201,
     "title": "Basic user project",
     "issueDate": "2017-02-05",
     "expiryDate": "2019-10-01",
-    "licenceNumber": "PR-250872",
-    "versionId": "c0fe3dc0-6bab-457e-95ee-385e94361597"
+    "licenceNumber": "PR-250872"
   },
   {
+    "id": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
     "establishmentId": 8201,
     "title": "Search for the luminescent aether",
     "issueDate": "2016-02-05",
     "expiryDate": "2018-03-01",
-    "licenceNumber": "PR-764848",
-    "versionId": "e1f488fb-a9d0-4e55-aca7-396d31e9f814"
+    "licenceNumber": "PR-764848"
   },
   {
+    "id": "f638b9b2-e11b-477a-84f9-fd6755f428c3",
     "establishmentId": 8201,
     "title": "Evaluation of novel anti-cancer agents",
     "issueDate": "2016-02-05",
     "expiryDate": "2018-07-01",
-    "licenceNumber": "PR-250436",
-    "versionId": "f638b9b2-e11b-477a-84f9-fd6755f428c3"
+    "licenceNumber": "PR-250436"
   },
   {
+    "id": "a09937d7-6c05-4dea-bd5f-3ba8168875cb",
     "establishmentId": 8201,
     "title": "Development of new biological anti-cancer agents",
     "issueDate": "2017-10-01",
     "expiryDate": "2018-08-01",
-    "licenceNumber": "PR-890458",
-    "versionId": "a09937d7-6c05-4dea-bd5f-3ba8168875cb"
+    "licenceNumber": "PR-890458"
   },
   {
+    "id": "7828ae88-68a8-404b-ab53-ff1077722f07",
     "establishmentId": 8201,
     "title": "Thermosensitive nanoparticles for cancer therapy",
     "issueDate": "2015-11-24",
     "expiryDate": "2018-09-01",
-    "licenceNumber": "PR-192985",
-    "versionId": "7828ae88-68a8-404b-ab53-ff1077722f07"
+    "licenceNumber": "PR-192985"
   },
   {
+    "id": "b8b28a7b-3157-41c8-ae3f-7baf33085e8d",
     "establishmentId": 8201,
     "title": "Oncolytic HSV as an anti-cancer therapy",
     "issueDate": "2018-02-24",
     "expiryDate": "2018-10-01",
-    "licenceNumber": "PR-278783",
-    "versionId": "b8b28a7b-3157-41c8-ae3f-7baf33085e8d"
+    "licenceNumber": "PR-278783"
   },
   {
+    "id": "c2334f4e-f8ce-4fb6-a726-5f87ee26da55",
     "establishmentId": 8201,
     "title": "Hypoxy and angiogenesis in cancer therapy",
     "issueDate": "2017-04-23",
     "expiryDate": "2018-11-01",
-    "licenceNumber": "PR-671216",
-    "versionId": "c2334f4e-f8ce-4fb6-a726-5f87ee26da55"
+    "licenceNumber": "PR-671216"
   },
   {
+    "id": "5a1ad546-f347-4f65-b905-595d64932da2",
     "establishmentId": 8201,
     "title": "Evaluation of novel anti-cancer agents",
     "issueDate": "2016-02-05",
     "expiryDate": "2018-12-01",
-    "licenceNumber": "PR-050381",
-    "versionId": "5a1ad546-f347-4f65-b905-595d64932da2"
+    "licenceNumber": "PR-050381"
   },
   {
+    "id": "ce80a27b-054c-4264-a60b-469a67413d73",
     "establishmentId": 8201,
     "title": "Development of new biological anti-cancer agents",
     "issueDate": "2017-10-01",
     "expiryDate": "2019-01-01",
-    "licenceNumber": "PR-787013",
-    "versionId": "ce80a27b-054c-4264-a60b-469a67413d73"
+    "licenceNumber": "PR-787013"
   },
   {
+    "id": "8b946810-e202-412d-95ba-d9473fc600d3",
     "establishmentId": 8201,
     "title": "Thermosensitive nanoparticles for cancer therapy",
     "issueDate": "2015-11-24",
     "expiryDate": "2019-02-01",
-    "licenceNumber": "PR-519417",
-    "versionId": "8b946810-e202-412d-95ba-d9473fc600d3"
+    "licenceNumber": "PR-519417"
   },
   {
+    "id": "7f28e0d2-3431-4b4b-bf77-3652f1968c5d",
     "establishmentId": 8201,
     "title": "Oncolytic HSV as an anti-cancer therapy",
     "issueDate": "2018-02-24",
     "expiryDate": "2019-03-01",
-    "licenceNumber": "PR-265039",
-    "versionId": "7f28e0d2-3431-4b4b-bf77-3652f1968c5d"
+    "licenceNumber": "PR-265039"
   },
   {
+    "id": "4e3241d6-5725-489f-bdf9-8b688a7a85c7",
     "establishmentId": 8201,
     "title": "Hypoxy and angiogenesis in cancer therapy",
     "issueDate": "2017-04-23",
     "expiryDate": "2019-04-01",
-    "licenceNumber": "PR-127482",
-    "versionId": "4e3241d6-5725-489f-bdf9-8b688a7a85c7"
+    "licenceNumber": "PR-127482"
   },
   {
+    "id": "01a55d81-76b7-42eb-957e-c31d69da52d4",
     "establishmentId": 8201,
     "title": "Evaluation of novel anti-cancer agents",
     "issueDate": "2016-02-05",
     "expiryDate": "2019-05-01",
-    "licenceNumber": "PR-635078",
-    "versionId": "01a55d81-76b7-42eb-957e-c31d69da52d4"
+    "licenceNumber": "PR-635078"
   },
   {
+    "id": "f05b13d5-de41-4173-b313-cd165c8f8072",
     "establishmentId": 8201,
     "title": "Development of new biological anti-cancer agents",
     "issueDate": "2017-10-01",
     "expiryDate": "2019-06-01",
-    "licenceNumber": "PR-141529",
-    "versionId": "f05b13d5-de41-4173-b313-cd165c8f8072"
+    "licenceNumber": "PR-141529"
   },
   {
+    "id": "e15b1645-730e-40ea-a177-7fee4ab757cb",
     "establishmentId": 8201,
     "title": "Thermosensitive nanoparticles for cancer therapy",
     "issueDate": "2015-11-24",
     "expiryDate": "2019-07-01",
-    "licenceNumber": "PR-377835",
-    "versionId": "e15b1645-730e-40ea-a177-7fee4ab757cb"
+    "licenceNumber": "PR-377835"
   },
   {
+    "id": "6d2c6e8c-d38f-48b5-806b-ac698e5d4f6e",
     "establishmentId": 8201,
     "title": "Oncolytic HSV as an anti-cancer therapy",
     "issueDate": "2018-02-24",
     "expiryDate": "2019-08-01",
-    "licenceNumber": "PR-474098",
-    "versionId": "6d2c6e8c-d38f-48b5-806b-ac698e5d4f6e"
+    "licenceNumber": "PR-474098"
   },
   {
+    "id": "09971443-dfcb-483d-88f7-d0bacbbf4d76",
     "establishmentId": 8201,
     "title": "Hypoxy and angiogenesis in cancer therapy",
     "issueDate": "2017-04-23",
     "expiryDate": "2019-09-01",
-    "licenceNumber": "PR-627808",
-    "versionId": "09971443-dfcb-483d-88f7-d0bacbbf4d76"
+    "licenceNumber": "PR-627808"
   },
   {
+    "id": "6a651f3b-fa06-460f-a321-147b4002e20a",
     "establishmentId": 8201,
     "title": "Evaluation of novel anti-cancer agents",
     "issueDate": "2016-02-05",
     "expiryDate": "2019-10-01",
-    "licenceNumber": "PR-398957",
-    "versionId": "6a651f3b-fa06-460f-a321-147b4002e20a"
+    "licenceNumber": "PR-398957"
   },
   {
+    "id": "3dfbaca9-8ff4-4509-b0ef-763b6a31b2ac",
     "establishmentId": 8201,
     "title": "Development of new biological anti-cancer agents",
     "issueDate": "2017-10-01",
     "expiryDate": "2019-11-01",
-    "licenceNumber": "PR-404484",
-    "versionId": "3dfbaca9-8ff4-4509-b0ef-763b6a31b2ac"
+    "licenceNumber": "PR-404484"
   },
   {
+    "id": "855d6a51-338d-4c81-ae6f-d2dc89674c66",
     "establishmentId": 8201,
     "title": "Thermosensitive nanoparticles for cancer therapy",
     "issueDate": "2015-11-24",
     "expiryDate": "2019-12-01",
-    "licenceNumber": "PR-374785",
-    "versionId": "855d6a51-338d-4c81-ae6f-d2dc89674c66"
+    "licenceNumber": "PR-374785"
   },
   {
+    "id": "2319e33e-ffa0-4197-bb92-26a38c18662e",
     "establishmentId": 8201,
     "title": "Oncolytic HSV as an anti-cancer therapy",
     "issueDate": "2018-02-24",
     "expiryDate": "2020-01-01",
-    "licenceNumber": "PR-439411",
-    "versionId": "2319e33e-ffa0-4197-bb92-26a38c18662e"
+    "licenceNumber": "PR-439411"
   },
   {
+    "id": "d42196ff-eb93-4b20-8b71-22673901873d",
     "establishmentId": 8201,
     "title": "Hypoxy and angiogenesis in cancer therapy",
     "issueDate": "2017-04-23",
     "expiryDate": "2020-03-01",
-    "licenceNumber": "PR-670832",
-    "versionId": "d42196ff-eb93-4b20-8b71-22673901873d"
+    "licenceNumber": "PR-670832"
   }
 ]
