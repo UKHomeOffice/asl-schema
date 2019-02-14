@@ -34,6 +34,9 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
 }
 
 class BaseModel extends Model {
+  $beforeUpdate() {
+    this.updatedAt = new Date().toISOString();
+  }
 
   static get QueryBuilder() {
     return SoftDeleteQueryBuilder;
