@@ -11,14 +11,14 @@ class Project extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['title', 'establishmentId'],
+      required: ['establishmentId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         migratedId: { type: ['string', 'null'] },
         schemaVersion: { type: 'integer' },
         status: { type: 'string', enum: projectStatuses },
-        title: { type: 'string' },
+        title: { type: ['string', 'null'] },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         expiryDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
@@ -55,8 +55,7 @@ class Project extends BaseModel {
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
     return this.query()
-      .where({ establishmentId })
-      .where({ licenceHolderId })
+      .where({ establishmentId, licenceHolderId })
       .findById(id)
       .eager('licenceHolder');
   }
@@ -80,12 +79,18 @@ class Project extends BaseModel {
       .then(([total, projects]) => ({ total, projects }));
   }
 
-  static count({ query, establishmentId }) {
+  static count({ query, establishmentId, status }) {
     query = query || this.query();
 
     return query
       .where({ establishmentId })
-      .where('expiryDate', '>=', new Date())
+      .andWhere(builder => {
+        if (status === 'expired') {
+          return builder.where('expiryDate', '<', new Date()).orWhere({ status: 'expired' });
+        }
+        return builder.where({ status })
+          .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
+      })
       .count()
       .then(result => result[0].count);
   }
@@ -95,8 +100,14 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where({ establishmentId, status })
-      .where('expiryDate', '>=', new Date())
+      .where({ establishmentId })
+      .andWhere(builder => {
+        if (status === 'expired') {
+          return builder.where('expiryDate', '<', new Date()).orWhere({ status: 'expired' });
+        }
+        return builder.where({ status })
+          .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
+      })
       .leftJoinRelation('licenceHolder')
       .eager('licenceHolder')
       .where(builder => {
