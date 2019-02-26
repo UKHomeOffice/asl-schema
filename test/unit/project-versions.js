@@ -23,13 +23,4 @@ describe('ProjectVersion', () => {
     };
     expect(ProjectVersion.fromJson(goodJson)).to.be.an('object');
   });
-
-  it('allows null values for non-required fields', () => {
-    const goodJson = {
-      data: { c: 'd' },
-      submittedAt: null,
-      grantedAt: null
-    };
-    expect(ProjectVersion.fromJson(goodJson)).to.be.an('object');
-  });
 });

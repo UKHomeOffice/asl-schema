@@ -2,40 +2,96 @@
   {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
-      "title": "Basic user project"
+      "poles": false,
+      "title": "Basic user project",
+      "protocols": [
+        {
+          "id": "cd64135f-2770-4bdb-8858-bfefb16f3d8d",
+          "steps": [
+            {
+              "id": "7a2a0d9f-2a63-40bc-be16-d06deb41a7aa"
+            }
+          ],
+          "complete": true,
+          "speciesDetails": [
+            {
+              "id": "eb865172-7535-475b-b16b-cdc73bb9f07d"
+            }
+          ]
+        }
+      ],
+      "objectives": [
+        {
+          "id": "4d5dd800-de78-43de-b619-2ac050f49cdf"
+        }
+      ],
+      "purpose-bred": false,
+      "wild-animals": false,
+      "feral-animals": false,
+      "poles-complete": true,
+      "funding-complete": true,
+      "benefits-complete": true,
+      "strategy-complete": true,
+      "transfer-expiring": false,
+      "clinical-condition": false,
+      "endangered-animals": false,
+      "reduction-complete": true,
+      "experience-complete": true,
+      "experience-projects": true,
+      "nts-review-complete": true,
+      "refinement-complete": true,
+      "commercial-slaughter": false,
+      "other-establishments": false,
+      "replacement-complete": true,
+      "introduction-complete": true,
+      "primary-establishment": "University of Croydon",
+      "feral-animals-complete": true,
+      "project-harms-complete": true,
+      "establishments-complete": true,
+      "fate-of-animals-complete": true,
+      "experimental-design-sexes": false,
+      "endangered-animals-complete": true,
+      "experimental-design-complete": true,
+      "commercial-slaughter-complete": true,
+      "experimental-design-repeating": false,
+      "purpose-bred-animals-complete": true,
+      "establishments-care-conditions": false,
+      "scientific-background-complete": true,
+      "animals-containing-human-material": false,
+      "containing-human-material-complete": true,
+      "animals-taken-from-the-wild-complete": true,
+      "establishments-care-conditions-justification": null,
+      "id": "dbc6845f-82b6-4ffe-9d93-12b8fff74029"
     },
-    "granted": true,
-    "submitted": true
+    "status": "granted"
   },
   {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "title": "First basic user project title"
     },
-    "granted": true,
-    "submitted": true
+    "status": "granted"
   },
   {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "title": "Previous basic user project title"
     },
-    "submitted": true
+    "status": "submitted"
   },
   {
     "projectId": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
     "data": {
       "title": "Search for the luminescent aether"
     },
-    "granted": true,
-    "submitted": true
+    "status": "granted"
   },
   {
     "projectId": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
     "data": {
       "title": "Previous search for the luminescent aether"
     },
-    "submitted": true
+    "status": "submitted"
   },
   {
     "projectId": "f638b9b2-e11b-477a-84f9-fd6755f428c3",
@@ -48,7 +104,7 @@
     "data": {
       "title": "Development of new biological anti-cancer agents"
     },
-    "submitted": true
+    "status": "submitted"
   },
   {
     "projectId": "7828ae88-68a8-404b-ab53-ff1077722f07",
