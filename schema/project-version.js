@@ -1,6 +1,13 @@
 const BaseModel = require('./base-model');
 const { uuid } = require('../lib/regex-validation');
 
+const projectVersionStatuses = [
+  'draft',
+  'granted',
+  'submitted',
+  'withdrawn'
+];
+
 class ProjectVersion extends BaseModel {
   static get tableName() {
     return 'projectVersions';
@@ -14,8 +21,7 @@ class ProjectVersion extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         data: { type: ['object', 'null'] },
         projectId: { type: 'string', pattern: uuid.v4 },
-        grantedAt: { type: ['string', 'null'], format: 'date-time' },
-        submittedAt: { type: ['string', 'null'], format: 'date-time' },
+        status: { type: 'string', enum: projectVersionStatuses },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
