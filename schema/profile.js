@@ -159,7 +159,8 @@ class Profile extends BaseModel {
         query.whereNot('pil.id', null);
       }
       if (customRoles.includes('pplh')) {
-        query.whereNot('projects.id', null);
+        query.whereNot('projects.id', null)
+          .where('projects.status', 'active')
       }
     }
 
