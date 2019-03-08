@@ -28,6 +28,7 @@ describe('Profile model', () => {
               lastName: 'Archer',
               email: 'sterling@archer.com',
               pil: {
+                status: 'active',
                 establishmentId: 8201,
                 licenceNumber: 'ABC-123-02'
               }
@@ -37,6 +38,7 @@ describe('Profile model', () => {
               lastName: 'Lemon',
               email: 'keith@lemon.com',
               pil: {
+                status: 'inactive',
                 establishmentId: 8201,
                 licenceNumber: 'ABC-123-03'
               },
@@ -50,6 +52,7 @@ describe('Profile model', () => {
               lastName: 'Forsyth',
               email: 'bruce@forsyth.com',
               pil: {
+                status: 'active',
                 establishmentId: 8201,
                 licenceNumber: 'ABC-123-04'
               },
@@ -63,6 +66,7 @@ describe('Profile model', () => {
               lastName: 'Little',
               email: 'stuart@little.com',
               projects: [{
+                status: 'active',
                 establishmentId: 8201,
                 title: 'Anti cancer research'
               }]
@@ -81,6 +85,7 @@ describe('Profile model', () => {
               lastName: 'Powers',
               email: 'groovy@baby.com',
               pil: {
+                status: 'active',
                 establishmentId: 8202,
                 licenceNumber: 'ABC-123-06'
               }
@@ -90,6 +95,7 @@ describe('Profile model', () => {
               lastName: 'Kent',
               email: 'super@man.com',
               pil: {
+                status: 'inactive',
                 establishmentId: 8202,
                 licenceNumber: 'ABC-123-07'
               }
@@ -189,8 +195,8 @@ describe('Profile model', () => {
       return Promise.resolve()
         .then(() => this.models.Profile.searchAndFilter(opts))
         .then(profiles => {
-          assert.deepEqual(profiles.total, 3);
-          assert.deepEqual(profiles.results.map(p => p.firstName).sort(), ['Bruce', 'Keith', 'Sterling']);
+          assert.deepEqual(profiles.total, 2);
+          assert.deepEqual(profiles.results.map(p => p.firstName).sort(), ['Bruce', 'Sterling']);
         });
     });
 
@@ -240,7 +246,7 @@ describe('Profile model', () => {
       return Promise.resolve()
         .then(() => this.models.Profile.searchAndFilter(opts))
         .then(profiles => {
-          assert.deepEqual(profiles.total, 3);
+          assert.deepEqual(profiles.total, 2);
           assert.deepEqual(profiles.results.length, 1);
           assert.deepEqual(profiles.results[0].firstName, 'Bruce');
         });
@@ -261,11 +267,10 @@ describe('Profile model', () => {
       return Promise.resolve()
         .then(() => this.models.Profile.searchAndFilter(opts))
         .then(profiles => {
-          assert.deepEqual(profiles.total, 3);
-          assert.deepEqual(profiles.results.length, 3);
+          assert.deepEqual(profiles.total, 2);
+          assert.deepEqual(profiles.results.length, 2);
           assert.deepEqual(profiles.results[0].firstName, 'Sterling');
-          assert.deepEqual(profiles.results[1].firstName, 'Keith');
-          assert.deepEqual(profiles.results[2].firstName, 'Bruce');
+          assert.deepEqual(profiles.results[1].firstName, 'Bruce');
         });
     });
   });
