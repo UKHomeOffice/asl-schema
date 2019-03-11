@@ -28,7 +28,7 @@ class Establishment extends BaseModel {
         supplying: { type: 'boolean' },
         killing: { type: 'boolean' },
         rehomes: { type: 'boolean' },
-        conditions: { type: 'boolean' },
+        conditions: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
