@@ -16,6 +16,7 @@ class Establishment extends BaseModel {
         migratedId: { type: ['string', 'null'] },
         name: { type: 'string' },
         type: { type: ['string', 'null'] },
+        company: { type: ['string', 'null'] },
         status: { type: 'string', enum: establishmentStatuses },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
