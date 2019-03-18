@@ -12,8 +12,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.raw(alterEnumColumn(
-    'pils',
-    'status',
+    'roles',
+    'type',
     ['pelh', 'nacwo', 'nvs', 'nio', 'ntco', 'holc'],
     null,
     false
