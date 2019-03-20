@@ -114,13 +114,6 @@ class Establishment extends BaseModel {
       .then(results => results[0])
       .then(result => result.count);
   }
-
-  getEstablishmentRole() {
-    return this.$relatedQuery('roles')
-      .whereIn('type', ['pelh', 'nprc'])
-      .then(roles => roles[0])
-      .then(role => role && role.getProfile());
-  }
 }
 
 module.exports = Establishment;
