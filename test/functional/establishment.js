@@ -44,29 +44,4 @@ describe('Establishment model', () => {
 
   });
 
-  describe('Querying', () => {
-    it('has a getPELH method which returns associated PELH', () => {
-      const { Establishment } = this.models;
-      return Promise.resolve()
-        .then(() => {
-          return Establishment.query().insertGraph({
-            ...validEstablishment,
-            roles: [{
-              type: 'pelh',
-              profile: {
-                firstName: 'Sterling',
-                lastName: 'Archer',
-                email: 'sterling@archer.com'
-              }
-            }]
-          });
-        })
-        .then(() => Establishment.query().findById(8201))
-        .then(e => e.getPELH())
-        .then(pelh => {
-          assert.equal(pelh.email, 'sterling@archer.com');
-        });
-    });
-  });
-
 });
