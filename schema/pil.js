@@ -29,6 +29,10 @@ class PIL extends BaseModel {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
+        species: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
         notesCatD: { type: ['string', 'null'] },
         notesCatF: { type: ['string', 'null'] }
       }
