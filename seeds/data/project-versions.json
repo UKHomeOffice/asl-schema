@@ -1,5 +1,13 @@
 [
   {
+    "projectId": "84ec643f-893b-4232-ab4c-5789d50773de",
+    "data": {
+      "title": "Legacy project",
+      "primary-establishment": "University of Croydon"
+    },
+    "status": "granted"
+  },
+  {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "poles": false,
