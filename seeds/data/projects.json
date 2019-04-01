@@ -5,7 +5,7 @@
     "establishmentId": 8201,
     "title": "Basic user project",
     "issueDate": "2017-02-05",
-    "expiryDate": "2019-10-01",
+    "expiryDate": "2022-10-01",
     "licenceNumber": "PR-250872",
     "status": "active"
   },
@@ -16,7 +16,7 @@
     "schemaVersion": 0,
     "title": "Legacy project",
     "issueDate": "2014-11-01",
-    "expiryDate": "2019-11-01",
+    "expiryDate": "2022-11-01",
     "licenceNumber": "PR-123456",
     "status": "active"
   },
