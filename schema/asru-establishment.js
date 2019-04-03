@@ -1,8 +1,12 @@
 const BaseModel = require('./base-model');
 
-class ProfileToEstablishment extends BaseModel {
+class AsruEstablishment extends BaseModel {
   static get tableName() {
-    return 'profile_to_establishment';
+    return 'asru_establishment';
+  }
+
+  static get idColumn() {
+    return ['establishmentId', 'profileId'];
   }
 
   static get jsonSchema() {
@@ -26,7 +30,7 @@ class ProfileToEstablishment extends BaseModel {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
         join: {
-          from: 'profile_to_establishment.profileId',
+          from: 'asru_establishment.profileId',
           to: 'profiles.id'
         }
       }
@@ -38,4 +42,4 @@ class ProfileToEstablishment extends BaseModel {
   }
 }
 
-module.exports = ProfileToEstablishment;
+module.exports = AsruEstablishment;
