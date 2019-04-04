@@ -23,23 +23,6 @@ class AsruEstablishment extends BaseModel {
       }
     };
   }
-
-  static get relationMappings() {
-    return {
-      profile: {
-        relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
-        join: {
-          from: 'asru_establishment.profileId',
-          to: 'profiles.id'
-        }
-      }
-    };
-  }
-
-  getProfile() {
-    return this.$relatedQuery('profile');
-  }
 }
 
 module.exports = AsruEstablishment;

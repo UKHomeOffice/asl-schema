@@ -291,6 +291,19 @@ class Profile extends BaseModel {
         filter: f => {
           return f.skipUndefined().where('establishmentId', f.context().establishmentId);
         }
+      },
+      asru: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'profiles.id',
+          through: {
+            from: 'asruEstablishment.profileId',
+            to: 'asruEstablishment.establishmentId'
+          },
+          to: 'establishments.id'
+        },
+        filter: { 'asruUser': true }
       }
     };
   }
