@@ -104,6 +104,18 @@ class Establishment extends BaseModel {
           from: 'establishments.id',
           to: 'projects.establishmentId'
         }
+      },
+      asru: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'establishments.id',
+          through: {
+            from: 'asruEstablishment.establishmentId',
+            to: 'asruEstablishment.profileId'
+          },
+          to: 'profiles.id'
+        }
       }
     };
   }
