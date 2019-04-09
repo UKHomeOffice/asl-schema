@@ -302,8 +302,7 @@ class Profile extends BaseModel {
             to: 'asruEstablishment.establishmentId'
           },
           to: 'establishments.id'
-        },
-        filter: { 'asruUser': true }
+        }
       }
     };
   }
