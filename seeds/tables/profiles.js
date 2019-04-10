@@ -50,5 +50,6 @@ module.exports = {
     .then(() => knex('permissions').del())
     .then(() => knex('invitations').del())
     .then(() => knex('roles').del())
+    .then(() => knex('asru_establishment').del())
     .then(() => knex('profiles').del())
 };
