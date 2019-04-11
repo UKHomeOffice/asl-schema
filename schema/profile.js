@@ -65,7 +65,7 @@ class Profile extends BaseModel {
       query.scopeToEstablishment('establishments.id', establishmentId);
     }
     return query
-      .eager('[roles.places, establishments, pil, projects, certificates, exemptions]');
+      .eager('[roles.places, establishments, pil, projects, certificates, exemptions, asru]');
   }
 
   static getNamed({ userId, ...params }) {
