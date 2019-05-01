@@ -26,10 +26,16 @@ class SoftDeleteQueryBuilder extends Model.QueryBuilder {
     return super.delete();
   }
 
-  scopeToEstablishment(column, establishmentId) {
-    return this.mergeContext({ establishmentId })
+  scopeToEstablishment(column, establishmentId, role) {
+    const query = this.mergeContext({ establishmentId })
       .joinRelation('establishments')
       .where(column, establishmentId);
+
+    if (role) {
+      query.where({ role });
+    }
+
+    return query;
   }
 }
 

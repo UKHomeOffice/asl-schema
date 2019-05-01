@@ -133,9 +133,11 @@ class Profile extends BaseModel {
   }) {
     query = query || this.query();
 
+    const role = filters.roles && filters.roles.includes('admin') ? 'admin' : null;
+
     query
       .distinct('profiles.*', 'pil.licenceNumber')
-      .scopeToEstablishment('establishments.id', establishmentId)
+      .scopeToEstablishment('establishments.id', establishmentId, role)
       .leftJoinRelation('[pil, projects, roles]')
       .eager('[pil, projects, establishments, roles]')
       .where(builder => {
@@ -148,8 +150,9 @@ class Profile extends BaseModel {
 
     if (filters.roles && filters.roles.length) {
       const roles = compact(filters.roles);
+
       // filter on pseudo roles
-      const customRoles = remove(roles, role => role === 'pilh' || role === 'pplh');
+      const customRoles = remove(roles, role => ['pplh', 'pilh', 'admin'].includes(role));
 
       if (roles.length) {
         query.whereIn('roles.type', roles);
