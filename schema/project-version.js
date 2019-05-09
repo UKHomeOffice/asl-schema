@@ -35,6 +35,13 @@ class ProjectVersion extends BaseModel {
       .eager('project');
   }
 
+  static getAll(projectId) {
+    return this.query()
+      .where(builder => {
+        return builder.where({ projectId });
+      });
+  }
+
   static get relationMappings() {
     return {
       project: {
