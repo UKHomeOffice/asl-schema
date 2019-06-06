@@ -18,7 +18,11 @@ class Exemption extends BaseModel {
         description: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
-        deleted: { type: ['string', 'null'], format: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' },
+        species: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        }
       }
     };
   }
