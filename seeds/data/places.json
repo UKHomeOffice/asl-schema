@@ -81,7 +81,7 @@
 {"establishmentId":8201,"site":"Lunar House 1st floor","name":"33386","area":9.66,"suitability":["NHP","AV","LA"],"holding":["LTH"]},
 {"establishmentId":8201,"site":"Lunar House 3rd floor","name":"01554","area":1.83,"suitability":["SA"],"holding":["SEP"]},
 {"establishmentId":8201,"site":"The Marquis of Granby Replenishment Centre","name":"847","area":null,"suitability":["SA","LA"],"holding":["SEP","LTH"]},
-{"establishmentId":8201,"site":"2 Marsham Street","name":"1603","area":8.17,"suitability":["CAT","AQ"],"holding":["LTH","NOH"]},
+{"establishmentId":8201,"site":"2 Marsham Street","name":"1603","area":8.17,"suitability":["CAT","AQ"],"holding":["LTH","NOH"], "nacwoId": null},
 {"establishmentId":8201,"site":"Metro Point","name":"13","area":5.2,"suitability":["LA","CAT","DOG"],"holding":["LTH"]},
 {"establishmentId":8201,"site":"Vulcan House","name":"6","area":8.69,"suitability":["CAT"],"holding":["STH"]},
 {"establishmentId":8201,"site":"Vulcan House","name":"865","area":2.53,"suitability":["LA","AV"],"holding":["NSEP"]},
