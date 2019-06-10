@@ -6,7 +6,7 @@ module.exports = {
     return Promise.all(
       projects.filter(p => !p.licenceHolderId).map(project => {
         return knex('profiles')
-          .where('firstName', '!=', 'Basic')
+          .whereNotIn('firstName', ['Basic', 'Read'])
           .andWhere('asruUser', false)
           .then(profiles => {
             return knex('projects')
@@ -24,7 +24,7 @@ module.exports = {
     return Promise.all(
       projectsList.map(project => {
         return knex('profiles')
-          .where('firstName', '!=', 'Basic')
+          .whereNotIn('firstName', ['Basic', 'Read'])
           .andWhere('asruUser', false)
           .first()
           .then(profile => {
