@@ -79,33 +79,46 @@ class Project extends BaseModel {
       .then(([total, projects]) => ({ total, projects }));
   }
 
-  static count({ query, establishmentId, status }) {
+  static filterUnsubmittedDrafts(query) {
+    return query.joinRelation('version')
+      .where('version.status', 'submitted');
+  }
+
+  static count({ query, establishmentId, status, isAsru }) {
     query = query || this.query();
+
+    if (status === 'inactive' && isAsru) {
+      query = this.filterUnsubmittedDrafts(query);
+    }
 
     return query
       .where({ establishmentId })
       .andWhere(builder => {
         if (status === 'expired') {
-          return builder.where('expiryDate', '<', new Date()).orWhere({ status: 'expired' });
+          return builder.where('expiryDate', '<', new Date()).orWhere('projects.status', 'expired');
         }
-        return builder.where({ status })
+        return builder.where('projects.status', status)
           .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
       })
       .count()
       .then(result => result[0].count);
   }
 
-  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset }) {
+  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset, isAsru }) {
     query = query || this.query();
+
+    if (status === 'inactive' && isAsru) {
+      query = this.filterUnsubmittedDrafts(query);
+    }
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where({ establishmentId })
       .andWhere(builder => {
         if (status === 'expired') {
-          return builder.where('expiryDate', '<', new Date()).orWhere({ status: 'expired' });
+          return builder.where('expiryDate', '<', new Date()).orWhere('projects.status', 'expired');
         }
-        return builder.where({ status })
+        return builder.where('projects.status', status)
           .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
       })
       .leftJoinRelation('licenceHolder')
