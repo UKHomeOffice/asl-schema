@@ -24,7 +24,7 @@ module.exports = {
     return Promise.all(
       projectsList.map(project => {
         return knex('profiles')
-          .whereNotIn('firstName', ['Basic', 'Read'])
+          .whereNotIn('firstName', ['Basic', 'Read' 'Ella'])
           .andWhere('asruUser', false)
           .first()
           .then(profile => {
