@@ -13,6 +13,7 @@ exports.seed = knex => {
     .then(() => knex('certificates').del())
     .then(() => knex('exemptions').del())
     .then(() => profiles.delete(knex))
+    .then(() => knex('authorisations').del())
     .then(() => establishments.delete(knex))
 
     .then(() => establishments.populate(knex))
