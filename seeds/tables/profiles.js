@@ -28,10 +28,10 @@ module.exports = {
                 if (profile.pil && profile.permissions.length) {
                   return knex('pils')
                     .insert({
+                      status: 'active',
                       ...profile.pil,
                       establishmentId: profile.permissions[0].establishmentId,
-                      profileId,
-                      status: 'active'
+                      profileId
                     });
                 }
               })

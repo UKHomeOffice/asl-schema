@@ -477,6 +477,7 @@
     "email": "ksmallcombf@example.com",
     "telephone": 9702893776,
     "pil": {
+      "status": "revoked",
       "issueDate": "2017-05-16",
       "licenceNumber": "SQ-025927",
       "conditions": ""
