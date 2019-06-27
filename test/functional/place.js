@@ -219,6 +219,19 @@ describe('Place model', () => {
         });
     });
 
+    it('doesn\'t paginate results if limit is set to all', () => {
+      const opts = {
+        establishmentId: 8201,
+        limit: 'all'
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          assert.deepEqual(places.total, 4);
+          assert.deepEqual(places.results.length, 4);
+        });
+    });
+
     it('sorts results', () => {
       const opts = {
         establishmentId: 8201,

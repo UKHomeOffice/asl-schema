@@ -85,6 +85,10 @@ class BaseModel extends Model {
   }
 
   static paginate({ query, limit, offset }) {
+    if (limit === 'all') {
+      // .page() requires an integer argument - provide an arbitrarily large on
+      return query.page(0, 1e9);
+    }
     if (isUndefined(limit)) {
       limit = 100;
     }
