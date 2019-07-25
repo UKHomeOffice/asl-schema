@@ -117,7 +117,7 @@ describe('Profile model', () => {
     it('can search on full name', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'cent mal'
+        search: 'vinc mal'
       };
       return Promise.resolve()
         .then(() => this.models.Profile.searchAndFilter(opts))
