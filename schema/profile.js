@@ -113,7 +113,7 @@ class Profile extends BaseModel {
     }
     if (parts.length > 1) {
       query
-        .where(firstName, 'iLike', `%${parts[0]}`)
+        .where(firstName, 'iLike', `${parts[0]}%`)
         .andWhere(lastName, 'iLike', `${parts[1]}%`);
     } else {
       query
