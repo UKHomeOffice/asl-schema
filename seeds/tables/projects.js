@@ -1,12 +1,14 @@
 const { sample, sampleSize } = require('lodash');
 const projects = require('../data/projects.json');
 
+const nopes = ['Basic', 'Read', 'Ella', 'Unaffiliated'];
+
 module.exports = {
   populate: knex => {
     return Promise.all(
       projects.filter(p => !p.licenceHolderId).map(project => {
         return knex('profiles')
-          .whereNotIn('firstName', ['Basic', 'Read', 'Ella'])
+          .whereNotIn('firstName', nopes)
           .andWhere('asruUser', false)
           .then(profiles => {
             return knex('projects')
@@ -24,7 +26,7 @@ module.exports = {
     return Promise.all(
       projectsList.map(project => {
         return knex('profiles')
-          .whereNotIn('firstName', ['Basic', 'Read', 'Ella'])
+          .whereNotIn('firstName', nopes)
           .andWhere('asruUser', false)
           .first()
           .then(profile => {
