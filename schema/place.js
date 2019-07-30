@@ -51,7 +51,7 @@ class Place extends BaseModel {
           .distinct(filter)
           .then(result => ({
             key: filter,
-            values: uniq(flatten(result.map(r => r[filter])))
+            values: uniq(flatten(result.map(r => r[filter]))).sort()
           }))
       )
     )
