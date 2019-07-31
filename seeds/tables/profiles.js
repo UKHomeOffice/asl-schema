@@ -26,6 +26,17 @@ module.exports = {
               })
               .then(() => {
                 if (profile.pil && profile.permissions.length) {
+                  if (Array.isArray(profile.pil)) {
+                    return Promise.all(profile.pil.map(pil => {
+                      return knex('pils')
+                        .insert({
+                          status: 'active',
+                          ...pil,
+                          establishmentId: profile.permissions[0].establishmentId,
+                          profileId
+                        });
+                    }));
+                  }
                   return knex('pils')
                     .insert({
                       status: 'active',

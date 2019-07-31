@@ -281,7 +281,7 @@ class Profile extends BaseModel {
           to: 'pils.profileId'
         },
         filter: f => {
-          return f.skipUndefined().where('establishmentId', f.context().establishmentId);
+          return f.skipUndefined().where('establishmentId', f.context().establishmentId).orderBy('issueDate', 'desc');
         }
       },
       projects: {
