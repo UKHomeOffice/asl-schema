@@ -281,7 +281,7 @@ class Profile extends BaseModel {
           to: 'pils.profileId'
         },
         filter: f => {
-          return f.skipUndefined().orderBy('issueDate', 'desc');
+          return f.orderBy('issueDate', 'desc');
         }
       },
       projects: {
