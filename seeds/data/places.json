@@ -89,7 +89,7 @@
 {"establishmentId":8201,"site":"The Marquis of Granby Replenishment Centre","name":"2","area":5.14,"suitability":["SA","AV"],"holding":["STH"]},
 {"establishmentId":8201,"site":"Lunar House 3rd floor","name":"81457","area":null,"suitability":["AQ"],"holding":["LTH"]},
 {"establishmentId":8201,"site":"Lunar House 4th floor","name":"3312","area":1.99,"suitability":["AQ","EQU"],"holding":["LTH"]},
-{"establishmentId":8201,"site":"2 Marsham Street","name":"58816","area":null,"suitability":["CAT"],"holding":["LTH","SEP"], "nacwoId": null},
+{"establishmentId":8201,"site":"3 Marsham Street","name":"58816","area":null,"suitability":["CAT"],"holding":["LTH","SEP"], "nacwoId": null},
 {"establishmentId":8201,"site":"Apollo House","name":"9706","area":7.13,"suitability":["EQU","AQ"],"holding":["NOH","LTH"]},
 {"establishmentId":8201,"site":"Apollo House","name":"05411","area":8.82,"suitability":["AV"],"holding":["LTH","SEP"]},
 {"establishmentId":8201,"site":"Metro Point","name":"44","area":null,"suitability":["AV","AQ","EQU"],"holding":["LTH","NSEP"]},
