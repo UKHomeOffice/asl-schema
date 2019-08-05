@@ -27,7 +27,7 @@
   "dependencies": {
     "@asl/constants": "^0.3.2",
     "knex": "^0.15.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.22.2",
     "objection": "^1.2.0",
     "pg": "^7.4.1",
