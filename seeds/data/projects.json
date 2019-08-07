@@ -224,5 +224,12 @@
     "establishmentId": 8201,
     "title": "Draft project",
     "status": "inactive"
+  },
+  {
+    "id": "38008c26-8748-45f8-b0a5-18f1bafbae70",
+    "establishmentId": 8201,
+    "title": "Draft legacy project",
+    "status": "inactive",
+    "schemaVersion": 0
   }
 ]
