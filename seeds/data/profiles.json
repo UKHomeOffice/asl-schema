@@ -1262,24 +1262,6 @@
         "establishmentId": 8201
       }
     ],
-    "title": "Prof",
-    "firstName": "Barbee",
-    "lastName": "Jewess",
-    "dob": "1955-01-17",
-    "email": "bjewess1n@example.com",
-    "telephone": 2407576707,
-    "pil": {
-      "issueDate": "2015-02-23",
-      "licenceNumber": "HO-195146",
-      "conditions": "Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus velnulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus."
-    }
-  },
-  {
-    "permissions": [
-      {
-        "establishmentId": 8201
-      }
-    ],
     "title": "Miss",
     "firstName": "Gillie",
     "lastName": "McAuliffe",
