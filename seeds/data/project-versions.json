@@ -206,7 +206,88 @@
   {
     "projectId": "d42196ff-eb93-4b20-8b71-22673901873d",
     "data": {
-      "title": "Hypoxy and angiogenesis in cancer therapy"
+      "title": "Project with protocols",
+      "protocols": [
+        {
+          "id": "fb95dd09-cfe0-4efc-baef-dbecb61ccc8d",
+          "steps": [
+            {"id": "61395505-2400-444b-a47e-a7a08879b654"}
+          ],
+          "title": "New protocol",
+          "complete": true,
+          "severity": "mild",
+          "conditions": [],
+          "description": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"Purpose 1\",\"marks\":[]}]}]}}",
+          "speciesDetails": [{"id": "9245be05-c18a-41ce-b51f-c70c5424d8e9"}],
+          "severity-proportion": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"10%\",\"marks\":[]}]}]}}"
+        },
+        {
+          "id": "b9233bf4-e354-4ee7-8143-83ba6b1355eb",
+          "steps": [
+            {"id": "ffa8233d-00d8-4647-8805-eb12d1490ca8"}
+          ],
+          "title": "New protocol 2",
+          "complete": true,
+          "severity": "mild",
+          "conditions": [],
+          "description": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"Some details\",\"marks\":[]}]}]}}"
+        }
+      ],
+      "conditions": [
+        {
+          "key": "non-purpose-bred-sched-2",
+          "path": "non-purpose-bred-sched-2.versions.0",
+          "type": "condition",
+          "autoAdded": true
+        },
+        {
+          "key": "code-of-practice",
+          "path": "code-of-practice.versions.0",
+          "type": "authorisation",
+          "autoAdded": true
+        }
+      ],
+      "objectives": [
+        {"id": "f9d2ff55-bedb-4f9c-b39c-4dd850b4f737"}
+      ],
+      "purpose-bred": false,
+      "wild-animals": false,
+      "feral-animals": false,
+      "poles-complete": true,
+      "funding-complete": true,
+      "benefits-complete": true,
+      "strategy-complete": true,
+      "transfer-expiring": false,
+      "clinical-condition": false,
+      "endangered-animals": false,
+      "protocols-complete": true,
+      "reduction-complete": true,
+      "experience-complete": true,
+      "experience-projects": true,
+      "nts-review-complete": true,
+      "refinement-complete": true,
+      "action-plan-complete": true,
+      "commercial-slaughter": false,
+      "other-establishments": false,
+      "replacement-complete": true,
+      "introduction-complete": true,
+      "feral-animals-complete": true,
+      "project-harms-complete": true,
+      "establishments-complete": true,
+      "fate-of-animals-complete": true,
+      "experimental-design-sexes": false,
+      "endangered-animals-complete": true,
+      "general-principles-complete": true,
+      "experimental-design-complete": true,
+      "commercial-slaughter-complete": true,
+      "experimental-design-repeating": false,
+      "purpose-bred-animals-complete": true,
+      "establishments-care-conditions": false,
+      "scientific-background-complete": true,
+      "animals-containing-human-material": false,
+      "containing-human-material-complete": true,
+      "animals-taken-from-the-wild-complete": true,
+      "establishments-care-conditions-justification": null
     },
     "status": "granted"
   },
