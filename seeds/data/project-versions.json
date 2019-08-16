@@ -224,7 +224,16 @@
         {
           "id": "b9233bf4-e354-4ee7-8143-83ba6b1355eb",
           "steps": [
-            {"id": "ffa8233d-00d8-4647-8805-eb12d1490ca8"}
+            {
+              "id": "ffa8233d-00d8-4647-8805-eb12d1490ca8",
+              "title": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"A new step\",\"marks\":[]}]}]}}",
+              "completed": true
+            },
+            {
+              "id": "39a85fda-09f4-4d5a-ab92-dfe8192be7b1",
+              "title": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"Step 2\",\"marks\":[]}]}]}}",
+              "completed": true
+            }
           ],
           "title": "New protocol 2",
           "complete": true,
