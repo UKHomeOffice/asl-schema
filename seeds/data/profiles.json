@@ -1884,5 +1884,35 @@
     "firstName": "Unaffiliated",
     "dob": "1980-01-01",
     "email": "unaffiliated@example.com"
+  },
+  {
+    "lastName": "Joe",
+    "firstName": "Bloggs",
+    "dob": "1960-02-02",
+    "email": "joe.bloggs@example.com"
+  },
+  {
+    "lastName": "Joe",
+    "firstName": "Bloggs",
+    "dob": "1960-02-02",
+    "email": "Joe.Bloggs@example.com"
+  },
+  {
+    "lastName": "Joe",
+    "firstName": "Bloggs",
+    "dob": "1960-02-02",
+    "email": "JOE.BLOGGS@EXAMPLE.COM"
+  },
+  {
+    "lastName": "Joe",
+    "firstName": "Bloggs",
+    "dob": "1960-02-02",
+    "email": "joe.bloggs@EXAMPLE.COM"
+  },
+  {
+    "lastName": "Joe",
+    "firstName": "Bloggs",
+    "dob": "1961-03-03",
+    "email": "j.bloggs@example.com"
   }
 ]
