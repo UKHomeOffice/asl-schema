@@ -314,6 +314,19 @@
     }
   },
   {
+    "projectId": "7d867c46-5e17-4f7f-8718-4f99160582d3",
+    "data": {
+      "title": "Draft with withdrawn"
+    }
+  },
+  {
+    "projectId": "7d867c46-5e17-4f7f-8718-4f99160582d3",
+    "data": {
+      "title": "Draft with withdrawn"
+    },
+    "status": "withdrawn"
+  },
+  {
     "projectId": "38008c26-8748-45f8-b0a5-18f1bafbae70",
     "data": {
       "title": "Draft legacy project"

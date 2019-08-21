@@ -226,6 +226,12 @@
     "status": "inactive"
   },
   {
+    "id": "7d867c46-5e17-4f7f-8718-4f99160582d3",
+    "establishmentId": 8201,
+    "title": "Draft with withdrawn",
+    "status": "inactive"
+  },
+  {
     "id": "38008c26-8748-45f8-b0a5-18f1bafbae70",
     "establishmentId": 8201,
     "title": "Draft legacy project",
