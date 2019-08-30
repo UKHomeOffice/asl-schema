@@ -98,15 +98,19 @@ describe('Project model', () => {
         });
     });
 
-    it('omits expired projects', () => {
+    it('can search expired projects', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'expired research'
+        search: 'expired research',
+        status: 'expired'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
         .then(projects => {
-          assert.deepEqual(projects.total, 0);
+          assert.deepEqual(projects.total, 2);
+          assert(
+            every(projects.results, p => p.title.includes('expired research'))
+          );
         });
     });
 
