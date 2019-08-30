@@ -93,13 +93,7 @@ class Project extends BaseModel {
 
     return query
       .where({ establishmentId })
-      .andWhere(builder => {
-        if (status === 'expired') {
-          return builder.where('expiryDate', '<', new Date()).orWhere('projects.status', 'expired');
-        }
-        return builder.where('projects.status', status)
-          .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
-      })
+      .where('projects.status', status)
       .count()
       .then(result => result[0].count);
   }
@@ -114,13 +108,7 @@ class Project extends BaseModel {
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where({ establishmentId })
-      .andWhere(builder => {
-        if (status === 'expired') {
-          return builder.where('expiryDate', '<', new Date()).orWhere('projects.status', 'expired');
-        }
-        return builder.where('projects.status', status)
-          .andWhere(builder => builder.where('expiryDate', '>=', new Date()).orWhereNull('expiryDate'));
-      })
+      .where('projects.status', status)
       .leftJoinRelation('licenceHolder')
       .eager('licenceHolder')
       .where(builder => {

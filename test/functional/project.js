@@ -35,38 +35,41 @@ describe('Project model', () => {
         projects: [
           {
             title: 'Anti cancer research',
-            expiryDate: moment().add(1, 'M').format(),
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            }
+            },
+            status: 'inactive'
           },
           {
             title: 'Some expired research',
             expiryDate: moment().subtract(6, 'M').format(),
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            }
+            },
+            status: 'expired'
           },
           {
             title: 'Some more research',
-            expiryDate: moment().add(6, 'M').format(),
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            }
+            },
+            status: 'inactive'
           },
           {
             title: 'Some more expired research',
             expiryDate: moment().subtract(1, 'M').format(),
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            }
+            },
+            status: 'expired'
           },
           {
             title: 'Hair loss prevention',
             expiryDate: moment().add(6, 'M').format(),
             licenceHolder: {
               id: '0ae5d4d5-7400-4462-b9fe-22bdf446792e'
-            }
+            },
+            status: 'active'
           }
         ]
       }, { insertMissing: true, relate: true }));
@@ -95,16 +98,19 @@ describe('Project model', () => {
         });
     });
 
-    it('omits expired projects', () => {
+    it('can search expired projects', () => {
       const opts = {
         establishmentId: 8201,
         search: 'expired research',
-        status: 'inactive'
+        status: 'expired'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
         .then(projects => {
-          assert.deepEqual(projects.total, 0);
+          assert.deepEqual(projects.total, 2);
+          assert(
+            every(projects.results, p => p.title.includes('expired research'))
+          );
         });
     });
 
