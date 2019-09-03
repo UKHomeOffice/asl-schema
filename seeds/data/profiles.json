@@ -20,6 +20,10 @@
         "type": "pelh"
       },
       {
+        "establishmentId": 8201,
+        "type": "holc"
+      },
+      {
         "establishmentId": 8202,
         "type": "nprc"
       }
