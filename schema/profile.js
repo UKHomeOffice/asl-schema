@@ -136,7 +136,7 @@ class Profile extends BaseModel {
     const role = filters.roles && filters.roles.includes('admin') ? 'admin' : null;
 
     query
-      .distinct('profiles.*', 'pil.licenceNumber')
+      .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
       .leftJoinRelation('[pil, projects, roles]')
       .eager('[pil, projects, establishments, roles]')
