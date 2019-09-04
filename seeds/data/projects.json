@@ -237,5 +237,24 @@
     "title": "Draft legacy project",
     "status": "inactive",
     "schemaVersion": 0
+  },
+  {
+    "id": "25d769f2-cbe1-4e05-921f-efdbea9c117b",
+    "establishmentId": 8201,
+    "title": "Expired project",
+    "issueDate": "2015-04-23",
+    "expiryDate": "2018-04-23",
+    "licenceNumber": "PR-X00001",
+    "status": "expired"
+  },
+  {
+    "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
+    "establishmentId": 8201,
+    "title": "Amend in prog project",
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceNumber": "PR-X00002",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "status": "active"
   }
 ]
