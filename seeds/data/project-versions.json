@@ -346,5 +346,13 @@
       "title": "Amend in prog project 2"
     },
     "status": "submitted"
+  },
+  {
+    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26b",
+    "data": {
+      "title": "Project with legacy list",
+      "project-aim": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"bulleted-list\",\"nodes\":[{\"object\":\"block\",\"type\":\"list-item\",\"nodes\":[{\"object\":\"text\",\"text\":\"List item 1\",\"marks\":[]}],\"data\":{}},{\"object\":\"block\",\"type\":\"list-item\",\"nodes\":[{\"object\":\"text\",\"text\":\"List item 2\",\"marks\":[]}],\"data\":{}}],\"data\":{}}]}}"
+    },
+    "status": "granted"
   }
 ]
