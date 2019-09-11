@@ -1,10 +1,10 @@
-const { omit } = require('lodash');
+const { omit, sampleSize } = require('lodash');
 const profiles = require('../data/profiles.json');
 
 module.exports = {
   populate: knex => {
-    return Promise.all(
-      profiles.map(profile => {
+    return profiles.reduce((promise, profile) => {
+      return promise.then(() => {
         return knex('profiles')
           .insert(omit(profile, [
             'pil',
@@ -26,24 +26,26 @@ module.exports = {
               })
               .then(() => {
                 if (profile.pil && profile.permissions.length) {
-                  if (Array.isArray(profile.pil)) {
-                    return Promise.all(profile.pil.map(pil => {
-                      return knex('pils')
-                        .insert({
+                  if (!Array.isArray(profile.pil)) {
+                    profile.pil = [profile.pil];
+                  }
+                  return profile.pil.reduce((promise, pil) => {
+                    return promise
+                      .then(() => {
+                        const procedures = pil.procedures || sampleSize(['A', 'B', 'C', 'D', 'F'], Math.ceil(5 * Math.random()));
+                        const notesCatD = procedures.includes('D') ? (pil.notesCatD || 'Cat D notes') : null;
+                        const notesCatF = procedures.includes('F') ? (pil.notesCatF || 'Cat F notes') : null;
+                        return knex('pils').insert({
                           status: 'active',
                           ...pil,
+                          procedures: JSON.stringify(procedures),
+                          notesCatD,
+                          notesCatF,
                           establishmentId: profile.permissions[0].establishmentId,
                           profileId
                         });
-                    }));
-                  }
-                  return knex('pils')
-                    .insert({
-                      status: 'active',
-                      ...profile.pil,
-                      establishmentId: profile.permissions[0].establishmentId,
-                      profileId
-                    });
+                      });
+                  }, Promise.resolve());
                 }
               })
               .then(() => {
@@ -54,8 +56,8 @@ module.exports = {
                 }
               });
           });
-      })
-    );
+      });
+    }, Promise.resolve());
   },
   delete: knex => knex('pils').del()
     .then(() => knex('permissions').del())
