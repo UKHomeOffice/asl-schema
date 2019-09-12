@@ -19,7 +19,8 @@ module.exports = {
           });
       })
     )
-      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId)));
+      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId)))
+      .then(() => knex('projects').where('expiryDate', '<', (new Date()).toUTCString()).update({ status: 'expired' }));
   },
   populateList: knex => {
     const projectsList = sampleSize(projects.filter(p => !p.id), 5);
