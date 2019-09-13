@@ -354,5 +354,26 @@
       "project-aim": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"bulleted-list\",\"nodes\":[{\"object\":\"block\",\"type\":\"list-item\",\"nodes\":[{\"object\":\"text\",\"text\":\"List item 1\",\"marks\":[]}],\"data\":{}},{\"object\":\"block\",\"type\":\"list-item\",\"nodes\":[{\"object\":\"text\",\"text\":\"List item 2\",\"marks\":[]}],\"data\":{}}],\"data\":{}}]}}"
     },
     "status": "granted"
+  },
+  {
+    "projectId": "c4113aee-faba-4dde-8b4f-360e4e7913ed",
+    "status": "draft",
+    "data": {
+      "title": "New draft"
+    }
+  },
+  {
+    "projectId": "519eb1d6-e8f0-4d9c-8628-8da4394c2d2e",
+    "status": "granted",
+    "data": {
+      "title": "Active project"
+    }
+  },
+  {
+    "projectId": "25d769f2-cbe1-4e05-921f-efdbea9c117b",
+    "status": "granted",
+    "data": {
+      "title": "Expired project"
+    }
   }
 ]
