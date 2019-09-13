@@ -9,6 +9,12 @@
           "id": "8a647535-4165-4528-b841-a6324a509e17",
           "steps": null
         }
+      ],
+      "conditions": [
+        {
+          "key": "custom",
+          "edited": "This is a legacy custom condition"
+        }
       ]
     },
     "status": "granted"
