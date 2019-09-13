@@ -266,5 +266,23 @@
     "licenceNumber": "PR-X00003",
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "status": "active"
+  },
+  {
+    "id": "c4113aee-faba-4dde-8b4f-360e4e7913ed",
+    "establishmentId": 8201,
+    "title": "New draft",
+    "status": "inactive",
+    "schemaVersion": 1
+  },
+  {
+    "id": "519eb1d6-e8f0-4d9c-8628-8da4394c2d2e",
+    "establishmentId": 8201,
+    "title": "Active project",
+    "status": "active",
+    "schemaVersion": 1,
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "PR-X12345"
   }
 ]
