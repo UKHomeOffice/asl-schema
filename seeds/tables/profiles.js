@@ -42,7 +42,8 @@ module.exports = {
                           notesCatD,
                           notesCatF,
                           establishmentId: profile.permissions[0].establishmentId,
-                          profileId
+                          profileId,
+                          species: JSON.stringify(pil.species)
                         });
                       });
                   }, Promise.resolve());
