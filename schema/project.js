@@ -81,7 +81,7 @@ class Project extends BaseModel {
 
   static filterUnsubmittedDrafts(query) {
     return query.joinRelation('version')
-      .where('version.status', 'submitted');
+      .where('version.status', '!=', 'draft');
   }
 
   static count({ query, establishmentId, status, isAsru }) {
