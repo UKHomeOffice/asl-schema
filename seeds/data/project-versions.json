@@ -339,19 +339,19 @@
     }
   },
   {
-    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
-    "data": {
-      "title": "Amend in prog project"
-    },
-    "status": "granted"
-  },
-  {
     "id": "b603d058-267a-4f7b-8356-389271076c06",
     "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
     "data": {
       "title": "Amend in prog project 2"
     },
     "status": "submitted"
+  },
+  {
+    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
+    "data": {
+      "title": "Amend in prog project"
+    },
+    "status": "granted"
   },
   {
     "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26b",
