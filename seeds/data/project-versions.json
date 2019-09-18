@@ -344,14 +344,16 @@
     "data": {
       "title": "Amend in prog project 2"
     },
-    "status": "submitted"
+    "status": "submitted",
+    "createdAt": "2019-09-18T11:39:36.146Z"
   },
   {
     "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
     "data": {
       "title": "Amend in prog project"
     },
-    "status": "granted"
+    "status": "granted",
+    "createdAt": "2019-09-18T11:39:17.292Z"
   },
   {
     "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26b",
