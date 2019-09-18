@@ -80,11 +80,10 @@ class Place extends BaseModel {
 
     if (sort.column) {
       query = this.orderBy({ query, sort });
-    } else {
-      query.orderBy('site')
-        .orderBy('area')
-        .orderBy('name');
     }
+    query.orderBy('site')
+      .orderBy('area')
+      .orderBy('name');
 
     query = this.paginate({ query, limit, offset });
 
