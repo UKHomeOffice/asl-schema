@@ -155,7 +155,13 @@
         "establishmentId": 8202,
         "role": "basic"
       }
-    ]
+    ],
+    "pil": {
+      "issueDate": "2018-09-18",
+      "licenceNumber": "PM-982367",
+      "establishmentId": 8201,
+      "species": ["Rats", "Mice"]
+    }
   },
   {
     "userId": "0c3679b6-730e-4ce0-a943-3f9694ab7e9b",
