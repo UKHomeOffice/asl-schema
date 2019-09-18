@@ -381,5 +381,18 @@
     "data": {
       "title": "Expired project"
     }
+  },
+  {
+    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26c",
+    "data": {
+      "title": "Unsubmitted draft"
+    }
+  },
+  {
+    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26d",
+    "data": {
+      "title": "Submitted draft"
+    },
+    "status": "submitted"
   }
 ]
