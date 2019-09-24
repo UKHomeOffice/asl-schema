@@ -491,7 +491,9 @@
     "telephone": 9702893776,
     "pil": {
       "status": "revoked",
+      "procedures": ["A", "B"],
       "issueDate": "2017-05-16",
+      "revocationDate": "2017-06-16",
       "licenceNumber": "SQ-025927",
       "conditions": ""
     }
@@ -1002,6 +1004,7 @@
     "telephone": 4195529546,
     "pil": {
       "status": "revoked",
+      "procedures": ["A", "B"],
       "issueDate": "2017-02-13",
       "revocationDate": "2018-11-06",
       "licenceNumber": "GV-794484",
