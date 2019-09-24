@@ -1001,7 +1001,9 @@
     "email": "bservis17@example.com",
     "telephone": 4195529546,
     "pil": {
+      "status": "revoked",
       "issueDate": "2017-02-13",
+      "revocationDate": "2018-11-06",
       "licenceNumber": "GV-794484",
       "conditions": ""
     }
