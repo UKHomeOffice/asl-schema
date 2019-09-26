@@ -502,6 +502,9 @@
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 8202
       }
     ],
     "title": "Ms",
@@ -511,6 +514,7 @@
     "email": "pstumpg@example.com",
     "telephone": 8671852914,
     "pil": {
+      "status": "active",
       "issueDate": "2017-04-19",
       "licenceNumber": "PX-055736",
       "conditions": ""
