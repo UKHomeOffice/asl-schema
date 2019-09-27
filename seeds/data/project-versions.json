@@ -335,7 +335,13 @@
   {
     "projectId": "38008c26-8748-45f8-b0a5-18f1bafbae70",
     "data": {
-      "title": "Draft legacy project"
+      "title": "Draft legacy project",
+      "protocols": [
+        {
+          "id": "d43ebbca-7ea7-40a2-9c06-d18608a13759",
+          "steps": null
+        }
+      ]
     }
   },
   {
@@ -418,6 +424,12 @@
     "status": "granted",
     "data": {
       "title": "RA legacy true",
+      "protocols": [
+        {
+          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566",
+          "steps": null
+        }
+      ],
       "retrospectiveAssessment": {
         "retrospective-assessment-required": true,
         "retrospective-assessment-date": "01-01-2024"
@@ -429,6 +441,12 @@
     "status": "granted",
     "data": {
       "title": "RA legacy false",
+      "protocols": [
+        {
+          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e",
+          "steps": null
+        }
+      ],
       "retrospectiveAssessment": {
         "retrospective-assessment-required": false
       }
