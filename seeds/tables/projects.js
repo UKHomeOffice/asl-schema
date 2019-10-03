@@ -8,8 +8,10 @@ module.exports = {
     return Promise.all(
       projects.filter(p => !p.licenceHolderId).map(project => {
         return knex('profiles')
+          .leftJoin('permissions', 'permissions.profile_id', 'profiles.id')
           .whereNotIn('firstName', nopes)
           .andWhere('asruUser', false)
+          .andWhere('permissions.establishment_id', project.establishmentId)
           .then(profiles => {
             return knex('projects')
               .insert({
@@ -27,8 +29,10 @@ module.exports = {
     return Promise.all(
       projectsList.map(project => {
         return knex('profiles')
+          .leftJoin('permissions', 'permissions.profile_id', 'profiles.id')
           .whereNotIn('firstName', nopes)
           .andWhere('asruUser', false)
+          .andWhere('permissions.establishment_id', project.establishmentId)
           .first()
           .then(profile => {
             return knex('projects')
