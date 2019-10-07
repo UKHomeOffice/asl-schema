@@ -99,8 +99,9 @@ class Profile extends BaseModel {
 
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
-      .count()
-      .then(result => result[0].count);
+      .countDistinct('profiles.id')
+      .then(result => result[0])
+      .then(result => parseInt(result.count, 10));
   }
 
   static searchFullName({ query, search, prefix }) {

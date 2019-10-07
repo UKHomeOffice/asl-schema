@@ -94,8 +94,9 @@ class Project extends BaseModel {
     return query
       .where({ establishmentId })
       .where('projects.status', status)
-      .count()
-      .then(result => result[0].count);
+      .countDistinct('projects.id')
+      .then(result => result[0])
+      .then(result => parseInt(result.count, 10));
   }
 
   static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset, isAsru }) {

@@ -65,9 +65,9 @@ class BaseModel extends Model {
   static count(establishmentId) {
     return this.query()
       .where({ establishmentId })
-      .count()
+      .countDistinct(`${this.tableName}.id`)
       .then(results => results[0])
-      .then(result => result.count);
+      .then(result => parseInt(result.count, 10));
   }
 
   static upsert(model, where, transaction) {
