@@ -47,7 +47,7 @@ class Invitation extends BaseModel {
     if (sort.column) {
       query = this.orderBy({ query, sort });
     } else {
-      query.orderBy('createdAt');
+      query.orderBy('updatedAt');
     }
 
     query = super.paginate({ query, limit, offset });
