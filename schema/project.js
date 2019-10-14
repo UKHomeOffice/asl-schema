@@ -27,7 +27,8 @@ class Project extends BaseModel {
         updatedAt: { type: 'string', format: 'date-time' },
         establishmentId: { type: 'integer' },
         licenceHolderId: { type: ['string', 'null'] },
-        deleted: { type: ['string', 'null'], format: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' },
+        amendedDate: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }
