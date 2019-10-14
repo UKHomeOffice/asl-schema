@@ -7,7 +7,10 @@
     "issueDate": "2017-02-05",
     "expiryDate": "2022-10-01",
     "licenceNumber": "PR-250872",
-    "status": "active"
+    "status": "active",
+    "createdAt":"2017-02-05",
+    "updatedAt":"2019-10-14",
+    "amendedDate":"2019-10-14"
   },
   {
     "id": "84ec643f-893b-4232-ab4c-5789d50773de",
