@@ -13,5 +13,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return Promise.resolve();
+  return knex('projects').update({ amended_date: null });
 };
