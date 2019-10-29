@@ -1,4 +1,5 @@
 const projectVersions = require('../data/project-versions.json');
+const { merge } = require('lodash');
 const uuid = require('uuid/v4');
 
 const defaults = {
@@ -11,11 +12,7 @@ const defaults = {
           'id': uuid()
         }
       ],
-      'speciesDetails': [
-        {
-          'id': uuid()
-        }
-      ]
+      'speciesDetails': []
     }
   ],
   'objectives': [
@@ -69,10 +66,7 @@ module.exports = {
     return projectVersions
       .reverse()
       .reduce((p, projectVersion) => {
-        projectVersion.data = {
-          ...defaults,
-          ...projectVersion.data
-        };
+        projectVersion.data = merge({}, defaults, projectVersion.data);
         return p.then(() => knex('projectVersions').insert(projectVersion));
       }, Promise.resolve());
   },

@@ -6,8 +6,7 @@
       "primary-establishment": "University of Croydon",
       "protocols": [
         {
-          "id": "8a647535-4165-4528-b841-a6324a509e17",
-          "steps": null
+          "id": "8a647535-4165-4528-b841-a6324a509e17"
         }
       ],
       "conditions": [
@@ -32,11 +31,7 @@
             }
           ],
           "complete": true,
-          "speciesDetails": [
-            {
-              "id": "eb865172-7535-475b-b16b-cdc73bb9f07d"
-            }
-          ]
+          "speciesDetails": []
         }
       ],
       "objectives": [
@@ -228,7 +223,7 @@
           "severity": "mild",
           "conditions": [],
           "description": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"Purpose 1\",\"marks\":[]}]}]}}",
-          "speciesDetails": [{"id": "9245be05-c18a-41ce-b51f-c70c5424d8e9"}],
+          "speciesDetails": [],
           "severity-proportion": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"10%\",\"marks\":[]}]}]}}"
         },
         {
@@ -249,6 +244,7 @@
           "complete": true,
           "severity": "mild",
           "conditions": [],
+          "speciesDetails": [],
           "description": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"Some details\",\"marks\":[]}]}]}}"
         }
       ],
@@ -342,8 +338,7 @@
       "title": "Draft legacy project",
       "protocols": [
         {
-          "id": "d43ebbca-7ea7-40a2-9c06-d18608a13759",
-          "steps": null
+          "id": "d43ebbca-7ea7-40a2-9c06-d18608a13759"
         }
       ]
     }
@@ -430,8 +425,7 @@
       "title": "RA legacy true",
       "protocols": [
         {
-          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566",
-          "steps": null
+          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566"
         }
       ],
       "retrospectiveAssessment": {
@@ -447,8 +441,7 @@
       "title": "RA legacy false",
       "protocols": [
         {
-          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e",
-          "steps": null
+          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e"
         }
       ],
       "retrospectiveAssessment": {
