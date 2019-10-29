@@ -66,7 +66,7 @@ module.exports = {
     return projectVersions
       .reverse()
       .reduce((p, projectVersion) => {
-        projectVersion.data = merge(defaults, projectVersion.data);
+        projectVersion.data = merge({}, defaults, projectVersion.data);
         return p.then(() => knex('projectVersions').insert(projectVersion));
       }, Promise.resolve());
   },
