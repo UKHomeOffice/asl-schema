@@ -26,7 +26,7 @@
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
     "@asl/constants": "^0.3.2",
-    "knex": "^0.15.2",
+    "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "moment": "^2.22.2",
     "objection": "^1.2.0",
