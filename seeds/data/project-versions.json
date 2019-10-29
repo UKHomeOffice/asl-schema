@@ -6,7 +6,8 @@
       "primary-establishment": "University of Croydon",
       "protocols": [
         {
-          "id": "8a647535-4165-4528-b841-a6324a509e17"
+          "id": "8a647535-4165-4528-b841-a6324a509e17",
+          "steps": null
         }
       ],
       "conditions": [
@@ -338,7 +339,8 @@
       "title": "Draft legacy project",
       "protocols": [
         {
-          "id": "d43ebbca-7ea7-40a2-9c06-d18608a13759"
+          "id": "d43ebbca-7ea7-40a2-9c06-d18608a13759",
+          "steps": null
         }
       ]
     }
@@ -425,7 +427,8 @@
       "title": "RA legacy true",
       "protocols": [
         {
-          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566"
+          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566",
+          "steps": null
         }
       ],
       "retrospectiveAssessment": {
@@ -441,7 +444,8 @@
       "title": "RA legacy false",
       "protocols": [
         {
-          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e"
+          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e",
+          "steps": null
         }
       ],
       "retrospectiveAssessment": {
