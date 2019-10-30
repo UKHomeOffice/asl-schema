@@ -13,7 +13,7 @@ function fixProtocols(protocols) {
       return;
     }
 
-    const fixedSD = speciesDetails.map(s => {
+    const fixedSD = speciesDetails.filter(Boolean).map(s => {
       if (s.name && !s.value) {
         const speciesFromConstants = SPECIES.find(sp => {
           return sp.label === s.name;
