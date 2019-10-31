@@ -486,6 +486,14 @@
     }
   },
   {
+    "projectId": "ae77c0a5-c890-419b-9d6f-c95c4447dab7",
+    "status": "granted",
+    "data": {
+      "title": "RA not editable - baboons",
+      "species-other": ["Baboons"]
+    }
+  },
+  {
     "projectId": "7bded8c7-2d5e-4a4e-9b7f-ab9d34e39a78",
     "status": "granted",
     "data": {

@@ -396,6 +396,19 @@
     "expiryDate": "2024-04-23T00:00:00.000Z"
   },
   {
+    "id": "ae77c0a5-c890-419b-9d6f-c95c4447dab7",
+    "title": "RA not editable - baboons",
+    "schemaVersion": 1,
+    "status": "active",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "establishmentId": 8201,
+    "licenceNumber": "PR-X10015",
+    "createdAt": "2019-09-04T13:32:45.886Z",
+    "issueDate": "2019-04-23T00:00:00.000Z",
+    "updatedAt": "2019-09-04T13:32:45.886Z",
+    "expiryDate": "2024-04-23T00:00:00.000Z"
+  },
+  {
     "id": "7bded8c7-2d5e-4a4e-9b7f-ab9d34e39a78",
     "title": "RA not editable - endangered",
     "schemaVersion": 1,
