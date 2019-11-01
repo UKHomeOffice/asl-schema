@@ -452,6 +452,7 @@
     "telephone": 3493907174,
     "pil": {
       "issueDate": "2016-09-24",
+      "procedures": ["A", "B"],
       "licenceNumber": "OI-742855",
       "conditions": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinarsed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
     }
