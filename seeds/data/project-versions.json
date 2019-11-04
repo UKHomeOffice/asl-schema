@@ -20,6 +20,12 @@
     "status": "granted"
   },
   {
+    "projectId": "a1149bae-a448-4ef8-b2d8-39414fe34ba5",
+    "data": {
+      "title": "Legacy Autoproject Draft"
+    }
+  },
+  {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "title": "Basic user project",

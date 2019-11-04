@@ -24,6 +24,14 @@
     "status": "active"
   },
   {
+    "id": "a1149bae-a448-4ef8-b2d8-39414fe34ba5",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "establishmentId": 8201,
+    "schemaVersion": 0,
+    "title": "Legacy Autoproject Draft",
+    "status": "inactive"
+  },
+  {
     "id": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
     "establishmentId": 8201,
     "title": "Search for the luminescent aether",
