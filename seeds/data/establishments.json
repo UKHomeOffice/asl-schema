@@ -40,5 +40,85 @@
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
     "createdAt": "08/01/2014 10:27",
     "updatedAt": "07/04/2017 10:54"
+  },
+  {
+    "id": 10001,
+    "name": "University of Life",
+    "type": "University, medical school",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 20001,
+    "name": "University of Hope",
+    "type": "University, medical school",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 789,
+    "name": "University of Cheese",
+    "type": "University, medical school",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 9999,
+    "name": "Big Pharma",
+    "type": "Pharmaceutical company",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 12345,
+    "name": "Medium Pharma",
+    "type": "Pharmaceutical company",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 30001,
+    "name": "Small Pharma",
+    "type": "Pharmaceutical company",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 40001,
+    "name": "Tiny Pharma",
+    "type": "Pharmaceutical company",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 101,
+    "name": "Research 101",
+    "type": "Research lab",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 100001,
+    "name": "Super Research",
+    "type": "Research lab",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
+  },
+  {
+    "id": 100002,
+    "name": "MedTech",
+    "type": "Research lab",
+    "status": "inactive",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00"
   }
 ]

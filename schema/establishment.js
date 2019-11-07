@@ -9,7 +9,7 @@ class Establishment extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'name'],
+      required: ['name'],
       additionalProperties: false,
       properties: {
         id: { type: 'integer' },
