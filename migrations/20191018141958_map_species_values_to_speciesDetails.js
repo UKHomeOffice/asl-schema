@@ -5,12 +5,12 @@ const SPECIES = flatten(values(species));
 function fixProtocols(protocols) {
   return protocols.map(protocol => {
     if (!protocol) {
-      return;
+      return protocol;
     }
     const speciesDetails = protocol.speciesDetails;
 
     if (!speciesDetails || !Array.isArray(speciesDetails)) {
-      return;
+      return protocol;
     }
 
     const fixedSD = speciesDetails.filter(Boolean).map(s => {
