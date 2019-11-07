@@ -28,6 +28,10 @@ class Certificate extends BaseModel {
             }
           }
         },
+        species: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
         passDate: { type: 'string', pattern: date.yearMonthDay },
         notApplicable: { type: 'boolean' },
         accreditingBody: { type: ['string', 'null'] },
