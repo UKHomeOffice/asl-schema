@@ -100,6 +100,20 @@
     ]
   },
   {
+    "id": "fcfd3d23-0582-4d90-9822-1db678a41792",
+    "userId": "fcfd3d23-0582-4d90-9822-1db678a41792",
+    "firstName": "Auto",
+    "lastName": "Project",
+    "dob": "1985-09-24",
+    "email": "autoproject@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "id": "e1ef893c-0766-49f0-87ca-b11b1ad1e147",
     "userId": "ae7458db-4688-403b-89e6-7e31913284c1",
     "title": "Ms",
