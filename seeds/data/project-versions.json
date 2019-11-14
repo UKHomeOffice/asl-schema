@@ -519,5 +519,24 @@
         }
       ]
     }
+  },
+  {
+    "projectId": "715a0156-4639-42ee-bd00-35a96e75ca4a",
+    "status": "draft",
+    "data": {
+      "title": "Unmigrated Species",
+      "species": [ "zebra-fish", "mice" ],
+      "protocols": [
+        {
+          "id": "f1797774-520f-417e-9ed6-18450b273b6c",
+          "title": "Protocol 1",
+          "species": [ "zebra-fish", "mice" ],
+          "speciesDetails": [
+            { "name": "Mice" },
+            { "name": "Zebra fish" }
+          ]
+        }
+      ]
+    }
   }
 ]
