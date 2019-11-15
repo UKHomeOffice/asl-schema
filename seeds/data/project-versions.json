@@ -538,5 +538,13 @@
         }
       ]
     }
+  },
+  {
+    "projectId": "4d38a5a1-5639-4ee7-bd51-d047f5fd9ca5",
+    "status": "granted",
+    "data": {
+      "title": "Null protocol regression",
+      "protocols": [ null ]
+    }
   }
 ]

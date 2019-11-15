@@ -448,5 +448,18 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "establishmentId": 8201
+  },
+  {
+    "id": "4d38a5a1-5639-4ee7-bd51-d047f5fd9ca5",
+    "title": "Null protocol regression",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "establishmentId": 8201,
+    "licenceNumber": "PR-X19999",
+    "createdAt": "2019-09-04T13:32:45.886Z",
+    "issueDate": "2019-04-23T00:00:00.000Z",
+    "updatedAt": "2019-09-04T13:32:45.886Z",
+    "expiryDate": "2024-04-23T00:00:00.000Z"
   }
 ]
