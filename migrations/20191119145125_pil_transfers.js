@@ -12,6 +12,7 @@ exports.up = function(knex) {
       table.integer('to_establishment_id').references('id').inTable('establishments').notNull();
 
       table.timestamps(false, true);
+      table.dateTime('deleted');
     });
 };
 
