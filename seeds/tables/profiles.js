@@ -60,7 +60,8 @@ module.exports = {
       });
     }, Promise.resolve());
   },
-  delete: knex => knex('pils').del()
+  delete: knex => knex('pil_transfers').del()
+    .then(() => knex('pils').del())
     .then(() => knex('permissions').del())
     .then(() => knex('invitations').del())
     .then(() => knex('roles').del())
