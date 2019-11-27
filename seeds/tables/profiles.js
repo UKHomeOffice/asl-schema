@@ -6,11 +6,13 @@ module.exports = {
     return profiles.reduce((promise, profile) => {
       return promise.then(() => {
         return knex('profiles')
-          .insert(omit(profile, [
+          .insert(omit({ dob: '1988-09-25', ...profile }, [
             'pil',
             'roles',
             'permissions',
-            'projectId'
+            'projectId',
+            'certificates',
+            'exemptions'
           ]))
           .returning('id')
           .then(ids => ids[0])
@@ -20,6 +22,25 @@ module.exports = {
                 if (profile.permissions) {
                   return Promise.all(profile.permissions.map(permission => knex('permissions').insert({
                     ...permission,
+                    profileId
+                  })));
+                }
+              })
+              .then(() => {
+                if (profile.certificates) {
+                  return Promise.all(profile.certificates.map(certificate => knex('certificates').insert({
+                    ...certificate,
+                    modules: JSON.stringify(certificate.modules || []),
+                    species: JSON.stringify(certificate.species || []),
+                    profileId
+                  })));
+                }
+              })
+              .then(() => {
+                if (profile.exemptions) {
+                  return Promise.all(profile.exemptions.map(exemption => knex('exemptions').insert({
+                    ...exemption,
+                    species: JSON.stringify(exemption.species || []),
                     profileId
                   })));
                 }
@@ -37,12 +58,12 @@ module.exports = {
                         const notesCatF = procedures.includes('F') ? (pil.notesCatF || 'Cat F notes') : null;
                         return knex('pils').insert({
                           status: 'active',
-                          ...pil,
-                          procedures: JSON.stringify(procedures),
                           notesCatD,
                           notesCatF,
-                          establishmentId: profile.permissions[0].establishmentId,
                           profileId,
+                          establishmentId: profile.permissions[0].establishmentId,
+                          ...pil,
+                          procedures: JSON.stringify(procedures),
                           species: JSON.stringify(pil.species)
                         });
                       });

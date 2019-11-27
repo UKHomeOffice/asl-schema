@@ -202,23 +202,64 @@
     "asruLicensing": true
   },
   {
-    "permissions": [
-      {
-        "establishmentId": 8201
-      }
-    ],
+    "id": "87bb2f92-7da0-4eee-ab3d-4f529e8f2b14",
     "title": "Mrs",
     "firstName": "Cele",
     "lastName": "Siviter",
     "dob": "1988-09-25",
     "email": "csiviter0@example.com",
     "telephone": 6566251777,
+    "permissions": [
+      {
+        "establishmentId": 8201
+      },
+      {
+        "establishmentId": 8202
+      },
+      {
+        "establishmentId": 10001
+      }
+    ],
     "pil": {
+      "establishmentId": 8201,
       "issueDate": "2015-03-20",
       "licenceNumber": "YW-052506",
       "conditions": "",
-      "notesCatD": "Lorem ipsum"
-    }
+      "notesCatD": "Lorem ipsum",
+      "species": [
+        "Mice",
+        "Rats"
+      ]
+    },
+    "certificates": [
+      {
+        "modules": [
+          {
+            "module": "PILA (theory)"
+          },
+          {
+            "module": "PILA (skills)"
+          }
+        ],
+        "species": [
+          "Mice",
+          "Rats"
+        ],
+        "passDate": "2015-06-04",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "12345"
+      }
+    ],
+    "exemptions": [
+      {
+        "module": "PILB",
+        "description": "Years of experience",
+        "species": [
+          "Mice",
+          "Rats"
+        ]
+      }
+    ]
   },
   {
     "permissions": [
