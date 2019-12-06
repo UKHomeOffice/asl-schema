@@ -53,7 +53,7 @@ module.exports = {
                   return profile.pil.reduce((promise, pil) => {
                     return promise
                       .then(() => {
-                        const procedures = pil.procedures || sampleSize(['A', 'B', 'C', 'D', 'F'], Math.ceil(5 * Math.random()));
+                        const procedures = pil.procedures || sampleSize(['B', 'C', 'D', 'F'], Math.ceil(4 * Math.random()));
                         const notesCatD = procedures.includes('D') ? (pil.notesCatD || 'Cat D notes') : null;
                         const notesCatF = procedures.includes('F') ? (pil.notesCatF || 'Cat F notes') : null;
                         return knex('pils').insert({
