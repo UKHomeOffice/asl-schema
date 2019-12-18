@@ -192,6 +192,10 @@
       {
         "establishmentId": 8202,
         "role": "admin"
+      },
+      {
+        "establishmentId": 12345,
+        "role": "admin"
       }
     ]
   },
