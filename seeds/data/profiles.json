@@ -622,6 +622,10 @@
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 10001,
+        "role": "admin"
       }
     ],
     "title": "Dr",
@@ -634,12 +638,21 @@
       "issueDate": "2017-06-20",
       "licenceNumber": "MV-531647",
       "conditions": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem."
-    }
+    },
+    "roles": [
+      {
+        "establishmentId": 10001,
+        "type": "holc"
+      }
+    ]
   },
   {
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 10001
       }
     ],
     "title": "Mr",
@@ -652,7 +665,13 @@
       "issueDate": "2015-07-27",
       "licenceNumber": "DB-346760",
       "conditions": ""
-    }
+    },
+    "roles": [
+      {
+        "establishmentId": 10001,
+        "type": "ntco"
+      }
+    ]
   },
   {
     "permissions": [
