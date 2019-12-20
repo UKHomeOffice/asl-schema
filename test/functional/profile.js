@@ -70,6 +70,15 @@ describe('Profile model', () => {
                 establishmentId: 8201,
                 title: 'Anti cancer research'
               }]
+            },
+            {
+              '#id': 'doubleagent',
+              firstName: 'Double',
+              lastName: 'Agent',
+              email: 'doubleagent@example.com',
+              roles: [
+                { establishmentId: 8201, type: 'ntco' }
+              ]
             }
           ]
         },
@@ -99,10 +108,13 @@ describe('Profile model', () => {
                 establishmentId: 8202,
                 licenceNumber: 'ABC-123-07'
               }
+            },
+            {
+              '#ref': 'doubleagent'
             }
           ]
         }
-      ]));
+      ], { allowRefs: true }));
   });
 
   afterEach(() => {
@@ -293,7 +305,8 @@ describe('Profile model', () => {
         const expected = [
           'vincent@malloy.com',
           'keith@lemon.com',
-          'bruce@forsyth.com'
+          'bruce@forsyth.com',
+          'doubleagent@example.com'
         ];
         const notExpected = [
           'sterling@archer.com',
@@ -307,7 +320,7 @@ describe('Profile model', () => {
             establishmentId: 8201
           }))
           .then(({ profiles }) => {
-            assert.deepEqual(profiles.results.length, 3);
+            assert.deepEqual(profiles.results.length, 4);
             expected.forEach(email => {
               assert.ok(profiles.results.find(p => p.email === email));
             });
@@ -316,6 +329,39 @@ describe('Profile model', () => {
             });
           });
       });
+
+      describe('multi-establishment users', () => {
+
+        it('excludes named people at other establishments', () => {
+          return Promise.resolve()
+            .then(() => this.models.Profile.query().where({ email: 'super@man.com' }))
+            .then(profiles => profiles[0])
+            .then(profile => this.models.Profile.getNamedProfiles({
+              userId: profile.id,
+              establishmentId: 8202
+            }))
+            .then(({ profiles }) => {
+              const results = profiles.results.map(p => p.email);
+              assert.ok(!results.includes('doubleagent@example.com'), 'User with named role at another establishment should not appear in results');
+            });
+        });
+
+        it('includes named people at the same establishment', () => {
+          return Promise.resolve()
+            .then(() => this.models.Profile.query().where({ email: 'vincent@malloy.com' }))
+            .then(profiles => profiles[0])
+            .then(profile => this.models.Profile.getNamedProfiles({
+              userId: profile.id,
+              establishmentId: 8201
+            }))
+            .then(({ profiles }) => {
+              const results = profiles.results.map(p => p.email);
+              assert.ok(results.includes('doubleagent@example.com'), 'User with named role at scoped establishment should appear in results');
+            });
+        });
+
+      });
+
     });
 
     describe('getNamed', () => {
