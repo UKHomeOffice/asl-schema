@@ -68,12 +68,17 @@ class Profile extends BaseModel {
       .eager('[roles.places, establishments, pil, projects, certificates, exemptions, asru]');
   }
 
-  static getNamed({ userId, ...params }) {
+  static getNamed({ userId, establishmentId, ...params }) {
     const query = this.query().where(builder => {
-      return builder.whereExists(Role.query().select(1).where('profiles.id', ref('roles.profileId')))
+      const role = Role.query()
+        .select(1)
+        .where({ establishmentId })
+        .where('profiles.id', ref('roles.profileId'));
+      return builder
+        .whereExists(role)
         .orWhere('profiles.id', userId);
     });
-    return this.get({ query, ...params });
+    return this.get({ query, establishmentId, ...params });
   }
 
   static get virtualAttributes() {
@@ -189,19 +194,25 @@ class Profile extends BaseModel {
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
 
-  static getNamedProfiles({ userId, ...params }) {
+  static getNamedProfiles({ userId, establishmentId, ...params }) {
     const namedPeople = () => {
       return this.query()
         .where(builder => {
-          return builder.whereExists(Role.query().select(1).where('profiles.id', ref('roles.profileId')))
+          const role = Role.query()
+            .select(1)
+            .where({ establishmentId })
+            .where('profiles.id', ref('roles.profileId'));
+
+          return builder
+            .whereExists(role)
             .orWhere('profiles.id', userId);
         });
     };
 
     return Promise.all([
-      this.getFilterOptions({ query: namedPeople(), ...params }),
-      this.count({ query: namedPeople(), ...params }),
-      this.searchAndFilter({ query: namedPeople(), ...params })
+      this.getFilterOptions({ query: namedPeople(), establishmentId, ...params }),
+      this.count({ query: namedPeople(), establishmentId, ...params }),
+      this.searchAndFilter({ query: namedPeople(), establishmentId, ...params })
     ])
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
