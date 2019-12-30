@@ -35,7 +35,8 @@ class PIL extends BaseModel {
           items: { type: 'string' }
         },
         notesCatD: { type: ['string', 'null'] },
-        notesCatF: { type: ['string', 'null'] }
+        notesCatF: { type: ['string', 'null'] },
+        billable: { type: 'boolean' }
       }
     };
   }
@@ -47,6 +48,10 @@ class PIL extends BaseModel {
       .where({ 'establishmentId': establishmentId })
       .whereNotNull('issueDate')
       .eager('profile');
+
+    if (filters.onlyBillable) {
+      query = query.whereNot({ billable: false });
+    }
 
     if (filters && filters.startDate && filters.endDate) {
       query = query
