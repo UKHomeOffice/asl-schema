@@ -41,42 +41,6 @@ class PIL extends BaseModel {
     };
   }
 
-  static list({ establishmentId, sort = {}, limit, offset, filters }) {
-
-    let query = this.query()
-      .leftJoinRelation('profile')
-      .where({ 'establishmentId': establishmentId })
-      .whereNotNull('issueDate')
-      .eager('profile');
-
-    if (filters.onlyBillable) {
-      query = query.whereNot({ billable: false });
-    }
-
-    if (filters && filters.startDate && filters.endDate) {
-      query = query
-        .where('issueDate', '<=', filters.endDate)
-        .where(builder => {
-          builder
-            .whereNull('revocationDate')
-            .orWhere(builder => {
-              builder
-                .where('revocationDate', '>', filters.startDate)
-                .where('revocationDate', '<=', filters.endDate);
-            });
-        });
-    }
-
-    if (sort.column) {
-      query = this.orderBy({ query, sort });
-    }
-    query.orderBy('profile.lastName');
-
-    query = this.paginate({ query, limit, offset });
-
-    return query;
-  }
-
   static get relationMappings() {
     return {
       establishment: {
@@ -85,6 +49,14 @@ class PIL extends BaseModel {
         join: {
           from: 'pils.establishmentId',
           to: 'establishments.id'
+        }
+      },
+      transfers: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/pil-transfer`,
+        join: {
+          from: 'pils.id',
+          to: 'pilTransfers.pilId'
         }
       },
       profile: {

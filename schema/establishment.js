@@ -89,6 +89,19 @@ class Establishment extends BaseModel {
           to: 'profiles.id'
         }
       },
+      transferredPils: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/pil`,
+        join: {
+          from: 'establishments.id',
+          through: {
+            modelClass: `${__dirname}/pil-transfer`,
+            from: 'pilTransfers.fromEstablishmentId',
+            to: 'pilTransfers.pilId'
+          },
+          to: 'pils.id'
+        }
+      },
       pils: {
         relation: this.HasManyRelation,
         modelClass: `${__dirname}/pil`,

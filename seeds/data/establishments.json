@@ -45,17 +45,22 @@
     "id": 10001,
     "name": "University of Life",
     "type": "University, medical school",
-    "status": "inactive",
-    "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "status": "active",
+    "issueDate": "07/05/2018 12:00",
+    "licenceNumber": "XCC09J64X",
+    "createdAt": "05/11/2017 12:00",
+    "updatedAt": "05/11/2017 12:00"
   },
   {
     "id": 20001,
     "name": "University of Hope",
     "type": "University, medical school",
-    "status": "inactive",
-    "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "status": "revoked",
+    "issueDate": "06/04/2018 12:00",
+    "licenceNumber": "XCC09J64J",
+    "revocationDate": "10/10/2019 12:00",
+    "createdAt": "05/11/2017 12:00",
+    "updatedAt": "10/10/2019 12:00"
   },
   {
     "id": 789,
