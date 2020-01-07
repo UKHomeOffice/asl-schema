@@ -50,6 +50,14 @@ class PIL extends BaseModel {
           to: 'establishments.id'
         }
       },
+      transfers: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/pil-transfer`,
+        join: {
+          from: 'pils.id',
+          to: 'pilTransfers.pilId'
+        }
+      },
       profile: {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
