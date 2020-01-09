@@ -4,11 +4,8 @@ const { uuid } = require('../lib/regex-validation');
 
 class PILQueryBuilder extends BaseModel.QueryBuilder {
 
-  billable({ establishmentId, start, end }) {
+  whereBillable({ establishmentId, start, end }) {
     return this
-      .select('pils.id', 'pils.licenceNumber', 'pils.establishmentId', 'pils.issueDate', 'pils.revocationDate')
-      .eager('[profile.establishments, pilTransfers]')
-      .leftJoinRelation('profile')
       .where(builder => {
         // PIL was active during billing period
         builder
@@ -57,6 +54,21 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
               );
           });
       });
+  }
+
+  billable({ establishmentId, start, end }) {
+    return this
+      .eager('[profile.establishments, pilTransfers]')
+      .modifyEager('profile.establishments', builder => {
+        builder.where('id', establishmentId);
+      })
+      .modifyEager('pilTransfers', builder => {
+        builder
+          .where('fromEstablishmentId', establishmentId)
+          .orWhere('toEstablishmentId', establishmentId);
+      })
+      .leftJoinRelation('profile')
+      .whereBillable({ establishmentId, start, end });
   }
 
 }
