@@ -1,9 +1,8 @@
-const { QueryBuilder } = require('objection');
 const BaseModel = require('./base-model');
 const { pilStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
 
-class PILQueryBuilder extends QueryBuilder {
+class PILQueryBuilder extends BaseModel.QueryBuilder {
 
   billable({ establishmentId, start, end }) {
     return this

@@ -77,7 +77,7 @@ module.exports = {
                                   pilId
                                 });
                               });
-                          }, Promise.resolve())
+                          }, Promise.resolve());
                         }
                       });
                   }, Promise.resolve());
