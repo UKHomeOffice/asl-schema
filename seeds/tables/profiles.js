@@ -62,10 +62,23 @@ module.exports = {
                           notesCatF,
                           profileId,
                           establishmentId: profile.permissions[0].establishmentId,
-                          ...pil,
+                          ...omit(pil, 'transfers'),
                           procedures: JSON.stringify(procedures),
                           species: JSON.stringify(pil.species)
-                        });
+                        }).returning('id');
+                      })
+                      .then(([ pilId ]) => {
+                        if (pil.transfers) {
+                          pil.transfers.reduce((promise, transfer) => {
+                            return promise
+                              .then(() => {
+                                return knex('pil_transfers').insert({
+                                  ...transfer,
+                                  pilId
+                                });
+                              });
+                          }, Promise.resolve());
+                        }
                       });
                   }, Promise.resolve());
                 }
