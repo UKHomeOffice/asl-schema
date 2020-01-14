@@ -297,6 +297,17 @@
     "licenceNumber": "PR-X12345"
   },
   {
+    "id": "739fbe40-cfb9-431d-80c2-ac3d5beee2b2",
+    "establishmentId": 8201,
+    "title": "Active project wrong issue date",
+    "status": "active",
+    "schemaVersion": 1,
+    "issueDate": "2019-08-10",
+    "expiryDate": "2021-04-23",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "PR-X66421"
+  },
+  {
     "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26c",
     "establishmentId": 8201,
     "title": "Unsubmitted draft",

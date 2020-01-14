@@ -391,6 +391,17 @@
     }
   },
   {
+    "projectId": "739fbe40-cfb9-431d-80c2-ac3d5beee2b2",
+    "status": "granted",
+    "data": {
+      "title": "Active project wrong issue date",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    }
+  },
+  {
     "projectId": "25d769f2-cbe1-4e05-921f-efdbea9c117b",
     "status": "granted",
     "data": {
