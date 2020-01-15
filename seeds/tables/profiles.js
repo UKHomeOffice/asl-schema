@@ -62,14 +62,15 @@ module.exports = {
                           notesCatF,
                           profileId,
                           establishmentId: profile.permissions[0].establishmentId,
-                          ...omit(pil, 'transfers'),
+                          ...omit(pil, 'transfers', 'feeWaivers'),
                           procedures: JSON.stringify(procedures),
                           species: JSON.stringify(pil.species)
                         }).returning('id');
                       })
-                      .then(([ pilId ]) => {
+                      .then(([ pilId ]) => pilId)
+                      .then(pilId => {
                         if (pil.transfers) {
-                          pil.transfers.reduce((promise, transfer) => {
+                          return pil.transfers.reduce((promise, transfer) => {
                             return promise
                               .then(() => {
                                 return knex('pil_transfers').insert({
@@ -77,8 +78,23 @@ module.exports = {
                                   pilId
                                 });
                               });
-                          }, Promise.resolve());
+                          }, Promise.resolve()).then(() => pilId);
                         }
+                        return pilId;
+                      })
+                      .then(pilId => {
+                        if (pil.feeWaivers) {
+                          return pil.feeWaivers.reduce((promise, waiver) => {
+                            return promise
+                              .then(() => {
+                                return knex('fee_waivers').insert({
+                                  ...waiver,
+                                  pilId
+                                });
+                              });
+                          }, Promise.resolve()).then(() => pilId);
+                        }
+                        return pilId;
                       });
                   }, Promise.resolve());
                 }
@@ -95,6 +111,7 @@ module.exports = {
     }, Promise.resolve());
   },
   delete: knex => knex('pil_transfers').del()
+    .then(() => knex('fee_waivers').del())
     .then(() => knex('pils').del())
     .then(() => knex('permissions').del())
     .then(() => knex('invitations').del())

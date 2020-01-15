@@ -4,6 +4,15 @@ const { uuid } = require('../lib/regex-validation');
 
 class PILQueryBuilder extends BaseModel.QueryBuilder {
 
+  whereNotWaived({ establishmentId, start }) {
+    const year = parseInt(start.substr(0, 4), 10);
+    return this
+      .whereNotExists(
+        PIL.relatedQuery('feeWaivers')
+          .where({ establishmentId, year })
+      );
+  }
+
   whereBillable({ establishmentId, start, end }) {
     return this
       .where(builder => {
@@ -58,7 +67,7 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
 
   billable({ establishmentId, start, end }) {
     return this
-      .eager('[profile.establishments, pilTransfers]')
+      .eager('[profile.establishments, pilTransfers, feeWaivers]')
       .modifyEager('profile.establishments', builder => {
         builder.where('id', establishmentId);
       })
@@ -66,6 +75,10 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
         builder
           .where('fromEstablishmentId', establishmentId)
           .orWhere('toEstablishmentId', establishmentId);
+      })
+      .modifyEager('feeWaivers', builder => {
+        builder
+          .where('establishmentId', establishmentId);
       })
       .leftJoinRelation('profile')
       .whereBillable({ establishmentId, start, end });
@@ -132,6 +145,14 @@ class PIL extends BaseModel {
         join: {
           from: 'pils.id',
           to: 'pilTransfers.pilId'
+        }
+      },
+      feeWaivers: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/fee-waiver`,
+        join: {
+          from: 'pils.id',
+          to: 'feeWaivers.pilId'
         }
       },
       profile: {

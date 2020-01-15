@@ -1,5 +1,15 @@
 [
   {
+    "id": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
+    "userId": "6805f567-bec5-44b7-84d6-63181614bad7",
+    "lastName": "Admin",
+    "firstName": "Asru",
+    "dob": "1980-01-01",
+    "email": "asruadmin@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": true
+  },
+  {
     "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "userId": "304cae96-0f56-492a-9f66-e99c2b3990c7",
     "title": "Dr",
@@ -505,6 +515,14 @@
         {
           "fromEstablishmentId": 10001,
           "toEstablishmentId": 8201,
+          "createdAt": "2019-04-09"
+        }
+      ],
+      "feeWaivers": [
+        {
+          "year": 2019,
+          "establishmentId": 8202,
+          "profileId": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
           "createdAt": "2019-04-09"
         }
       ]
@@ -2022,15 +2040,6 @@
         "type": "nacwo"
       }
     ]
-  },
-  {
-    "userId": "6805f567-bec5-44b7-84d6-63181614bad7",
-    "lastName": "Admin",
-    "firstName": "Asru",
-    "dob": "1980-01-01",
-    "email": "asruadmin@homeoffice.gov.uk",
-    "asruUser": true,
-    "asruAdmin": true
   },
   {
     "lastName": "User",
