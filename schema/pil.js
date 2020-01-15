@@ -4,16 +4,20 @@ const { uuid } = require('../lib/regex-validation');
 
 class PILQueryBuilder extends BaseModel.QueryBuilder {
 
-  whereNotWaived({ establishmentId, start }) {
-    const year = parseInt(start.substr(0, 4), 10);
+  whereNotWaived() {
+    const { establishmentId, year } = this.context();
+    if (!establishmentId || !year) {
+      throw new Error('whereNotWaived requires a establishmentId and start date to be set in query context');
+    }
     return this
       .whereNotExists(
-        PIL.relatedQuery('feeWaivers')
-          .where({ establishmentId, year })
+        PIL.relatedQuery('feeWaivers').where({ establishmentId, year })
       );
   }
 
   whereBillable({ establishmentId, start, end }) {
+    const year = parseInt(start.substr(0, 4), 10);
+    this.context({ establishmentId, start, end, year });
     return this
       .where(builder => {
         // PIL was active during billing period
@@ -66,7 +70,16 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
   }
 
   billable({ establishmentId, start, end }) {
+    const year = parseInt(start.substr(0, 4), 10);
+    this.context({ establishmentId, year });
     return this
+      .select([
+        'pils.*',
+        PIL.relatedQuery('feeWaivers')
+          .where({ establishmentId, year })
+          .select(1)
+          .as('waived')
+      ])
       .eager('[profile.establishments, pilTransfers, feeWaivers]')
       .modifyEager('profile.establishments', builder => {
         builder.where('id', establishmentId);

@@ -215,32 +215,28 @@ describe('PIL model', () => {
 
     describe('whereNotWaived', () => {
 
+      it('throws an error if called without a `.billable` call', () => {
+        return assert.rejects(async () => this.models.PIL.query().whereNotWaived());
+      });
+
       it('excludes PILs which have had a waiver applied', () => {
         return Promise.all([
           // PIL is included in base list for both establishments
-          () => {
-            return this.models.PIL.query()
-              .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-              .then(results => isIncluded(results, 'waivedfee@example.com'));
-          },
-          () => {
-            return this.models.PIL.query()
-              .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
-              .then(results => isIncluded(results, 'waivedfee@example.com'));
-          },
+          this.models.PIL.query()
+            .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
+            .then(results => isIncluded(results, 'waivedfee@example.com')),
+          this.models.PIL.query()
+            .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
+            .then(results => isIncluded(results, 'waivedfee@example.com')),
           // once `whereNotWaived` is defined it appears only for establishment 101
-          () => {
-            return this.models.PIL.query()
-              .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-              .whereNotWaived({ establishmentId: 100, start: '2019-04-06' })
-              .then(results => isNotIncluded(results, 'waivedfee@example.com'));
-          },
-          () => {
-            return this.models.PIL.query()
-              .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
-              .whereNotWaived({ establishmentId: 101, start: '2019-04-06' })
-              .then(results => isIncluded(results, 'waivedfee@example.com'));
-          }
+          this.models.PIL.query()
+            .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
+            .whereNotWaived()
+            .then(results => isNotIncluded(results, 'waivedfee@example.com')),
+          this.models.PIL.query()
+            .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
+            .whereNotWaived()
+            .then(results => isIncluded(results, 'waivedfee@example.com'))
         ]);
 
       });

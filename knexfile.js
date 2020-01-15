@@ -13,7 +13,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       host: process.env.DATABASE_HOST || 'localhost',
-      database: process.env.DATABASE_NAME,
+      database: 'asl-test',
       user: process.env.DATABASE_USERNAME || 'postgres'
     },
     pool: {
