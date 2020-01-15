@@ -143,6 +143,24 @@ describe('PIL model', () => {
                       }
                     ]
                   }
+                },
+                {
+                  firstName: 'Unwaived',
+                  lastName: 'Fee',
+                  email: 'unwaivedfee@example.com',
+                  pil: {
+                    establishmentId: 101,
+                    procedures: ['A'],
+                    status: 'active',
+                    issueDate: '2016-01-01T12:00:00Z',
+                    pilTransfers: [
+                      {
+                        fromEstablishmentId: 100,
+                        toEstablishmentId: 101,
+                        createdAt: '2019-04-10T12:00:00Z'
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -211,6 +229,21 @@ describe('PIL model', () => {
     it('does not include PILs which were transferred out of and into the establishment either side of the billing period', () => {
       return this.models.PIL.query().billable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' })
         .then(results => isNotIncluded(results, 'manytransfers@example.com'));
+    });
+
+    it('includes a `waived` property on records which have been waived', () => {
+      return this.models.PIL.query()
+        .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
+        .then(results => {
+          isIncluded(results, 'waivedfee@example.com');
+          isIncluded(results, 'unwaivedfee@example.com');
+
+          const waived = results.find(pil => pil.profile.email === 'waivedfee@example.com');
+          const unwaived = results.find(pil => pil.profile.email === 'unwaivedfee@example.com');
+
+          assert.ok(waived.waived);
+          assert.ok(!unwaived.waived);
+        });
     });
 
     describe('whereNotWaived', () => {
