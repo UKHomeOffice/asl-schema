@@ -16,7 +16,7 @@ exports.up = function(knex) {
       table.text('comment');
       table.uuid('profile_id').references('id').inTable('profiles').notNull();
 
-      table.timestamps(true, true);
+      table.timestamps(false, true);
       table.dateTime('deleted');
     });
 };
