@@ -41,6 +41,15 @@ class Profile extends BaseModel {
     };
   }
 
+  $beforeUpdate() {
+    // strip all ASRU roles if the user is no-longer part of ASRU
+    if (this.asruUser === false) {
+      this.asruAdmin = false;
+      this.asruLicensing = false;
+      this.asruInspector = false;
+    }
+  }
+
   static scopeToParams(params) {
     return {
       getAll: () => this.getProfiles(params),
