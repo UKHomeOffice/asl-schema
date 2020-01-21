@@ -57,6 +57,8 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
           // the first PIL transfer after the end of the billing period was out of the establishment
           .orWhere(builder => {
             builder
+              // filter out PILs that have never been transferred before doing expensive operations
+              // this speeds up execution of the query by ~80-90%
               .whereExists(
                 PIL.relatedQuery('pilTransfers').where('createdAt', '>', end)
               )
