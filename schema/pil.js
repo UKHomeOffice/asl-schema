@@ -57,7 +57,10 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
           // the first PIL transfer after the end of the billing period was out of the establishment
           .orWhere(builder => {
             builder
-              .where(
+              .whereExists(
+                PIL.relatedQuery('pilTransfers').where('createdAt', '>', end)
+              )
+              .andWhere(
                 establishmentId,
                 PIL.relatedQuery('pilTransfers')
                   .select('fromEstablishmentId')
