@@ -422,4 +422,43 @@ describe('Profile model', () => {
       });
     });
   });
+
+  describe('ASRU roles', () => {
+
+    beforeEach(() => {
+      this.inspector = {
+        id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
+        firstName: 'Inspector',
+        lastName: 'Morse',
+        email: 'inspector-morse@example.com',
+        asruUser: true,
+        asruInspector: true
+      };
+
+      this.licensing = {
+        id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
+        firstName: 'Li Sen',
+        lastName: 'Xing',
+        email: 'lisenxing@example.com',
+        asruUser: true,
+        asruLicensing: true
+      };
+
+      return this.models.Profile.query().insertGraph([this.inspector, this.licensing]);
+    });
+
+    it('strips inspector role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.inspector.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruInspector === false, 'the profile should have inspector role removed');
+        });
+    });
+
+    it('strips licensing officer role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.licensing.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruLicensing === false, 'the profile should have licensing officer role removed');
+        });
+    });
+  });
 });
