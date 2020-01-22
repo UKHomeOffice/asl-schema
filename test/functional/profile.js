@@ -422,4 +422,59 @@ describe('Profile model', () => {
       });
     });
   });
+
+  describe('ASRU roles', () => {
+
+    beforeEach(() => {
+      this.inspector = {
+        id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
+        firstName: 'Inspector',
+        lastName: 'Morse',
+        email: 'inspector-morse@example.com',
+        asruUser: true,
+        asruInspector: true
+      };
+
+      this.licensing = {
+        id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
+        firstName: 'Li Sen',
+        lastName: 'Xing',
+        email: 'lisenxing@example.com',
+        asruUser: true,
+        asruLicensing: true
+      };
+
+      this.asruAdmin = {
+        id: 'a8e6f04b-f3a6-4378-91fa-f612d4ed1102',
+        lastName: 'Admin',
+        firstName: 'Asru',
+        email: 'asruadmin@homeoffice.gov.uk',
+        asruUser: true,
+        asruAdmin: true
+      };
+
+      return this.models.Profile.query().insertGraph([this.inspector, this.licensing, this.asruAdmin]);
+    });
+
+    it('strips inspector role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.inspector.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruInspector === false, 'the profile should have inspector role removed');
+        });
+    });
+
+    it('strips licensing officer role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.licensing.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruLicensing === false, 'the profile should have licensing officer role removed');
+        });
+    });
+
+    it('strips admin role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.asruAdmin.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruAdmin === false, 'the profile should have asru admin role removed');
+        });
+    });
+  });
 });
