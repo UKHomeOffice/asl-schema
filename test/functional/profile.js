@@ -326,8 +326,8 @@ describe('Profile model', () => {
       return notEstablishmentScoped.get()
         .then(profile => {
           assert(profile.establishments.length === 2, 'it should list all related establishments');
-          assert(profile.establishments[0].id === 8201, 'it should list the first establishment');
-          assert(profile.establishments[1].id === 8202, 'it should list the second establishment');
+          assert(profile.establishments.find(e => e.id === 8201), 'it should list the first establishment');
+          assert(profile.establishments.find(e => e.id === 8202), 'it should list the second establishment');
         });
     });
 
