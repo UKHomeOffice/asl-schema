@@ -19,11 +19,13 @@ describe('Profile model', () => {
           address: '123 Somewhere street',
           profiles: [
             {
+              id: '4deac5a2-6530-4f93-ba9f-d1b3db574ad9',
               firstName: 'Vincent',
               lastName: 'Malloy',
               email: 'vincent@malloy.com'
             },
             {
+              id: '3e516ccd-6631-4868-8f27-70797251ecee',
               firstName: 'Sterling',
               lastName: 'Archer',
               email: 'sterling@archer.com',
@@ -34,6 +36,7 @@ describe('Profile model', () => {
               }
             },
             {
+              id: '7a914e0c-90ad-46da-b468-5b64c3a1b183',
               firstName: 'Keith',
               lastName: 'Lemon',
               email: 'keith@lemon.com',
@@ -48,6 +51,7 @@ describe('Profile model', () => {
               }]
             },
             {
+              id: '3e6dcec1-004c-41fa-83b3-63ab6ec94b0c',
               firstName: 'Bruce',
               lastName: 'Forsyth',
               email: 'bruce@forsyth.com',
@@ -62,6 +66,7 @@ describe('Profile model', () => {
               }]
             },
             {
+              id: '7053e9b5-a8ab-4074-8ec5-b0134d6f58ec',
               firstName: 'Stuart',
               lastName: 'Little',
               email: 'stuart@little.com',
@@ -73,12 +78,20 @@ describe('Profile model', () => {
             },
             {
               '#id': 'doubleagent',
+              id: 'ee9c6778-f4a5-43f6-b674-747a6377af23',
               firstName: 'Double',
               lastName: 'Agent',
               email: 'doubleagent@example.com',
               roles: [
                 { establishmentId: 8201, type: 'ntco' }
               ]
+            },
+            {
+              '#id': 'multi.establishment',
+              id: 'e7d0a987-62b5-48b5-8f27-9687b7a55cae',
+              firstName: 'Multi',
+              lastName: 'Establishment',
+              email: 'multi.establishment@example.com'
             }
           ]
         },
@@ -90,6 +103,7 @@ describe('Profile model', () => {
           country: 'wales',
           profiles: [
             {
+              id: '8ce59dba-b357-486c-8eab-fc8d04729aad',
               firstName: 'Austin',
               lastName: 'Powers',
               email: 'groovy@baby.com',
@@ -100,6 +114,7 @@ describe('Profile model', () => {
               }
             },
             {
+              id: '3aefd889-a2d0-47c4-9b39-bb5dd880889b',
               firstName: 'Clark',
               lastName: 'Kent',
               email: 'super@man.com',
@@ -111,6 +126,9 @@ describe('Profile model', () => {
             },
             {
               '#ref': 'doubleagent'
+            },
+            {
+              '#ref': 'multi.establishment'
             }
           ]
         }
@@ -298,6 +316,32 @@ describe('Profile model', () => {
       const profile = this.models.Profile.scopeSingle({});
       assert.ok(profile.getNamed);
       assert.ok(profile.get);
+    });
+
+    it('returns all related establishments if no establishmentId is passed', () => {
+      const notEstablishmentScoped = this.models.Profile.scopeSingle({
+        id: 'e7d0a987-62b5-48b5-8f27-9687b7a55cae'
+      });
+
+      return notEstablishmentScoped.get()
+        .then(profile => {
+          assert(profile.establishments.length === 2, 'it should list all related establishments');
+          assert(profile.establishments.find(e => e.id === 8201), 'it should list the first establishment');
+          assert(profile.establishments.find(e => e.id === 8202), 'it should list the second establishment');
+        });
+    });
+
+    it('returns only the scoped establishment if establishmentId is passed', () => {
+      const establishmentScoped = this.models.Profile.scopeSingle({
+        id: 'e7d0a987-62b5-48b5-8f27-9687b7a55cae',
+        establishmentId: 8201
+      });
+
+      return establishmentScoped.get()
+        .then(profile => {
+          assert(profile.establishments.length === 1, 'it should only list the scoped establishment');
+          assert(profile.establishments[0].id === 8201, 'it should only list the scoped establishment');
+        });
     });
 
     describe('getNamedProfiles', () => {
