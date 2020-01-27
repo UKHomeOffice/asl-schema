@@ -7,7 +7,9 @@
     "dob": "1980-01-01",
     "email": "asruadmin@homeoffice.gov.uk",
     "asruUser": true,
-    "asruAdmin": true
+    "asruAdmin": true,
+    "asruInspector": true,
+    "asruLicensing": true
   },
   {
     "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
