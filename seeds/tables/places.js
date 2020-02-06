@@ -8,16 +8,12 @@ module.exports = {
       .then(() => knex('roles').where('type', 'nacwo'))
       .then(nacwos => {
         return Promise.all(places.map(place => {
+          place.holding = place.holding || sampleSize(holdingCodes, 2);
+          place.suitability = place.suitability || sampleSize(suitabilityCodes, 2);
           return knex('places')
             .insert({
               nacwoId: place.nacwoId || sample(nacwos).id,
               ...mapValues(place, (val, key) => {
-                if (key === 'holding') {
-                  val = val || sampleSize(holdingCodes, 2);
-                }
-                if (key === 'suitability') {
-                  val = val || sampleSize(suitabilityCodes, 2);
-                }
                 if (key === 'holding' || key === 'suitability') {
                   return JSON.stringify(val);
                 }
