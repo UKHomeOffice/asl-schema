@@ -1380,5 +1380,36 @@
     "holding": [
       "NOH"
     ]
+  },
+  {
+    "establishmentId": 8201,
+    "site": "Public edit place tests",
+    "area": null,
+    "name": "Default"
+  },
+  {
+    "establishmentId": 8201,
+    "site": "Public edit place tests",
+    "area": null,
+    "name": "No NACWO",
+    "nacwoId": null
+  },
+  {
+    "establishmentId": 8201,
+    "site": "Public remove place tests",
+    "area": null,
+    "name": "Default"
+  },
+  {
+    "establishmentId": 8201,
+    "site": "Internal edit place tests",
+    "area": null,
+    "name": "Default"
+  },
+  {
+    "establishmentId": 8201,
+    "site": "Internal restrictions tests",
+    "area": null,
+    "name": "Default"
   }
 ]
