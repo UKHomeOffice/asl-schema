@@ -549,5 +549,12 @@
         }
       ]
     }
+  },
+  {
+    "projectId": "e8e437a3-ac2b-4d66-af37-1c369a3211dc",
+    "status": "granted",
+    "data": {
+      "title": "Small pharma project"
+    }
   }
 ]

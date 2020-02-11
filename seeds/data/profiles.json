@@ -38,6 +38,10 @@
       {
         "establishmentId": 8202,
         "type": "nprc"
+      },
+      {
+        "establishmentId": 30001,
+        "type": "holc"
       }
     ],
     "permissions": [
@@ -47,6 +51,10 @@
       },
       {
         "establishmentId": 8202,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 30001,
         "role": "admin"
       }
     ]
