@@ -459,5 +459,16 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "establishmentId": 8201
+  },
+  {
+    "id": "e8e437a3-ac2b-4d66-af37-1c369a3211dc",
+    "establishmentId": 30001,
+    "title": "Small pharma project",
+    "status": "active",
+    "schemaVersion": 1,
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "PR-X10015"
   }
 ]

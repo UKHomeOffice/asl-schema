@@ -47,7 +47,7 @@
     "type": "University, medical school",
     "status": "active",
     "issueDate": "07/05/2018 12:00",
-    "licenceNumber": "XCC09J64X",
+    "licenceNumber": "SOME-PILS-NO-PPLS",
     "createdAt": "05/11/2017 12:00",
     "updatedAt": "05/11/2017 12:00"
   },
@@ -90,7 +90,10 @@
     "id": 30001,
     "name": "Small Pharma",
     "type": "Pharmaceutical company",
-    "status": "inactive",
+    "status": "active",
+    "issueDate": "05/11/2019 12:00",
+    "revocationDate": null,
+    "licenceNumber": "NO-PILS-SOME-PPLS",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -98,7 +101,10 @@
     "id": 40001,
     "name": "Tiny Pharma",
     "type": "Pharmaceutical company",
-    "status": "inactive",
+    "status": "active",
+    "issueDate": "05/11/2019 12:00",
+    "revocationDate": null,
+    "licenceNumber": "NO-PILS-NO-PPLS",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
