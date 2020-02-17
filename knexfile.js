@@ -14,7 +14,8 @@ module.exports = {
     connection: {
       host: process.env.DATABASE_HOST || 'localhost',
       database: 'asl-test',
-      user: process.env.DATABASE_USERNAME || 'postgres'
+      user: process.env.DATABASE_USERNAME || 'postgres',
+      password: process.env.DATABASE_PASSWORD
     },
     pool: {
       min: 1,

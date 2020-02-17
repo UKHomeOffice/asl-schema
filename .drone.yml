@@ -7,8 +7,10 @@ pipeline:
     environment:
       - POSTGRES_USER=asl-test
       - POSTGRES_HOST=database
+      - POSTGRES_PASSWORD=test-password
       - DATABASE_HOST=database
       - DATABASE_USERNAME=asl-test
+      - DATABASE_PASSWORD=test-password
     commands:
       - npm ci
       - npm test
@@ -76,6 +78,7 @@ services:
     image: postgres
     environment:
       - POSTGRES_USER=asl-test
+      - POSTGRES_PASSWORD=test-password
 
 matrix:
   NPM_AUTH_USERNAME:
