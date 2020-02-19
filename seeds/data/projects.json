@@ -311,7 +311,6 @@
     "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26c",
     "establishmentId": 8201,
     "title": "Unsubmitted draft",
-    "licenceNumber": "PR-X00004",
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "status": "inactive"
   },
@@ -319,7 +318,6 @@
     "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26d",
     "establishmentId": 8201,
     "title": "Submitted draft",
-    "licenceNumber": "PR-X00005",
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "status": "inactive"
   },
