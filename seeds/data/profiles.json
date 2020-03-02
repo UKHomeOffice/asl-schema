@@ -177,6 +177,24 @@
     ]
   },
   {
+    "id": "304235c0-1a83-49f0-87ca-b11b1ad1e148",
+    "title": "Mr",
+    "firstName": "Basic",
+    "lastName": "Small-Pharma",
+    "dob": "1970-10-27",
+    "email": "basic.smallpharma@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 30001,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "id": "f8054102-dbbc-4655-b49e-e17d36a635de",
     "userId": "33d2022b-37ba-47e6-aea3-ba3d3ecf2dd4",
     "title": "Ms",
