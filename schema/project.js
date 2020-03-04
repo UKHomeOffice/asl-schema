@@ -33,7 +33,9 @@ class Project extends BaseModel {
         transferredIn: { type: ['string', 'null'], format: 'date-time' },
         transferredOut: { type: ['string', 'null'], format: 'date-time' },
         previousProjectId: { type: ['string', 'null'], pattern: uuid.v4 },
-        previousEstablishmentId: { type: ['integer', 'null'] }
+        previousEstablishmentId: { type: ['integer', 'null'] },
+        transferProjectId: { type: ['string', 'null'], pattern: uuid.v4 },
+        transferEstablishmentId: { type: ['integer', 'null'] }
       }
     };
   }
