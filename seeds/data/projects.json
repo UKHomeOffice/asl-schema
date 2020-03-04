@@ -459,6 +459,17 @@
     "establishmentId": 8201
   },
   {
+    "id": "fab30838-4316-4863-9070-5caa08e87d47",
+    "title": "Project with multiple versions",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "establishmentId": 8201,
+    "status": "active",
+    "issueDate": "2019-01-01",
+    "expiryDate": "2024-01-01",
+    "licenceNumber": "PR-X10099"
+  },
+  {
     "id": "e8e437a3-ac2b-4d66-af37-1c369a3211dc",
     "establishmentId": 30001,
     "title": "Small pharma project",
