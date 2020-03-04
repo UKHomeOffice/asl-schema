@@ -29,7 +29,11 @@ class Project extends BaseModel {
         licenceHolderId: { type: ['string', 'null'] },
         deleted: { type: ['string', 'null'], format: 'date-time' },
         amendedDate: { type: ['string', 'null'], format: 'date-time' },
-        isLegacyStub: { type: 'boolean' }
+        isLegacyStub: { type: 'boolean' },
+        transferredIn: { type: ['string', 'null'], format: 'date-time' },
+        transferredOut: { type: ['string', 'null'], format: 'date-time' },
+        previousProjectId: { type: ['string', 'null'], pattern: uuid.v4 },
+        previousEstablishmentId: { type: ['integer', 'null'] }
       }
     };
   }
