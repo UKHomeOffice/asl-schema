@@ -45,10 +45,8 @@ class Project extends BaseModel {
   }
 
   static scopeToParams(params) {
-    if (params.status) {
-      if (params.status === 'inactive-statuses') {
-        params.status = ['expired', 'revoked', 'transferred'];
-      }
+    if (params.status === 'inactive-statuses') {
+      params.status = ['expired', 'revoked', 'transferred'];
     }
     return {
       getAll: () => this.getProjects(params),
