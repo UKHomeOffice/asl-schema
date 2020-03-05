@@ -3,6 +3,10 @@ const Profile = require('./profile');
 const { projectStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
 
+const statusQuery = status => query => Array.isArray(status)
+  ? query.whereIn('projects.status', status)
+  : query.where({ status });
+
 class Project extends BaseModel {
   static get tableName() {
     return 'projects';
@@ -41,6 +45,9 @@ class Project extends BaseModel {
   }
 
   static scopeToParams(params) {
+    if (params.status === 'inactive-statuses') {
+      params.status = ['expired', 'revoked', 'transferred'];
+    }
     return {
       getAll: () => this.getProjects(params),
       getOwn: () => this.getOwnProjects(params)
@@ -101,7 +108,7 @@ class Project extends BaseModel {
 
     return query
       .where({ establishmentId })
-      .where('projects.status', status)
+      .where(statusQuery(status))
       .countDistinct('projects.id')
       .then(result => result[0])
       .then(result => parseInt(result.count, 10));
@@ -117,7 +124,7 @@ class Project extends BaseModel {
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where({ establishmentId })
-      .where('projects.status', status)
+      .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
       .eager('licenceHolder')
       .where(builder => {
