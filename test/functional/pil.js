@@ -161,6 +161,18 @@ describe('PIL model', () => {
                       }
                     ]
                   }
+                },
+                {
+                  firstName: 'Reactivated',
+                  lastName: 'Pil',
+                  email: 'reactivated@example.com',
+                  pil: {
+                    establishmentId: 101,
+                    procedures: ['A'],
+                    status: 'active',
+                    issueDate: '2018-01-01T12:00:00Z',
+                    revocationDate: '2017-01-01T12:00:00Z'
+                  }
                 }
               ]
             }
@@ -199,6 +211,11 @@ describe('PIL model', () => {
     it('does not include PILs which were granted after the billing period', () => {
       return this.models.PIL.query().billable({ establishmentId: 102, start: '2016-04-06', end: '2017-04-05' })
         .then(results => isNotIncluded(results, 'activepil@example.com'));
+    });
+
+    it('includes PILs which were re-granted after being revoked', () => {
+      return this.models.PIL.query().billable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' })
+        .then(results => isIncluded(results, 'reactivated@example.com'));
     });
 
     it('does not include PILs which were transfered into the establishment after the billing period', () => {
