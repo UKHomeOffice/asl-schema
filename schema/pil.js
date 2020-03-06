@@ -26,7 +26,7 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
           .whereNotNull('issueDate')
           .where(builder => {
             builder
-              .whereNull('revocationDate')
+              .where('status', 'active')
               .orWhere('revocationDate', '>', start);
           });
       })
