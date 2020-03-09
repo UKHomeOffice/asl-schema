@@ -5,7 +5,7 @@ const { uuid } = require('../lib/regex-validation');
 
 const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
-  : query.where({ status });
+  : query.where('projects.status', status);
 
 class Project extends BaseModel {
   static get tableName() {

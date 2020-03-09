@@ -38,7 +38,12 @@ describe('Project model', () => {
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
             },
-            status: 'inactive'
+            status: 'inactive',
+            version: [
+              {
+                status: 'draft'
+              }
+            ]
           },
           {
             title: 'Some expired research',
@@ -53,7 +58,12 @@ describe('Project model', () => {
             licenceHolder: {
               id: '781d8d17-9c00-4f3d-8734-c1a469426546'
             },
-            status: 'inactive'
+            status: 'inactive',
+            version: [
+              {
+                status: 'submitted'
+              }
+            ]
           },
           {
             title: 'Some more expired research',
@@ -205,6 +215,22 @@ describe('Project model', () => {
           }))
           .then(project => {
             assert.deepEqual(project, null);
+          });
+      });
+    });
+
+    describe('getAll', () => {
+      it('returns only submitted drafts to ASRU users', () => {
+        const params = {
+          establishmentId: 8201,
+          status: 'inactive',
+          isAsru: true
+        };
+        return Promise.resolve()
+          .then(() => this.models.Project.scopeToParams(params).getAll())
+          .then(({ projects }) => {
+            assert.equal(projects.results.length, 1);
+            assert.equal(projects.results[0].title, 'Some more research', 'Only the project with a submitted version should be returned');
           });
       });
     });
