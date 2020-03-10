@@ -603,5 +603,23 @@
     },
     "createdAt": "2019-05-31",
     "updatedAt": "2019-06-01"
+  },
+  {
+    "projectId": "3b125d04-a0ec-46fe-9954-80a13b3e39f9",
+    "status": "granted",
+    "data": {
+      "title": "Transfer basic user project"
+    },
+    "createdAt": "2019-05-31",
+    "updatedAt": "2019-06-01"
+  },
+  {
+    "projectId": "b5554241-083c-4fce-a031-71403fdae509",
+    "status": "draft",
+    "data": {
+      "title": "Transfer basic user draft"
+    },
+    "createdAt": "2019-05-31",
+    "updatedAt": "2019-06-01"
   }
 ]
