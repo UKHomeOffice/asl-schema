@@ -470,6 +470,14 @@
     "licenceNumber": "PR-X10099"
   },
   {
+    "id": "04956663-711b-4bda-b201-46d9eeabf9d4",
+    "title": "Project with deleted protocols",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "establishmentId": 8201,
+    "status": "inactive"
+  },
+  {
     "id": "e8e437a3-ac2b-4d66-af37-1c369a3211dc",
     "establishmentId": 30001,
     "title": "Small pharma project",

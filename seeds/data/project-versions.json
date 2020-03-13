@@ -621,5 +621,55 @@
     },
     "createdAt": "2019-05-31",
     "updatedAt": "2019-06-01"
+  },
+  {
+    "projectId": "04956663-711b-4bda-b201-46d9eeabf9d4",
+    "data": {
+      "title": "Project with deleted protocols",
+      "species": ["mice", "rats"],
+      "protocols": [
+        {
+          "id": "43f5e295-277c-4e60-9759-e6c3612d6bfe",
+          "steps": [],
+          "title": "First protocol",
+          "species": [ "mice" ],
+          "conditions": [],
+          "speciesDetails": [
+            {
+              "id": "39415b58-73bc-4040-b7dd-d5bef57de5f2",
+              "name": "Mice",
+              "reuse": false,
+              "value": "mice",
+              "life-stages": [ "adult" ],
+              "continued-use": false,
+              "maximum-animals": "100",
+              "maximum-times-used": "100"
+            }
+          ]
+        },
+        {
+          "id": "997659c6-6789-49db-a5cd-1cfcb6856406",
+          "steps": [],
+          "title": "Deleted protocol",
+          "deleted": false,
+          "species": [ "rats" ],
+          "conditions": [],
+          "speciesDetails": [
+            {
+              "id": "f4252ce0-10b0-49d8-ab7c-4548d65c906f",
+              "name": "Rats",
+              "reuse": false,
+              "value": "rats",
+              "life-stages": [ "adult" ],
+              "continued-use": false,
+              "maximum-animals": "100",
+              "maximum-times-used": "100"
+            }
+          ],
+          "deleted": true
+        }
+      ]
+    },
+    "status": "draft"
   }
 ]
