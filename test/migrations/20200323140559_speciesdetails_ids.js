@@ -50,6 +50,19 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
+  it('returns untouched input if input has null protocols', () => {
+    const input = {
+      title: 'Test title',
+      protocols: [
+        { title: 'Protocol 1' },
+        null,
+        { title: 'Protocol 2' }
+      ]
+    };
+    const expected = cloneDeep(input);
+    assert.deepEqual(transform(input), expected);
+  });
+
   it('returns untouched input if protocols have non-array species details', () => {
     const input = {
       title: 'Test title',
@@ -101,6 +114,7 @@ describe('transform', () => {
     const input = {
       title: 'Test title',
       protocols: [
+        null,
         {
           title: 'Protocol 1',
           speciesDetails: [ { id: uuid(), value: 'mice' }, { value: 'rats' } ]
@@ -110,7 +124,34 @@ describe('transform', () => {
     const expected = cloneDeep(input);
     const output = transform(input);
 
-    assert.ok(output.protocols[0].speciesDetails.every(sd => isuuid(sd.id)), 'all speciesDetails should have id: uuid');
+    assert.equal(output.protocols[0], null);
+    assert.ok(output.protocols[1].speciesDetails.every(sd => isuuid(sd.id)), 'all speciesDetails should have id: uuid');
+  });
+
+  it('handles some speciesDetails being null', () => {
+    const input = {
+      title: 'Test title',
+      protocols: [
+        null,
+        {
+          title: 'Protocol 1',
+          speciesDetails: [ { id: uuid(), value: 'mice' }, { value: 'rats' } ]
+        },
+        {
+          title: 'Protocol 2',
+          speciesDetails: [ { id: uuid(), value: 'mice' }, null, { value: 'rats' } ]
+        }
+      ]
+    };
+    const expected = cloneDeep(input);
+    const output = transform(input);
+
+    assert.equal(output.protocols[0], null);
+    assert.ok(output.protocols[1].speciesDetails.every(sd => isuuid(sd.id)), 'all speciesDetails should have id: uuid');
+
+    assert.ok(isuuid(output.protocols[2].speciesDetails[0].id), 'speciesDetails[0] should have id: uuid');
+    assert.equal(output.protocols[2].speciesDetails[1], null, 'speciesDetails[1] should be null');
+    assert.ok(isuuid(output.protocols[2].speciesDetails[2].id), 'speciesDetails[2] should have id: uuid');
   });
 
 });

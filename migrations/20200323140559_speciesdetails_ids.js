@@ -8,10 +8,13 @@ const transform = version => {
     return version;
   }
   version.protocols.forEach(protocol => {
-    if (!protocol.speciesDetails || !Array.isArray(protocol.speciesDetails)) {
+    if (!protocol || !protocol.speciesDetails || !Array.isArray(protocol.speciesDetails)) {
       return;
     }
     protocol.speciesDetails.forEach(species => {
+      if (!species) {
+        return;
+      }
       species.id = species.id || uuid();
     });
   });
@@ -51,6 +54,7 @@ exports.up = function(knex) {
           .catch(e => {
             console.error(`Failed to update project ${project.id}`);
             console.error(e.stack);
+            throw e;
           });
       }, Promise.resolve());
     });
