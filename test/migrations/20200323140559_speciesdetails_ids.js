@@ -2,6 +2,7 @@ const assert = require('assert');
 const uuid = require('uuid/v4');
 const isuuid = require('uuid-validate');
 const { cloneDeep, omit } = require('lodash');
+const diff = require('deep-diff');
 const db = require('../functional/helpers/db');
 const { transform, up } = require('../../migrations/20200323140559_speciesdetails_ids');
 
@@ -146,7 +147,7 @@ describe('up', () => {
               }
             ]
           },
-          createdAt: '2019-01-01T12:00:00Z'
+          createdAt: '2019-01-01T12:00:00.000Z'
         },
         {
           status: 'granted',
@@ -159,7 +160,7 @@ describe('up', () => {
               }
             ]
           },
-          createdAt: '2019-02-01T12:00:00Z'
+          createdAt: '2019-02-01T12:00:00.000Z'
         },
         {
           status: 'draft',
@@ -172,7 +173,7 @@ describe('up', () => {
               }
             ]
           },
-          createdAt: '2019-03-01T12:00:00Z'
+          createdAt: '2019-03-01T12:00:00.000Z'
         }
       ]
     },
@@ -193,7 +194,7 @@ describe('up', () => {
               }
             ]
           },
-          createdAt: '2019-01-01T12:00:00Z'
+          createdAt: '2019-01-01T12:00:00.000Z'
         },
         {
           status: 'draft',
@@ -206,7 +207,7 @@ describe('up', () => {
               }
             ]
           },
-          createdAt: '2019-02-01T12:00:00Z'
+          createdAt: '2019-02-01T12:00:00.000Z'
         }
       ]
     },
@@ -224,7 +225,7 @@ describe('up', () => {
               { title: 'protocol 1' }
             ]
           },
-          createdAt: '2019-01-01T12:00:00Z'
+          createdAt: '2019-01-01T12:00:00.000Z'
         },
         {
           status: 'granted',
@@ -233,7 +234,21 @@ describe('up', () => {
               { title: 'protocol 1 edited' }
             ]
           },
-          createdAt: '2019-02-01T12:00:00Z'
+          createdAt: '2019-02-01T12:00:00.000Z'
+        }
+      ]
+    },
+    {
+      id: uuid(),
+      title: 'No protocols',
+      licenceHolder,
+      status: 'inactive',
+      version: [
+        {
+          status: 'draft',
+          data: {
+            title: 'No protocols'
+          }
         }
       ]
     }
@@ -262,6 +277,32 @@ describe('up', () => {
 
   after(() => {
     return this.models.destroy();
+  });
+
+  it('does not change any properties, only adds new ids', () => {
+    return Promise.resolve()
+      .then(() => {
+        return this.models.Project.query()
+          .eager('[version,licenceHolder]')
+          .modifyEager('version', builder => builder.orderBy('createdAt', 'asc'));
+      })
+      .then(before => {
+        return Promise.resolve()
+          .then(() => {
+            return up(this.models.knex)
+          })
+          .then(() => {
+            return this.models.Project.query()
+              .eager('[version,licenceHolder]')
+              .modifyEager('version', builder => builder.orderBy('createdAt', 'asc'));
+          })
+          .then(after => {
+            const changes = diff(before, after);
+            assert.ok(changes.every(change => {
+              return change.kind === 'N' && change.path.pop() === 'id';
+            }));
+          })
+      });
   });
 
   it('adds missing id properties only to the latest version', () => {
