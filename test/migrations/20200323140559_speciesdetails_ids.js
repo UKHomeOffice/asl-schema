@@ -2,7 +2,8 @@ const assert = require('assert');
 const uuid = require('uuid/v4');
 const isuuid = require('uuid-validate');
 const { cloneDeep, omit } = require('lodash');
-const { transform } = require('../../migrations/20200323140559_speciesdetails_ids');
+const db = require('../functional/helpers/db');
+const { transform, up } = require('../../migrations/20200323140559_speciesdetails_ids');
 
 describe('transform', () => {
 
@@ -111,4 +112,207 @@ describe('transform', () => {
     assert.ok(output.protocols[0].speciesDetails.every(sd => isuuid(sd.id)), 'all speciesDetails should have id: uuid');
   });
 
+});
+
+describe('up', () => {
+
+  const ids = {
+    versions: uuid(),
+    draft: uuid(),
+    legacy: uuid()
+  };
+
+  const licenceHolder = {
+    firstName: 'Licence',
+    lastName: 'Holder',
+    email: 'test@example.com'
+  };
+
+  const projects = [
+    {
+      id: ids.versions,
+      title: 'Project with granted versions',
+      licenceHolder,
+      status: 'active',
+      version: [
+        {
+          status: 'granted',
+          data: {
+            protocols: [
+              {
+                speciesDetails: [
+                  { value: 'mice' }
+                ]
+              }
+            ]
+          },
+          createdAt: '2019-01-01T12:00:00Z'
+        },
+        {
+          status: 'granted',
+          data: {
+            protocols: [
+              {
+                speciesDetails: [
+                  { value: 'mice' }
+                ]
+              }
+            ]
+          },
+          createdAt: '2019-02-01T12:00:00Z'
+        },
+        {
+          status: 'draft',
+          data: {
+            protocols: [
+              {
+                speciesDetails: [
+                  { value: 'mice' }
+                ]
+              }
+            ]
+          },
+          createdAt: '2019-03-01T12:00:00Z'
+        }
+      ]
+    },
+    {
+      id: ids.draft,
+      title: 'Project draft',
+      licenceHolder,
+      status: 'inactive',
+      version: [
+        {
+          status: 'submitted',
+          data: {
+            protocols: [
+              {
+                speciesDetails: [
+                  { value: 'mice' }
+                ]
+              }
+            ]
+          },
+          createdAt: '2019-01-01T12:00:00Z'
+        },
+        {
+          status: 'draft',
+          data: {
+            protocols: [
+              {
+                speciesDetails: [
+                  { value: 'rats' }
+                ]
+              }
+            ]
+          },
+          createdAt: '2019-02-01T12:00:00Z'
+        }
+      ]
+    },
+    {
+      id: ids.legacy,
+      title: 'Legacy Project',
+      licenceHolder,
+      status: 'active',
+      schemaVersion: 0,
+      version: [
+        {
+          status: 'granted',
+          data: {
+            protocols: [
+              { title: 'protocol 1' }
+            ]
+          },
+          createdAt: '2019-01-01T12:00:00Z'
+        },
+        {
+          status: 'granted',
+          data: {
+            protocols: [
+              { title: 'protocol 1 edited' }
+            ]
+          },
+          createdAt: '2019-02-01T12:00:00Z'
+        }
+      ]
+    }
+  ];
+
+  before(() => {
+    this.models = db.init();
+  });
+
+  beforeEach(() => {
+    return Promise.resolve()
+      .then(() => db.clean(this.models))
+      .then(() => this.models.Establishment.query().upsertGraph({
+        id: 100,
+        name: 'An establishment',
+        email: 'an@establishment.com',
+        country: 'england',
+        address: '123 Somwhere street',
+        projects
+      }, { insertMissing: true, relate: true }));
+  });
+
+  afterEach(() => {
+    return db.clean(this.models);
+  });
+
+  after(() => {
+    return this.models.destroy();
+  });
+
+  it('adds missing id properties only to the latest version', () => {
+    return up(this.models.knex)
+      .then(() => {
+        return this.models.Project.query().eager('version').findById(ids.versions);
+      })
+      .then(project => {
+        project.version.forEach(version => {
+          if (version.status === 'granted') {
+            version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
+              assert.ok(!sd.id, 'id should not have been added to previous granted versions');
+            }));
+          } else {
+            version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
+              assert.ok(sd.id, 'id should have been added to latest version');
+            }));
+          }
+        });
+      });
+  });
+
+  it('adds missing id properties to drafts', () => {
+    return up(this.models.knex)
+      .then(() => {
+        return this.models.Project.query().eager('version').findById(ids.draft);
+      })
+      .then(project => {
+        project.version.forEach(version => {
+          if (version.status === 'submitted') {
+            version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
+              assert.ok(!sd.id, 'id should not have been added to previous granted versions');
+            }));
+          } else {
+            version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
+              assert.ok(sd.id, 'id should have been added to latest version');
+            }));
+          }
+        });
+      });
+  });
+
+  it('does not touch legacy licences', () => {
+    return up(this.models.knex)
+      .then(() => {
+        return this.models.Project.query().eager('version').findById(ids.legacy);
+      })
+      .then(project => {
+        project.version.forEach((version, i) => {
+          assert.deepEqual(version.data, projects[2].version[i].data, 'version data should exactly match');
+        });
+      });
+  });
 });

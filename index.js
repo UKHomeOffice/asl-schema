@@ -41,6 +41,7 @@ module.exports = connection => {
 
   return {
     ...schema,
+    knex,
     transaction: () => transaction.start(knex),
     destroy: cb => knex.destroy(cb)
   };
