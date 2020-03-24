@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "pretest:functional": "NODE_ENV=test npm run migrate",
-    "test": "npm run test:lint && npm run test:unit && npm run test:functional",
+    "test": "npm run test:lint && npm run test:unit && npm run test:functional && npm run test:migrations",
     "test:lint": "eslint .",
     "test:unit": "mocha ./test/unit --recursive --exit",
     "test:functional": "SNAKE_MAPPER=true mocha ./test/functional --recursive --exit",
+    "test:migrations": "mocha ./test/migrations --recursive --exit",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "SNAKE_MAPPER=true knex seed:run"
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
     "@asl/constants": "^0.6.1",
+    "deep-diff": "^1.0.2",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "minimist": "^1.2.2",
@@ -43,6 +45,7 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.16.0",
     "eslint-config-lennym": "^1.4.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "uuid-validate": "0.0.3"
   }
 }
