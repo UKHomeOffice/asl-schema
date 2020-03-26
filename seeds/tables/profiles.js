@@ -1,4 +1,5 @@
 const { omit, sampleSize } = require('lodash');
+const moment = require('moment');
 const profiles = require('../data/profiles.json');
 
 module.exports = {
@@ -56,6 +57,11 @@ module.exports = {
                         const procedures = pil.procedures || sampleSize(['B', 'C', 'D', 'F'], Math.ceil(4 * Math.random()));
                         const notesCatD = procedures.includes('D') ? (pil.notesCatD || 'Cat D notes') : null;
                         const notesCatF = procedures.includes('F') ? (pil.notesCatF || 'Cat F notes') : null;
+                        let reviewDate = pil.reviewDate;
+                        if (typeof reviewDate === 'object') {
+                          const { unit, method, num } = reviewDate;
+                          reviewDate = moment()[method](num, unit).toISOString();
+                        }
                         return knex('pils').insert({
                           status: 'active',
                           notesCatD,
@@ -64,7 +70,8 @@ module.exports = {
                           establishmentId: profile.permissions[0].establishmentId,
                           ...omit(pil, 'transfers', 'feeWaivers'),
                           procedures: JSON.stringify(procedures),
-                          species: JSON.stringify(pil.species)
+                          species: JSON.stringify(pil.species),
+                          reviewDate
                         }).returning('id');
                       })
                       .then(([ pilId ]) => pilId)
