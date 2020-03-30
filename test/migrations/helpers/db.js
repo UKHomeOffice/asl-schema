@@ -1,4 +1,4 @@
-const Schema = require('../../../');
+const Knex = require('knex');
 const settings = require('../../../knexfile').test;
 
 const tables = [
@@ -20,10 +20,10 @@ const tables = [
 ];
 
 module.exports = {
-  init: () => Schema(settings.connection),
-  clean: schema => {
+  init: () => Knex(settings),
+  clean: knex => {
     return tables.reduce((p, table) => {
-      return p.then(() => schema.knex(table).delete());
+      return p.then(() => knex(table).delete());
     }, Promise.resolve());
   }
 };
