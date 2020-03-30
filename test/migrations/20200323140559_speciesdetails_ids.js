@@ -166,186 +166,205 @@ knex calls and not the objection models, which rely on snake case mappings.
 
 *********************************************************************************/
 
-xdescribe('up', () => {
+describe('up', () => {
 
   const ids = {
     versions: uuid(),
     draft: uuid(),
-    legacy: uuid()
+    legacy: uuid(),
+    noprotocols: uuid()
   };
 
   const licenceHolder = {
-    firstName: 'Licence',
-    lastName: 'Holder',
+    id: uuid(),
+    first_name: 'Licence',
+    last_name: 'Holder',
     email: 'test@example.com'
+  };
+
+  const establishment = {
+    id: 100,
+    name: 'An establishment',
+    email: 'an@establishment.com',
+    country: 'england',
+    address: '123 Somwhere street'
   };
 
   const projects = [
     {
       id: ids.versions,
       title: 'Project with granted versions',
-      licenceHolder,
+      licence_holder_id: licenceHolder.id,
       status: 'active',
-      version: [
-        {
-          status: 'granted',
-          data: {
-            protocols: [
-              {
-                speciesDetails: [
-                  { value: 'mice' }
-                ]
-              }
-            ]
-          },
-          createdAt: '2019-01-01T12:00:00.000Z'
-        },
-        {
-          status: 'granted',
-          data: {
-            protocols: [
-              {
-                speciesDetails: [
-                  { value: 'mice' }
-                ]
-              }
-            ]
-          },
-          createdAt: '2019-02-01T12:00:00.000Z'
-        },
-        {
-          status: 'draft',
-          data: {
-            protocols: [
-              {
-                speciesDetails: [
-                  { value: 'mice' }
-                ]
-              }
-            ]
-          },
-          createdAt: '2019-03-01T12:00:00.000Z'
-        }
-      ]
+      schema_version: 1
     },
     {
       id: ids.draft,
       title: 'Project draft',
-      licenceHolder,
+      licence_holder_id: licenceHolder.id,
       status: 'inactive',
-      version: [
-        {
-          status: 'submitted',
-          data: {
-            protocols: [
-              {
-                speciesDetails: [
-                  { value: 'mice' }
-                ]
-              }
-            ]
-          },
-          createdAt: '2019-01-01T12:00:00.000Z'
-        },
-        {
-          status: 'draft',
-          data: {
-            protocols: [
-              {
-                speciesDetails: [
-                  { value: 'rats' }
-                ]
-              }
-            ]
-          },
-          createdAt: '2019-02-01T12:00:00.000Z'
-        }
-      ]
+      schema_version: 1
     },
     {
       id: ids.legacy,
       title: 'Legacy Project',
-      licenceHolder,
+      licence_holder_id: licenceHolder.id,
       status: 'active',
-      schemaVersion: 0,
-      version: [
-        {
-          status: 'granted',
-          data: {
-            protocols: [
-              { title: 'protocol 1' }
-            ]
-          },
-          createdAt: '2019-01-01T12:00:00.000Z'
-        },
-        {
-          status: 'granted',
-          data: {
-            protocols: [
-              { title: 'protocol 1 edited' }
-            ]
-          },
-          createdAt: '2019-02-01T12:00:00.000Z'
-        }
-      ]
+      schema_version: 0
     },
     {
-      id: uuid(),
+      id: ids.noprotocols,
       title: 'No protocols',
-      licenceHolder,
+      licence_holder_id: licenceHolder.id,
       status: 'inactive',
-      version: [
-        {
-          status: 'draft',
-          data: {
-            title: 'No protocols'
+      schema_version: 1
+    }
+  ];
+
+  const versions = [
+    {
+      project_id: ids.noprotocols,
+      status: 'draft',
+      data: {
+        title: 'No protocols'
+      }
+    },
+    {
+      project_id: ids.legacy,
+      status: 'granted',
+      data: {
+        protocols: [
+          { title: 'protocol 1' }
+        ]
+      },
+      created_at: '2019-01-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.legacy,
+      status: 'granted',
+      data: {
+        protocols: [
+          { title: 'protocol 1 edited' }
+        ]
+      },
+      created_at: '2019-02-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.versions,
+      status: 'granted',
+      data: {
+        protocols: [
+          {
+            speciesDetails: [
+              { value: 'mice' }
+            ]
           }
-        }
-      ]
+        ]
+      },
+      created_at: '2019-01-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.versions,
+      status: 'granted',
+      data: {
+        protocols: [
+          {
+            speciesDetails: [
+              { value: 'mice' }
+            ]
+          }
+        ]
+      },
+      created_at: '2019-02-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.versions,
+      status: 'draft',
+      data: {
+        protocols: [
+          {
+            speciesDetails: [
+              { value: 'mice' }
+            ]
+          }
+        ]
+      },
+      created_at: '2019-03-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.draft,
+      status: 'submitted',
+      data: {
+        protocols: [
+          {
+            speciesDetails: [
+              { value: 'mice' }
+            ]
+          }
+        ]
+      },
+      created_at: '2019-01-01T12:00:00.000Z'
+    },
+    {
+      project_id: ids.draft,
+      status: 'draft',
+      data: {
+        protocols: [
+          {
+            speciesDetails: [
+              { value: 'rats' }
+            ]
+          }
+        ]
+      },
+      created_at: '2019-02-01T12:00:00.000Z'
     }
   ];
 
   before(() => {
-    this.models = db.init();
+    this.knex = db.init();
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => db.clean(this.models))
-      .then(() => this.models.Establishment.query().upsertGraph({
-        id: 100,
-        name: 'An establishment',
-        email: 'an@establishment.com',
-        country: 'england',
-        address: '123 Somwhere street',
-        projects
-      }, { insertMissing: true, relate: true }));
+      .then(() => db.clean(this.knex))
+      .then(() => this.knex('establishments').insert(establishment))
+      .then(() => this.knex('profiles').insert(licenceHolder))
+      .then(() => this.knex('projects').insert(projects))
+      .then(() => this.knex('project_versions').insert(versions));
   });
 
   afterEach(() => {
-    return db.clean(this.models);
+    return db.clean(this.knex);
   });
 
   after(() => {
-    return this.models.destroy();
+    return this.knex.destroy();
+  });
+
+  it('is ok', () => {
+    assert.ok(true);
   });
 
   it('does not change any properties, only adds new ids', () => {
     return Promise.resolve()
       .then(() => {
-        return this.models.Project.query()
-          .eager('[version,licenceHolder]')
-          .modifyEager('version', builder => builder.orderBy('createdAt', 'asc'));
+        return this.knex('projects')
+          .leftJoin('project_versions', 'projects.id', 'project_versions.project_id')
+          .orderBy('projects.title', 'asc')
+          .orderBy('project_versions.created_at', 'asc');
       })
       .then(before => {
         return Promise.resolve()
           .then(() => {
-            return up(this.models.knex)
+            return up(this.knex)
           })
           .then(() => {
-            return this.models.Project.query()
-              .eager('[version,licenceHolder]')
-              .modifyEager('version', builder => builder.orderBy('createdAt', 'asc'));
+            return this.knex('projects')
+              .select('*')
+              .leftJoin('project_versions', 'projects.id', 'project_versions.project_id')
+              .orderBy('projects.title', 'asc')
+              .orderBy('project_versions.created_at', 'asc');
           })
           .then(after => {
             const changes = diff(before, after);
@@ -357,12 +376,14 @@ xdescribe('up', () => {
   });
 
   it('adds missing id properties only to the latest version', () => {
-    return up(this.models.knex)
+    return up(this.knex)
       .then(() => {
-        return this.models.Project.query().eager('version').findById(ids.versions);
+        return this.knex('project_versions')
+          .where('project_id', ids.versions)
+          .orderBy('created_at', 'asc');
       })
-      .then(project => {
-        project.version.forEach(version => {
+      .then(versions => {
+        versions.forEach(version => {
           if (version.status === 'granted') {
             version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
               assert.ok(!sd.id, 'id should not have been added to previous granted versions');
@@ -377,12 +398,14 @@ xdescribe('up', () => {
   });
 
   it('adds missing id properties to drafts', () => {
-    return up(this.models.knex)
+    return up(this.knex)
       .then(() => {
-        return this.models.Project.query().eager('version').findById(ids.draft);
+        return this.knex('project_versions')
+          .where('project_id', ids.draft)
+          .orderBy('created_at', 'asc');
       })
-      .then(project => {
-        project.version.forEach(version => {
+      .then(versions => {
+        versions.forEach(version => {
           if (version.status === 'submitted') {
             version.data.protocols.every(protocol => protocol.speciesDetails.every(sd => {
               assert.ok(!sd.id, 'id should not have been added to previous granted versions');
@@ -396,15 +419,4 @@ xdescribe('up', () => {
       });
   });
 
-  it('does not touch legacy licences', () => {
-    return up(this.models.knex)
-      .then(() => {
-        return this.models.Project.query().eager('version').findById(ids.legacy);
-      })
-      .then(project => {
-        project.version.forEach((version, i) => {
-          assert.deepEqual(version.data, projects[2].version[i].data, 'version data should exactly match');
-        });
-      });
-  });
 });
