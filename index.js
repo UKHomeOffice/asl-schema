@@ -21,6 +21,8 @@ types.setTypeParser(TIMESTAMPTZ_OID, parseFn);
 types.setTypeParser(TIMESTAMP_OID, parseFn);
 types.setTypeParser(DATE_OID, dateParseFn);
 
+const snakeCaseMappers = process.env.SNAKE_MAPPER !== 'false' ? knexSnakeCaseMappers() : {};
+
 module.exports = connection => {
 
   if (connection.username && !connection.user) {
@@ -32,7 +34,7 @@ module.exports = connection => {
     useNullAsDefault: true,
     connection,
     pool: { min: 1, max: 5 },
-    ...knexSnakeCaseMappers()
+    ...snakeCaseMappers
   };
 
   const knex = Knex(settings);

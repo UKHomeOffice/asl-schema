@@ -5,7 +5,7 @@ try {
   require('dotenv').config();
 } catch (e) {}
 
-const snakeCaseMapper = process.env.SNAKE_MAPPER ? knexSnakeCaseMappers() : {};
+const snakeCaseMapper = process.env.SNAKE_MAPPER === 'true' ? knexSnakeCaseMappers() : {};
 
 module.exports = {
   test: {
@@ -15,7 +15,7 @@ module.exports = {
       host: process.env.DATABASE_HOST || 'localhost',
       database: 'asl-test',
       user: process.env.DATABASE_USERNAME || 'postgres',
-      password: process.env.DATABASE_PASSWORD
+      password: process.env.DATABASE_PASSWORD || 'test-password'
     },
     pool: {
       min: 1,
