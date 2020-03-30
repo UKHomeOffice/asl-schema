@@ -10,74 +10,93 @@ const ids = {
   noUpdatedAt: uuid()
 }
 
+function isSame(timestamp1, timestamp2) {
+  return moment(timestamp1).isSame(moment(timestamp2));
+}
+
 describe('Add review date migration', () => {
+
+  const profiles = [
+    {
+      id: uuid(),
+      first_name: 'Licence',
+      last_name: 'Holder1',
+      email: 'test1@example.com'
+    },
+    {
+      id: uuid(),
+      first_name: 'Licence',
+      last_name: 'Holder2',
+      email: 'test2@example.com'
+    }
+  ];
+
+  const establishment = {
+    id: 100,
+    name: 'An establishment',
+    email: 'an@establishment.com',
+    country: 'england',
+    address: '123 Somwhere street',
+  };
 
   const pils = [
     {
       id: ids.reviewSet,
-      establishment_id: 100,
-      procedures: ['B', 'C'],
+      establishment_id: establishment.id,
+      profile_id: profiles[0].id,
       review_date: '2022-01-01T12:00:00.000Z',
       created_at: '2019-01-01T12:00:00.000Z',
       updated_at: '2019-01-01T12:00:00.000Z'
     },
     {
       id: ids.reviewNotSet,
-      establishment_id: 100,
-      procedures: ['B', 'C'],
+      establishment_id: establishment.id,
+      profile_id: profiles[1].id,
       created_at: '2019-01-01T12:00:00.000Z',
       updated_at: '2019-01-01T12:00:00.000Z'
     }
   ];
 
-  const profiles = [
-    {
-      first_name: 'Licence',
-      last_name: 'Holder1',
-      email: 'test1@example.com',
-      pil: pils[0]
-    },
-    {
-      first_name: 'Licence',
-      last_name: 'Holder2',
-      email: 'test2@example.com',
-      pil: pils[1]
-    }
-  ]
-
   before(() => {
-    this.models = db.init();
+    this.knex = db.init();
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => db.clean(this.models))
-      .then(() => this.models.Establishment.query().insertGraph({
-        id: 100,
-        name: 'An establishment',
-        email: 'an@establishment.com',
-        country: 'england',
-        address: '123 Somwhere street',
-        profiles
-      }));
+      .then(() => db.clean(this.knex))
+      .then(() => this.knex('establishments').insert(establishment))
+      .then(() => this.knex('profiles').insert(profiles))
+      .then(() => this.knex('pils').insert(pils));
   });
 
   afterEach(() => {
-    return db.clean(this.models);
+    return db.clean(this.knex);
   });
 
   after(() => {
-    return this.models.destroy();
+    return this.knex.destroy();
   });
 
   it('sets the review date where it is missing', () => {
     return Promise.resolve()
-      .then(() => up(this.models.knex))
-      .then(() => this.models.PIL.query())
+      .then(() => up(this.knex))
+      .then(() => this.knex('pils'))
       .then(results => {
-        const expected = moment(pils[1].updatedAt).add(5, 'years').toISOString();
-        assert.equal(results.find(p => p.id === ids.reviewSet).reviewDate, pils[0].reviewDate, 'It doesn\'t update the reviewDate if already set');
-        assert.equal(results.find(p => p.id === ids.reviewNotSet).reviewDate, expected, 'It sets the reviewDate as updatedAt + 5 years if not set');
+        const expected = moment(pils[1].updated_at).add(5, 'years').toISOString();
+        assert.ok(
+          isSame(
+            results.find(p => p.id === ids.reviewSet).review_date,
+            pils[0].review_date
+          ),
+          'It doesn\'t update the review_date if already set'
+        );
+        assert.ok(
+          isSame(
+            results.find(p => p.id === ids.reviewNotSet).review_date,
+            expected
+          ),
+          'It sets the review_date as updated_at + 5 years if not set'
+        );
       });
   });
 });
