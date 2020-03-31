@@ -1,6 +1,7 @@
 const BaseModel = require('./base-model');
 const { pilStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
+const Profile = require('./profile');
 
 class PILQueryBuilder extends BaseModel.QueryBuilder {
 
@@ -145,6 +146,44 @@ class PIL extends BaseModel {
         notesCatF: { type: ['string', 'null'] }
       }
     };
+  }
+
+  static count(establishmentId) {
+    const query = this.query().where({ status: 'active', establishmentId });
+    return super.count(establishmentId, query);
+  }
+
+  static filter({ establishmentId, search, sort = {}, limit, offset }) {
+
+    let query = this.query()
+      .distinct('pils.*', 'profile.lastName')
+      .leftJoinRelation('profile')
+      .where({ 'pils.establishmentId': establishmentId })
+      .eager('profile')
+      .where({ status: 'active' })
+      .where(builder => {
+        if (search) {
+          return builder
+            .orWhere('licenceNumber', 'iLike', `%${search}%`)
+            .orWhere(b => {
+              Profile.searchFullName({
+                search,
+                prefix: 'profile',
+                query: b
+              });
+            });
+        }
+      });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    }
+    query.orderBy('reviewDate')
+      .orderBy('profile.lastName');
+
+    query = this.paginate({ query, limit, offset });
+
+    return query;
   }
 
   static get relationMappings() {

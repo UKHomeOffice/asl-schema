@@ -62,8 +62,8 @@ class BaseModel extends Model {
       .whereNot(`${this.tableName}.deleted`, null);
   }
 
-  static count(establishmentId) {
-    return this.query()
+  static count(establishmentId, query) {
+    return (query || this.query())
       .where({ establishmentId })
       .countDistinct(`${this.tableName}.id`)
       .then(results => results[0])
