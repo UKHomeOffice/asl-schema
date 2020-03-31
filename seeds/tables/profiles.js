@@ -61,6 +61,8 @@ module.exports = {
                         if (typeof reviewDate === 'object') {
                           const { unit, method, num } = reviewDate;
                           reviewDate = moment()[method](num, unit).toISOString();
+                        } else {
+                          reviewDate = reviewDate || moment(pil.issueDate).add(5, 'years').toISOString();
                         }
                         return knex('pils').insert({
                           status: 'active',
