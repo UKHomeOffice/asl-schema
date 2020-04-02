@@ -81,6 +81,10 @@
       {
         "establishmentId": 8202,
         "role": "basic"
+      },
+      {
+        "establishmentId": 10001,
+        "role": "basic"
       }
     ]
   },
