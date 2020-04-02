@@ -156,16 +156,6 @@ describe('transform', () => {
 
 });
 
-/*********************************************************************************
-
-NOTE: none of the below tests work because they use objection to set up seed data
-which doesn't work when knexSnakeCaseMapper is disabled.
-
-To do similar testing in future the seed data will need to be created using raw
-knex calls and not the objection models, which rely on snake case mappings.
-
-*********************************************************************************/
-
 describe('up', () => {
 
   const ids = {
