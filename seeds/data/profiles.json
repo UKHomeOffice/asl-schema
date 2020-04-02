@@ -71,6 +71,10 @@
       {
         "establishmentId": 8201,
         "type": "ntco"
+      },
+      {
+        "establishmentId": 10001,
+        "type": "ntco"
       }
     ],
     "permissions": [
