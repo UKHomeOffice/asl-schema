@@ -419,7 +419,7 @@ describe('Move NMBAs to project level', () => {
         })
         .then(versions => {
           versions.forEach(version => {
-            assert.ok(!version.data['nmbas-used'], 'nmbas-used should not be added to legacy versions');
+            assert.equal(version.data['nmbas-used'], undefined, 'nmbas-used should not be added to legacy versions');
           });
         });
     });
@@ -435,7 +435,7 @@ describe('Move NMBAs to project level', () => {
         .then(versions => {
           versions.forEach(version => {
             if ([ids.noNmbas, ids.noProtocols].includes(version.project_id)) {
-              assert.ok(!version.data['nmbas-used'], 'nmbas-used should not be added to version data');
+              assert.equal(version.data['nmbas-used'], undefined, 'nmbas-used should not be added to version data');
             } else {
               assert.ok(version.data['nmbas-used'], 'nmbas-used should be added to version data');
             }
