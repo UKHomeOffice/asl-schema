@@ -42,6 +42,7 @@ const defaults = {
   'replacement-complete': true,
   'introduction-complete': true,
   'feral-animals-complete': true,
+  'nmbas-complete': true,
   'project-harms-complete': true,
   'establishments-complete': true,
   'fate-of-animals-complete': true,

@@ -268,6 +268,7 @@
       "purpose-bred": false,
       "wild-animals": false,
       "feral-animals": false,
+      "nmbas-complete": true,
       "poles-complete": true,
       "funding-complete": true,
       "benefits-complete": true,
