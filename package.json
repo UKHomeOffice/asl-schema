@@ -30,7 +30,7 @@
     "deep-diff": "^1.0.2",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
-    "minimist": "^1.2.2",
+    "minimist": "^1.2.3",
     "moment": "^2.22.2",
     "objection": "^1.2.0",
     "pg": "^7.4.1",
