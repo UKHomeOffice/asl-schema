@@ -178,6 +178,18 @@ class Project extends BaseModel {
           from: 'projects.id',
           to: 'projectVersions.projectId'
         }
+      },
+      profiles: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'projects.id',
+          through: {
+            from: 'projectProfiles.projectId',
+            to: 'projectProfiles.profileId'
+          },
+          to: 'profiles.id'
+        }
       }
     };
   }
