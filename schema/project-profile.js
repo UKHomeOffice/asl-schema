@@ -2,7 +2,7 @@ const BaseModel = require('./base-model');
 
 class ProjectProfile extends BaseModel {
   static get tableName() {
-    return 'project_profile';
+    return 'project_profiles';
   }
 
   static get idColumn() {
