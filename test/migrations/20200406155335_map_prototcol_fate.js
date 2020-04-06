@@ -4,7 +4,7 @@ const isuuid = require('uuid-validate');
 const { cloneDeep, omit } = require('lodash');
 const diff = require('deep-diff');
 const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200403112052_map_prototcol_fate');
+const { transform, up } = require('../../migrations/20200406155335_map_prototcol_fate');
 
 describe('transform', () => {
 
