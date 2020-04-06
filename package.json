@@ -1,6 +1,6 @@
 {
   "name": "@asl/schema",
-  "version": "7.36.1",
+  "version": "7.37.0",
   "description": "Sequelize schema for licensing models",
   "main": "index.js",
   "scripts": {
