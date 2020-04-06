@@ -3,7 +3,7 @@ const uuid = require('uuid/v4');
 const { cloneDeep, omit } = require('lodash');
 const diff = require('deep-diff');
 const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200401160718_migrate_fate_of_animals_killed');
+const { transform, up } = require('../../migrations/20200406154728_migrate_fate_of_animals_killed');
 
 function getVersion(versions, title) {
   return versions.find(v => v.data.title === title);
