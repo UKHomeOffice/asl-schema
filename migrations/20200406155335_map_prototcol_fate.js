@@ -10,9 +10,11 @@ const transform = version => {
       return;
     }
     if (protocol['killing-method'].includes('other')) {
+      version.patched = true;
       return protocol['non-schedule-1'] = true;
     }
     if (protocol['killing-method'].includes('schedule-1')) {
+      version.patched = true;
       return protocol['non-schedule-1'] = false;
     }
 
@@ -45,6 +47,11 @@ exports.up = function(knex) {
                 if (!data) {
                   return Promise.resolve();
                 }
+                if (!data.patched) {
+                  console.log(`Skipping ${version.id} as no changes required.`)
+                  return Promise.resolve();
+                }
+                delete data.patched;
                 return knex('project_versions')
                   .where({ id: version.id })
                   .update({ data });

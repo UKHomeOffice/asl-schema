@@ -12,15 +12,14 @@ describe('transform', () => {
     assert.equal(transform(), undefined);
   });
 
-  it('returns untouched input if input has no protocols', () => {
+  it('returns undefined if input has no protocols', () => {
     const input = {
       title: 'Test title'
     };
-    const expected = cloneDeep(input);
-    assert.deepEqual(transform(input), expected);
+    assert.deepEqual(transform(input), undefined);
   });
 
-  it('returns untouched input if input has empty protocols', () => {
+  it('returns unpatched input if input has empty protocols', () => {
     const input = {
       title: 'Test title',
       protocols: []
@@ -29,16 +28,15 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
-  it('returns untouched input if input has non-array protocols', () => {
+  it('returns undefined input if input has non-array protocols', () => {
     const input = {
       title: 'Test title',
       protocols: 'This should not be possible'
     };
-    const expected = cloneDeep(input);
-    assert.deepEqual(transform(input), expected);
+    assert.deepEqual(transform(input), undefined);
   });
 
-  it('returns untouched input if protocols have no killing-method', () => {
+  it('returns unpatched input if protocols have no killing-method', () => {
     const input = {
       title: 'Test title',
       protocols: [
@@ -50,7 +48,7 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
-  it('returns untouched input if input has null protocols', () => {
+  it('returns unpatched input if input has null protocols', () => {
     const input = {
       title: 'Test title',
       protocols: [
@@ -63,7 +61,7 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
-  it('returns untouched input if protocols have non array killing-method', () => {
+  it('returns unpatched input if protocols have non array killing-method', () => {
     const input = {
       title: 'Test title',
       protocols: [
@@ -74,7 +72,7 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
-  it('returns untouched input if protocols have empty killing-method', () => {
+  it('returns unpatched input if protocols have empty killing-method', () => {
     const input = {
       title: 'Test title',
       protocols: [
@@ -85,7 +83,7 @@ describe('transform', () => {
     assert.deepEqual(transform(input), expected);
   });
 
-  it('sets killing method to false if only other included, true if sched-1 included', () => {
+  it('sets killing method to false if only other included, true if sched-1 included, marks data as patched', () => {
     const input = {
       title: 'Test title',
       protocols: [
@@ -114,7 +112,10 @@ describe('transform', () => {
         }
       ]
     };
-    const expected = cloneDeep(input);
+    const expected = {
+      ...cloneDeep(input),
+      patched: true
+    };
     const output = transform(input);
     assert.deepEqual(omit(output, 'protocols'), omit(expected, 'protocols'), 'non protocol data should be untouched');
 
