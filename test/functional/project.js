@@ -26,7 +26,7 @@ describe('Project model', () => {
           email: 'sterling@archer.com'
         }
       ]))
-      .then(() => this.models.Establishment.query().upsertGraph({
+      .then(() => this.models.Establishment.query().insertGraph({
         id: 8201,
         name: 'An establishment',
         email: 'an@establishment.com',
