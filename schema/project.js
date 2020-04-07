@@ -7,6 +7,12 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
+const getOwnAndCollaborations = licenceHolderId => query => query
+  .where({ licenceHolderId })
+  .orWhereExists(
+    Project.relatedQuery('profiles').where('profiles.id', licenceHolderId)
+  );
+
 class Project extends BaseModel {
   static get tableName() {
     return 'projects';
@@ -70,7 +76,8 @@ class Project extends BaseModel {
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
     return this.query()
-      .where({ establishmentId, licenceHolderId })
+      .where({ establishmentId })
+      .where(getOwnAndCollaborations(licenceHolderId))
       .findById(id)
       .eager('licenceHolder');
   }
@@ -80,8 +87,8 @@ class Project extends BaseModel {
     ...props
   }) {
     return Promise.all([
-      this.count({ query: this.query().where({ licenceHolderId }), ...props }),
-      this.search({ query: this.query().where({ licenceHolderId }), ...props })
+      this.count({ query: this.query().where(getOwnAndCollaborations(licenceHolderId)), ...props }),
+      this.search({ query: this.query().where(getOwnAndCollaborations(licenceHolderId)), ...props })
     ])
       .then(([total, projects]) => ({ total, projects }));
   }
