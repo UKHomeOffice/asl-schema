@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const ValidationError = require('../../schema/validation-error');
-const ObjectionValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError: ObjectionValidationError } = require('objection');
 
 describe('ValidationError', () => {
   it('can be instantiated with a message string', () => {

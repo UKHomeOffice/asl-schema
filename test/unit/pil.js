@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Pil = require('../../schema/pil');
-const ValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError } = require('objection');
 
 describe('Pil', () => {
   it('throws a validation error when required properties are missing', () => {

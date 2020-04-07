@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Changelog = require('../../schema/changelog');
-const ValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError } = require('objection');
 
 describe('Changelog', () => {
   it('throws a validation error when required properties are missing', () => {

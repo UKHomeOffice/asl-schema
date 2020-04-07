@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const ProjectVersion = require('../../schema/project-version');
-const ValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError } = require('objection');
 
 describe('ProjectVersion', () => {
   it('throws a validation error when invalid values are provided', () => {
