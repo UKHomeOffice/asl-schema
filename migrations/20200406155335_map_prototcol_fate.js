@@ -3,7 +3,7 @@ const transform = version => {
     return;
   }
   if (!version.protocols || !Array.isArray(version.protocols)) {
-    return version;
+    return;
   }
   version.protocols.forEach(protocol => {
     if (!protocol || !protocol['killing-method'] || !Array.isArray(protocol['killing-method'])) {
