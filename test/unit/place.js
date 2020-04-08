@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Place = require('../../schema/place');
-const ValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError } = require('objection');
 
 describe('Place', () => {
   it('throws a validation error when invalid array values are provided', () => {

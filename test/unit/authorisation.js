@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const Authorisation = require('../../schema/authorisation');
-const ValidationError = require('objection/lib/model/ValidationError');
+const { ValidationError } = require('objection');
 
 describe('Authorisation', () => {
   it('throws a validation error when empty', () => {

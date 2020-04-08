@@ -1,4 +1,5 @@
 const assert = require('assert');
+const uuid = require('uuid/v4');
 const db = require('./helpers/db');
 
 describe('Place model', () => {
@@ -8,6 +9,10 @@ describe('Place model', () => {
   });
 
   beforeEach(() => {
+    const nacwo1 = uuid();
+    const nacwo2 = uuid();
+    const nacwoRoleId1 = uuid();
+    const nacwoRoleId2 = uuid();
     return Promise.resolve()
       .then(() => db.clean(this.models))
       .then(() => this.models.Establishment.query().insertGraph([
@@ -18,66 +23,24 @@ describe('Place model', () => {
           country: 'england',
           address: '123 Somwhere street',
           profiles: [{
-            '#id': 'nacwo',
+            id: nacwo1,
             firstName: 'Vincent',
             lastName: 'Malloy',
             email: 'vincent@price.com'
           }, {
-            '#id': 'nacwo2',
+            id: nacwo2,
             firstName: 'Sterling',
             lastName: 'Archer',
             email: 'sterline@archer.com'
           }],
-          places: [
-            {
-              '#id': 'place1',
-              site: 'A site',
-              name: 'A name',
-              suitability: ['SA', 'LA'],
-              holding: ['NOH', 'NSEP']
-            },
-            {
-              '#id': 'place2',
-              site: 'B site',
-              name: 'B name',
-              suitability: ['SA'],
-              holding: ['NOH']
-            },
-            {
-              '#id': 'place3',
-              site: 'C site',
-              name: 'C name',
-              suitability: ['LA', 'DOG'],
-              holding: ['SEP']
-            },
-            {
-              '#id': 'place4',
-              site: 'D site',
-              name: 'D name',
-              suitability: ['AQ', 'AV'],
-              holding: ['NSEP']
-            }
-          ],
           roles: [{
+            id: nacwoRoleId1,
             type: 'nacwo',
-            profile: {
-              '#ref': 'nacwo'
-            },
-            places: [{
-              '#ref': 'place3'
-            }, {
-              '#ref': 'place4'
-            }]
+            profileId: nacwo1
           }, {
+            id: nacwoRoleId2,
             type: 'nacwo',
-            profile: {
-              '#ref': 'nacwo2'
-            },
-            places: [{
-              '#ref': 'place1'
-            }, {
-              '#ref': 'place2'
-            }]
+            profileId: nacwo2
           }]
         },
         {
@@ -94,6 +57,40 @@ describe('Place model', () => {
               holding: ['NOH']
             }
           ]
+        }
+      ]))
+      .then(() => this.models.Place.query().insert([
+        {
+          site: 'A site',
+          name: 'A name',
+          suitability: ['SA', 'LA'],
+          holding: ['NOH', 'NSEP'],
+          nacwoId: nacwoRoleId1,
+          establishmentId: 8201
+        },
+        {
+          site: 'B site',
+          name: 'B name',
+          suitability: ['SA'],
+          holding: ['NOH'],
+          nacwoId: nacwoRoleId1,
+          establishmentId: 8201
+        },
+        {
+          site: 'C site',
+          name: 'C name',
+          suitability: ['LA', 'DOG'],
+          holding: ['SEP'],
+          nacwoId: nacwoRoleId2,
+          establishmentId: 8201
+        },
+        {
+          site: 'D site',
+          name: 'D name',
+          suitability: ['AQ', 'AV'],
+          holding: ['NSEP'],
+          nacwoId: nacwoRoleId2,
+          establishmentId: 8201
         }
       ]));
   });
@@ -284,7 +281,7 @@ describe('Place model', () => {
         .then(() => this.models.Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
-          assert.deepEqual(places.results[0].nacwo.firstName, 'Vincent');
+          assert.deepEqual(places.results[0].nacwo.firstName, 'Sterling');
         });
     });
   });
