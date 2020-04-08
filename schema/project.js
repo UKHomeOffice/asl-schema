@@ -7,10 +7,10 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
-const getOwnAndCollaborations = licenceHolderId => query => query
-  .where({ licenceHolderId })
+const getOwnAndCollaborations = profileId => query => query
+  .where({ licenceHolderId: profileId })
   .orWhereExists(
-    Project.relatedQuery('profiles').where('profiles.id', licenceHolderId)
+    Project.relatedQuery('collaborators').where('profiles.id', profileId)
   );
 
 class Project extends BaseModel {
@@ -186,7 +186,7 @@ class Project extends BaseModel {
           to: 'projectVersions.projectId'
         }
       },
-      profiles: {
+      collaborators: {
         relation: this.ManyToManyRelation,
         modelClass: `${__dirname}/profile`,
         join: {
