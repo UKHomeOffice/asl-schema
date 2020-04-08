@@ -1,7 +1,18 @@
+const uuid = require('uuid/v4');
 const { every } = require('lodash');
 const assert = require('assert');
 const db = require('./helpers/db');
 const moment = require('moment');
+
+const ids = {
+  collaborator: uuid(),
+  collaborationProject: uuid(),
+  draftProject: uuid(),
+  submittedDraft: uuid(),
+  vincentMalloy: uuid(),
+  sterlingArcher: uuid(),
+  establishmentId: 8201
+};
 
 describe('Project model', () => {
 
@@ -14,75 +25,95 @@ describe('Project model', () => {
       .then(() => db.clean(this.models))
       .then(() => this.models.Profile.query().insert([
         {
-          id: '781d8d17-9c00-4f3d-8734-c1a469426546',
+          id: ids.vincentMalloy,
           firstName: 'Vincent',
           lastName: 'Malloy',
           email: 'vincent@price.com'
         },
         {
-          id: '0ae5d4d5-7400-4462-b9fe-22bdf446792e',
+          id: ids.sterlingArcher,
           firstName: 'Sterling',
           lastName: 'Archer',
           email: 'sterling@archer.com'
+        },
+        {
+          id: ids.collaborator,
+          firstName: 'Basic',
+          lastName: 'User',
+          email: 'basicuser@example.com'
         }
       ]))
-      .then(() => this.models.Establishment.query().insertGraph({
-        id: 8201,
+      .then(() => this.models.Establishment.query().insert({
+        id: ids.establishmentId,
         name: 'An establishment',
         email: 'an@establishment.com',
         country: 'england',
-        address: '123 Somwhere street',
-        projects: [
-          {
-            title: 'Anti cancer research',
-            licenceHolder: {
-              id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            },
-            status: 'inactive',
-            version: [
-              {
-                status: 'draft'
-              }
-            ]
-          },
-          {
-            title: 'Some expired research',
-            expiryDate: moment().subtract(6, 'M').format(),
-            licenceHolder: {
-              id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            },
-            status: 'expired'
-          },
-          {
-            title: 'Some more research',
-            licenceHolder: {
-              id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            },
-            status: 'inactive',
-            version: [
-              {
-                status: 'submitted'
-              }
-            ]
-          },
-          {
-            title: 'Some more expired research',
-            expiryDate: moment().subtract(1, 'M').format(),
-            licenceHolder: {
-              id: '781d8d17-9c00-4f3d-8734-c1a469426546'
-            },
-            status: 'expired'
-          },
-          {
-            title: 'Hair loss prevention',
-            expiryDate: moment().add(6, 'M').format(),
-            licenceHolder: {
-              id: '0ae5d4d5-7400-4462-b9fe-22bdf446792e'
-            },
-            status: 'active'
-          }
-        ]
-      }, { insertMissing: true, relate: true }));
+        address: '123 Somwhere street'
+      }))
+      .then(() => this.models.Project.query().insert([
+        {
+          id: ids.draftProject,
+          establishmentId: ids.establishmentId,
+          title: 'Anti cancer research',
+          licenceHolderId: ids.vincentMalloy,
+          status: 'inactive'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.establishmentId,
+          title: 'Some expired research',
+          expiryDate: moment().subtract(6, 'M').format(),
+          licenceHolderId: ids.vincentMalloy,
+          status: 'expired'
+        },
+        {
+          id: ids.submittedDraft,
+          establishmentId: ids.establishmentId,
+          title: 'Some more research',
+          licenceHolderId: ids.vincentMalloy,
+          status: 'inactive'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.establishmentId,
+          title: 'Some more expired research',
+          expiryDate: moment().subtract(1, 'M').format(),
+          licenceHolderId: ids.vincentMalloy,
+          status: 'expired'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.establishmentId,
+          title: 'Hair loss prevention',
+          expiryDate: moment().add(6, 'M').format(),
+          licenceHolderId: ids.sterlingArcher,
+          status: 'active'
+        },
+        {
+          id: ids.collaborationProject,
+          establishmentId: ids.establishmentId,
+          title: 'Collaboration',
+          expiryDate: moment().add(6, 'M').format(),
+          licenceHolderId: ids.sterlingArcher,
+          status: 'active'
+        }
+      ]))
+      .then(() => this.models.ProjectVersion.query().insert([
+        {
+          projectId: ids.draftProject,
+          status: 'draft'
+        },
+        {
+          projectId: ids.submittedDraft,
+          status: 'submitted'
+        }
+      ]))
+      .then(() => {
+        return this.models.ProjectProfile.query().insert({
+          profileId: ids.collaborator,
+          projectId: ids.collaborationProject
+        });
+      });
   });
 
   afterEach(() => {
@@ -91,6 +122,34 @@ describe('Project model', () => {
 
   after(() => {
     return this.models.destroy();
+  });
+
+  describe('whereIsCollaborator', () => {
+    it('returns projects where provided profileId is a collaborator', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereIsCollaborator(ids.collaborator))
+        .then(projects => {
+          assert.equal(projects.length, 1);
+          assert.equal(projects[0].title, 'Collaboration');
+        });
+    });
+
+    it('returns projects where provided profileId is the licenceHolder', () => {
+      const expectedTitles = [
+        'Anti cancer research',
+        'Some expired research',
+        'Some more research',
+        'Some more expired research'
+      ];
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereIsCollaborator(ids.vincentMalloy))
+        .then(projects => {
+          assert.equal(projects.length, 4);
+          expectedTitles.forEach(title => {
+            assert.ok(projects.find(p => p.title === title));
+          });
+        });
+    });
   });
 
   describe('Search', () => {
@@ -167,7 +226,7 @@ describe('Project model', () => {
         ];
         return Promise.resolve()
           .then(() => this.models.Project.getOwnProjects({
-            licenceHolderId: '781d8d17-9c00-4f3d-8734-c1a469426546',
+            licenceHolderId: ids.vincentMalloy,
             establishmentId: 8201,
             status: 'inactive'
           }))
@@ -182,11 +241,23 @@ describe('Project model', () => {
             });
           });
       });
+
+      it('returns project where the provided profile id is a collaborator', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.getOwnProjects({
+            licenceHolderId: ids.collaborator,
+            establishmentId: 8201,
+            status: 'active'
+          }))
+          .then(({ projects: { results } }) => {
+            assert.ok(results.length, 1);
+          });
+      });
     });
 
     describe('getOwn', () => {
       it('can retrieve own project', () => {
-        const licenceHolderId = '781d8d17-9c00-4f3d-8734-c1a469426546';
+        const licenceHolderId = ids.vincentMalloy;
         const title = 'Anti cancer research';
         return Promise.resolve()
           .then(() => this.models.Project.query().where({ title }))
@@ -203,7 +274,7 @@ describe('Project model', () => {
       });
 
       it('cannot retrieve other projects', () => {
-        const licenceHolderId = '781d8d17-9c00-4f3d-8734-c1a469426546';
+        const licenceHolderId = ids.vincentMalloy;
         const title = 'Hair loss prevention';
         return Promise.resolve()
           .then(() => this.models.Project.query().where({ title }))
