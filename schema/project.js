@@ -11,10 +11,13 @@ class ProjectQueryBuilder extends BaseModel.QueryBuilder {
 
   whereIsCollaborator(profileId) {
     return this
-      .where({ licenceHolderId: profileId })
-      .orWhereExists(
-        Project.relatedQuery('collaborators').where({ 'collaborators.id': profileId })
-      );
+      .where(builder => {
+        return builder
+          .where({ licenceHolderId: profileId })
+          .orWhereExists(
+            Project.relatedQuery('collaborators').where({ 'collaborators.id': profileId })
+          );
+      });
   }
 
 }
