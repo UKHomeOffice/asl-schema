@@ -7,15 +7,25 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
-const getOwnAndCollaborations = profileId => query => query
-  .where({ licenceHolderId: profileId })
-  .orWhereExists(
-    Project.relatedQuery('collaborators').where('profiles.id', profileId)
-  );
+class ProjectQueryBuilder extends BaseModel.QueryBuilder {
+
+  whereIsCollaborator(profileId) {
+    return this
+      .where({ licenceHolderId: profileId })
+      .orWhereExists(
+        Project.relatedQuery('collaborators').where({ 'collaborators.id': profileId })
+      );
+  }
+
+}
 
 class Project extends BaseModel {
   static get tableName() {
     return 'projects';
+  }
+
+  static get QueryBuilder() {
+    return ProjectQueryBuilder;
   }
 
   static get jsonSchema() {
@@ -77,7 +87,7 @@ class Project extends BaseModel {
   static getOwn({ establishmentId, id, licenceHolderId }) {
     return this.query()
       .where({ establishmentId })
-      .where(getOwnAndCollaborations(licenceHolderId))
+      .whereIsCollaborator(licenceHolderId)
       .findById(id)
       .eager('licenceHolder');
   }
@@ -87,8 +97,8 @@ class Project extends BaseModel {
     ...props
   }) {
     return Promise.all([
-      this.count({ query: this.query().where(getOwnAndCollaborations(licenceHolderId)), ...props }),
-      this.search({ query: this.query().where(getOwnAndCollaborations(licenceHolderId)), ...props })
+      this.count({ query: this.query().whereIsCollaborator(licenceHolderId), ...props }),
+      this.search({ query: this.query().whereIsCollaborator(licenceHolderId), ...props })
     ])
       .then(([total, projects]) => ({ total, projects }));
   }
