@@ -50,7 +50,9 @@ class BaseModel extends Model {
 
   static query(...args) {
     return super.query(...args)
-      .where(`${this.tableName}.deleted`, null);
+      .onBuild(builder => {
+        return builder.whereNull(`${builder.tableRefFor(builder.modelClass())}.deleted`);
+      });
   }
 
   static queryWithDeleted(...args) {
