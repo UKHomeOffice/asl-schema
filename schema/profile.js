@@ -2,6 +2,7 @@ const { ref } = require('objection');
 const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
 const Role = require('./role');
+const Permission = require('./permission');
 const { date, uuid } = require('../lib/regex-validation');
 
 class Profile extends BaseModel {
@@ -212,8 +213,15 @@ class Profile extends BaseModel {
             .where({ establishmentId })
             .where('profiles.id', ref('roles.profileId'));
 
+          const admin = Permission.query()
+            .select(1)
+            .where({ establishmentId })
+            .where('role', 'admin')
+            .where('profiles.id', ref('permissions.profileId'));
+
           return builder
             .whereExists(role)
+            .orWhereExists(admin)
             .orWhere('profiles.id', userId);
         });
     };
