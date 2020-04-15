@@ -84,8 +84,15 @@ class Profile extends BaseModel {
         .select(1)
         .where({ establishmentId })
         .where('profiles.id', ref('roles.profileId'));
+
+      const admin = Permission.query()
+        .select(1)
+        .where({ establishmentId, role: 'admin' })
+        .where('profiles.id', ref('permissions.profileId'));
+
       return builder
         .whereExists(role)
+        .orWhereExists(admin)
         .orWhere('profiles.id', userId);
     });
     return this.get({ query, establishmentId, ...params });
@@ -215,8 +222,7 @@ class Profile extends BaseModel {
 
           const admin = Permission.query()
             .select(1)
-            .where({ establishmentId })
-            .where('role', 'admin')
+            .where({ establishmentId, role: 'admin' })
             .where('profiles.id', ref('permissions.profileId'));
 
           return builder
