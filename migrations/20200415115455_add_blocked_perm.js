@@ -5,7 +5,7 @@ exports.up = function(knex) {
     'permissions',
     'role',
     ['basic', 'read', 'admin', 'blocked'],
-    null,
+    'basic',
     false
   ));
 };
@@ -15,7 +15,7 @@ exports.down = function(knex) {
     'permissions',
     'role',
     ['basic', 'read', 'admin'],
-    null,
+    'basic',
     false
   ));
 };
