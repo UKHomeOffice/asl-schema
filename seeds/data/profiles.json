@@ -185,6 +185,33 @@
     ]
   },
   {
+    "id": "9f463d0e-c18d-4251-8b8c-436f899812e1",
+    "userId": "8f674c9a-7d58-4a9a-a3da-f6a6d8e3cca8",
+    "title": "Mr",
+    "firstName": "Blocked",
+    "lastName": "User",
+    "dob": "1975-07-11",
+    "email": "blocked.user@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "blocked"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
+      }
+    ],
+    "pil": {
+      "id": "04c88dd7-e711-4ec7-afc8-fe721dbe9588",
+      "issueDate": "2018-09-18",
+      "licenceNumber": "BU-12345",
+      "establishmentId": 8201,
+      "species": ["Mice"],
+      "procedures": ["A", "B"]
+    }
+  },
+  {
     "id": "304235c0-1a83-49f0-87ca-b11b1ad1e148",
     "title": "Mr",
     "firstName": "Basic",
