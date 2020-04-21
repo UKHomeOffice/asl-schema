@@ -8,6 +8,7 @@ const ids = {
   collaborator: uuid(),
   collaborationProject: uuid(),
   draftProject: uuid(),
+  draftProjectVersion: uuid(),
   submittedDraft: uuid(),
   vincentMalloy: uuid(),
   sterlingArcher: uuid(),
@@ -100,10 +101,12 @@ describe('Project model', () => {
       ]))
       .then(() => this.models.ProjectVersion.query().insert([
         {
+          id: ids.draftProjectVersion,
           projectId: ids.draftProject,
           status: 'draft'
         },
         {
+          id: uuid(),
           projectId: ids.submittedDraft,
           status: 'submitted'
         }
@@ -304,6 +307,19 @@ describe('Project model', () => {
             assert.equal(projects.results[0].title, 'Some more research', 'Only the project with a submitted version should be returned');
           });
       });
+    });
+
+    // regression
+    it('eager loads deleted project when loading a version with queryWithDeleted', () => {
+      return Promise.resolve()
+        .then(() => this.models.ProjectVersion.query().findById(ids.draftProjectVersion).delete())
+        .then(() => this.models.Project.query().findById(ids.draftProject).delete())
+        .then(() => this.models.ProjectVersion.queryWithDeleted().findById(ids.draftProjectVersion).withGraphFetched('project'))
+        .then(version => {
+          assert.ok(version.deleted, 'should fetch deleted version');
+          assert.ok(version.project, 'should get linked project');
+          assert.ok(version.project.deleted, 'linked project should be deleted');
+        });
     });
   });
 });

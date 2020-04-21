@@ -51,12 +51,14 @@ class BaseModel extends Model {
   static query(...args) {
     return super.query(...args)
       .onBuild(builder => {
-        return builder.whereNull(`${builder.tableRefFor(builder.modelClass())}.deleted`);
+        if (!builder.context().withDeleted) {
+          return builder.whereNull(`${builder.tableRefFor(builder.modelClass())}.deleted`);
+        }
       });
   }
 
   static queryWithDeleted(...args) {
-    return super.query(...args);
+    return this.query(...args).context({ withDeleted: true });
   }
 
   static queryDeleted(...args) {
