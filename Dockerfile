@@ -15,4 +15,4 @@ COPY . /app
 
 RUN rm /app/.npmrc
 
-CMD npm run migrate
+CMD npm run migrate && ./keepalive.sh
