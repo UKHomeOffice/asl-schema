@@ -52,7 +52,7 @@ describe('transform', () => {
     const data = {
       'expiring-yes': slateify(input)
     };
-    assert.deepEqual(transform(data, { versionId }), undefined);
+    assert.deepEqual(transform(data, versionId), undefined);
     assert.ok(spy.calledWith(`Cannot parse versionId: ${versionId}`));
   });
 
@@ -70,7 +70,7 @@ describe('transform', () => {
         }
       ]
     };
-    assert.deepEqual(transform(data, { versionId }), expected);
+    assert.deepEqual(transform(data, versionId), expected);
     assert.ok(spy.calledWith(`Unable to parse expiry date, versionId: ${versionId}`));
   });
 
@@ -88,7 +88,7 @@ describe('transform', () => {
         }
       ]
     };
-    assert.deepEqual(transform(data, { versionId }), expected);
+    assert.deepEqual(transform(data, versionId), expected);
     assert.ok(spy.calledWith(`Unable to parse licence number, versionId: ${versionId}`));
   });
 
@@ -106,7 +106,7 @@ describe('transform', () => {
         }
       ]
     };
-    assert.deepEqual(transform(data, { versionId }), expected);
+    assert.deepEqual(transform(data, versionId), expected);
     assert.equal(spy.called, false);
   });
 
@@ -124,7 +124,7 @@ describe('transform', () => {
         }
       ]
     };
-    assert.deepEqual(transform(data, { versionId }), expected);
+    assert.deepEqual(transform(data, versionId), expected);
     assert.ok(spy.calledWith(`Multple licence numbers found for versionId: ${versionId}`));
   });
 
@@ -141,7 +141,7 @@ describe('transform', () => {
         }
       ]
     }
-    assert.deepEqual(transform(data, { versionId }), expected);
+    assert.deepEqual(transform(data, versionId), expected);
   });
 
   describe('licence number parsing', () => {
@@ -171,7 +171,7 @@ describe('transform', () => {
             }
           ]
         }
-        assert.deepEqual(transform(data, { versionId }), expected, `Expected ${licenceNumber} to be parsed successfully`);
+        assert.deepEqual(transform(data, versionId), expected, `Expected ${licenceNumber} to be parsed successfully`);
       });
     });
 
@@ -194,7 +194,7 @@ describe('transform', () => {
         const data = {
           'expiring-yes': slateify(licenceNumber.toString())
         };
-        assert.equal(transform(data, { versionId }), undefined, `Expected ${licenceNumber} to be skipped`);
+        assert.equal(transform(data, versionId), undefined, `Expected ${licenceNumber} to be skipped`);
       });
     });
   });
@@ -224,7 +224,7 @@ describe('transform', () => {
             }
           ]
         }
-        assert.deepEqual(transform(data, { versionId }), expected, `Expected ${expiryDate} to be parsed successfully`);
+        assert.deepEqual(transform(data, versionId), expected, `Expected ${expiryDate} to be parsed successfully`);
       });
     });
 
@@ -261,7 +261,7 @@ describe('transform', () => {
         const data = {
           'expiring-yes': slateify(expiryDate)
         };
-        const output = transform(data, { versionId });
+        const output = transform(data, versionId);
         assert.ok(get(output, 'project-continuation[0].expiry-date'), `Expected ${expiryDate} to be parsed successfully`);
       });
     });
@@ -312,10 +312,11 @@ describe('up', () => {
       .then(() => this.knex('establishments').insert(establishment))
       .then(() => this.knex('profiles').insert(licenceHolder))
       .then(() => {
-        return Promise.all(map(continuations, (continuation, id, index) => {
+        let index = 0
+        return Promise.all(map(continuations, (continuation, id) => {
           const project = {
             establishment_id: establishment.id,
-            title: `Continuation ${index + 1}`,
+            title: `Continuation ${++index}`,
             status: 'active',
             licence_holder_id: licenceHolder.id
           };

@@ -15,22 +15,21 @@ const TYPES = {
   MULTIPLE: 'Multple licence numbers found'
 };
 
-const transform = (version, loggingParams = {}, stringifier) => {
-  if (!version) {
+const transform = (data, versionId, writeCsvLine) => {
+
+  if (!data) {
     return;
   }
-  const continuationQuestion = version['expiring-yes'];
+  const continuationQuestion = data['expiring-yes'];
   // not a continuation
   if (!continuationQuestion) {
     return;
   }
 
   // already patched
-  if (version['project-continuation']) {
+  if (data['project-continuation']) {
     return;
   }
-
-  const { versionId, projectId, projectStatus, versionStatus } = loggingParams;
 
   const obj = Value.fromJSON(JSON.parse(continuationQuestion));
   const text = obj.document.nodes.map(node => node.text.trim()).filter(node => node).join('\n\n');
@@ -66,23 +65,23 @@ const transform = (version, loggingParams = {}, stringifier) => {
 
   if (!ppl.length && !date) {
     console.log(`Cannot parse versionId: ${versionId}`);
-    stringifier && stringifier.write([TYPES.NEITHER, projectId, versionId, projectStatus, versionStatus]);
+    writeCsvLine && writeCsvLine(TYPES.NEITHER);
     return;
   }
 
   if (!ppl.length) {
     console.log(`Unable to parse licence number, versionId: ${versionId}`);
-    stringifier && stringifier.write([TYPES.LICENCE_NUMBER, projectId, versionId, projectStatus, versionStatus]);
+    writeCsvLine && writeCsvLine(TYPES.LICENCE_NUMBER);
   }
 
   if (ppl.length > 1) {
     console.log(`Multple licence numbers found for versionId: ${versionId}`);
-    stringifier && stringifier.write([TYPES.MULTIPLE, projectId, versionId, projectStatus, versionStatus]);
+    writeCsvLine && writeCsvLine(TYPES.MULTIPLE);
   }
 
   if (!date) {
     console.log(`Unable to parse expiry date, versionId: ${versionId}`);
-    stringifier && stringifier.write([TYPES.DATE, projectId, versionId, projectStatus, versionStatus]);
+    writeCsvLine && writeCsvLine(TYPES.DATE);
   }
 
   return {
@@ -99,13 +98,14 @@ exports.transform = transform;
 
 exports.up = function(knex) {
   const stringifier = csv();
-  stringifier.write(['Type', 'Project ID', 'Version ID', 'Project Status', 'Version Status']);
+  stringifier.write(['Type', 'Project ID', 'Version ID', 'Establishment ID', 'Project Title', 'Project Status', 'Version Status']);
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
-        .select('project_versions.id')
+        .select('project_versions.id', 'data')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 });
+        .where({ 'schema_version':  1 })
+        .whereRaw('data->>\'expiring-yes\' IS NOT NULL')
     })
     .then(versions => {
       console.log(`found ${versions.length} versions`)
@@ -115,17 +115,24 @@ exports.up = function(knex) {
             console.log(`patching version: ${version.id}, ${index + 1} of ${versions.length}`);
             return knex('project_versions')
               .join('projects', 'project_versions.project_id', 'projects.id')
-              .select('project_versions.id', 'data', 'project_versions.status', 'projects.status as projectStatus', 'project_id')
+              .select('project_versions.id', 'data', 'project_versions.status', 'projects.status as projectStatus', 'project_id', 'projects.establishment_id', 'projects.title')
               .where({ 'project_versions.id': version.id })
               .first()
               .then(version => {
-                const loggingParams = {
-                  versionId: version.id,
-                  projectId: version.project_id,
-                  versionStatus: version.status,
-                  projectStatus: version.projectStatus
-                };
-                const data = transform(version.data, loggingParams, stringifier);
+
+                function writeCsvLine(type) {
+                  stringifier.write([
+                    type,
+                    version.id,
+                    version.project_id,
+                    version.establishment_id,
+                    version.title,
+                    version.projectStatus,
+                    version.status
+                  ]);
+                }
+
+                const data = transform(version.data, version.id, writeCsvLine);
                 if (!data) {
                   console.log(`Skipping ${version.id}.`)
                   return Promise.resolve();
@@ -148,7 +155,8 @@ exports.up = function(knex) {
     .then(() => {
       stringifier.pipe(process.stdout);
       stringifier.end();
-    });
+    })
+    .catch(() => stringifier.end())
 };
 
 exports.down = function(knex) {
