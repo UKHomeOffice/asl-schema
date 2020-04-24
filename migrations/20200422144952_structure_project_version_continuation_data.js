@@ -105,7 +105,7 @@ exports.up = function(knex) {
         .select('project_versions.id', 'data')
         .join('projects', 'project_versions.project_id', 'projects.id')
         .where({ 'schema_version':  1 })
-        .whereRaw('data->>\'expiring-yes\' IS NOT NULL')
+        .whereRaw('cast(data->>\'transfer-expiring\' as boolean) IS TRUE')
     })
     .then(versions => {
       console.log(`found ${versions.length} versions`)

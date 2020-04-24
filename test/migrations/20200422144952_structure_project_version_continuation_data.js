@@ -324,6 +324,7 @@ describe('up', () => {
             id,
             status: 'granted',
             data: {
+              'transfer-expiring': true,
               'expiring-yes': continuation
             }
           };
