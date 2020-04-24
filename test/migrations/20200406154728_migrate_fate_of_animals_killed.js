@@ -62,7 +62,7 @@ describe('transform', () => {
 
 });
 
-describe.only('up', () => {
+describe('up', () => {
 
   const ids = {
     active: uuid(),
