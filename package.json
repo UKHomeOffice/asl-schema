@@ -27,7 +27,9 @@
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
     "@asl/constants": "^0.7.1",
+    "csv-stringify": "^5.4.3",
     "deep-diff": "^1.0.2",
+    "immutable": "^4.0.0-rc.12",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "minimist": "^1.2.3",
@@ -35,6 +37,8 @@
     "objection": "^2.1.3",
     "pg": "^7.4.1",
     "pg-query-stream": "^2.0.1",
+    "sinon": "^9.0.2",
+    "slate": "^0.47.8",
     "uuid": "^3.3.2"
   },
   "publishConfig": {
