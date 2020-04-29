@@ -107,7 +107,7 @@ describe('transform', () => {
       ]
     };
     assert.deepEqual(transform(data, versionId), expected);
-    assert.equal(spy.called, false);
+    assert.ok(spy.calledWith(`Successfully parsed version, versionId: ${versionId}`));
   });
 
   it('Adds the first licence number and logs a warning if multiple found.', () => {

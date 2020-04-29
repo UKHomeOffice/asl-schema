@@ -12,7 +12,8 @@ const TYPES = {
   LICENCE_NUMBER: 'Could not parse licence number',
   DATE: 'Could not parse expiry date',
   NEITHER: 'Could not parse version',
-  MULTIPLE: 'Multple licence numbers found'
+  MULTIPLE: 'Multple licence numbers found',
+  FINE: 'Successfully parsed'
 };
 
 const transform = (data, versionId, writeCsvLine) => {
@@ -63,6 +64,10 @@ const transform = (data, versionId, writeCsvLine) => {
     date = moment(`${day} ${month} ${year}`, 'DD MM YY');
   }
 
+  if (writeCsvLine) {
+    writeCsvLine = writeCsvLine.bind(null, text);
+  }
+
   if (!ppl.length && !date) {
     console.log(`Cannot parse versionId: ${versionId}`);
     writeCsvLine && writeCsvLine(TYPES.NEITHER);
@@ -84,6 +89,11 @@ const transform = (data, versionId, writeCsvLine) => {
     writeCsvLine && writeCsvLine(TYPES.DATE);
   }
 
+  if (ppl.length === 1 && date) {
+    console.log(`Successfully parsed version, versionId: ${versionId}`);
+    writeCsvLine && writeCsvLine(TYPES.FINE);
+  }
+
   return {
     'project-continuation': [
       {
@@ -98,7 +108,7 @@ exports.transform = transform;
 
 exports.up = function(knex) {
   const stringifier = csv();
-  stringifier.write(['Type', 'Project ID', 'Version ID', 'Establishment ID', 'Project Title', 'Project Status', 'Version Status']);
+  stringifier.write(['Type', 'Project ID', 'Version ID', 'Establishment ID', 'Project Title', 'Project Status', 'Version Status', 'Text input']);
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
@@ -120,7 +130,7 @@ exports.up = function(knex) {
               .first()
               .then(version => {
 
-                function writeCsvLine(type) {
+                function writeCsvLine(textInput, type) {
                   stringifier.write([
                     type,
                     version.id,
@@ -128,7 +138,8 @@ exports.up = function(knex) {
                     version.establishment_id,
                     version.title,
                     version.projectStatus,
-                    version.status
+                    version.status,
+                    textInput
                   ]);
                 }
 
