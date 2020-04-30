@@ -506,5 +506,21 @@
     "status": "inactive",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "609e57a1-3436-4163-a7d2-97c7ce465364",
+    "establishmentId": 8201,
+    "title": "ASRU amendment in progress: draft",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "d584ca49-5f44-41f8-902b-5aa7e9334969",
+    "establishmentId": 8201,
+    "title": "ASRU amendment in progress: submitted",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   }
 ]

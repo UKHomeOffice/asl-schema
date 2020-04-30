@@ -672,5 +672,59 @@
       ]
     },
     "status": "draft"
+  },
+  {
+    "projectId": "609e57a1-3436-4163-a7d2-97c7ce465364",
+    "status": "granted",
+    "data": {
+      "title": "ASRU amendment in progress: draft",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    },
+    "createdAt": "2020-04-29",
+    "updatedAt": "2020-04-29"
+  },
+  {
+    "projectId": "609e57a1-3436-4163-a7d2-97c7ce465364",
+    "status": "draft",
+    "data": {
+      "title": "ASRU amendment in progress: draft",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    },
+    "asruVersion": true,
+    "createdAt": "2020-04-30",
+    "updatedAt": "2020-04-30"
+  },
+  {
+    "projectId": "d584ca49-5f44-41f8-902b-5aa7e9334969",
+    "status": "granted",
+    "data": {
+      "title": "ASRU amendment in progress: submitted",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    },
+    "createdAt": "2020-04-29",
+    "updatedAt": "2020-04-29"
+  },
+  {
+    "projectId": "d584ca49-5f44-41f8-902b-5aa7e9334969",
+    "status": "submitted",
+    "data": {
+      "title": "ASRU amendment in progress: submitted",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    },
+    "asruVersion": true,
+    "createdAt": "2020-04-30",
+    "updatedAt": "2020-04-30"
   }
 ]
