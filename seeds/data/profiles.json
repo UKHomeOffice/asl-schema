@@ -56,6 +56,10 @@
       {
         "establishmentId": 30001,
         "role": "admin"
+      },
+      {
+        "establishmentId": 9999,
+        "role": "admin"
       }
     ]
   },
