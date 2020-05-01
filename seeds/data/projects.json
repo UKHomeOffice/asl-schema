@@ -506,5 +506,13 @@
     "status": "inactive",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "3269f62d-c9d7-46e7-baaf-1843df5d2bec",
+    "establishmentId": 8201,
+    "title": "Continuation draft",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   }
 ]

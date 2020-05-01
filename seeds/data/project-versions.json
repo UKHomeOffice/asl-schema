@@ -672,5 +672,12 @@
       ]
     },
     "status": "draft"
+  },
+  {
+    "projectId": "3269f62d-c9d7-46e7-baaf-1843df5d2bec",
+    "status": "draft",
+    "data": {
+      "title": "Continuation draft"
+    }
   }
 ]
