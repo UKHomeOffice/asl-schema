@@ -726,5 +726,38 @@
     "asruVersion": true,
     "createdAt": "2020-04-30",
     "updatedAt": "2020-04-30"
+  },
+  {
+    "projectId": "2de9d19a-6858-467d-a4fb-a1a3e31c3435",
+    "status": "granted",
+    "data": {
+      "title": "Continuation ids migration",
+      "transfer-expiring": true,
+      "project-continuation": [
+        {
+          "licence-number": "P12345678",
+          "expiry-date": "2020-07-01"
+        },
+        {
+          "licence-number": "70/1234",
+          "expiry-date": "2020-08-01"
+        }
+      ]
+    }
+  },
+  {
+    "projectId": "5e703f3c-9af7-4344-add5-a542fbb6f3bd",
+    "status": "granted",
+    "data": {
+      "title": "Continuation migrated",
+      "transfer-expiring": true,
+      "expiring-yes": "{\"object\":\"value\",\"document\":{\"object\":\"document\",\"data\":{},\"nodes\":[{\"object\":\"block\",\"type\":\"paragraph\",\"data\":{},\"nodes\":[{\"object\":\"text\",\"text\":\"This was the input - licence number P12345678, expiring 1st July 2020\",\"marks\":[]}]}]}}",
+      "project-continuation": [
+        {
+          "licence-number": "P12345678",
+          "expiry-date": "2020-07-01"
+        }
+      ]
+    }
   }
 ]

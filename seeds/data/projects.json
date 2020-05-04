@@ -522,5 +522,21 @@
     "status": "active",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "2de9d19a-6858-467d-a4fb-a1a3e31c3435",
+    "establishmentId": 8201,
+    "title": "Continuation ids migration",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+  },
+  {
+    "id": "5e703f3c-9af7-4344-add5-a542fbb6f3bd",
+    "establishmentId": 8201,
+    "title": "Continuation migrated",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   }
 ]
