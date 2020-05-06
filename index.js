@@ -31,7 +31,7 @@ module.exports = connection => {
     client: 'pg',
     useNullAsDefault: true,
     connection,
-    pool: { min: 1, max: 5 },
+    pool: { min: 1, max: connection.maxConnections || 5 },
     ...knexSnakeCaseMappers()
   };
 
