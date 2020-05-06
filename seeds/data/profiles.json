@@ -555,8 +555,11 @@
     "telephone": 7424155329,
     "pil": {
       "issueDate": "2015-05-24",
+      "status": "revoked",
       "licenceNumber": "PC-818226",
-      "conditions": ""
+      "revocationDate": "2018-01-01",
+      "conditions": "",
+      "establishmentId": 8202
     }
   },
   {
@@ -2225,6 +2228,24 @@
         "num": 2,
         "unit": "months"
       }
+    }
+  },
+  {
+    "firstName": "Revoked",
+    "lastName": "PIL Review",
+    "dob": "1980-01-01",
+    "email": "revoked-pil-review@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201
+      }
+    ],
+    "pil": {
+      "status": "revoked",
+      "issueDate": "2015-01-01",
+      "licenceNumber": "YC-123457",
+      "reviewDate": "2020-01-01",
+      "revocationDate": "2019-01-01"
     }
   }
 ]
