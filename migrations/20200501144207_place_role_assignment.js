@@ -6,7 +6,20 @@ exports.up = function(knex) {
       table.uuid('role_id').references('id').inTable('roles').notNull();
       table.dateTime('deleted');
       table.timestamps(false, true);
-      table.unique(['place_id','role_id', 'deleted']);
+    })
+    .then(() => {
+      return knex.schema.raw(
+        `CREATE UNIQUE INDEX "place_roles_place_id_role_id_deleted_notnull_unique"
+        ON "place_roles" ("place_id", "role_id", "deleted")
+        WHERE "deleted" IS NOT NULL`
+      );
+    })
+    .then(() => {
+      return knex.schema.raw(
+        `CREATE UNIQUE INDEX "place_roles_place_id_role_id_deleted_isnull_unique"
+        ON "place_roles" ("place_id", "role_id")
+        WHERE "deleted" IS NULL`
+      );
     });
 };
 
