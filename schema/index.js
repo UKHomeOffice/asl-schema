@@ -6,6 +6,7 @@ const PIL = require('./pil');
 const FeeWaiver = require('./fee-waiver');
 const PilTransfer = require('./pil-transfer');
 const Place = require('./place');
+const PlaceRole = require('./place-role');
 const Profile = require('./profile');
 const Project = require('./project');
 const ProjectVersion = require('./project-version');
@@ -25,6 +26,7 @@ module.exports = db => ({
   PilTransfer: PilTransfer.bindKnex(db),
   FeeWaiver: FeeWaiver.bindKnex(db),
   Place: Place.bindKnex(db),
+  PlaceRole: PlaceRole.bindKnex(db),
   Profile: Profile.bindKnex(db),
   Project: Project.bindKnex(db),
   ProjectVersion: ProjectVersion.bindKnex(db),
