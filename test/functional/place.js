@@ -59,40 +59,53 @@ describe('Place model', () => {
           ]
         }
       ]))
-      .then(() => this.models.Place.query().insert([
+      .then(() => this.models.Place.query().insertGraph([
         {
           site: 'A site',
           name: 'A name',
           suitability: ['SA', 'LA'],
           holding: ['NOH', 'NSEP'],
-          nacwoId: nacwoRoleId1,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId1
+          }
         },
         {
           site: 'B site',
           name: 'B name',
           suitability: ['SA'],
           holding: ['NOH'],
-          nacwoId: nacwoRoleId1,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId1
+          }
         },
         {
           site: 'C site',
           name: 'C name',
           suitability: ['LA', 'DOG'],
           holding: ['SEP'],
-          nacwoId: nacwoRoleId2,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId2
+          }
         },
         {
           site: 'D site',
           name: 'D name',
           suitability: ['AQ', 'AV'],
           holding: ['NSEP'],
-          nacwoId: nacwoRoleId2,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId2
+          }
         }
-      ]));
+      ],
+      { relate: true }));
   });
 
   afterEach(() => {
@@ -249,27 +262,7 @@ describe('Place model', () => {
         });
     });
 
-    it('can sort by nacwo lastName', () => {
-      const opts = {
-        establishmentId: 8201,
-        sort: {
-          column: 'nacwo.lastName',
-          ascending: 'true'
-        }
-      };
-      return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
-        .then(places => {
-          assert.deepEqual(places.total, 4);
-          assert.deepEqual(places.results.length, 4);
-          assert.deepEqual(places.results[0].nacwo.lastName, 'Archer');
-          assert.deepEqual(places.results[1].nacwo.lastName, 'Archer');
-          assert.deepEqual(places.results[2].nacwo.lastName, 'Malloy');
-          assert.deepEqual(places.results[3].nacwo.lastName, 'Malloy');
-        });
-    });
-
-    it('eager loads nacwo', () => {
+    it('eager loads associated roles', () => {
       const opts = {
         establishmentId: 8201,
         filters: {
@@ -281,7 +274,8 @@ describe('Place model', () => {
         .then(() => this.models.Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
-          assert.deepEqual(places.results[0].nacwo.firstName, 'Sterling');
+          const nacwos = places.results[0].roles.filter(r => r.type === 'nacwo');
+          assert.deepEqual(nacwos[0].profile.firstName, 'Sterling');
         });
     });
   });
