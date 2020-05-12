@@ -63,7 +63,8 @@ class Place extends BaseModel {
     let query = this.query()
       .distinct('places.*')
       .where({ 'places.establishmentId': establishmentId })
-      .withGraphFetched('roles.[profile]');
+      .whereNull('rolesJoin.deleted') // objection aliases the placeRoles table to rolesJoin
+      .withGraphJoined('roles.[profile]');
 
     if (filters.site) {
       query.andWhere('site', 'in', filters.site);
