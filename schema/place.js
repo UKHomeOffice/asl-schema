@@ -61,10 +61,10 @@ class Place extends BaseModel {
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
     let query = this.query()
-      .distinct('places.*', 'nacwo.lastName')
-      .leftJoinRelation('nacwo')
+      .distinct('places.*')
       .where({ 'places.establishmentId': establishmentId })
-      .eager('nacwo');
+      .whereNull('rolesJoin.deleted') // objection aliases the placeRoles table to rolesJoin
+      .withGraphJoined('roles.[profile]');
 
     if (filters.site) {
       query.andWhere('site', 'in', filters.site);
@@ -100,17 +100,16 @@ class Place extends BaseModel {
           to: 'establishments.id'
         }
       },
-      nacwo: {
-        relation: this.HasOneThroughRelation,
-        modelClass: `${__dirname}/profile`,
+      roles: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/role`,
         join: {
-          from: 'places.nacwoId',
+          from: 'places.id',
           through: {
-            modelClass: `${__dirname}/role`,
-            from: 'roles.id',
-            to: 'roles.profileId'
+            from: 'placeRoles.placeId',
+            to: 'placeRoles.roleId'
           },
-          to: 'profiles.id'
+          to: 'roles.id'
         }
       }
     };

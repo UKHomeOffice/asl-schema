@@ -38,11 +38,15 @@ class Role extends BaseModel {
         }
       },
       places: {
-        relation: this.HasManyRelation,
+        relation: this.ManyToManyRelation,
         modelClass: `${__dirname}/place`,
         join: {
           from: 'roles.id',
-          to: 'places.nacwoId'
+          through: {
+            from: 'placeRoles.roleId',
+            to: 'placeRoles.placeId'
+          },
+          to: 'places.id'
         }
       }
     };

@@ -3,16 +3,17 @@ const uuid = require('uuid/v4');
 const db = require('./helpers/db');
 
 describe('Place model', () => {
+  const nacwo1 = uuid();
+  const nacwo2 = uuid();
+  const nacwoRoleId1 = uuid();
+  const nacwoRoleId2 = uuid();
+  const placeId1 = uuid();
 
   before(() => {
     this.models = db.init();
   });
 
   beforeEach(() => {
-    const nacwo1 = uuid();
-    const nacwo2 = uuid();
-    const nacwoRoleId1 = uuid();
-    const nacwoRoleId2 = uuid();
     return Promise.resolve()
       .then(() => db.clean(this.models))
       .then(() => this.models.Establishment.query().insertGraph([
@@ -59,40 +60,59 @@ describe('Place model', () => {
           ]
         }
       ]))
-      .then(() => this.models.Place.query().insert([
+      .then(() => this.models.Place.query().insertGraph([
         {
+          id: placeId1,
           site: 'A site',
           name: 'A name',
           suitability: ['SA', 'LA'],
           holding: ['NOH', 'NSEP'],
-          nacwoId: nacwoRoleId1,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: [
+            {
+              type: 'nacwo',
+              id: nacwoRoleId1
+            }
+          ]
         },
         {
+          id: uuid(),
           site: 'B site',
           name: 'B name',
           suitability: ['SA'],
           holding: ['NOH'],
-          nacwoId: nacwoRoleId1,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId1
+          }
         },
         {
+          id: uuid(),
           site: 'C site',
           name: 'C name',
           suitability: ['LA', 'DOG'],
           holding: ['SEP'],
-          nacwoId: nacwoRoleId2,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId2
+          }
         },
         {
+          id: uuid(),
           site: 'D site',
           name: 'D name',
           suitability: ['AQ', 'AV'],
           holding: ['NSEP'],
-          nacwoId: nacwoRoleId2,
-          establishmentId: 8201
+          establishmentId: 8201,
+          roles: {
+            type: 'nacwo',
+            id: nacwoRoleId2
+          }
         }
-      ]));
+      ],
+      { relate: true }));
   });
 
   afterEach(() => {
@@ -249,27 +269,7 @@ describe('Place model', () => {
         });
     });
 
-    it('can sort by nacwo lastName', () => {
-      const opts = {
-        establishmentId: 8201,
-        sort: {
-          column: 'nacwo.lastName',
-          ascending: 'true'
-        }
-      };
-      return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
-        .then(places => {
-          assert.deepEqual(places.total, 4);
-          assert.deepEqual(places.results.length, 4);
-          assert.deepEqual(places.results[0].nacwo.lastName, 'Archer');
-          assert.deepEqual(places.results[1].nacwo.lastName, 'Archer');
-          assert.deepEqual(places.results[2].nacwo.lastName, 'Malloy');
-          assert.deepEqual(places.results[3].nacwo.lastName, 'Malloy');
-        });
-    });
-
-    it('eager loads nacwo', () => {
+    it('eager loads associated roles', () => {
       const opts = {
         establishmentId: 8201,
         filters: {
@@ -281,8 +281,38 @@ describe('Place model', () => {
         .then(() => this.models.Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
-          assert.deepEqual(places.results[0].nacwo.firstName, 'Sterling');
+          const nacwos = places.results[0].roles.filter(r => r.type === 'nacwo');
+          assert.deepEqual(nacwos[0].profile.firstName, 'Sterling');
         });
+    });
+  });
+
+  describe('Uniqueness constraints', () => {
+    it('prevents the same role being assigned to the same place more than once', () => {
+      assert.rejects(async () => this.models.PlaceRole.query().insert({
+        placeId: placeId1,
+        roleId: nacwoRoleId1 // relation already exists
+      }));
+    });
+
+    it('allows multiple soft-deleted same role at same place to exist', () => {
+      return assert.ok(async () => this.models.PlaceRole.query().insert([
+        {
+          placeId: placeId1,
+          roleId: nacwoRoleId1,
+          deleted: new Date('2020-05-13 10:00:00').toISOString()
+        },
+        {
+          placeId: placeId1,
+          roleId: nacwoRoleId1,
+          deleted: new Date('2020-05-13 11:00:00').toISOString()
+        },
+        {
+          placeId: placeId1,
+          roleId: nacwoRoleId1,
+          deleted: new Date('2020-05-13 102:00:00').toISOString()
+        }
+      ]));
     });
   });
 });
