@@ -108,6 +108,7 @@
     "restrictions": "Lorem ipsum dolor sit amet"
   },
   {
+    "id": "de08df0e-c178-4c53-9eea-7132eee24b4d",
     "establishmentId": 8201,
     "site": "2 Marsham Street",
     "name": "377",
@@ -121,7 +122,7 @@
       "SEP"
     ],
     "restrictions": "Lorem ipsum dolor sit amet",
-    "nacwoId": "232b302b-136b-4452-ba1c-1e5a867212a1"
+    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1", "6cb73cb3-3960-4d71-b4ca-15697bd35b37"]
   },
   {
     "establishmentId": 8201,
@@ -697,6 +698,7 @@
     ]
   },
   {
+    "id": "30041acc-28fb-429e-b2c7-68ce07d88172",
     "establishmentId": 8201,
     "site": "2 Marsham Street",
     "name": "919",
@@ -709,7 +711,7 @@
       "NSEP",
       "LTH"
     ],
-    "nacwoId": "232b302b-136b-4452-ba1c-1e5a867212a1"
+    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -939,6 +941,7 @@
     ]
   },
   {
+    "id": "bf003bd2-27bc-4a32-92fe-87dd3d595763",
     "establishmentId": 8201,
     "site": "2 Marsham Street",
     "name": "61715",
@@ -950,7 +953,7 @@
       "NSEP",
       "NOH"
     ],
-    "nacwoId": "232b302b-136b-4452-ba1c-1e5a867212a1"
+    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -1143,6 +1146,7 @@
     ]
   },
   {
+    "id": "f366959a-1e3d-4cca-8611-0b9a44d15e10",
     "establishmentId": 8201,
     "site": "2 Marsham Street",
     "name": "1603",
@@ -1155,7 +1159,7 @@
       "LTH",
       "NOH"
     ],
-    "nacwoId": "232b302b-136b-4452-ba1c-1e5a867212a1"
+    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -1248,6 +1252,7 @@
     ]
   },
   {
+    "id": "ddf938c8-4b6c-485d-9699-75c0a43694bf",
     "establishmentId": 8201,
     "site": "3 Marsham Street",
     "name": "58816",
@@ -1259,7 +1264,7 @@
       "LTH",
       "SEP"
     ],
-    "nacwoId": null
+    "nacwos": []
   },
   {
     "establishmentId": 8201,
@@ -1388,11 +1393,12 @@
     "name": "Default"
   },
   {
+    "id": "e5f11cfd-7b75-4b7b-9c63-3216feb6e380",
     "establishmentId": 8201,
     "site": "Public edit place tests",
     "area": null,
     "name": "No NACWO",
-    "nacwoId": null
+    "nacwos": []
   },
   {
     "establishmentId": 8201,
