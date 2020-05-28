@@ -68,7 +68,20 @@ module.exports = {
       .reverse()
       .reduce((p, projectVersion) => {
         projectVersion.data = merge({}, defaults, projectVersion.data);
-        return p.then(() => knex('projectVersions').insert(projectVersion));
+        return p
+          .then(() => {
+            if (!projectVersion.title) {
+              return knex('projects')
+                .select('title')
+                .where('id', projectVersion.projectId)
+                .first()
+                .then(result => {
+                  return { ...projectVersion, data: { ...projectVersion.data, ...result } };
+                });
+            }
+            return projectVersion;
+          })
+          .then(version => knex('projectVersions').insert(version));
       }, Promise.resolve());
   },
   delete: knex => knex('projectVersions').del()
