@@ -20,12 +20,6 @@
     "status": "granted"
   },
   {
-    "projectId": "a1149bae-a448-4ef8-b2d8-39414fe34ba5",
-    "data": {
-      "title": "Legacy Autoproject Draft"
-    }
-  },
-  {
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "title": "Basic user project",
@@ -60,153 +54,6 @@
     "status": "granted",
     "createdAt": "2017-02-05",
     "updatedAt": "2017-02-05"
-  },
-  {
-    "projectId": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
-    "data": {
-      "title": "Search for the luminescent aether"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "e1f488fb-a9d0-4e55-aca7-396d31e9f814",
-    "data": {
-      "title": "Previous search for the luminescent aether"
-    },
-    "status": "submitted"
-  },
-  {
-    "projectId": "f638b9b2-e11b-477a-84f9-fd6755f428c3",
-    "data": {
-      "title": "Evaluation of novel anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "a09937d7-6c05-4dea-bd5f-3ba8168875cb",
-    "data": {
-      "title": "Development of new biological anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "7828ae88-68a8-404b-ab53-ff1077722f07",
-    "data": {
-      "title": "Thermosensitive nanoparticles for cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "b8b28a7b-3157-41c8-ae3f-7baf33085e8d",
-    "data": {
-      "title": "Oncolytic HSV as an anti-cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "c2334f4e-f8ce-4fb6-a726-5f87ee26da55",
-    "data": {
-      "title": "Hypoxy and angiogenesis in cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "5a1ad546-f347-4f65-b905-595d64932da2",
-    "data": {
-      "title": "Evaluation of novel anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "ce80a27b-054c-4264-a60b-469a67413d73",
-    "data": {
-      "title": "Development of new biological anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "8b946810-e202-412d-95ba-d9473fc600d3",
-    "data": {
-      "title": "Thermosensitive nanoparticles for cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "7f28e0d2-3431-4b4b-bf77-3652f1968c5d",
-    "data": {
-      "title": "Oncolytic HSV as an anti-cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "4e3241d6-5725-489f-bdf9-8b688a7a85c7",
-    "data": {
-      "title": "Hypoxy and angiogenesis in cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "01a55d81-76b7-42eb-957e-c31d69da52d4",
-    "data": {
-      "title": "Evaluation of novel anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "f05b13d5-de41-4173-b313-cd165c8f8072",
-    "data": {
-      "title": "Development of new biological anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "e15b1645-730e-40ea-a177-7fee4ab757cb",
-    "data": {
-      "title": "Thermosensitive nanoparticles for cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "6d2c6e8c-d38f-48b5-806b-ac698e5d4f6e",
-    "data": {
-      "title": "Oncolytic HSV as an anti-cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "09971443-dfcb-483d-88f7-d0bacbbf4d76",
-    "data": {
-      "title": "Hypoxy and angiogenesis in cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "6a651f3b-fa06-460f-a321-147b4002e20a",
-    "data": {
-      "title": "Evaluation of novel anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "3dfbaca9-8ff4-4509-b0ef-763b6a31b2ac",
-    "data": {
-      "title": "Development of new biological anti-cancer agents"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "855d6a51-338d-4c81-ae6f-d2dc89674c66",
-    "data": {
-      "title": "Thermosensitive nanoparticles for cancer therapy"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "2319e33e-ffa0-4197-bb92-26a38c18662e",
-    "data": {
-      "title": "Oncolytic HSV as an anti-cancer therapy"
-    },
-    "status": "granted"
   },
   {
     "projectId": "d42196ff-eb93-4b20-8b71-22673901873d",
@@ -308,19 +155,6 @@
     "status": "granted"
   },
   {
-    "projectId": "d42196ff-eb93-4b20-8b71-22673901873e",
-    "data": {
-      "title": "Revoked project"
-    },
-    "status": "granted"
-  },
-  {
-    "projectId": "d42196ff-eb93-4b20-8b71-22673901873f",
-    "data": {
-      "title": "Draft project"
-    }
-  },
-  {
     "projectId": "7d867c46-5e17-4f7f-8718-4f99160582d3",
     "data": {
       "title": "Draft with withdrawn"
@@ -371,20 +205,6 @@
     "status": "granted"
   },
   {
-    "projectId": "c4113aee-faba-4dde-8b4f-360e4e7913ed",
-    "status": "draft",
-    "data": {
-      "title": "New draft"
-    }
-  },
-  {
-    "projectId": "519eb1d6-e8f0-4d9c-8628-8da4394c2d2e",
-    "status": "granted",
-    "data": {
-      "title": "Active project"
-    }
-  },
-  {
     "projectId": "739fbe40-cfb9-431d-80c2-ac3d5beee2b2",
     "status": "granted",
     "data": {
@@ -393,19 +213,6 @@
         "years": 5,
         "months": 0
       }
-    }
-  },
-  {
-    "projectId": "25d769f2-cbe1-4e05-921f-efdbea9c117b",
-    "status": "granted",
-    "data": {
-      "title": "Expired project"
-    }
-  },
-  {
-    "projectId": "6b9b7471-396e-47fe-a98f-da0c76e0a26c",
-    "data": {
-      "title": "Unsubmitted draft"
     }
   },
   {
@@ -542,13 +349,6 @@
           ]
         }
       ]
-    }
-  },
-  {
-    "projectId": "e8e437a3-ac2b-4d66-af37-1c369a3211dc",
-    "status": "granted",
-    "data": {
-      "title": "Small pharma project"
     }
   },
   {
@@ -759,20 +559,5 @@
         }
       ]
     }
-  },
-  {
-    "projectId": "f638b9b2-e11b-477a-84f9-fd6755f428c4",
-    "status": "granted",
-    "data": {}
-  },
-  {
-    "projectId": "f638b9b2-e11b-477a-84f9-fd6755f428c5",
-    "status": "granted",
-    "data": {}
-  },
-  {
-    "projectId": "f638b9b2-e11b-477a-84f9-fd6755f428c6",
-    "status": "granted",
-    "data": {}
   }
 ]

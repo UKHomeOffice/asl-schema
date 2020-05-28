@@ -1,4 +1,5 @@
 const projectVersions = require('../data/project-versions.json');
+const projects = require('../data/projects.json');
 const { merge } = require('lodash');
 const uuid = require('uuid/v4');
 
@@ -63,25 +64,26 @@ const defaults = {
 
 module.exports = {
   populate: knex => {
+
+    const missing = projects
+      .filter(project => {
+        return !projectVersions.find(version => version.projectId === project.id);
+      })
+      .map(project => {
+        return {
+          projectId: project.id,
+          status: project.status === 'inactive' ? 'draft' : 'granted',
+          data: {
+            title: project.title
+          }
+        };
+      });
     // insert one at a time asyncly to force unique ordered creation timestamps
-    return projectVersions
+    return [ ...projectVersions, ...missing ]
       .reverse()
       .reduce((p, projectVersion) => {
         projectVersion.data = merge({}, defaults, projectVersion.data);
-        return p
-          .then(() => {
-            if (!projectVersion.title) {
-              return knex('projects')
-                .select('title')
-                .where('id', projectVersion.projectId)
-                .first()
-                .then(result => {
-                  return { ...projectVersion, data: { ...projectVersion.data, ...result } };
-                });
-            }
-            return projectVersion;
-          })
-          .then(version => knex('projectVersions').insert(version));
+        return p.then(version => knex('projectVersions').insert(projectVersion));
       }, Promise.resolve());
   },
   delete: knex => knex('projectVersions').del()
