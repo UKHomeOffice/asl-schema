@@ -50,6 +50,33 @@
     "status": "expired"
   },
   {
+    "id": "f638b9b2-e11b-477a-84f9-fd6755f428c4",
+    "establishmentId": 8201,
+    "title": "Internal View Test",
+    "issueDate": "2020-05-01",
+    "expiryDate": "2025-05-01",
+    "licenceNumber": "PR-250437",
+    "status": "active"
+  },
+  {
+    "id": "f638b9b2-e11b-477a-84f9-fd6755f428c5",
+    "establishmentId": 8201,
+    "title": "Internal Revoke Test",
+    "issueDate": "2020-05-01",
+    "expiryDate": "2025-05-01",
+    "licenceNumber": "PR-250438",
+    "status": "active"
+  },
+  {
+    "id": "f638b9b2-e11b-477a-84f9-fd6755f428c6",
+    "establishmentId": 8201,
+    "title": "Public Revoke Test",
+    "issueDate": "2020-05-01",
+    "expiryDate": "2025-05-01",
+    "licenceNumber": "PR-250439",
+    "status": "active"
+  },
+  {
     "id": "a09937d7-6c05-4dea-bd5f-3ba8168875cb",
     "establishmentId": 8201,
     "title": "Development of new biological anti-cancer agents",
