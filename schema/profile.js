@@ -35,6 +35,7 @@ class Profile extends BaseModel {
         asruAdmin: { type: 'boolean' },
         asruLicensing: { type: 'boolean' },
         asruInspector: { type: 'boolean' },
+        asruSupport: { type: 'boolean' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
@@ -48,6 +49,7 @@ class Profile extends BaseModel {
       this.asruAdmin = false;
       this.asruLicensing = false;
       this.asruInspector = false;
+      this.asruSupport = false;
     }
   }
 
