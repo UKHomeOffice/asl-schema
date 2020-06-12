@@ -117,6 +117,25 @@
     ]
   },
   {
+    "title": "Mr",
+    "firstName": "Spare",
+    "lastName": "Holc",
+    "dob": "1981-01-22",
+    "email": "spareholc@example.com",
+    "roles": [
+      {
+        "establishmentId": 8201,
+        "type": "holc"
+      }
+    ],
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "admin"
+      }
+    ]
+  },
+  {
     "id": "e1ef893c-0766-4ccb-b1f8-d13238deac23",
     "userId": "ae7458db-4688-452b-bddb-ea3971dd02bc",
     "title": "Mr",
@@ -1995,6 +2014,31 @@
       {
         "establishmentId": 8201,
         "type": "nacwo"
+      }
+    ]
+  },
+  {
+    "permissions": [
+      {
+        "establishmentId": 8201
+      }
+    ],
+    "lastName": "Roles",
+    "firstName": "Multiple",
+    "dob": null,
+    "email": "multipleroles@example.com",
+    "roles": [
+      {
+        "establishmentId": 8201,
+        "type": "nacwo"
+      },
+      {
+        "establishmentId": 8201,
+        "type": "nvs"
+      },
+      {
+        "establishmentId": 8201,
+        "type": "nio"
       }
     ]
   },
