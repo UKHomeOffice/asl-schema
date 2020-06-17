@@ -30,6 +30,7 @@ class Profile extends BaseModel {
         address: { type: ['string', 'null'] },
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
+        telephoneAlt: { type: ['string', 'null'] },
         notes: { type: ['string', 'null'] },
         asruUser: { type: 'boolean' },
         asruAdmin: { type: 'boolean' },
