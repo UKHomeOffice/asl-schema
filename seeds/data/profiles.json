@@ -1,15 +1,71 @@
 [
   {
+    "id": "0f7404a6-4c94-4ada-b08d-3235825b1579",
+    "userId": "34aa11ba-63ab-4975-b7df-da329749d83e",
+    "firstName": "Asru",
+    "lastName": "Super",
+    "dob": "1980-01-01",
+    "email": "asru-super@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": true,
+    "asruInspector": true,
+    "asruLicensing": true,
+    "asruSupport": true
+  },
+  {
     "id": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
     "userId": "6805f567-bec5-44b7-84d6-63181614bad7",
-    "lastName": "Admin",
     "firstName": "Asru",
+    "lastName": "Admin",
     "dob": "1980-01-01",
     "email": "asruadmin@homeoffice.gov.uk",
     "asruUser": true,
     "asruAdmin": true,
+    "asruInspector": false,
+    "asruLicensing": false,
+    "asruSupport": false
+  },
+  {
+    "id": "6891fe52-fb55-4d81-a7f5-24046d590407",
+    "userId": "d8e9b9c3-22ac-4786-8b27-17348fd3f465",
+    "title": "Miss",
+    "firstName": "Asru",
+    "lastName": "Support",
+    "dob": "1980-01-01",
+    "email": "asru-support@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": false,
+    "asruInspector": false,
+    "asruLicensing": false,
+    "asruSupport": true
+  },
+  {
+    "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d1",
+    "userId": "0c3679b6-730e-4ce0-a943-3f9694ab7e9b",
+    "title": "Dr",
+    "firstName": "Inspector",
+    "lastName": "Morse",
+    "dob": "1985-09-24",
+    "email": "asru-inspector@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": false,
     "asruInspector": true,
-    "asruLicensing": true
+    "asruLicensing": false,
+    "asruSupport": true
+  },
+  {
+    "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d2",
+    "userId": "dee8605d-2113-4411-8a0a-dc131af87a76",
+    "title": "Miss",
+    "firstName": "Li Sen",
+    "lastName": "Xing",
+    "dob": "1985-09-24",
+    "email": "asru-licensing@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": false,
+    "asruInspector": false,
+    "asruLicensing": true,
+    "asruSupport": true
   },
   {
     "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
@@ -294,32 +350,6 @@
         "role": "admin"
       }
     ]
-  },
-  {
-    "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d1",
-    "userId": "0c3679b6-730e-4ce0-a943-3f9694ab7e9b",
-    "title": "Dr",
-    "firstName": "Inspector",
-    "lastName": "Morse",
-    "dob": "1985-09-24",
-    "email": "asru-inspector@homeoffice.gov.uk",
-    "asruUser": true,
-    "asruAdmin": false,
-    "asruInspector": true,
-    "asruLicensing": false
-  },
-  {
-    "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d2",
-    "userId": "dee8605d-2113-4411-8a0a-dc131af87a76",
-    "title": "Miss",
-    "firstName": "Li Sen",
-    "lastName": "Xing",
-    "dob": "1985-09-24",
-    "email": "asru-licensing@homeoffice.gov.uk",
-    "asruUser": true,
-    "asruAdmin": false,
-    "asruInspector": false,
-    "asruLicensing": true
   },
   {
     "id": "87bb2f92-7da0-4eee-ab3d-4f529e8f2b14",

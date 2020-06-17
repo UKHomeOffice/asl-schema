@@ -497,7 +497,16 @@ describe('Profile model', () => {
         asruAdmin: true
       };
 
-      return this.models.Profile.query().insertGraph([this.inspector, this.licensing, this.asruAdmin]);
+      this.asruSupport = {
+        id: '6891fe52-fb55-4d81-a7f5-24046d590407',
+        lastName: 'Support',
+        firstName: 'Asru',
+        email: 'asru-support@homeoffice.gov.uk',
+        asruUser: true,
+        asruSupport: true
+      };
+
+      return this.models.Profile.query().insertGraph([this.inspector, this.licensing, this.asruAdmin, this.asruSupport]);
     });
 
     it('strips inspector role when removing ASRU role', () => {
@@ -518,6 +527,13 @@ describe('Profile model', () => {
       return this.models.Profile.query().patchAndFetchById(this.asruAdmin.id, { asruUser: false })
         .then(profile => {
           assert(profile.asruAdmin === false, 'the profile should have asru admin role removed');
+        });
+    });
+
+    it('strips support role when removing ASRU role', () => {
+      return this.models.Profile.query().patchAndFetchById(this.asruSupport.id, { asruUser: false })
+        .then(profile => {
+          assert(profile.asruSupport === false, 'the profile should have asru support role removed');
         });
     });
   });
