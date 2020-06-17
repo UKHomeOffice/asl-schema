@@ -2,7 +2,7 @@ const BaseModel = require('./base-model');
 
 class PlaceRole extends BaseModel {
   static get tableName() {
-    return 'place_roles';
+    return 'placeRoles';
   }
 
   static get idColumn() {
