@@ -7,7 +7,7 @@ class PlaceQueryBuilder extends BaseModel.QueryBuilder {
 
   joinRoles() {
     return this
-      .joinRelation('roles.profile')
+      .leftJoinRelated('roles.profile')
       .withGraphFetched('roles(notDeleted).profile(constrainProfileParams)')
       .modifiers({
         notDeleted: builder => builder.whereNull('placeRoles.deleted'),
@@ -79,7 +79,8 @@ class Place extends BaseModel {
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
 
     let query = this.query()
-      .distinct('places.*')
+      .select('places.*')
+      .distinct('places.id')
       .where({ 'places.establishmentId': establishmentId })
       .joinRoles();
 
