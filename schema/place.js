@@ -3,9 +3,26 @@ const BaseModel = require('./base-model');
 const { suitabilityCodes, holdingCodes } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
 
+class PlaceQueryBuilder extends BaseModel.QueryBuilder {
+
+  joinRoles() {
+    return this
+      .joinRelation('roles.profile')
+      .withGraphFetched('roles(notDeleted).profile')
+      .modifiers({
+        notDeleted: builder => builder.whereNull('placeRoles.deleted')
+      });
+  }
+
+}
+
 class Place extends BaseModel {
   static get tableName() {
     return 'places';
+  }
+
+  static get QueryBuilder() {
+    return PlaceQueryBuilder;
   }
 
   static get jsonSchema() {
@@ -63,8 +80,7 @@ class Place extends BaseModel {
     let query = this.query()
       .distinct('places.*')
       .where({ 'places.establishmentId': establishmentId })
-      .whereNull('rolesJoin.deleted') // objection aliases the placeRoles table to rolesJoin
-      .withGraphJoined('roles.[profile]');
+      .joinRoles();
 
     if (filters.site) {
       query.andWhere('site', 'in', filters.site);
