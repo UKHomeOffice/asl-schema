@@ -11,7 +11,7 @@ module.exports = {
           place.suitability = place.suitability || sampleSize(suitabilityCodes, 2);
           return knex('places')
             .insert({
-              ...mapValues(omit(place, 'nacwos'), (val, key) => {
+              ...mapValues(omit(place, 'roles'), (val, key) => {
                 if (key === 'holding' || key === 'suitability') {
                   return JSON.stringify(val);
                 }
@@ -24,24 +24,24 @@ module.exports = {
       .then(placeIds => {
         placeIds = placeIds.map(p => p.id);
 
-        return knex('roles').where('type', 'nacwo').where('establishment_id', 8201)
-          .then(nacwos => {
-            const placesWithNacwosDefined = places.filter(place => place.nacwos !== undefined);
-            const placeIdsWithoutNacwosDefined = placeIds.filter(id => !placesWithNacwosDefined.find(p => p.id === id));
+        return knex('roles').whereIn('type', ['nacwo', 'nvs', 'sqp']).where('establishment_id', 8201)
+          .then(roles => {
+            const placesWithRolesDefined = places.filter(place => place.roles !== undefined);
+            const placeIdsWithoutRolesDefined = placeIds.filter(id => !placesWithRolesDefined.find(p => p.id === id));
 
-            const seededPlaceRoles = flatten(placesWithNacwosDefined.map(place => {
-              if (Array.isArray(place.nacwos) && !isEmpty(place.nacwos)) {
-                return place.nacwos.map(nacwoRoleId => ({
-                  role_id: nacwoRoleId,
+            const seededPlaceRoles = flatten(placesWithRolesDefined.map(place => {
+              if (Array.isArray(place.roles) && !isEmpty(place.roles)) {
+                return place.roles.map(roleId => ({
+                  role_id: roleId,
                   place_id: place.id
                 }));
               }
             })).filter(Boolean);
 
-            const randomPlaceRoles = placeIdsWithoutNacwosDefined.map(id => {
+            const randomPlaceRoles = placeIdsWithoutRolesDefined.map(id => {
               return {
                 place_id: id,
-                role_id: sample(nacwos).id
+                role_id: sample(roles).id
               };
             });
 

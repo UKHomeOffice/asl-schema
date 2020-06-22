@@ -122,7 +122,11 @@
       "SEP"
     ],
     "restrictions": "Lorem ipsum dolor sit amet",
-    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1", "6cb73cb3-3960-4d71-b4ca-15697bd35b37"]
+    "roles": [
+      "232b302b-136b-4452-ba1c-1e5a867212a1",
+      "6cb73cb3-3960-4d71-b4ca-15697bd35b37",
+      "7a5d191c-ed47-41fe-8aed-0d33efe66a02"
+    ]
   },
   {
     "establishmentId": 8201,
@@ -711,7 +715,7 @@
       "NSEP",
       "LTH"
     ],
-    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
+    "roles": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -953,7 +957,7 @@
       "NSEP",
       "NOH"
     ],
-    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
+    "roles": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -1159,7 +1163,7 @@
       "LTH",
       "NOH"
     ],
-    "nacwos": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
+    "roles": ["232b302b-136b-4452-ba1c-1e5a867212a1"]
   },
   {
     "establishmentId": 8201,
@@ -1264,7 +1268,7 @@
       "LTH",
       "SEP"
     ],
-    "nacwos": []
+    "roles": []
   },
   {
     "establishmentId": 8201,
@@ -1398,7 +1402,7 @@
     "site": "Public edit place tests",
     "area": null,
     "name": "No NACWO",
-    "nacwos": []
+    "roles": []
   },
   {
     "establishmentId": 8201,
