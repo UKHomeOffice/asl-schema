@@ -8,6 +8,10 @@ describe('Place model', () => {
   const nacwoRoleId1 = uuid();
   const nacwoRoleId2 = uuid();
   const placeId1 = uuid();
+  const nvsId = uuid();
+  const nvsRoleId = uuid();
+  const sqpId = uuid();
+  const sqpRoleId = uuid();
 
   before(() => {
     this.models = db.init();
@@ -33,6 +37,16 @@ describe('Place model', () => {
             firstName: 'Sterling',
             lastName: 'Archer',
             email: 'sterline@archer.com'
+          }, {
+            id: nvsId,
+            firstName: 'Real',
+            lastName: 'Vet',
+            email: 'real-vet@example.com'
+          }, {
+            id: sqpId,
+            firstName: 'Fake',
+            lastName: 'Vet',
+            email: 'not-a-real-vet@example.com'
           }],
           roles: [{
             id: nacwoRoleId1,
@@ -42,6 +56,14 @@ describe('Place model', () => {
             id: nacwoRoleId2,
             type: 'nacwo',
             profileId: nacwo2
+          }, {
+            id: sqpRoleId,
+            type: 'sqp',
+            profileId: sqpId
+          }, {
+            id: nvsRoleId,
+            type: 'nvs',
+            profileId: nvsId
           }]
         },
         {
@@ -72,6 +94,10 @@ describe('Place model', () => {
             {
               type: 'nacwo',
               id: nacwoRoleId1
+            },
+            {
+              type: 'sqp',
+              id: sqpRoleId
             }
           ]
         },
@@ -82,10 +108,20 @@ describe('Place model', () => {
           suitability: ['SA'],
           holding: ['NOH'],
           establishmentId: 8201,
-          roles: {
-            type: 'nacwo',
-            id: nacwoRoleId1
-          }
+          roles: [
+            {
+              type: 'nacwo',
+              id: nacwoRoleId1
+            },
+            {
+              type: 'nvs',
+              id: nvsRoleId
+            },
+            {
+              type: 'sqp',
+              id: sqpRoleId
+            }
+          ]
         },
         {
           id: uuid(),
@@ -94,10 +130,16 @@ describe('Place model', () => {
           suitability: ['LA', 'DOG'],
           holding: ['SEP'],
           establishmentId: 8201,
-          roles: {
-            type: 'nacwo',
-            id: nacwoRoleId2
-          }
+          roles: [
+            {
+              type: 'sqp',
+              id: sqpRoleId
+            },
+            {
+              type: 'nacwo',
+              id: nacwoRoleId2
+            }
+          ]
         },
         {
           id: uuid(),
@@ -124,7 +166,7 @@ describe('Place model', () => {
   });
 
   describe('getFilterOptions', () => {
-    it('returns a map of unique sites, holding codes and suitability codes', () => {
+    it('returns a map of unique sites, holding codes, suitability codes and roles', () => {
       return Promise.resolve()
         .then(() => this.models.Place.getFilterOptions(8201))
         .then(filters => {
@@ -137,11 +179,35 @@ describe('Place model', () => {
           }, {
             key: 'holding',
             values: ['NOH', 'NSEP', 'SEP'].sort()
+          }, {
+            key: 'nacwos',
+            values: [
+              {
+                label: 'Sterling Archer',
+                value: nacwoRoleId2
+              },
+              {
+                label: 'Vincent Malloy',
+                value: nacwoRoleId1
+              }
+            ]
+          }, {
+            key: 'nvssqps',
+            values: [
+              {
+                label: 'Fake Vet',
+                value: sqpRoleId
+              },
+              {
+                label: 'Real Vet',
+                value: nvsRoleId
+              }
+            ]
           }]);
         });
     });
 
-    it('returns a map of unique sites, holding codes and suitability codes', () => {
+    it('returns a map of unique sites, holding codes, suitability codes and roles', () => {
       return Promise.resolve()
         .then(() => this.models.Place.getFilterOptions(8202))
         .then(filters => {
@@ -154,6 +220,12 @@ describe('Place model', () => {
           }, {
             key: 'holding',
             values: ['NOH']
+          }, {
+            key: 'nacwos',
+            values: []
+          }, {
+            key: 'nvssqps',
+            values: []
           }]);
         });
     });
@@ -217,6 +289,83 @@ describe('Place model', () => {
         .then(places => {
           assert.deepEqual(places.total, 1);
           assert.deepEqual(places.results[0].site, 'C site');
+        });
+    });
+
+    it('filters by a single nacwo', () => {
+      const opts = {
+        establishmentId: 8201,
+        filters: {
+          nacwos: [nacwoRoleId1]
+        }
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          const expected = [
+            'A name',
+            'B name'
+          ];
+          assert.equal(places.total, expected.length);
+          assert.deepEqual(places.results.map(p => p.name), expected);
+        });
+    });
+
+    it('filters by a single nvs', () => {
+      const opts = {
+        establishmentId: 8201,
+        filters: {
+          nvssqps: [nvsRoleId]
+        }
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          const expected = [
+            'B name'
+          ];
+          assert.equal(places.total, expected.length);
+          assert.deepEqual(places.results.map(p => p.name), expected);
+        });
+    });
+
+    it('filters by a multiple nvs/sqp roles', () => {
+      const opts = {
+        establishmentId: 8201,
+        filters: {
+          nvssqps: [nvsRoleId, sqpRoleId]
+        }
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          const expected = [
+            'A name',
+            'B name',
+            'C name'
+          ];
+          assert.equal(places.total, expected.length);
+          assert.deepEqual(places.results.map(p => p.name), expected);
+        });
+    });
+
+    it('filters by a multiple nvs/sqp roles and nacwos', () => {
+      const opts = {
+        establishmentId: 8201,
+        filters: {
+          nvssqps: [nvsRoleId, sqpRoleId],
+          nacwos: [nacwoRoleId1]
+        }
+      };
+      return Promise.resolve()
+        .then(() => this.models.Place.filter(opts))
+        .then(places => {
+          const expected = [
+            'A name',
+            'B name'
+          ];
+          assert.equal(places.total, expected.length);
+          assert.deepEqual(places.results.map(p => p.name), expected);
         });
     });
 

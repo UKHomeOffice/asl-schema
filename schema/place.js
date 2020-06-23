@@ -61,19 +61,43 @@ class Place extends BaseModel {
     };
   }
 
+  static getRoleFilters(types, key, establishmentId) {
+    return this.query()
+      .select('roles:profile.firstName', 'roles:profile.lastName')
+      .distinct('roles.id')
+      .rightJoinRelated('roles.profile')
+      .where('roles.establishmentId', establishmentId)
+      .whereIn('roles.type', types)
+      .orderBy('roles:profile.lastName')
+      .then(results => {
+        return {
+          key,
+          values: results.map(r => {
+            return {
+              label: `${r.firstName} ${r.lastName}`,
+              value: r.id
+            };
+          })
+        };
+      });
+  }
+
   static getFilterOptions(establishmentId) {
-    return Promise.all(
-      ['site', 'suitability', 'holding'].map(filter =>
+    return Promise.all([
+      ...['site', 'suitability', 'holding'].map(filter =>
         this.query()
           .where({ establishmentId })
           .distinct(filter)
-          .then(result => ({
-            key: filter,
-            values: uniq(flatten(result.map(r => r[filter]))).sort()
-          }))
-      )
-    )
-      .then(filters => filters);
+          .then(result => {
+            return {
+              key: filter,
+              values: uniq(flatten(result.map(r => r[filter]))).sort()
+            };
+          })
+      ),
+      this.getRoleFilters(['nacwo'], 'nacwos', establishmentId),
+      this.getRoleFilters(['nvs', 'sqp'], 'nvssqps', establishmentId)
+    ]);
   }
 
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
@@ -82,6 +106,8 @@ class Place extends BaseModel {
       .select('places.*')
       .distinct('places.id')
       .where({ 'places.establishmentId': establishmentId })
+      // we need to query the join table directly to avoid filtering on deleted associations
+      .leftJoinRelation('roleJoins')
       .joinRoles();
 
     if (filters.site) {
@@ -94,6 +120,20 @@ class Place extends BaseModel {
 
     if (filters.holding) {
       query.whereJsonSupersetOf('holding', filters.holding);
+    }
+
+    if (filters.nacwos) {
+      query.whereExists(
+        Place.relatedQuery('roleJoins')
+          .whereIn('roleId', filters.nacwos)
+      );
+    }
+
+    if (filters.nvssqps) {
+      query.whereExists(
+        Place.relatedQuery('roleJoins')
+          .whereIn('roleId', filters.nvssqps)
+      );
     }
 
     if (sort.column) {
@@ -116,6 +156,14 @@ class Place extends BaseModel {
         join: {
           from: 'places.establishmentId',
           to: 'establishments.id'
+        }
+      },
+      roleJoins: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/place-role`,
+        join: {
+          from: 'places.id',
+          to: 'placeRoles.placeId'
         }
       },
       roles: {
