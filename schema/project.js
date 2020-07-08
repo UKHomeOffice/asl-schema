@@ -45,6 +45,7 @@ class Project extends BaseModel {
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         expiryDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
+        raDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },

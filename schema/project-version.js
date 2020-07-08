@@ -23,6 +23,8 @@ class ProjectVersion extends BaseModel {
         projectId: { type: 'string', pattern: uuid.v4 },
         status: { type: 'string', enum: projectVersionStatuses },
         asruVersion: { type: 'boolean' },
+        raActive: { type: 'boolean' },
+        raCompulsory: { type: 'boolean' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
