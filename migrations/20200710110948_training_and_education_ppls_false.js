@@ -1,3 +1,7 @@
+exports.transform = data => {
+  const isTrainingLicence = data['training-licence'] || (data['permissible-purpose'] || []).includes('higher-education');
+  return { ['training-licence']: isTrainingLicence, ...data };
+};
 
 exports.up = function(knex) {
   return Promise.resolve()
@@ -19,7 +23,7 @@ exports.up = function(knex) {
               .where({ 'project_versions.id': version.id })
               .first()
               .then(version => {
-                const data = { ['training-licence']: false, ...version.data };
+                const data = transform(version.data);
                 return knex('project_versions')
                   .where({ id: version.id })
                   .update({ data });
