@@ -23,6 +23,7 @@
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
     "data": {
       "title": "Basic user project",
+      "permissible-purpose": ["basic-research"],
       "protocols": [
         {
           "id": "cd64135f-2770-4bdb-8858-bfefb16f3d8d",
