@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.table('projects', table => {
-    table.date('ra_date').nullable();
+    table.dateTime('ra_date').nullable();
   });
 };
 

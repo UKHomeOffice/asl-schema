@@ -1,7 +1,7 @@
 const BaseModel = require('./base-model');
 const Profile = require('./profile');
 const { projectStatuses } = require('@asl/constants');
-const { uuid, date } = require('../lib/regex-validation');
+const { uuid } = require('../lib/regex-validation');
 
 const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
@@ -45,7 +45,7 @@ class Project extends BaseModel {
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         expiryDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
-        raDate: { type: ['string', 'null'], pattern: date.yearMonthDay },
+        raDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
