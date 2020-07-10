@@ -565,5 +565,13 @@
     "status": "active",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+  },
+  {
+    "id": "23e96d12-74d5-4ccb-ba3f-ec16829d4b6d",
+    "establishmentId": 8201,
+    "title": "Training licence",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   }
 ]
