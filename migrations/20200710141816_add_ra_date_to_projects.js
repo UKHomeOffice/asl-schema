@@ -2,7 +2,7 @@ const moment = require('moment');
 const { addedByAsru } = require('../lib/retrospective-assessment');
 
 function getRaDate(version, project) {
-  if (!version || !version.data) {
+  if (!version || !project || !version.data) {
     return null;
   }
   if (!version.ra_compulsory && !addedByAsru(version.data)) {
@@ -15,6 +15,8 @@ function getRaDate(version, project) {
 
   return moment(date).add(6, 'months').toISOString();
 }
+
+exports.getRaDate = getRaDate;
 
 exports.up = function(knex) {
   return Promise.resolve()

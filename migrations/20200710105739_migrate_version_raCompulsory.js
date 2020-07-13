@@ -1,7 +1,7 @@
 const { isRequired } = require('../lib/retrospective-assessment');
 
 function raCompulsory(version) {
-  if (!version.data) {
+  if (!version || !version.data) {
     return false;
   }
   return isRequired(version.data);
