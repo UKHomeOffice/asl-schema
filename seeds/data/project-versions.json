@@ -304,6 +304,7 @@
   {
     "projectId": "0841bc71-f6b5-402d-a8f0-45467213f158",
     "status": "granted",
+    "raCompulsory": true,
     "data": {
       "title": "RA not editable - species",
       "species": ["cats"]
@@ -312,6 +313,7 @@
   {
     "projectId": "ae77c0a5-c890-419b-9d6f-c95c4447dab7",
     "status": "granted",
+    "raCompulsory": true,
     "data": {
       "title": "RA not editable - baboons",
       "species-other": ["Baboons"]
@@ -320,6 +322,7 @@
   {
     "projectId": "7bded8c7-2d5e-4a4e-9b7f-ab9d34e39a78",
     "status": "granted",
+    "raCompulsory": true,
     "data": {
       "title": "RA not editable - endangered",
       "endangered-animals": true
@@ -328,6 +331,7 @@
   {
     "projectId": "715a0156-4639-42ee-bd00-35a96e75ca4f",
     "status": "granted",
+    "raCompulsory": true,
     "data": {
       "title": "RA not editable - severity",
       "protocols": [
