@@ -245,101 +245,12 @@
     }
   },
   {
-    "projectId": "b0901bea-7e40-4d43-bcd9-07ad136ddbcd",
-    "status": "granted",
-    "data": {
-      "title": "RA legacy true",
-      "protocols": [
-        {
-          "id": "7b57c5f8-3c28-48f9-84d8-4d765966b566",
-          "steps": null
-        }
-      ],
-      "retrospectiveAssessment": {
-        "retrospective-assessment-required": true,
-        "retrospective-assessment-date": "01-01-2024"
-      }
-    }
-  },
-  {
-    "projectId": "a395a905-c2c6-4ea8-bb9f-366c188309c3",
-    "status": "granted",
-    "data": {
-      "title": "RA legacy false",
-      "protocols": [
-        {
-          "id": "518abf8f-0e38-4f4f-9259-4f0885fc250e",
-          "steps": null
-        }
-      ],
-      "retrospectiveAssessment": {
-        "retrospective-assessment-required": false
-      }
-    }
-  },
-  {
-    "projectId": "e212716e-c44e-452b-b36a-2a04afdae8b0",
-    "status": "granted",
-    "data": {
-      "title": "RA as condition true",
-      "conditions": [
-        {
-          "key": "retrospective-assessment"
-        }
-      ]
-    }
-  },
-  {
-    "projectId": "86f305e4-ab9a-4220-938c-bd49242af182",
-    "status": "granted",
-    "data": {
-      "title": "RA as condition false",
-      "conditions": [
-        {
-          "key": "retrospective-assessment-negative"
-        }
-      ]
-    }
-  },
-  {
     "projectId": "0841bc71-f6b5-402d-a8f0-45467213f158",
     "status": "granted",
     "raCompulsory": true,
     "data": {
       "title": "RA not editable - species",
       "species": ["cats"]
-    }
-  },
-  {
-    "projectId": "ae77c0a5-c890-419b-9d6f-c95c4447dab7",
-    "status": "granted",
-    "raCompulsory": true,
-    "data": {
-      "title": "RA not editable - baboons",
-      "species-other": ["Baboons"]
-    }
-  },
-  {
-    "projectId": "7bded8c7-2d5e-4a4e-9b7f-ab9d34e39a78",
-    "status": "granted",
-    "raCompulsory": true,
-    "data": {
-      "title": "RA not editable - endangered",
-      "endangered-animals": true
-    }
-  },
-  {
-    "projectId": "715a0156-4639-42ee-bd00-35a96e75ca4f",
-    "status": "granted",
-    "raCompulsory": true,
-    "data": {
-      "title": "RA not editable - severity",
-      "protocols": [
-        {
-          "id": "f1797774-520f-417e-9ed6-18450b273b6b",
-          "severity": "severe"
-        }
-      ]
     }
   },
   {
