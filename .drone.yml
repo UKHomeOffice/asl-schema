@@ -1,7 +1,7 @@
 pipeline:
 
   test:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     environment:
@@ -15,16 +15,22 @@ pipeline:
       - npm ci
       - npm test
     when:
-      event: [push, pull_request, tag]
+      event:
+        - push
+        - pull_request
+        - tag
 
   audit:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     commands:
       - npx @lennym/ciaudit
     when:
-      event: [push, pull_request, tag]
+      event:
+        - push
+        - pull_request
+        - tag
 
   build:
     image: docker:17.09.1
@@ -35,7 +41,10 @@ pipeline:
     commands:
       - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-schema .
     when:
-      event: [tag, pull_request]
+      event:
+        - push
+        - tag
+        - pull_request
 
   image_to_quay:
     image: docker:17.09.1
@@ -45,13 +54,14 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag asl-schema quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
-      - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_TAG}
+      - docker tag asl-schema quay.io/ukhomeofficedigital/asl-schema:$${DRONE_COMMIT_SHA}
+      - docker push quay.io/ukhomeofficedigital/asl-schema:$${DRONE_COMMIT_SHA}
     when:
-      event: tag
+      event: push
+      branch: master
 
   publish:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     commands:
@@ -69,9 +79,10 @@ pipeline:
         --token $${GITHUB_ACCESS_TOKEN}
         --file versions.yml
         --service asl-schema
-        --version $${DRONE_TAG}
+        --version $${DRONE_COMMIT_SHA}
     when:
-      event: tag
+      event: push
+      branch: master
 
 services:
   database:
