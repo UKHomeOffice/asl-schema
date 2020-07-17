@@ -342,6 +342,14 @@
     "status": "inactive"
   },
   {
+    "id": "6fcbc8cc-2665-4c79-9b03-1f67edc664e8",
+    "establishmentId": 8201,
+    "title": "Transfer draft test",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "status": "inactive"
+  },
+  {
     "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26d",
     "establishmentId": 8201,
     "title": "Submitted draft",
