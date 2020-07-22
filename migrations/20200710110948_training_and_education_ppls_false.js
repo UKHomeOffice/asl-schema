@@ -1,7 +1,9 @@
-exports.transform = data => {
+const transform = data => {
   const isTrainingLicence = data['training-licence'] || (data['permissible-purpose'] || []).includes('higher-education');
   return { ['training-licence']: isTrainingLicence, ...data };
 };
+
+exports.transform = transform;
 
 exports.up = function(knex) {
   return Promise.resolve()
