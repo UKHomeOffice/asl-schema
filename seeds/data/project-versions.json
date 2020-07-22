@@ -480,5 +480,13 @@
         }
       ]
     }
+  },
+  {
+    "projectId": "23e96d12-74d5-4ccb-ba3f-ec16829d4b6d",
+    "status": "granted",
+    "data": {
+      "title": "Training licence",
+      "training-licence": true
+    }
   }
 ]
