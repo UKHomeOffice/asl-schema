@@ -487,6 +487,7 @@
     "data": {
       "title": "Training licence",
       "training-licence": true
-    }
+    },
+    "raCompulsory": true
   }
 ]
