@@ -12,6 +12,7 @@ exports.up = function(knex) {
         .select('project_versions.id')
         .join('projects', 'project_versions.project_id', 'projects.id')
         .where({ 'schema_version':  1 })
+        .whereNotNull('data')
         .whereRaw('data->>\'training-licence\' IS NULL');
     })
     .then(versions => {
