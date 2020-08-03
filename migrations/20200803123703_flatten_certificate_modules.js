@@ -28,10 +28,10 @@ exports.up = function(knex) {
             .where('id', certificate.id)
             .update(patch);
         })
-        .catch(err => {
-          console.error(err);
-          console.log(`Error processing ${cert.id}`);
-        })
+          .catch(err => {
+            console.error(err);
+            console.log(`Error processing ${certificate.id}`);
+          });
       }, Promise.resolve());
     });
 };
