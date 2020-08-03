@@ -32,6 +32,8 @@ class Certificate extends BaseModel {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
+        isExemption: { type: 'boolean' },
+        exemptionReason: { type: ['string', 'null'] },
         passDate: { type: 'string', pattern: date.yearMonthDay },
         notApplicable: { type: 'boolean' },
         accreditingBody: { type: ['string', 'null'] },
