@@ -9,7 +9,7 @@
     "test:lint": "eslint .",
     "test:unit": "mocha ./test/unit --recursive --exit",
     "test:functional": "SNAKE_MAPPER=true mocha ./test/functional --recursive --exit",
-    "test:migrations": "SNAKE_MAPPER=false mocha ./test/migrations --recursive --exit",
+    "test:migrations": "SNAKE_MAPPER=false nyc mocha ./test/migrations --recursive --exit",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "SNAKE_MAPPER=true knex seed:run"
@@ -50,6 +50,7 @@
     "eslint": "^5.16.0",
     "eslint-config-lennym": "^1.4.0",
     "mocha": "^5.2.0",
+    "nyc": "^15.1.0",
     "uuid-validate": "0.0.3"
   }
 }
