@@ -82,6 +82,21 @@
     "email": "vice-chancellor@example.com",
     "telephone": "01840 345 678",
     "notes": "",
+    "certificates": [
+      {
+        "modules": [
+          "PILA (theory)",
+          "PILA (skills)"
+        ],
+        "species": [
+          "Mice",
+          "Rats"
+        ],
+        "passDate": "2015-06-04",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "12345"
+      }
+    ],
     "roles": [
       {
         "establishmentId": 8201,
@@ -221,6 +236,21 @@
       {
         "establishmentId": 8201,
         "role": "basic"
+      }
+    ],
+    "certificates": [
+      {
+        "modules": [
+          "PILA (theory)",
+          "PILA (skills)"
+        ],
+        "species": [
+          "Mice",
+          "Rats"
+        ],
+        "passDate": "2015-06-04",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "12345"
       }
     ]
   },
@@ -389,12 +419,8 @@
     "certificates": [
       {
         "modules": [
-          {
-            "module": "PILA (theory)"
-          },
-          {
-            "module": "PILA (skills)"
-          }
+          "PILA (theory)",
+          "PILA (skills)"
         ],
         "species": [
           "Mice",
@@ -403,12 +429,11 @@
         "passDate": "2015-06-04",
         "accreditingBody": "Royal Society of Biology",
         "certificateNumber": "12345"
-      }
-    ],
-    "exemptions": [
+      },
       {
-        "module": "PILB",
-        "description": "Years of experience",
+        "modules": ["PILB"],
+        "isExemption": true,
+        "exemptionReason": "Years of experience",
         "species": [
           "Mice",
           "Rats"
