@@ -59,7 +59,8 @@ const defaults = {
   'animals-containing-human-material': false,
   'containing-human-material-complete': true,
   'animals-taken-from-the-wild-complete': true,
-  'establishments-care-conditions-justification': null
+  'establishments-care-conditions-justification': null,
+  'training-complete': true
 };
 
 module.exports = {

@@ -17,16 +17,7 @@ class Certificate extends BaseModel {
         migratedId: { type: ['string', 'null'] },
         modules: {
           type: ['array', 'null'],
-          items: {
-            type: 'object',
-            properties: {
-              module: { type: 'string', enum: moduleCodes },
-              species: {
-                type: ['array', 'null'],
-                items: { type: 'string' }
-              }
-            }
-          }
+          items: { type: 'string', enum: moduleCodes }
         },
         species: {
           type: ['array', 'null'],
