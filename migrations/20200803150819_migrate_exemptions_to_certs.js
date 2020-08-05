@@ -61,5 +61,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return Promise.resolve();
+  return knex('certificates').where('is_exemption', true).delete();
 };
