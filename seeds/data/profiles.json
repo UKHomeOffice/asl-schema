@@ -1416,7 +1416,9 @@
     "pil": {
       "issueDate": "2017-08-28",
       "licenceNumber": "RW-098765",
-      "conditions": ""
+      "conditions": "",
+      "procedures": ["B", "C", "D", "F"],
+      "species": ["Mice", "Rats"]
     }
   },
   {
