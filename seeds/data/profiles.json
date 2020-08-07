@@ -2334,7 +2334,9 @@
         "method": "add",
         "num": 2,
         "unit": "months"
-      }
+      },
+      "procedures": ["C"],
+      "species": ["Gerbils"]
     }
   },
   {
