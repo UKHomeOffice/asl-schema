@@ -30,6 +30,7 @@ class Establishment extends BaseModel {
         supplying: { type: 'boolean' },
         killing: { type: 'boolean' },
         rehomes: { type: 'boolean' },
+        isTrainingEstablishment: { type: 'boolean' },
         billing: { type: ['object', 'null'] },
         conditions: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
