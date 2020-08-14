@@ -11,6 +11,7 @@
     "country": "england",
     "address": "University of Croydon, 99 George St, Croydon, CR0 1LD",
     "email": "vice-chancellor@croydon.ac.uk",
+    "isTrainingEstablishment": true,
     "procedure": 1,
     "breeding": 1,
     "supplying": 1,
