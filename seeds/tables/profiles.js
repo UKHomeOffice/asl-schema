@@ -69,7 +69,7 @@ module.exports = {
                           notesCatD,
                           notesCatF,
                           profileId,
-                          establishmentId: profile.permissions[0].establishmentId,
+                          establishmentId: pil.establishmentId || profile.permissions[0].establishmentId,
                           ...omit(pil, 'transfers', 'feeWaivers'),
                           procedures: JSON.stringify(procedures),
                           species: JSON.stringify(pil.species),
