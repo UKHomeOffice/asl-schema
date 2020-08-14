@@ -1,5 +1,6 @@
 const BaseModel = require('./base-model');
-const { uuid, date } = require('../lib/regex-validation');
+const { uuid } = require('../lib/regex-validation');
+const { pilStatuses } = require('@asl/constants');
 
 class TrainingPil extends BaseModel {
   static get tableName() {
@@ -14,9 +15,8 @@ class TrainingPil extends BaseModel {
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         trainingCourseId: { type: 'string', pattern: uuid.v4 },
-        firstName: { type: 'string' },
-        lastName: { type: 'string' },
-        dob: { type: 'string', pattern: date.yearMonthDay },
+        profileId: { type: 'string', pattern: uuid.v4 },
+        status: { type: 'string', enum: pilStatuses },
         trainingNeed: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
@@ -29,10 +29,18 @@ class TrainingPil extends BaseModel {
     return {
       trainingCourse: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/trainingCourse`,
+        modelClass: `${__dirname}/training-course`,
         join: {
           from: 'trainingPils.id',
           to: 'trainingCourses.trainingPilId'
+        }
+      },
+      profile: {
+        relation: this.HasOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'trainingPils.profileId',
+          to: 'profiles.id'
         }
       }
     };

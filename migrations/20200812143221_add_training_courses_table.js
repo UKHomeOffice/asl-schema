@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.integer('establishment_id').references('id').inTable('establishments').notNull();
       table.uuid('project_id').references('id').inTable('projects').notNull();
       table.string('title').notNull();
-      table.date('startDate').notNull();
+      table.date('start_date').notNull();
       table.jsonb('species');
       table.dateTime('deleted');
       table.timestamps(false, true);

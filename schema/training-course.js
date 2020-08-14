@@ -28,6 +28,31 @@ class TrainingCourse extends BaseModel {
     };
   }
 
+  static list({ establishmentId, sort = {}, limit, offset }) {
+    let query = this.query()
+      .select([
+        'trainingCourses.*',
+        this.relatedQuery('trainingPils')
+          .count()
+          .as('applications'),
+        this.relatedQuery('trainingPils')
+          .where({ status: 'active' })
+          .count()
+          .as('licences')
+      ])
+      .where({ 'trainingCourses.establishmentId': establishmentId })
+      .leftJoinRelated('project')
+      .withGraphFetched('project');
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    return query;
+  }
+
   static get relationMappings() {
     return {
       project: {

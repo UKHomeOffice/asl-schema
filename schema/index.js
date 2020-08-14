@@ -16,6 +16,8 @@ const Exemption = require('./exemption');
 const Changelog = require('./changelog');
 const AsruEstablishment = require('./asru-establishment');
 const ProjectProfile = require('./project-profile');
+const TrainingCourse = require('./training-course');
+const TrainingPil = require('./training-pil');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -35,5 +37,7 @@ module.exports = db => ({
   Exemption: Exemption.bindKnex(db),
   Changelog: Changelog.bindKnex(db),
   AsruEstablishment: AsruEstablishment.bindKnex(db),
-  ProjectProfile: ProjectProfile.bindKnex(db)
+  ProjectProfile: ProjectProfile.bindKnex(db),
+  TrainingCourse: TrainingCourse.bindKnex(db),
+  TrainingPil: TrainingPil.bindKnex(db)
 });
