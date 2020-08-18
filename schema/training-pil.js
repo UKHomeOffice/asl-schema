@@ -10,7 +10,7 @@ class TrainingPil extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['trainingCourseId', 'firstName', 'lastName', 'email'],
+      required: ['trainingCourseId', 'profileId'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
