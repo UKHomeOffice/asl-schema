@@ -1,14 +1,17 @@
-const { sample, mapValues, sampleSize, omit, flatten, isEmpty, concat } = require('lodash');
+const uuid = require('uuid/v4');
+const { mapValues, omit, flatten, isEmpty, concat } = require('lodash');
 const { suitabilityCodes, holdingCodes } = require('@asl/constants');
-const places = require('../data/places.json');
+const places = require('../data/places.json').map(p => ({ id: uuid(), ...p }));
+
+const getNonRandomRole = require('./utils/get-non-random-item');
 
 module.exports = {
   populate: knex => {
     return Promise.resolve()
       .then(() => {
         return Promise.all(places.map(place => {
-          place.holding = place.holding || sampleSize(holdingCodes, 2);
-          place.suitability = place.suitability || sampleSize(suitabilityCodes, 2);
+          place.holding = place.holding || holdingCodes.slice(1, 2);
+          place.suitability = place.suitability || suitabilityCodes.slice(1, 2);
           return knex('places')
             .insert({
               ...mapValues(omit(place, 'roles'), (val, key) => {
@@ -22,12 +25,11 @@ module.exports = {
       })
       .then(() => knex('places').select('id'))
       .then(placeIds => {
-        placeIds = placeIds.map(p => p.id);
 
         return knex('roles').whereIn('type', ['nacwo', 'nvs', 'sqp']).where('establishment_id', 8201)
           .then(roles => {
             const placesWithRolesDefined = places.filter(place => place.roles !== undefined);
-            const placeIdsWithoutRolesDefined = placeIds.filter(id => !placesWithRolesDefined.find(p => p.id === id));
+            const placesWithoutRolesDefined = places.filter(place => !place.roles);
 
             const seededPlaceRoles = flatten(placesWithRolesDefined.map(place => {
               if (Array.isArray(place.roles) && !isEmpty(place.roles)) {
@@ -38,10 +40,10 @@ module.exports = {
               }
             })).filter(Boolean);
 
-            const randomPlaceRoles = placeIdsWithoutRolesDefined.map(id => {
+            const randomPlaceRoles = placesWithoutRolesDefined.map(place => {
               return {
-                place_id: id,
-                role_id: sample(roles).id
+                place_id: place.id,
+                role_id: getNonRandomRole(roles, place.name)
               };
             });
 

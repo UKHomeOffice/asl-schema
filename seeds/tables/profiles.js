@@ -1,4 +1,4 @@
-const { omit, sampleSize } = require('lodash');
+const { omit } = require('lodash');
 const moment = require('moment');
 const profiles = require('../data/profiles.json');
 
@@ -54,7 +54,7 @@ module.exports = {
                   return profile.pil.reduce((promise, pil) => {
                     return promise
                       .then(() => {
-                        const procedures = pil.procedures || sampleSize(['B', 'C', 'D', 'F'], Math.ceil(4 * Math.random()));
+                        const procedures = pil.procedures || ['B', 'C'];
                         const notesCatD = procedures.includes('D') ? (pil.notesCatD || 'Cat D notes') : null;
                         const notesCatF = procedures.includes('F') ? (pil.notesCatF || 'Cat F notes') : null;
                         let reviewDate = pil.reviewDate;
