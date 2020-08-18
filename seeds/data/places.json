@@ -1421,5 +1421,59 @@
     "site": "Internal restrictions tests",
     "area": null,
     "name": "Default"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Bravo",
+    "area": "Bravo",
+    "name": "Bravo"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Bravo",
+    "area": "Alfa",
+    "name": "Bravo"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Charlie",
+    "area": "Alfa",
+    "name": "Alfa"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Bravo",
+    "area": "Alfa",
+    "name": "Alfa"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Alfa",
+    "area": "Alfa",
+    "name": "Alfa"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Alfa",
+    "area": "Charlie",
+    "name": "Alfa"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Alfa",
+    "area": "Bravo",
+    "name": "Charlie"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Alfa",
+    "area": "Bravo",
+    "name": "Alfa"
+  },
+  {
+    "establishmentId": 30001,
+    "site": "Alfa",
+    "area": "Alfa",
+    "name": "Bravo"
   }
 ]

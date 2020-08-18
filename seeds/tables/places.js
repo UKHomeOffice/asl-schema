@@ -23,13 +23,12 @@ module.exports = {
             });
         }));
       })
-      .then(() => knex('places').select('id'))
-      .then(placeIds => {
-
+      .then(() => {
         return knex('roles').whereIn('type', ['nacwo', 'nvs', 'sqp']).where('establishment_id', 8201)
           .then(roles => {
-            const placesWithRolesDefined = places.filter(place => place.roles !== undefined);
-            const placesWithoutRolesDefined = places.filter(place => !place.roles);
+            const croydonPlaces = places.filter(place => place.establishmentId === 8201);
+            const placesWithRolesDefined = croydonPlaces.filter(place => place.roles !== undefined);
+            const placesWithoutRolesDefined = croydonPlaces.filter(place => !place.roles);
 
             const seededPlaceRoles = flatten(placesWithRolesDefined.map(place => {
               if (Array.isArray(place.roles) && !isEmpty(place.roles)) {
