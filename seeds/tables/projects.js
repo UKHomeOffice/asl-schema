@@ -12,6 +12,7 @@ module.exports = {
           .whereNotIn('firstName', nopes)
           .andWhere('asruUser', false)
           .andWhere('permissions.establishment_id', project.establishmentId)
+          .orderBy('email') // apply an ordering on a reliably populated field for consistency
           .then(profiles => {
             return knex('projects')
               .insert({
