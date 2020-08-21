@@ -31,8 +31,8 @@ class TrainingPil extends BaseModel {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/training-course`,
         join: {
-          from: 'trainingPils.id',
-          to: 'trainingCourses.trainingPilId'
+          from: 'trainingPils.trainingCourseId',
+          to: 'trainingCourses.id'
         }
       },
       profile: {
