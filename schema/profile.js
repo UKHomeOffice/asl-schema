@@ -27,6 +27,7 @@ class Profile extends BaseModel {
         position: { type: ['string', 'null'] },
         qualifications: { type: ['string', 'null'] },
         certifications: { type: ['string', 'null'] },
+        pilLicenceNumber: { type: ['string','null'] },
         address: { type: ['string', 'null'] },
         postcode: { type: ['string', 'null'] },
         telephone: { type: ['string', 'null'] },
