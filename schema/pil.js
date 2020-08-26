@@ -169,7 +169,7 @@ class PIL extends BaseModel {
       .where(builder => {
         if (search) {
           return builder
-            .orWhere('licenceNumber', 'iLike', `%${search}%`)
+            .orWhere('profile.pilLicenceNumber', 'iLike', `%${search}%`)
             .orWhere(b => {
               Profile.searchFullName({
                 search,
