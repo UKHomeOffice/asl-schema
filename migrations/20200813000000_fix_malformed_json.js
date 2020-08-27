@@ -1,4 +1,4 @@
-const VERSION_ID = '1d0c5825-0ba4-4a4f-a0ce-7b83d6983419';
+const VERSION_ID = '5507ee39-14cd-424e-b6be-c4bb5883294c';
 
 exports.up = function(knex) {
   return Promise.resolve()
@@ -8,6 +8,9 @@ exports.up = function(knex) {
       .first()
     )
     .then(proj => {
+      if (!proj) {
+        return Promise.resolve();
+      }
       const field = proj.data['objective-relation'].replace('"marks":[]}]}]}}', '"marks":[]}]}]}]}]}}');
 
       const data = {
