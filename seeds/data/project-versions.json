@@ -541,5 +541,27 @@
       "training-licence": true
     },
     "raCompulsory": true
+  },
+  {
+    "projectId": "423dc041-8293-4531-9652-3ca03f3e5fbb",
+    "status": "granted",
+    "data": {
+      "title": "Testing establishment merge basic ppl",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    }
+  },
+  {
+    "projectId": "4eed2b09-2b21-45a9-be54-3b2736d6f287",
+    "status": "granted",
+    "data": {
+      "title": "Testing establishment merge admin ppl",
+      "duration": {
+        "years": 5,
+        "months": 0
+      }
+    }
   }
 ]
