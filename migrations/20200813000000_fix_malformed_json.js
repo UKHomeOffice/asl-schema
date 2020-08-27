@@ -22,5 +22,22 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return Promise.resolve();
+  return Promise.resolve()
+    .then(() => knex('project_versions')
+      .select('data')
+      .where('id', VERSION_ID)
+      .first()
+    )
+    .then(proj => {
+      if (!proj) {
+        return Promise.resolve();
+      }
+      const field = proj.data['objective-relation'].replace('"marks":[]}]}]}]}]}}', '"marks":[]}]}]}}');
+
+      const data = {
+        ...proj.data,
+        'objective-relation': field
+      };
+      return knex('project_versions').where({ id: VERSION_ID }).update({ data });
+    });
 };
