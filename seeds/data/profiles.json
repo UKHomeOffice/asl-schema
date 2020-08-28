@@ -305,6 +305,7 @@
     "lastName": "User",
     "dob": "1975-07-11",
     "email": "blocked.user@example.com",
+    "pilLicenceNumber": "BU-12345",
     "permissions": [
       {
         "establishmentId": 8201,
@@ -318,7 +319,6 @@
     "pil": {
       "id": "04c88dd7-e711-4ec7-afc8-fe721dbe9588",
       "issueDate": "2018-09-18",
-      "licenceNumber": "BU-12345",
       "establishmentId": 8201,
       "species": ["Mice"],
       "procedures": ["A", "B"]
@@ -350,6 +350,7 @@
     "lastName": "Permissions",
     "dob": "1985-09-24",
     "email": "mixed.permissions@example.com",
+    "pilLicenceNumber": "PM-982367",
     "permissions": [
       {
         "establishmentId": 8201,
@@ -362,7 +363,6 @@
     ],
     "pil": {
       "issueDate": "2018-09-18",
-      "licenceNumber": "PM-982367",
       "establishmentId": 8201,
       "species": ["Rats", "Mice"]
     }
@@ -393,6 +393,7 @@
     "dob": "1988-09-25",
     "email": "csiviter0@example.com",
     "telephone": 6566251777,
+    "pilLicenceNumber": "YW-052506",
     "permissions": [
       {
         "establishmentId": 8201
@@ -408,7 +409,6 @@
     "pil": {
       "establishmentId": 8201,
       "issueDate": "2015-03-20",
-      "licenceNumber": "YW-052506",
       "conditions": "",
       "notesCatD": "Lorem ipsum",
       "species": [
@@ -453,9 +453,9 @@
     "dob": "1958-10-01",
     "email": "wotson1@example.com",
     "telephone": 5946125914,
+    "pilLicenceNumber": "IY-717444",
     "pil": {
       "issueDate": "2016-07-01",
-      "licenceNumber": "IY-717444",
       "conditions": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero."
     }
   },
@@ -471,9 +471,9 @@
     "dob": "1951-04-09",
     "email": "tmacard2@example.com",
     "telephone": 8066089050,
+    "pilLicenceNumber": "UQ-448361",
     "pil": {
       "issueDate": "2015-08-20",
-      "licenceNumber": "UQ-448361",
       "conditions": "Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem."
     }
   },
@@ -489,9 +489,9 @@
     "dob": "1964-10-17",
     "email": "acoffee3@example.com",
     "telephone": 2058944085,
+    "pilLicenceNumber": "XL-612841",
     "pil": {
       "issueDate": "2015-06-06",
-      "licenceNumber": "XL-612841",
       "conditions": "Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem."
     }
   },
@@ -512,9 +512,9 @@
     "dob": "1996-08-19",
     "email": "imiddell4@example.com",
     "telephone": 9571822531,
+    "pilLicenceNumber": "PF-361444",
     "pil": {
       "issueDate": "2015-11-13",
-      "licenceNumber": "PF-361444",
       "conditions": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
       "establishmentId": 8201
     },
@@ -541,9 +541,9 @@
     "dob": "1992-09-18",
     "email": "amaccurlye5@example.com",
     "telephone": 9746423413,
+    "pilLicenceNumber": "VW-419948",
     "pil": {
       "issueDate": "2017-09-08",
-      "licenceNumber": "VW-419948",
       "conditions": ""
     }
   },
@@ -559,9 +559,9 @@
     "dob": "1969-05-12",
     "email": "amorrish6@example.com",
     "telephone": 9138736687,
+    "pilLicenceNumber": "NU-025953",
     "pil": {
       "issueDate": "2015-12-08",
-      "licenceNumber": "NU-025953",
       "conditions": ""
     }
   },
@@ -577,9 +577,9 @@
     "dob": "1971-09-26",
     "email": "wrieger7@example.com",
     "telephone": 3695008659,
+    "pilLicenceNumber": "LH-058387",
     "pil": {
       "issueDate": "2015-11-08",
-      "licenceNumber": "LH-058387",
       "conditions": "In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet."
     }
   },
@@ -595,9 +595,9 @@
     "dob": "1974-04-07",
     "email": "jdrewe8@example.com",
     "telephone": 9389672262,
+    "pilLicenceNumber": "SE-404623",
     "pil": {
       "issueDate": "2016-06-16",
-      "licenceNumber": "SE-404623",
       "conditions": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus."
     }
   },
@@ -613,9 +613,9 @@
     "dob": "1953-03-06",
     "email": "ffishe9@example.com",
     "telephone": 6279835792,
+    "pilLicenceNumber": "KI-399400",
     "pil": {
       "issueDate": "2017-10-18",
-      "licenceNumber": "KI-399400",
       "conditions": ""
     }
   },
@@ -631,10 +631,10 @@
     "dob": "1965-05-08",
     "email": "freynaa@example.com",
     "telephone": 7424155329,
+    "pilLicenceNumber": "PC-818226",
     "pil": {
       "issueDate": "2015-05-24",
       "status": "revoked",
-      "licenceNumber": "PC-818226",
       "revocationDate": "2018-01-01",
       "conditions": "",
       "establishmentId": 8202
@@ -652,9 +652,9 @@
     "dob": "1979-03-31",
     "email": "ahessentalerb@example.com",
     "telephone": 3311691998,
+    "pilLicenceNumber": "SG-812779",
     "pil": {
       "issueDate": "2016-02-02",
-      "licenceNumber": "SG-812779",
       "conditions": "",
       "transfers": [
         {
@@ -690,9 +690,9 @@
     "dob": "1973-07-26",
     "email": "lsporrijc@example.com",
     "telephone": 6409373768,
+    "pilLicenceNumber": "FA-827361",
     "pil": {
       "issueDate": "2017-10-31",
-      "licenceNumber": "FA-827361",
       "conditions": ""
     }
   },
@@ -708,10 +708,10 @@
     "dob": "1984-05-11",
     "email": "obeiningd@example.com",
     "telephone": 3493907174,
+    "pilLicenceNumber": "OI-742855",
     "pil": {
       "issueDate": "2016-09-24",
       "procedures": ["A", "B"],
-      "licenceNumber": "OI-742855",
       "conditions": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinarsed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
     }
   },
@@ -727,9 +727,9 @@
     "dob": "1952-01-12",
     "email": "rgimerte@example.com",
     "telephone": 7384884027,
+    "pilLicenceNumber": "UM-726120",
     "pil": {
       "issueDate": "2017-05-05",
-      "licenceNumber": "UM-726120",
       "procedures": ["D", "F"],
       "conditions": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque."
     }
@@ -749,12 +749,12 @@
     "dob": "1992-08-23",
     "email": "ksmallcombf@example.com",
     "telephone": 9702893776,
+    "pilLicenceNumber": "SQ-025927",
     "pil": {
       "status": "revoked",
       "procedures": ["A", "B"],
       "issueDate": "2017-05-16",
       "revocationDate": "2017-06-16",
-      "licenceNumber": "SQ-025927",
       "conditions": ""
     }
   },
@@ -773,10 +773,10 @@
     "dob": "1958-03-12",
     "email": "pstumpg@example.com",
     "telephone": 8671852914,
+    "pilLicenceNumber": "PX-055736",
     "pil": {
       "status": "active",
       "issueDate": "2017-04-19",
-      "licenceNumber": "PX-055736",
       "conditions": ""
     }
   },
@@ -792,9 +792,9 @@
     "dob": "1975-05-28",
     "email": "bwintersgillh@example.com",
     "telephone": 3753653019,
+    "pilLicenceNumber": "OI-199836",
     "pil": {
       "issueDate": "2017-03-04",
-      "licenceNumber": "OI-199836",
       "conditions": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero."
     }
   },
@@ -814,9 +814,9 @@
     "dob": "1998-09-17",
     "email": "rpatroni@example.com",
     "telephone": 9829049910,
+    "pilLicenceNumber": "MV-531647",
     "pil": {
       "issueDate": "2017-06-20",
-      "licenceNumber": "MV-531647",
       "conditions": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem."
     },
     "roles": [
@@ -841,9 +841,9 @@
     "dob": "1998-12-29",
     "email": "jharbarj@example.com",
     "telephone": 7059606342,
+    "pilLicenceNumber": "DB-346760",
     "pil": {
       "issueDate": "2015-07-27",
-      "licenceNumber": "DB-346760",
       "conditions": ""
     },
     "roles": [
@@ -865,9 +865,9 @@
     "dob": "1970-09-24",
     "email": "imayk@example.com",
     "telephone": 9282462730,
+    "pilLicenceNumber": "WC-341329",
     "pil": {
       "issueDate": "2018-03-13",
-      "licenceNumber": "WC-341329",
       "conditions": "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus."
     }
   },
@@ -883,9 +883,9 @@
     "dob": "1976-07-02",
     "email": "epolleyel@example.com",
     "telephone": 7007454741,
+    "pilLicenceNumber": "BI-828003",
     "pil": {
       "issueDate": "2015-01-11",
-      "licenceNumber": "BI-828003",
       "conditions": ""
     }
   },
@@ -901,9 +901,9 @@
     "dob": "1972-02-11",
     "email": "jdibblem@example.com",
     "telephone": 8651426619,
+    "pilLicenceNumber": "DE-062486",
     "pil": {
       "issueDate": "2017-04-28",
-      "licenceNumber": "DE-062486",
       "conditions": "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero."
     }
   },
@@ -919,9 +919,9 @@
     "dob": "1982-03-12",
     "email": "skunzn@example.com",
     "telephone": 5531769489,
+    "pilLicenceNumber": "VT-254902",
     "pil": {
       "issueDate": "2017-01-02",
-      "licenceNumber": "VT-254902",
       "conditions": ""
     }
   },
@@ -950,9 +950,9 @@
     "dob": "1976-09-21",
     "email": "apetrillop@example.com",
     "telephone": 3093168640,
+    "pilLicenceNumber": "HD-290266",
     "pil": {
       "issueDate": "2017-10-06",
-      "licenceNumber": "HD-290266",
       "conditions": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus."
     }
   },
@@ -968,9 +968,9 @@
     "dob": "1982-12-02",
     "email": "ccheckleyq@example.com",
     "telephone": 2344475422,
+    "pilLicenceNumber": "PW-372352",
     "pil": {
       "issueDate": "2014-12-21",
-      "licenceNumber": "PW-372352",
       "conditions": "Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat."
     }
   },
@@ -986,9 +986,9 @@
     "dob": "1955-05-08",
     "email": "ialsfordr@example.com",
     "telephone": 1631087067,
+    "pilLicenceNumber": "RK-263880",
     "pil": {
       "issueDate": "2014-07-02",
-      "licenceNumber": "RK-263880",
       "conditions": ""
     }
   },
@@ -1004,9 +1004,9 @@
     "dob": "1987-12-09",
     "email": "mshovels@example.com",
     "telephone": 1394586742,
+    "pilLicenceNumber": "QU-777174",
     "pil": {
       "issueDate": "2017-10-12",
-      "licenceNumber": "QU-777174",
       "conditions": ""
     }
   },
@@ -1022,9 +1022,9 @@
     "dob": "1973-09-23",
     "email": "pgyteshamt@example.com",
     "telephone": 6046727160,
+    "pilLicenceNumber": "DW-507584",
     "pil": {
       "issueDate": "2017-12-12",
-      "licenceNumber": "DW-507584",
       "conditions": ""
     }
   },
@@ -1040,9 +1040,9 @@
     "dob": "1983-08-22",
     "email": "ccornfootu@example.com",
     "telephone": 2231288108,
+    "pilLicenceNumber": "IJ-474816",
     "pil": {
       "issueDate": "2015-10-03",
-      "licenceNumber": "IJ-474816",
       "conditions": ""
     }
   },
@@ -1058,9 +1058,9 @@
     "dob": "1973-11-01",
     "email": "dstellv@example.com",
     "telephone": 6429082032,
+    "pilLicenceNumber": "JV-944226",
     "pil": {
       "issueDate": "2014-08-23",
-      "licenceNumber": "JV-944226",
       "conditions": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus."
     }
   },
@@ -1076,9 +1076,9 @@
     "dob": "1976-07-15",
     "email": "ldorracottw@example.com",
     "telephone": 8664398826,
+    "pilLicenceNumber": "SM-126980",
     "pil": {
       "issueDate": "2018-05-11",
-      "licenceNumber": "SM-126980",
       "conditions": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nEtiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio."
     }
   },
@@ -1094,9 +1094,9 @@
     "dob": "1981-01-04",
     "email": "wdearex@example.com",
     "telephone": 7049190904,
+    "pilLicenceNumber": "LN-689470",
     "pil": {
       "issueDate": "2017-05-04",
-      "licenceNumber": "LN-689470",
       "conditions": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque."
     }
   },
@@ -1112,9 +1112,9 @@
     "dob": "1957-02-22",
     "email": "battfieldy@example.com",
     "telephone": 2939611468,
+    "pilLicenceNumber": "UT-542791",
     "pil": {
       "issueDate": "2015-07-02",
-      "licenceNumber": "UT-542791",
       "conditions": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinarsed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
     }
   },
@@ -1130,9 +1130,9 @@
     "dob": "1962-08-04",
     "email": "kmeneghelliz@example.com",
     "telephone": 7951654331,
+    "pilLicenceNumber": "TB-608723",
     "pil": {
       "issueDate": "2017-06-17",
-      "licenceNumber": "TB-608723",
       "conditions": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis."
     }
   },
@@ -1148,9 +1148,9 @@
     "dob": "1996-07-23",
     "email": "jbenardet10@example.com",
     "telephone": 6934442357,
+    "pilLicenceNumber": "XV-445879",
     "pil": {
       "issueDate": "2015-05-19",
-      "licenceNumber": "XV-445879",
       "conditions": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem."
     }
   },
@@ -1166,9 +1166,9 @@
     "dob": "1990-07-19",
     "email": "gcoggins11@example.com",
     "telephone": 3212595847,
+    "pilLicenceNumber": "YS-195715",
     "pil": {
       "issueDate": "2018-01-17",
-      "licenceNumber": "YS-195715",
       "conditions": ""
     }
   },
@@ -1184,9 +1184,9 @@
     "dob": "1951-06-30",
     "email": "emowlam12@example.com",
     "telephone": 3212826822,
+    "pilLicenceNumber": "ZJ-091738",
     "pil": {
       "issueDate": "2017-03-22",
-      "licenceNumber": "ZJ-091738",
       "conditions": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis."
     }
   },
@@ -1202,10 +1202,10 @@
     "dob": "1993-04-14",
     "email": "daberkirder13@example.com",
     "telephone": 8558065951,
+    "pilLicenceNumber": "SN-682317",
     "pil": [
       {
         "issueDate": "2015-11-06",
-        "licenceNumber": "SN-682317",
         "conditions": "",
         "transfers": [
           {
@@ -1229,7 +1229,6 @@
         "status": "revoked",
         "issueDate": "2010-11-06",
         "revocationDate": "2015-11-06",
-        "licenceNumber": "SN-682317",
         "conditions": ""
       }
     ]
@@ -1246,9 +1245,9 @@
     "dob": "1970-08-12",
     "email": "lrennox14@example.com",
     "telephone": 8321949926,
+    "pilLicenceNumber": "SM-402875",
     "pil": {
       "issueDate": "2016-02-16",
-      "licenceNumber": "SM-402875",
       "procedures": ["D", "F"],
       "notesCatF": "Some notes about my cat F PIL",
       "conditions": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit."
@@ -1266,9 +1265,9 @@
     "dob": "1961-03-08",
     "email": "bbricket15@example.com",
     "telephone": 8134373342,
+    "pilLicenceNumber": "LY-460112",
     "pil": {
       "issueDate": "2017-09-10",
-      "licenceNumber": "LY-460112",
       "conditions": "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus."
     }
   },
@@ -1284,9 +1283,9 @@
     "dob": "1990-04-16",
     "email": "fpetegre16@example.com",
     "telephone": 2106069142,
+    "pilLicenceNumber": "GQ-472622",
     "pil": {
       "issueDate": "2016-08-12",
-      "licenceNumber": "GQ-472622",
       "conditions": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh."
     }
   },
@@ -1302,12 +1301,12 @@
     "dob": "1996-09-03",
     "email": "bservis17@example.com",
     "telephone": 4195529546,
+    "pilLicenceNumber": "GV-794484",
     "pil": {
       "status": "revoked",
       "procedures": ["A", "B"],
       "issueDate": "2017-02-13",
       "revocationDate": "2018-11-06",
-      "licenceNumber": "GV-794484",
       "conditions": ""
     }
   },
@@ -1323,9 +1322,9 @@
     "dob": "1954-08-05",
     "email": "dleason18@example.com",
     "telephone": 7671898874,
+    "pilLicenceNumber": "MT-434547",
     "pil": {
       "issueDate": "2015-02-18",
-      "licenceNumber": "MT-434547",
       "conditions": ""
     }
   },
@@ -1341,9 +1340,9 @@
     "dob": "1959-03-15",
     "email": "chiggen19@example.com",
     "telephone": 4869783707,
+    "pilLicenceNumber": "BQ-918819",
     "pil": {
       "issueDate": "2018-01-24",
-      "licenceNumber": "BQ-918819",
       "conditions": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nEtiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem."
     }
   },
@@ -1359,9 +1358,9 @@
     "dob": "1983-01-07",
     "email": "ltripony1a@example.com",
     "telephone": 7475862580,
+    "pilLicenceNumber": "NC-122930",
     "pil": {
       "issueDate": "2014-10-09",
-      "licenceNumber": "NC-122930",
       "conditions": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat."
     }
   },
@@ -1377,9 +1376,9 @@
     "dob": "1971-02-01",
     "email": "acovino1b@example.com",
     "telephone": 6406531747,
+    "pilLicenceNumber": "LE-142474",
     "pil": {
       "issueDate": "2016-12-16",
-      "licenceNumber": "LE-142474",
       "conditions": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede."
     }
   },
@@ -1395,9 +1394,9 @@
     "dob": "1988-07-28",
     "email": "iaddlestone1c@example.com",
     "telephone": 8472990993,
+    "pilLicenceNumber": "MA-722085",
     "pil": {
       "issueDate": "2019-04-09",
-      "licenceNumber": "MA-722085",
       "conditions": ""
     }
   },
@@ -1413,9 +1412,9 @@
     "dob": "1984-09-23",
     "email": "wbagger1d@example.com",
     "telephone": 5639652375,
+    "pilLicenceNumber": "RW-098765",
     "pil": {
       "issueDate": "2017-08-28",
-      "licenceNumber": "RW-098765",
       "conditions": "",
       "procedures": ["B", "C", "D", "F"],
       "species": ["Mice", "Rats"]
@@ -1446,9 +1445,9 @@
     "dob": "1996-07-12",
     "email": "sgoulthorp1f@example.com",
     "telephone": 4784064879,
+    "pilLicenceNumber": "PW-356164",
     "pil": {
       "issueDate": "2017-06-29",
-      "licenceNumber": "PW-356164",
       "conditions": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum."
     }
   },
@@ -1464,9 +1463,9 @@
     "dob": "2000-12-03",
     "email": "mceyssen1g@example.com",
     "telephone": 2147029650,
+    "pilLicenceNumber": "SU-745441",
     "pil": {
       "issueDate": "2016-08-31",
-      "licenceNumber": "SU-745441",
       "conditions": ""
     }
   },
@@ -1482,9 +1481,9 @@
     "dob": "1964-12-08",
     "email": "skornousek1h@example.com",
     "telephone": 8363774005,
+    "pilLicenceNumber": "RD-688409",
     "pil": {
       "issueDate": "2016-07-15",
-      "licenceNumber": "RD-688409",
       "conditions": ""
     }
   },
@@ -1500,9 +1499,9 @@
     "dob": "1967-10-13",
     "email": "kwibrew1i@example.com",
     "telephone": 5859242693,
+    "pilLicenceNumber": "ED-206341",
     "pil": {
       "issueDate": "2018-03-02",
-      "licenceNumber": "ED-206341",
       "conditions": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum."
     }
   },
@@ -1518,9 +1517,9 @@
     "dob": "1976-05-06",
     "email": "hteggin1j@example.com",
     "telephone": 5814335394,
+    "pilLicenceNumber": "MW-972107",
     "pil": {
       "issueDate": "2014-10-31",
-      "licenceNumber": "MW-972107",
       "conditions": ""
     }
   },
@@ -1537,9 +1536,9 @@
     "dob": "1997-10-12",
     "email": "mhanson1k@example.com",
     "telephone": 4651622396,
+    "pilLicenceNumber": "ET-435958",
     "pil": {
       "issueDate": "2017-01-28",
-      "licenceNumber": "ET-435958",
       "conditions": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat."
     }
   },
@@ -1555,9 +1554,9 @@
     "dob": "1989-11-27",
     "email": "slegrice1l@example.com",
     "telephone": 4442695314,
+    "pilLicenceNumber": "WN-494683",
     "pil": {
       "issueDate": "2015-11-21",
-      "licenceNumber": "WN-494683",
       "conditions": ""
     }
   },
@@ -1573,9 +1572,9 @@
     "dob": "1981-05-09",
     "email": "caikett1m@example.com",
     "telephone": 2144522854,
+    "pilLicenceNumber": "KW-740222",
     "pil": {
       "issueDate": "2015-08-04",
-      "licenceNumber": "KW-740222",
       "conditions": "Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede."
     }
   },
@@ -1591,9 +1590,9 @@
     "dob": "1952-09-02",
     "email": "gmcauliffe1o@example.com",
     "telephone": 3489034246,
+    "pilLicenceNumber": "GW-449045",
     "pil": {
       "issueDate": "2015-01-06",
-      "licenceNumber": "GW-449045",
       "conditions": "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio."
     }
   },
@@ -1609,9 +1608,9 @@
     "dob": "1955-02-10",
     "email": "brisborough1p@example.com",
     "telephone": 4746832057,
+    "pilLicenceNumber": "TW-384510",
     "pil": {
       "issueDate": "2016-04-28",
-      "licenceNumber": "TW-384510",
       "conditions": "Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit."
     }
   },
@@ -1627,9 +1626,9 @@
     "dob": "1987-08-28",
     "email": "arogger1q@example.com",
     "telephone": 9091040528,
+    "pilLicenceNumber": "NR-193881",
     "pil": {
       "issueDate": "2015-02-11",
-      "licenceNumber": "NR-193881",
       "conditions": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem."
     }
   },
@@ -1645,9 +1644,9 @@
     "dob": "1974-01-20",
     "email": "yriach1r@example.com",
     "telephone": 9879787741,
+    "pilLicenceNumber": "OS-725103",
     "pil": {
       "issueDate": "2017-05-01",
-      "licenceNumber": "OS-725103",
       "conditions": "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus."
     }
   },
@@ -1663,9 +1662,9 @@
     "dob": "1978-04-30",
     "email": "fgillian1s@example.com",
     "telephone": 2121236225,
+    "pilLicenceNumber": "VY-341091",
     "pil": {
       "issueDate": "2016-01-13",
-      "licenceNumber": "VY-341091",
       "conditions": ""
     }
   },
@@ -1681,9 +1680,9 @@
     "dob": "1971-07-06",
     "email": "dkibbee1t@example.com",
     "telephone": 6271047149,
+    "pilLicenceNumber": "UO-003731",
     "pil": {
       "issueDate": "2016-11-16",
-      "licenceNumber": "UO-003731",
       "conditions": ""
     }
   },
@@ -1699,9 +1698,9 @@
     "dob": "1959-10-22",
     "email": "gjoseland1u@example.com",
     "telephone": 6797419854,
+    "pilLicenceNumber": "CP-859143",
     "pil": {
       "issueDate": "2015-10-19",
-      "licenceNumber": "CP-859143",
       "conditions": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh."
     }
   },
@@ -1717,9 +1716,9 @@
     "dob": "1989-08-25",
     "email": "pgrigs1v@example.com",
     "telephone": 9736681883,
+    "pilLicenceNumber": "EZ-243280",
     "pil": {
       "issueDate": "2017-01-21",
-      "licenceNumber": "EZ-243280",
       "conditions": ""
     }
   },
@@ -1735,9 +1734,9 @@
     "dob": "1953-08-01",
     "email": "ndomini1w@example.com",
     "telephone": 9944752883,
+    "pilLicenceNumber": "OQ-530734",
     "pil": {
       "issueDate": "2016-05-01",
-      "licenceNumber": "OQ-530734",
       "conditions": "Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl."
     }
   },
@@ -1753,9 +1752,9 @@
     "dob": "1994-10-22",
     "email": "lstuckford1x@example.com",
     "telephone": 9776882415,
+    "pilLicenceNumber": "OZ-358098",
     "pil": {
       "issueDate": "2014-06-05",
-      "licenceNumber": "OZ-358098",
       "conditions": ""
     }
   },
@@ -1771,9 +1770,9 @@
     "dob": "1953-07-28",
     "email": "ddeschlein1y@example.com",
     "telephone": 6301415885,
+    "pilLicenceNumber": "XZ-191902",
     "pil": {
       "issueDate": "2014-06-05",
-      "licenceNumber": "XZ-191902",
       "conditions": ""
     }
   },
@@ -1790,9 +1789,9 @@
     "dob": "1983-08-09",
     "email": "wglew1z@example.com",
     "telephone": 5033888830,
+    "pilLicenceNumber": "AV-148244",
     "pil": {
       "issueDate": "2016-08-06",
-      "licenceNumber": "AV-148244",
       "conditions": "Nam ultrices, libero non mattis pulvinar, nulla pede ullam corper augue, a suscipit nullaelit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam."
     }
   },
@@ -1808,9 +1807,9 @@
     "dob": "1967-03-13",
     "email": "jholson20@example.com",
     "telephone": 1742556837,
+    "pilLicenceNumber": "WY-245139",
     "pil": {
       "issueDate": "2017-12-31",
-      "licenceNumber": "WY-245139",
       "conditions": ""
     }
   },
@@ -1826,9 +1825,9 @@
     "dob": "1969-07-13",
     "email": "hraggatt21@example.com",
     "telephone": 9317748493,
+    "pilLicenceNumber": "TF-704711",
     "pil": {
       "issueDate": "2016-05-21",
-      "licenceNumber": "TF-704711",
       "conditions": ""
     }
   },
@@ -1844,9 +1843,9 @@
     "dob": "1994-02-06",
     "email": "honowlan22@example.com",
     "telephone": 3378201285,
+    "pilLicenceNumber": "AK-178133",
     "pil": {
       "issueDate": "2016-09-14",
-      "licenceNumber": "AK-178133",
       "conditions": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst."
     }
   },
@@ -1862,9 +1861,9 @@
     "dob": "1975-08-17",
     "email": "eaddams23@example.com",
     "telephone": 2507393514,
+    "pilLicenceNumber": "OX-335030",
     "pil": {
       "issueDate": "2017-03-18",
-      "licenceNumber": "OX-335030",
       "conditions": ""
     }
   },
@@ -1880,9 +1879,9 @@
     "dob": "1958-07-17",
     "email": "ggraben24@example.com",
     "telephone": 1231155281,
+    "pilLicenceNumber": "QJ-831978",
     "pil": {
       "issueDate": "2014-07-29",
-      "licenceNumber": "QJ-831978",
       "conditions": ""
     }
   },
@@ -1898,9 +1897,9 @@
     "dob": "1977-01-06",
     "email": "jdilrew25@example.com",
     "telephone": 3828320308,
+    "pilLicenceNumber": "ZT-496574",
     "pil": {
       "issueDate": "2016-12-05",
-      "licenceNumber": "ZT-496574",
       "conditions": ""
     }
   },
@@ -1916,9 +1915,9 @@
     "dob": "1950-12-18",
     "email": "apolamontayne26@example.com",
     "telephone": 6832705458,
+    "pilLicenceNumber": "ZT-088868",
     "pil": {
       "issueDate": "2016-02-11",
-      "licenceNumber": "ZT-088868",
       "conditions": ""
     }
   },
@@ -1934,9 +1933,9 @@
     "dob": "1964-07-21",
     "email": "ktollit27@example.com",
     "telephone": 1592749224,
+    "pilLicenceNumber": "YC-605440",
     "pil": {
       "issueDate": "2015-10-04",
-      "licenceNumber": "YC-605440",
       "conditions": ""
     }
   },
@@ -2237,9 +2236,9 @@
         "establishmentId": 8202
       }
     ],
+    "pilLicenceNumber": "YC-605445",
     "pil": {
       "issueDate": "2015-10-04",
-      "licenceNumber": "YC-605445",
       "conditions": ""
     }
   },
@@ -2253,9 +2252,9 @@
         "establishmentId": 10001
       }
     ],
+    "pilLicenceNumber": "YC-605112",
     "pil": {
       "issueDate": "2015-10-04",
-      "licenceNumber": "YC-605112",
       "conditions": ""
     }
   },
@@ -2269,10 +2268,10 @@
         "establishmentId": 10001
       }
     ],
+    "pilLicenceNumber": "YC-605111",
     "pil": {
       "status": "revoked",
       "issueDate": "2018-03-04",
-      "licenceNumber": "YC-605111",
       "conditions": "",
       "revocationDate": "2018-10-04 12:00"
     }
@@ -2287,10 +2286,10 @@
         "establishmentId": 10001
       }
     ],
+    "pilLicenceNumber": "YC-605111",
     "pil": {
       "status": "revoked",
       "issueDate": "2018-05-04",
-      "licenceNumber": "YC-605111",
       "conditions": "",
       "revocationDate": "2018-10-04 12:00"
     }
@@ -2305,10 +2304,10 @@
         "establishmentId": 8201
       }
     ],
+    "pilLicenceNumber": "YC-123456",
     "pil": {
       "status": "active",
       "issueDate": "2015-01-01",
-      "licenceNumber": "YC-123456",
       "reviewDate": {
         "method": "subtract",
         "num": 1,
@@ -2326,10 +2325,10 @@
         "establishmentId": 8201
       }
     ],
+    "pilLicenceNumber": "YC-123457",
     "pil": {
       "status": "active",
       "issueDate": "2015-01-01",
-      "licenceNumber": "YC-123457",
       "reviewDate": {
         "method": "add",
         "num": 2,
@@ -2349,10 +2348,10 @@
         "establishmentId": 8201
       }
     ],
+    "pilLicenceNumber": "YC-123457",
     "pil": {
       "status": "revoked",
       "issueDate": "2015-01-01",
-      "licenceNumber": "YC-123457",
       "reviewDate": "2020-01-01",
       "revocationDate": "2019-01-01"
     }
@@ -2369,9 +2368,9 @@
         "role": "admin"
       }
     ],
+    "pilLicenceNumber": "ADMIN-PIL-AT-SOURCE",
     "pil": {
       "status": "active",
-      "licenceNumber": "ADMIN-PIL-AT-SOURCE",
       "issueDate": "2015-01-01",
       "procedures": ["A", "B", "C"],
       "species": ["Mice", "Rats"]
@@ -2389,9 +2388,9 @@
         "role": "basic"
       }
     ],
+    "pilLicenceNumber": "BASIC-PIL-AT-SOURCE",
     "pil": {
       "status": "active",
-      "licenceNumber": "BASIC-PIL-AT-SOURCE",
       "issueDate": "2015-01-01",
       "procedures": ["B"],
       "species": ["Mice"]
@@ -2413,9 +2412,9 @@
         "role": "basic"
       }
     ],
+    "pilLicenceNumber": "ADMIN-BASIC-PIL-AT-SOURCE",
     "pil": {
       "status": "active",
-      "licenceNumber": "ADMIN-BASIC-PIL-AT-SOURCE",
       "issueDate": "2015-01-01",
       "procedures": ["C"],
       "species": ["Dogs"]
@@ -2452,9 +2451,9 @@
         "role": "basic"
       }
     ],
+    "pilLicenceNumber": "BASIC-BASIC-PIL-AT-TARGET",
     "pil": {
       "status": "active",
-      "licenceNumber": "BASIC-BASIC-PIL-AT-TARGET",
       "issueDate": "2015-01-01",
       "procedures": ["A"],
       "species": ["Mice"],
@@ -2472,9 +2471,9 @@
         "role": "basic"
       }
     ],
+    "pilLicenceNumber": "BASIC-PIL-AT-TARGET",
     "pil": {
       "status": "active",
-      "licenceNumber": "BASIC-PIL-AT-TARGET",
       "issueDate": "2015-01-01",
       "procedures": ["B"],
       "species": ["Rats"]

@@ -81,6 +81,7 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
     return this
       .select([
         'pils.*',
+        'profile.pilLicenceNumber as licenceNumber',
         PIL.relatedQuery('feeWaivers')
           .where({ establishmentId, year })
           .select(1)
@@ -156,7 +157,11 @@ class PIL extends BaseModel {
   static filter({ establishmentId, search, sort = {}, limit, offset }) {
 
     let query = this.query()
-      .distinct('pils.*', 'profile.lastName')
+      .distinct(
+        'pils.*',
+        'profile.lastName',
+        'profile.pilLicenceNumber as licenceNumber'
+      )
       .leftJoinRelation('profile')
       .where({ 'pils.establishmentId': establishmentId })
       .eager('profile')
@@ -164,7 +169,7 @@ class PIL extends BaseModel {
       .where(builder => {
         if (search) {
           return builder
-            .orWhere('licenceNumber', 'iLike', `%${search}%`)
+            .orWhere('profile.pilLicenceNumber', 'iLike', `%${search}%`)
             .orWhere(b => {
               Profile.searchFullName({
                 search,
