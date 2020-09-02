@@ -79,7 +79,15 @@ class Profile extends BaseModel {
       query.scopeToEstablishment('establishments.id', establishmentId);
     }
     return query
-      .eager('[roles.places, establishments, pil, projects, certificates, exemptions, asru]');
+      .withGraphFetched('[roles.places, establishments, pil(getLicenceNumber), projects, certificates, exemptions, asru]')
+      .modifiers({
+        getLicenceNumber: builder => {
+          builder.select([
+            'pils.*',
+            'profile.pilLicenceNumber as licenceNumber'
+          ]).joinRelation('profile');
+        }
+      });
   }
 
   static getNamed({ userId, establishmentId, ...params }) {
@@ -166,11 +174,11 @@ class Profile extends BaseModel {
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
       .leftJoinRelation('[pil, projects, roles]')
-      .eager('[pil, projects, establishments, roles]')
+      .withGraphFetched('[pil, projects, establishments, roles]')
       .where(builder => {
         if (search) {
           return builder
-            .where('pil.licenceNumber', 'iLike', search && `%${search}%`)
+            .where('pilLicenceNumber', 'iLike', search && `%${search}%`)
             .orWhere(builder => this.searchFullName({ search, query: builder }));
         }
       });
@@ -321,6 +329,14 @@ class Profile extends BaseModel {
         },
         filter: f => {
           return f.orderBy('issueDate', 'desc');
+        }
+      },
+      trainingPils: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/training-pil`,
+        join: {
+          from: 'profiles.id',
+          to: 'trainingPils.profileId'
         }
       },
       projects: {

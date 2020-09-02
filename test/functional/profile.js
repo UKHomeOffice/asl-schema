@@ -29,10 +29,10 @@ describe('Profile model', () => {
               firstName: 'Sterling',
               lastName: 'Archer',
               email: 'sterling@archer.com',
+              pilLicenceNumber: 'ABC-123-02',
               pil: {
                 status: 'active',
-                establishmentId: 8201,
-                licenceNumber: 'ABC-123-02'
+                establishmentId: 8201
               }
             },
             {
@@ -40,10 +40,10 @@ describe('Profile model', () => {
               firstName: 'Keith',
               lastName: 'Lemon',
               email: 'keith@lemon.com',
+              pilLicenceNumber: 'ABC-123-03',
               pil: {
                 status: 'inactive',
-                establishmentId: 8201,
-                licenceNumber: 'ABC-123-03'
+                establishmentId: 8201
               },
               roles: [{
                 establishmentId: 8201,
@@ -55,10 +55,10 @@ describe('Profile model', () => {
               firstName: 'Bruce',
               lastName: 'Forsyth',
               email: 'bruce@forsyth.com',
+              pilLicenceNumber: 'ABC-123-04',
               pil: {
                 status: 'active',
-                establishmentId: 8201,
-                licenceNumber: 'ABC-123-04'
+                establishmentId: 8201
               },
               roles: [{
                 establishmentId: 8201,
@@ -107,10 +107,10 @@ describe('Profile model', () => {
               firstName: 'Austin',
               lastName: 'Powers',
               email: 'groovy@baby.com',
+              pilLicenceNumber: 'ABC-123-06',
               pil: {
                 status: 'active',
-                establishmentId: 8202,
-                licenceNumber: 'ABC-123-06'
+                establishmentId: 8202
               }
             },
             {
@@ -118,10 +118,10 @@ describe('Profile model', () => {
               firstName: 'Clark',
               lastName: 'Kent',
               email: 'super@man.com',
+              pilLicenceNumber: 'ABC-123-07',
               pil: {
                 status: 'inactive',
-                establishmentId: 8202,
-                licenceNumber: 'ABC-123-07'
+                establishmentId: 8202
               }
             },
             {
