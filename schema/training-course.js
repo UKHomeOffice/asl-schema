@@ -70,6 +70,14 @@ class TrainingCourse extends BaseModel {
           from: 'trainingCourses.id',
           to: 'trainingPils.trainingCourseId'
         }
+      },
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'trainingCourses.establishmentId',
+          to: 'establishments.id'
+        }
       }
     };
   }
