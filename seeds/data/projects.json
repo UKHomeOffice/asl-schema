@@ -518,5 +518,21 @@
     "issueDate": "2020-02-05",
     "expiryDate": "2025-02-05",
     "licenceNumber": "ADMIN-PPL@SOURCE"
+  },
+  {
+    "id": "3c7990f7-8e6b-4fa1-8ba5-34ede489b22a",
+    "establishmentId": 8201,
+    "title": "Testing deadline extension",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+  },
+  {
+    "id": "9d83dcac-a544-4cf8-90c8-b9915ab16f80",
+    "establishmentId": 8201,
+    "title": "Testing deadline extension (old style)",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   }
 ]

@@ -563,5 +563,25 @@
         "months": 0
       }
     }
+  },
+  {
+    "id": "6c3dd9de-8e65-46ff-8840-913b7c7943c9",
+    "projectId": "3c7990f7-8e6b-4fa1-8ba5-34ede489b22a",
+    "status": "draft",
+    "data": {
+      "title": "Testing deadline extension"
+    },
+    "createdAt": "2020-09-01",
+    "updatedAt": "2020-09-01"
+  },
+  {
+    "id": "b44cc7fc-5dfb-4900-9be0-c0e475d2ddc5",
+    "projectId": "9d83dcac-a544-4cf8-90c8-b9915ab16f80",
+    "status": "submitted",
+    "data": {
+      "title": "Testing deadline extension (old style)"
+    },
+    "createdAt": "2020-09-01",
+    "updatedAt": "2020-09-01"
   }
 ]
