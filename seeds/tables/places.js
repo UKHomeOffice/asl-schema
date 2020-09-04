@@ -24,7 +24,12 @@ module.exports = {
         }));
       })
       .then(() => {
-        return knex('roles').whereIn('type', ['nacwo', 'nvs', 'sqp']).where('establishment_id', 8201)
+        return knex('roles')
+          .select('roles.*')
+          .join('profiles', 'roles.profile_id', '=', 'profiles.id')
+          .whereIn('type', ['nacwo', 'nvs', 'sqp'])
+          .where('establishment_id', 8201)
+          .orderBy(['profiles.email', 'roles.type'])
           .then(roles => {
             const croydonPlaces = places.filter(place => place.establishmentId === 8201);
             const placesWithRolesDefined = croydonPlaces.filter(place => place.roles !== undefined);
