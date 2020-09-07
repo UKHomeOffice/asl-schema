@@ -20,6 +20,9 @@ exports.up = function(knex) {
               .orderBy('issue_date', 'desc')
               .first()
               .then(pil => {
+                if (!pil) {
+                  return;
+                }
                 return knex('profiles')
                   .where({ id: profile.id })
                   .update({ pil_licence_number: pil.licence_number });
