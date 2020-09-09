@@ -79,7 +79,7 @@ class Profile extends BaseModel {
       query.scopeToEstablishment('establishments.id', establishmentId);
     }
     return query
-      .withGraphFetched('[roles.places, establishments, pil(getLicenceNumber), projects, certificates, exemptions, asru]')
+      .withGraphFetched('[roles.places, establishments, pil(getLicenceNumber), projects, certificates, exemptions, asru, trainingPils.trainingCourse.[establishment, project]]')
       .modifiers({
         getLicenceNumber: builder => {
           builder.select([
@@ -174,7 +174,7 @@ class Profile extends BaseModel {
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
       .leftJoinRelation('[pil, projects, roles]')
-      .withGraphFetched('[pil, projects, establishments, roles]')
+      .withGraphFetched('[pil, projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {
           return builder
