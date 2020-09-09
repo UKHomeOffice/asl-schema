@@ -95,6 +95,15 @@
         "passDate": "2015-06-04",
         "accreditingBody": "Royal Society of Biology",
         "certificateNumber": "12345"
+      },
+      {
+        "modules": [
+          "L"
+        ],
+        "species": null,
+        "passDate": "2015-06-05",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "1234567890"
       }
     ],
     "roles": [
