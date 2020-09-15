@@ -36,7 +36,7 @@ class TrainingCourse extends BaseModel {
           .count()
           .as('applications'),
         this.relatedQuery('trainingPils')
-          .where({ status: 'active' })
+          .whereNot({ status: 'inactive' })
           .count()
           .as('licences')
       ])
