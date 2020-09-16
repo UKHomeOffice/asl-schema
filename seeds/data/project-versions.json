@@ -583,5 +583,15 @@
     },
     "createdAt": "2020-09-01",
     "updatedAt": "2020-09-01"
+  },
+  {
+    "id": "cada2e28-d678-49c1-afac-11acaf325f6d",
+    "projectId": "52949a8f-879c-45bd-b6a4-cbc01c746da0",
+    "status": "submitted",
+    "data": {
+      "title": "Testing deadline extension (old style)"
+    },
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01"
   }
 ]
