@@ -3,6 +3,8 @@ const settings = require('../../../knexfile').test;
 
 const tables = [
   'changelog',
+  'training_pils',
+  'training_courses',
   'place_roles',
   'project_versions',
   'projects',
