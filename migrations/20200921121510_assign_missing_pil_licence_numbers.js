@@ -28,14 +28,10 @@ exports.up = function(knex) {
           .then(() => generateLicenceNumber(knex))
           .then(licenceNumber => {
             console.log(`Assigning pilLicenceNumber ${licenceNumber} to profile ${profile.id}`);
-            return Promise.resolve()
-              .then(() => knex('profiles').where('id', profile.id).first().update('pil_licence_number', licenceNumber))
-              .then(() => {
-                console.log(`Successfully patched ${profile.id}`);
-              })
-              .catch(() => {
-                console.error(`Error patching ${profile.id} with licence number ${licenceNumber}`);
-              });
+            return knex('profiles').where('id', profile.id).first().update('pil_licence_number', licenceNumber);
+          })
+          .then(() => {
+            console.log(`Successfully patched ${profile.id}`);
           });
       }, Promise.resolve());
     });
