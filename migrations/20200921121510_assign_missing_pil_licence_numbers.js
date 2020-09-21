@@ -38,9 +38,6 @@ exports.up = function(knex) {
               });
           });
       }, Promise.resolve());
-    })
-    .catch(err => {
-      console.log(err);
     });
 };
 
