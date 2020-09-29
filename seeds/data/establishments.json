@@ -43,6 +43,16 @@
     "updatedAt": "07/04/2017 10:54"
   },
   {
+    "id": 54321,
+    "name": "Training Establishment",
+    "status": "active",
+    "issueDate": "07/05/2018 12:00",
+    "licenceNumber": "XCC09J64E",
+    "isTrainingEstablishment": true,
+    "createdAt": "05/11/2017 12:00",
+    "updatedAt": "05/11/2017 12:00"
+  },
+  {
     "id": 10001,
     "name": "University of Life",
     "type": "University, medical school",
