@@ -199,6 +199,47 @@
     ]
   },
   {
+    "id": "084457d6-0f38-43dd-b133-70858ff4b3de",
+    "userId": "9db02eb2-e0e3-46cc-bdb8-10975c6dd48b",
+    "title": "Mr",
+    "firstName": "Training",
+    "lastName": "Holc",
+    "dob": "1980-01-02",
+    "email": "trainingholc@example.com",
+    "roles": [
+      {
+        "establishmentId": 54321,
+        "type": "holc"
+      }
+    ],
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "admin"
+      }
+    ]
+  },
+  {
+    "userId": "2915d6ea-bf8f-4194-ba4e-c067b8adc5e6",
+    "title": "Mr",
+    "firstName": "Training",
+    "lastName": "NTCO",
+    "dob": "1980-01-02",
+    "email": "trainingntco@example.com",
+    "roles": [
+      {
+        "establishmentId": 54321,
+        "type": "ntco"
+      }
+    ],
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "title": "Mr",
     "firstName": "Spare",
     "lastName": "Holc",

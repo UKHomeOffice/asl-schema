@@ -1,0 +1,19 @@
+[
+  {
+    "establishmentId": 54321,
+    "title": "Training course to delete",
+    "startDate": "2025-01-01",
+    "species": ["Mice"],
+    "projectId": "56763107-6430-43a1-841d-ad2ecf4196ad"
+  },
+  {
+    "establishmentId": 54321,
+    "title": "Training course to add participants to",
+    "startDate": "2025-01-01",
+    "species": [
+      "Mice",
+      "Rats"
+    ],
+    "projectId": "56763107-6430-43a1-841d-ad2ecf4196ad"
+  }
+]

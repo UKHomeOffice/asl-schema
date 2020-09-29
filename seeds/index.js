@@ -3,6 +3,7 @@ const profiles = require('./tables/profiles');
 const places = require('./tables/places');
 const projects = require('./tables/projects');
 const projectVersions = require('./tables/project-versions');
+const trainingCourses = require('./tables/training-courses');
 
 exports.seed = knex => {
   return Promise.resolve()
@@ -25,5 +26,6 @@ exports.seed = knex => {
     .then(() => profiles.populate(knex))
     .then(() => places.populate(knex))
     .then(() => projects.populate(knex))
-    .then(() => projectVersions.populate(knex));
+    .then(() => projectVersions.populate(knex))
+    .then(() => trainingCourses.populate(knex));
 };
