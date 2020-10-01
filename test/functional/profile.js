@@ -1,5 +1,9 @@
+const uuid = require('uuid/v4');
 const assert = require('assert');
 const db = require('./helpers/db');
+
+const PROJECT_ID = uuid();
+const TRAINEE_ID = uuid();
 
 describe('Profile model', () => {
 
@@ -92,6 +96,12 @@ describe('Profile model', () => {
               firstName: 'Multi',
               lastName: 'Establishment',
               email: 'multi.establishment@example.com'
+            },
+            {
+              id: TRAINEE_ID,
+              firstName: 'Trainee',
+              lastName: 'Cat-e',
+              email: 'trainee@example.com'
             }
           ]
         },
@@ -132,7 +142,26 @@ describe('Profile model', () => {
             }
           ]
         }
-      ], { allowRefs: true }));
+      ], { allowRefs: true }))
+      .then(() => this.models.Project.query().insert({
+        id: PROJECT_ID,
+        establishmentId: 8201,
+        title: 'Training project',
+        status: 'active'
+      }))
+      .then(() => this.models.TrainingCourse.query().insertGraph({
+        establishmentId: 8201,
+        species: ['Mice'],
+        title: 'Training course',
+        startDate: '2025-01-01',
+        projectId: PROJECT_ID,
+        trainingPils: [
+          {
+            status: 'active',
+            profileId: TRAINEE_ID
+          }
+        ]
+      }));
   });
 
   afterEach(() => {
@@ -225,8 +254,8 @@ describe('Profile model', () => {
       return Promise.resolve()
         .then(() => this.models.Profile.searchAndFilter(opts))
         .then(profiles => {
-          assert.deepEqual(profiles.total, 2);
-          assert.deepEqual(profiles.results.map(p => p.firstName).sort(), ['Bruce', 'Sterling']);
+          assert.deepEqual(profiles.total, 3);
+          assert.deepEqual(profiles.results.map(p => p.firstName).sort(), ['Bruce', 'Sterling', 'Trainee']);
         });
     });
 

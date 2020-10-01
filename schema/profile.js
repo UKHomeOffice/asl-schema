@@ -1,6 +1,7 @@
 const { ref } = require('objection');
 const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
+const TrainingPil = require('./training-pil');
 const Role = require('./role');
 const Permission = require('./permission');
 const { date, uuid } = require('../lib/regex-validation');
@@ -173,7 +174,7 @@ class Profile extends BaseModel {
     query
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
-      .leftJoinRelation('[pil, projects, roles]')
+      .leftJoinRelation('[pil, projects, roles, trainingPils]')
       .withGraphFetched('[pil, projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {
@@ -194,8 +195,22 @@ class Profile extends BaseModel {
       }
 
       if (customRoles.includes('pilh')) {
-        query.whereNot('pil.id', null)
-          .where('pil.status', 'active');
+        query
+          .where(builder => {
+            builder
+              .where(b => {
+                b
+                  .whereNot('pil.id', null)
+                  .where('pil.status', 'active');
+              })
+              .orWhereExists(
+                TrainingPil.query()
+                  .leftJoinRelated('trainingCourse')
+                  .where({ status: 'active', 'trainingCourse.establishmentId': establishmentId })
+                  .where('profiles.id', ref('trainingPils.profileId'))
+              );
+          });
+
       }
       if (customRoles.includes('pplh')) {
         query.whereNot('projects.id', null)
