@@ -6,9 +6,42 @@ const Role = require('./role');
 const Permission = require('./permission');
 const { date, uuid } = require('../lib/regex-validation');
 
+class ProfileQueryBuilder extends BaseModel.QueryBuilder {
+
+  whereHasBillablePIL({ establishmentId, start, end }) {
+    return this
+      .whereExists(
+        Profile.relatedQuery('pil')
+          .whereBillable({ establishmentId, start, end })
+          .whereNotWaived()
+      )
+      .orWhereExists(
+        Profile
+          .relatedQuery('trainingPils')
+          .joinRelation('trainingCourse')
+          .where('trainingCourse.establishmentId', establishmentId)
+          .where('issueDate', '<', end)
+          .where(builder => {
+            builder
+              .where('revocationDate', '>', start)
+              .orWhere(builder => {
+                builder
+                  .whereNull('revocationDate')
+                  .where('expiryDate', '>', start);
+              });
+          })
+      );
+  }
+
+}
+
 class Profile extends BaseModel {
   static get tableName() {
     return 'profiles';
+  }
+
+  static get QueryBuilder() {
+    return ProfileQueryBuilder;
   }
 
   static get jsonSchema() {
