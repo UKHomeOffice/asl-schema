@@ -64,35 +64,6 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
       });
   }
 
-  billable({ establishmentId, start, end }) {
-    const year = parseInt(start.substr(0, 4), 10);
-    this.context({ establishmentId, year });
-    return this
-      .select([
-        'pils.*',
-        'profile.pilLicenceNumber as licenceNumber',
-        PIL.relatedQuery('feeWaivers')
-          .where({ establishmentId, year })
-          .select(1)
-          .as('waived')
-      ])
-      .eager('[profile.establishments, pilTransfers, feeWaivers]')
-      .modifyEager('profile.establishments', builder => {
-        builder.where('id', establishmentId);
-      })
-      .modifyEager('pilTransfers', builder => {
-        builder
-          .where('fromEstablishmentId', establishmentId)
-          .orWhere('toEstablishmentId', establishmentId);
-      })
-      .modifyEager('feeWaivers', builder => {
-        builder
-          .where('establishmentId', establishmentId);
-      })
-      .leftJoinRelation('profile')
-      .whereBillable({ establishmentId, start, end });
-  }
-
 }
 
 class PIL extends BaseModel {

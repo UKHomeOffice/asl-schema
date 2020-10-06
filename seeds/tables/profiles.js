@@ -121,6 +121,7 @@ module.exports = {
   },
   delete: knex => knex('pil_transfers').del()
     .then(() => knex('fee_waivers').del())
+    .then(() => knex('pil_fee_waivers').del())
     .then(() => knex('pils').del())
     .then(() => knex('permissions').del())
     .then(() => knex('invitations').del())

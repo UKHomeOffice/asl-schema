@@ -134,13 +134,6 @@ describe('PIL model', () => {
                         toEstablishmentId: 101,
                         createdAt: '2019-04-10T12:00:00Z'
                       }
-                    ],
-                    feeWaivers: [
-                      {
-                        year: 2019,
-                        establishmentId: 100,
-                        profileId: ASRU_ID
-                      }
                     ]
                   }
                 },
@@ -193,103 +186,54 @@ describe('PIL model', () => {
       return results;
     };
 
-    it('exposes a `billable` query method', () => {
-      const { PIL } = this.models;
-      return assert.equal(typeof PIL.query().billable, 'function');
-    });
-
     it('includes PILs which were valid in the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'activepil@example.com'));
     });
 
     it('does not include PILs which were revoked before the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'revokedpil@example.com'));
     });
 
     it('does not include PILs which were granted after the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 102, start: '2016-04-06', end: '2017-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2016-04-06', end: '2017-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'activepil@example.com'));
     });
 
     it('includes PILs which were re-granted after being revoked', () => {
-      return this.models.PIL.query().billable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'reactivated@example.com'));
     });
 
     it('does not include PILs which were transfered into the establishment after the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transfered out of the establishment after the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transferred out of the establishment during the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transferred in and out of the establishment during the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 100, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 100, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'manytransfers@example.com'));
     });
 
     it('includes PILs which were transferred in and out of the establishment either side the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 101, start: '2017-04-06', end: '2018-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2017-04-06', end: '2018-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'manytransfers@example.com'));
     });
 
     it('does not include PILs which were transferred out of and into the establishment either side of the billing period', () => {
-      return this.models.PIL.query().billable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' })
+      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'manytransfers@example.com'));
-    });
-
-    it('includes a `waived` property on records which have been waived', () => {
-      return this.models.PIL.query()
-        .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-        .then(results => {
-          isIncluded(results, 'waivedfee@example.com');
-          isIncluded(results, 'unwaivedfee@example.com');
-
-          const waived = results.find(pil => pil.profile.email === 'waivedfee@example.com');
-          const unwaived = results.find(pil => pil.profile.email === 'unwaivedfee@example.com');
-
-          assert.ok(waived.waived);
-          assert.ok(!unwaived.waived);
-        });
-    });
-
-    describe('whereNotWaived', () => {
-
-      it('throws an error if called without a `.billable` call', () => {
-        return assert.rejects(async () => this.models.PIL.query().whereNotWaived());
-      });
-
-      it('excludes PILs which have had a waiver applied', () => {
-        return Promise.all([
-          // PIL is included in base list for both establishments
-          this.models.PIL.query()
-            .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-            .then(results => isIncluded(results, 'waivedfee@example.com')),
-          this.models.PIL.query()
-            .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
-            .then(results => isIncluded(results, 'waivedfee@example.com')),
-          // once `whereNotWaived` is defined it appears only for establishment 101
-          this.models.PIL.query()
-            .billable({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-            .whereNotWaived()
-            .then(results => isNotIncluded(results, 'waivedfee@example.com')),
-          this.models.PIL.query()
-            .billable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' })
-            .whereNotWaived()
-            .then(results => isIncluded(results, 'waivedfee@example.com'))
-        ]);
-
-      });
     });
 
   });
