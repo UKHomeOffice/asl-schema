@@ -31,6 +31,12 @@
         "issue_date": "2020-04-08",
         "expiry_date": "2020-07-08",
         "status": "expired"
+      },
+      {
+        "profile_id": "34887c4e-578c-4797-8103-e801826dbe01",
+        "issue_date": "2020-10-01",
+        "expiry_date": "2021-01-01",
+        "status": "active"
       }
     ]
   },
