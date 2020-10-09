@@ -15,6 +15,10 @@ class Establishment extends BaseModel {
         id: { type: 'integer' },
         migratedId: { type: ['string', 'null'] },
         name: { type: 'string' },
+        keywords: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
         type: { type: ['string', 'null'] },
         company: { type: ['string', 'null'] },
         status: { type: 'string', enum: establishmentStatuses },
