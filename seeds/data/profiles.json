@@ -719,16 +719,16 @@
           "toEstablishmentId": 8201,
           "createdAt": "2019-04-09"
         }
-      ],
-      "feeWaivers": [
-        {
-          "year": 2019,
-          "establishmentId": 8202,
-          "profileId": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
-          "createdAt": "2019-04-09"
-        }
       ]
-    }
+    },
+    "feeWaivers": [
+      {
+        "year": 2019,
+        "establishmentId": 8202,
+        "waivedById": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
+        "createdAt": "2019-04-09"
+      }
+    ]
   },
   {
     "permissions": [
