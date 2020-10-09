@@ -7,6 +7,6 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema.table('permissions', table => {
-    table.index('establishment_id');
+    table.dropIndex('establishment_id');
   });
 };
