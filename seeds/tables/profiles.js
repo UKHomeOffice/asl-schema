@@ -13,7 +13,8 @@ module.exports = {
             'permissions',
             'projectId',
             'certificates',
-            'exemptions'
+            'exemptions',
+            'feeWaivers'
           ]))
           .returning('id')
           .then(ids => ids[0])
@@ -89,21 +90,19 @@ module.exports = {
                               });
                           }, Promise.resolve()).then(() => pilId);
                         }
-                        return pilId;
-                      })
-                      .then(pilId => {
-                        if (pil.feeWaivers) {
-                          return pil.feeWaivers.reduce((promise, waiver) => {
-                            return promise
-                              .then(() => {
-                                return knex('fee_waivers').insert({
-                                  ...waiver,
-                                  pilId
-                                });
-                              });
-                          }, Promise.resolve()).then(() => pilId);
-                        }
-                        return pilId;
+                      });
+                  }, Promise.resolve());
+                }
+              })
+              .then(() => {
+                if (profile.feeWaivers) {
+                  return profile.feeWaivers.reduce((promise, waiver) => {
+                    return promise
+                      .then(() => {
+                        return knex('pil_fee_waivers').insert({
+                          ...waiver,
+                          profileId
+                        });
                       });
                   }, Promise.resolve());
                 }
