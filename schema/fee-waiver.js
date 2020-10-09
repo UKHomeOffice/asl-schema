@@ -3,21 +3,21 @@ const { uuid } = require('../lib/regex-validation');
 
 class FeeWaiver extends BaseModel {
   static get tableName() {
-    return 'feeWaivers';
+    return 'pilFeeWaivers';
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['pilId', 'establishmentId', 'year'],
+      required: ['profileId', 'establishmentId', 'year'],
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        pilId: { type: 'string', pattern: uuid.v4 },
+        profileId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
         year: { type: 'integer' },
         comment: { type: 'text' },
-        profileId: { type: 'string', pattern: uuid.v4 },
+        waivedById: { type: 'string', pattern: uuid.v4 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' }
       }
@@ -26,19 +26,19 @@ class FeeWaiver extends BaseModel {
 
   static get relationMappings() {
     return {
-      pil: {
+      profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: `${__dirname}/profile`,
         join: {
-          from: 'feeWaivers.pilId',
-          to: 'pils.id'
+          from: 'pilFeeWaivers.profileId',
+          to: 'profiles.id'
         }
       },
       establishment: {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/establishment`,
         join: {
-          from: 'feeWaivers.establishmentId',
+          from: 'pilFeeWaivers.establishmentId',
           to: 'establishments.id'
         }
       },
@@ -46,7 +46,7 @@ class FeeWaiver extends BaseModel {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
         join: {
-          from: 'feeWaivers.profileId',
+          from: 'pilFeeWaivers.waivedById',
           to: 'profiles.id'
         }
       }

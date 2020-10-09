@@ -8,29 +8,44 @@ const { date, uuid } = require('../lib/regex-validation');
 
 class ProfileQueryBuilder extends BaseModel.QueryBuilder {
 
-  whereHasBillablePIL({ establishmentId, start, end }) {
+  whereNotWaived() {
+    const { establishmentId, year } = this.context();
+    if (!establishmentId || !year) {
+      throw new Error('whereNotWaived requires a establishmentId and start date to be set in query context');
+    }
     return this
-      .whereExists(
-        Profile.relatedQuery('pil')
-          .whereBillable({ establishmentId, start, end })
-          .whereNotWaived()
-      )
-      .orWhereExists(
-        Profile
-          .relatedQuery('trainingPils')
-          .joinRelation('trainingCourse')
-          .where('trainingCourse.establishmentId', establishmentId)
-          .where('issueDate', '<', end)
-          .where(builder => {
-            builder
-              .where('revocationDate', '>', start)
-              .orWhere(builder => {
-                builder
-                  .whereNull('revocationDate')
-                  .where('expiryDate', '>', start);
-              });
-          })
+      .whereNotExists(
+        Profile.relatedQuery('feeWaivers').where({ establishmentId, year })
       );
+  }
+
+  whereHasBillablePIL({ establishmentId, start, end }) {
+    const year = parseInt(start.substr(0, 4), 10);
+    this.context({ establishmentId, start, end, year });
+    return this
+      .where(builder => {
+        builder
+          .whereExists(
+            Profile.relatedQuery('pil')
+              .whereBillable({ establishmentId, start, end })
+          )
+          .orWhereExists(
+            Profile
+              .relatedQuery('trainingPils')
+              .joinRelation('trainingCourse')
+              .where('trainingCourse.establishmentId', establishmentId)
+              .where('issueDate', '<', end)
+              .where(builder => {
+                builder
+                  .where('revocationDate', '>', start)
+                  .orWhere(builder => {
+                    builder
+                      .whereNull('revocationDate')
+                      .where('expiryDate', '>', start);
+                  });
+              })
+          );
+      });
   }
 
 }
@@ -385,6 +400,14 @@ class Profile extends BaseModel {
         join: {
           from: 'profiles.id',
           to: 'trainingPils.profileId'
+        }
+      },
+      feeWaivers: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/fee-waiver`,
+        join: {
+          from: 'profiles.id',
+          to: 'pilFeeWaivers.profileId'
         }
       },
       projects: {

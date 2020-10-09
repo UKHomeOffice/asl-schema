@@ -5,17 +5,6 @@ const Profile = require('./profile');
 
 class PILQueryBuilder extends BaseModel.QueryBuilder {
 
-  whereNotWaived() {
-    const { establishmentId, year } = this.context();
-    if (!establishmentId || !year) {
-      throw new Error('whereNotWaived requires a establishmentId and start date to be set in query context');
-    }
-    return this
-      .whereNotExists(
-        PIL.relatedQuery('feeWaivers').where({ establishmentId, year })
-      );
-  }
-
   whereBillable({ establishmentId, start, end }) {
     const year = parseInt(start.substr(0, 4), 10);
     this.context({ establishmentId, start, end, year });
@@ -73,35 +62,6 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
               );
           });
       });
-  }
-
-  billable({ establishmentId, start, end }) {
-    const year = parseInt(start.substr(0, 4), 10);
-    this.context({ establishmentId, year });
-    return this
-      .select([
-        'pils.*',
-        'profile.pilLicenceNumber as licenceNumber',
-        PIL.relatedQuery('feeWaivers')
-          .where({ establishmentId, year })
-          .select(1)
-          .as('waived')
-      ])
-      .eager('[profile.establishments, pilTransfers, feeWaivers]')
-      .modifyEager('profile.establishments', builder => {
-        builder.where('id', establishmentId);
-      })
-      .modifyEager('pilTransfers', builder => {
-        builder
-          .where('fromEstablishmentId', establishmentId)
-          .orWhere('toEstablishmentId', establishmentId);
-      })
-      .modifyEager('feeWaivers', builder => {
-        builder
-          .where('establishmentId', establishmentId);
-      })
-      .leftJoinRelation('profile')
-      .whereBillable({ establishmentId, start, end });
   }
 
 }
@@ -207,14 +167,6 @@ class PIL extends BaseModel {
         join: {
           from: 'pils.id',
           to: 'pilTransfers.pilId'
-        }
-      },
-      feeWaivers: {
-        relation: this.HasManyRelation,
-        modelClass: `${__dirname}/fee-waiver`,
-        join: {
-          from: 'pils.id',
-          to: 'feeWaivers.pilId'
         }
       },
       profile: {
