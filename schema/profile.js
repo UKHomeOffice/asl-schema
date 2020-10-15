@@ -286,7 +286,7 @@ class Profile extends BaseModel {
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
 
-  static getNamedProfiles({ userId, establishmentId, ...params }) {
+  static getNamedProfiles({ userId, establishmentId, includeSelf = true, ...params }) {
     const namedPeople = () => {
       return this.query()
         .where(builder => {
@@ -300,10 +300,15 @@ class Profile extends BaseModel {
             .where({ establishmentId, role: 'admin' })
             .where('profiles.id', ref('permissions.profileId'));
 
-          return builder
+          builder
             .whereExists(role)
-            .orWhereExists(admin)
-            .orWhere('profiles.id', userId);
+            .orWhereExists(admin);
+
+          if (includeSelf) {
+            builder.orWhere('profiles.id', userId);
+          }
+
+          return builder;
         });
     };
 
