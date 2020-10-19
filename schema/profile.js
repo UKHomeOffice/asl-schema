@@ -320,6 +320,63 @@ class Profile extends BaseModel {
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
 
+  static searchAndFilterAsru({ query, search, filters = {}, limit, offset, sort = {} }) {
+    query = query || this.query();
+
+    query
+      .distinct('profiles.*')
+      .where('asruUser', true)
+      .where(builder => {
+        if (search) {
+          return builder
+            .where('email', 'iLike', search && `%${search}%`)
+            .orWhere(builder => this.searchFullName({ search, query: builder }));
+        }
+      });
+
+    if (filters.asruRoles && filters.asruRoles.length) {
+      if (filters.asruRoles.includes('inspector')) {
+        query.where('profiles.asruInspector', true);
+      }
+      if (filters.asruRoles.includes('licensing')) {
+        query.where('profiles.asruLicensing', true);
+      }
+      if (filters.asruRoles.includes('support')) {
+        query.where('profiles.asruSupport', true);
+      }
+      if (filters.asruRoles.includes('admin')) {
+        query.where('profiles.asruAdmin', true);
+      }
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('lastName');
+    }
+
+    return query;
+  }
+
+  static getAsruProfiles(params) {
+    const filters = ['admin', 'support', 'licensing', 'inspector'];
+
+    const countAsruProfiles = this.query()
+      .countDistinct('profiles.id')
+      .where('asruUser', true)
+      .then(result => result[0])
+      .then(result => parseInt(result.count, 10));
+
+    return Promise.all([
+      Promise.resolve(filters),
+      countAsruProfiles,
+      this.searchAndFilterAsru(params)
+    ])
+      .then(([filters, total, profiles]) => ({ filters, total, profiles }));
+  }
+
   static get relationMappings() {
     return {
       roles: {
