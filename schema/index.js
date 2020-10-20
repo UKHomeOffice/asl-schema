@@ -18,6 +18,7 @@ const AsruEstablishment = require('./asru-establishment');
 const ProjectProfile = require('./project-profile');
 const TrainingCourse = require('./training-course');
 const TrainingPil = require('./training-pil');
+const DocumentCache = require('./document-cache');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -39,5 +40,6 @@ module.exports = db => ({
   AsruEstablishment: AsruEstablishment.bindKnex(db),
   ProjectProfile: ProjectProfile.bindKnex(db),
   TrainingCourse: TrainingCourse.bindKnex(db),
-  TrainingPil: TrainingPil.bindKnex(db)
+  TrainingPil: TrainingPil.bindKnex(db),
+  DocumentCache: DocumentCache.bindKnex(db)
 });

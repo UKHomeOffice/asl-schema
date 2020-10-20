@@ -8,6 +8,7 @@ const trainingCourses = require('./tables/training-courses');
 exports.seed = knex => {
   return Promise.resolve()
     .then(() => knex('establishment_merge_log').del())
+    .then(() => knex('document_cache').del())
     .then(() => knex('changelog').del())
     .then(() => knex('training_pils').del())
     .then(() => knex('training_courses').del())
