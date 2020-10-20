@@ -2551,27 +2551,51 @@
     "firstName": "Jeff",
     "lastName": "Winger",
     "email": "jeff.winger@example.com",
-    "pilLicenceNumber": "PE-111111"
+    "pilLicenceNumber": "PE-111111",
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "basic"
+      }
+    ]
   },
   {
     "id": "fe503fe4-c61c-4dd7-8d8f-8bd5e5bde1be",
     "firstName": "Brita",
     "lastName": "Perry",
     "email": "brita.perry@example.com",
-    "pilLicenceNumber": "PE-222222"
+    "pilLicenceNumber": "PE-222222",
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "basic"
+      }
+    ]
   },
   {
     "id": "34887c4e-578c-4797-8103-e801826dbe01",
     "firstName": "Abed",
     "lastName": "Nadir",
     "email": "abed.nadir@example.com",
-    "pilLicenceNumber": "PE-333333"
+    "pilLicenceNumber": "PE-333333",
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "basic"
+      }
+    ]
   },
   {
     "id": "a0daf3a3-b86b-4d35-a7e7-e86ad0e32853",
     "firstName": "Troy",
     "lastName": "Barnes",
     "email": "troy.barnes@example.com",
-    "pilLicenceNumber": "PE-444444"
+    "pilLicenceNumber": "PE-444444",
+    "permissions": [
+      {
+        "establishmentId": 54321,
+        "role": "basic"
+      }
+    ]
   }
 ]
