@@ -7,6 +7,12 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
+const getProjectsForEst = establishmentId => builder => {
+  builder
+    .where('projects.establishmentId', establishmentId)
+    .orWhere('establishments.id', establishmentId);
+};
+
 class ProjectQueryBuilder extends BaseModel.QueryBuilder {
 
   whereIsCollaborator(profileId) {
@@ -128,7 +134,8 @@ class Project extends BaseModel {
     }
 
     return query
-      .where({ establishmentId })
+      .leftJoinRelation('establishments')
+      .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .countDistinct('projects.id')
       .then(result => result[0])
@@ -144,7 +151,8 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where({ establishmentId })
+      .leftJoinRelation('establishments')
+      .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
       .eager('licenceHolder')
@@ -189,6 +197,18 @@ class Project extends BaseModel {
         modelClass: `${__dirname}/establishment`,
         join: {
           from: 'projects.establishmentId',
+          to: 'establishments.id'
+        }
+      },
+      establishments: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'projects.id',
+          through: {
+            from: 'projectEstablishments.projectId',
+            to: 'projectEstablishments.establishmentId'
+          },
           to: 'establishments.id'
         }
       },
