@@ -155,7 +155,10 @@ class Project extends BaseModel {
       .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
-      .eager('licenceHolder')
+      .withGraphFetched('[licenceHolder, establishments(onlyInScope)]')
+      .modifiers({
+        onlyInScope: builder => builder.where({ establishmentId })
+      })
       .where(builder => {
         if (search) {
           return builder
@@ -207,7 +210,8 @@ class Project extends BaseModel {
           from: 'projects.id',
           through: {
             from: 'projectEstablishments.projectId',
-            to: 'projectEstablishments.establishmentId'
+            to: 'projectEstablishments.establishmentId',
+            extra: ['status']
           },
           to: 'establishments.id'
         }
