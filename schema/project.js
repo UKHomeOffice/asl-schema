@@ -7,10 +7,35 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
+function isDraftRelationAndProject(builder) {
+  return builder
+    .where('additionalEstablishments.status', 'draft')
+    .where('projects.status', 'inactive');
+}
+
+function isActiveRelationAndProject(builder) {
+  return builder
+    // include removed as establishments need to retain visibility of these
+    .whereIn('additionalEstablishments.status', ['active', 'removed'])
+    .whereIn('projects.status', ['active', 'expired', 'revoked']);
+}
+
+function canSeeProject(builder) {
+  return builder
+    .where(isDraftRelationAndProject)
+    .orWhere(isActiveRelationAndProject);
+}
+
+const hasAdditionalAvailability = establishmentId => builder => {
+  builder
+    .where('additionalEstablishments.id', establishmentId)
+    .where(canSeeProject);
+};
+
 const getProjectsForEst = establishmentId => builder => {
   builder
     .where('projects.establishmentId', establishmentId)
-    .orWhere('establishments.id', establishmentId);
+    .orWhere(hasAdditionalAvailability(establishmentId));
 };
 
 class ProjectQueryBuilder extends BaseModel.QueryBuilder {
@@ -134,7 +159,7 @@ class Project extends BaseModel {
     }
 
     return query
-      .leftJoinRelation('establishments')
+      .leftJoinRelation('additionalEstablishments')
       .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .countDistinct('projects.id')
@@ -151,11 +176,11 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .leftJoinRelation('establishments')
+      .leftJoinRelation('additionalEstablishments')
       .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
-      .withGraphFetched('[licenceHolder, establishments(onlyInScope)]')
+      .withGraphFetched('[licenceHolder, additionalEstablishments(onlyInScope)]')
       .modifiers({
         onlyInScope: builder => builder.where({ establishmentId })
       })
@@ -203,7 +228,7 @@ class Project extends BaseModel {
           to: 'establishments.id'
         }
       },
-      establishments: {
+      additionalEstablishments: {
         relation: this.ManyToManyRelation,
         modelClass: `${__dirname}/establishment`,
         join: {
@@ -211,7 +236,7 @@ class Project extends BaseModel {
           through: {
             from: 'projectEstablishments.projectId',
             to: 'projectEstablishments.establishmentId',
-            extra: ['status']
+            extra: ['status', 'versionId']
           },
           to: 'establishments.id'
         }

@@ -6,7 +6,6 @@ exports.up = function(knex) {
       table.integer('establishment_id').references('id').inTable('establishments').notNull();
       table.uuid('version_id').references('id').inTable('project_versions').nullable();
       table.enum('status', ['draft', 'active', 'removed']).defaultsTo('draft');
-      table.dateTime('deleted');
       table.timestamps(false, true);
       table.unique(['project_id', 'establishment_id']);
     });
