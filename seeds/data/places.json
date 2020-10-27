@@ -1391,6 +1391,15 @@
     ]
   },
   {
+    "id": "e5ec422d-dca3-4192-b2bd-bff5f5ac8288",
+    "establishmentId": 8202,
+    "site": "Marvell HQ",
+    "name": "Cattery",
+    "area": "Top Floor",
+    "suitability": ["CAT"],
+    "holding": ["LTH"]
+  },
+  {
     "establishmentId": 8201,
     "site": "Public edit place tests",
     "area": null,
