@@ -8,6 +8,10 @@ exports.up = function(knex) {
       table.enum('status', ['draft', 'active', 'removed']).defaultsTo('draft');
       table.timestamps(false, true);
       table.unique(['project_id', 'establishment_id']);
+      table.index('status');
+      table.index('establishment_id');
+      table.index('project_id');
+      table.index('version_id');
     });
 };
 
