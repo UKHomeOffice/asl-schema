@@ -7,6 +7,37 @@ const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
   : query.where('projects.status', status);
 
+function isDraftRelationAndProject(builder) {
+  return builder
+    .where('projectEstablishments.status', 'draft')
+    .where('projects.status', 'inactive');
+}
+
+function isActiveRelationAndProject(builder) {
+  return builder
+    // include removed as establishments need to retain visibility of these
+    .whereIn('projectEstablishments.status', ['active', 'removed'])
+    .whereIn('projects.status', ['active', 'expired', 'revoked']);
+}
+
+function canSeeProject(builder) {
+  return builder
+    .where(isDraftRelationAndProject)
+    .orWhere(isActiveRelationAndProject);
+}
+
+const hasAdditionalAvailability = establishmentId => builder => {
+  builder
+    .where('projectEstablishments.establishmentId', establishmentId)
+    .where(canSeeProject);
+};
+
+const getProjectsForEst = establishmentId => builder => {
+  builder
+    .where('projects.establishmentId', establishmentId)
+    .orWhere(hasAdditionalAvailability(establishmentId));
+};
+
 class ProjectQueryBuilder extends BaseModel.QueryBuilder {
 
   whereIsCollaborator(profileId) {
@@ -128,7 +159,8 @@ class Project extends BaseModel {
     }
 
     return query
-      .where({ establishmentId })
+      .leftJoinRelation('projectEstablishments')
+      .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .countDistinct('projects.id')
       .then(result => result[0])
@@ -144,10 +176,14 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where({ establishmentId })
+      .leftJoinRelation('projectEstablishments')
+      .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
-      .eager('licenceHolder')
+      .withGraphFetched('[licenceHolder, additionalEstablishments(onlyInScope)]')
+      .modifiers({
+        onlyInScope: builder => builder.where({ establishmentId })
+      })
       .where(builder => {
         if (search) {
           return builder
@@ -189,6 +225,27 @@ class Project extends BaseModel {
         modelClass: `${__dirname}/establishment`,
         join: {
           from: 'projects.establishmentId',
+          to: 'establishments.id'
+        }
+      },
+      projectEstablishments: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/project-establishment`,
+        join: {
+          from: 'projects.id',
+          to: 'projectEstablishments.projectId'
+        }
+      },
+      additionalEstablishments: {
+        relation: this.ManyToManyRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'projects.id',
+          through: {
+            from: 'projectEstablishments.projectId',
+            to: 'projectEstablishments.establishmentId',
+            extra: ['status', 'versionId']
+          },
           to: 'establishments.id'
         }
       },
