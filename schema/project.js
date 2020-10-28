@@ -9,14 +9,14 @@ const statusQuery = status => query => Array.isArray(status)
 
 function isDraftRelationAndProject(builder) {
   return builder
-    .where('additionalEstablishments.status', 'draft')
+    .where('projectEstablishments.status', 'draft')
     .where('projects.status', 'inactive');
 }
 
 function isActiveRelationAndProject(builder) {
   return builder
     // include removed as establishments need to retain visibility of these
-    .whereIn('additionalEstablishments.status', ['active', 'removed'])
+    .whereIn('projectEstablishments.status', ['active', 'removed'])
     .whereIn('projects.status', ['active', 'expired', 'revoked']);
 }
 
@@ -28,7 +28,7 @@ function canSeeProject(builder) {
 
 const hasAdditionalAvailability = establishmentId => builder => {
   builder
-    .where('additionalEstablishments.id', establishmentId)
+    .where('projectEstablishments.establishmentId', establishmentId)
     .where(canSeeProject);
 };
 
@@ -159,7 +159,7 @@ class Project extends BaseModel {
     }
 
     return query
-      .leftJoinRelation('additionalEstablishments')
+      .leftJoinRelation('projectEstablishments')
       .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .countDistinct('projects.id')
@@ -176,7 +176,7 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .leftJoinRelation('additionalEstablishments')
+      .leftJoinRelation('projectEstablishments')
       .where(getProjectsForEst(establishmentId))
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
@@ -226,6 +226,14 @@ class Project extends BaseModel {
         join: {
           from: 'projects.establishmentId',
           to: 'establishments.id'
+        }
+      },
+      projectEstablishments: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/project-establishment`,
+        join: {
+          from: 'projects.id',
+          to: 'projectEstablishments.projectId'
         }
       },
       additionalEstablishments: {

@@ -1,4 +1,4 @@
-const BaseModel = require('./base-model');
+const { Model } = require('objection');
 const { uuid } = require('../lib/regex-validation');
 
 const statuses = [
@@ -7,7 +7,7 @@ const statuses = [
   'removed'
 ];
 
-class ProjectEstablishment extends BaseModel {
+class ProjectEstablishment extends Model {
   static get tableName() {
     return 'projectEstablishments';
   }
