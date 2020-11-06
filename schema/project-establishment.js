@@ -27,7 +27,9 @@ class ProjectEstablishment extends Model {
         versionId: { type: ['string', 'null'], pattern: uuid.v4 },
         status: { type: 'string', enum: statuses },
         createdAt: { type: 'string', format: 'date-time' },
-        updatedAt: { type: 'string', format: 'date-time' }
+        updatedAt: { type: 'string', format: 'date-time' },
+        issueDate: { type: ['string', 'null'], format: 'date-time' },
+        revokedDate: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }
