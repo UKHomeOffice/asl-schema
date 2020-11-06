@@ -326,6 +326,25 @@
     "schemaVersion": 1
   },
   {
+    "id": "77af45c8-761e-49f6-b6fb-e105f0e67185",
+    "establishmentId": 8201,
+    "title": "Additional availability draft",
+    "status": "inactive",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "schemaVersion": 1
+  },
+  {
+    "id": "5cb97819-3e21-4ea5-85f0-32df2b06213b",
+    "establishmentId": 8201,
+    "title": "Additional availability active",
+    "status": "active",
+    "licenceNumber": "PR-X12345",
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "schemaVersion": 1
+  },
+  {
     "id": "519eb1d6-e8f0-4d9c-8628-8da4394c2d2e",
     "establishmentId": 8201,
     "title": "Active project",
