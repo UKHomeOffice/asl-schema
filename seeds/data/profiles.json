@@ -291,6 +291,10 @@
       {
         "establishmentId": 8201,
         "role": "basic"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
       }
     ],
     "certificates": [
