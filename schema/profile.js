@@ -481,7 +481,10 @@ class Profile extends BaseModel {
           to: 'projects.licenceHolderId'
         },
         filter: f => {
-          return f.skipUndefined().where('establishmentId', f.context().establishmentId);
+          if (!f.context().establishmentId) {
+            return;
+          }
+          return f.whereHasAvailability(f.context().establishmentId);
         }
       },
       asru: {

@@ -32,12 +32,6 @@ const hasAdditionalAvailability = establishmentId => builder => {
     .where(canSeeProject);
 };
 
-const getProjectsForEst = establishmentId => builder => {
-  builder
-    .where('projects.establishmentId', establishmentId)
-    .orWhere(hasAdditionalAvailability(establishmentId));
-};
-
 class ProjectQueryBuilder extends BaseModel.QueryBuilder {
 
   whereIsCollaborator(profileId) {
@@ -49,6 +43,20 @@ class ProjectQueryBuilder extends BaseModel.QueryBuilder {
             Project.relatedQuery('collaborators').where({ 'collaborators.id': profileId })
           );
       });
+  }
+
+  whereHasAvailability(establishmentId) {
+    return this.where(builder => {
+      builder
+        .where('projects.establishmentId', establishmentId)
+        .orWhere(builder => builder.whereHasAdditionalAvailability(establishmentId));
+    });
+  }
+
+  whereHasAdditionalAvailability(establishmentId) {
+    return this.whereExists(
+      Project.relatedQuery('projectEstablishments').where(hasAdditionalAvailability(establishmentId))
+    );
   }
 
 }
@@ -159,8 +167,7 @@ class Project extends BaseModel {
     }
 
     return query
-      .leftJoinRelation('projectEstablishments')
-      .where(getProjectsForEst(establishmentId))
+      .whereHasAvailability(establishmentId)
       .where(statusQuery(status))
       .countDistinct('projects.id')
       .then(result => result[0])
@@ -176,8 +183,7 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .leftJoinRelation('projectEstablishments')
-      .where(getProjectsForEst(establishmentId))
+      .whereHasAvailability(establishmentId)
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
       .withGraphFetched('[licenceHolder, additionalEstablishments(onlyInScope)]')
