@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4');
 const assert = require('assert');
-const db = require('./helpers/db');
+const db = require('../helpers/db');
 
 const PROJECT_ID = uuid();
 const TRAINEE_ID = uuid();

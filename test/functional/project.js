@@ -12,7 +12,12 @@ const ids = {
   submittedDraft: uuid(),
   vincentMalloy: uuid(),
   sterlingArcher: uuid(),
-  establishmentId: 8201
+  establishmentId: 8201,
+  additionalEstablishment: 8202,
+  additionalProject: uuid(),
+  additionalVersion: uuid(),
+  draftAdditionalProject: uuid(),
+  draftAdditionalVersion: uuid()
 };
 
 describe('Project model', () => {
@@ -44,18 +49,21 @@ describe('Project model', () => {
           email: 'basicuser@example.com'
         }
       ]))
-      .then(() => this.models.Establishment.query().insert({
-        id: ids.establishmentId,
-        name: 'An establishment',
-        email: 'an@establishment.com',
-        country: 'england',
-        address: '123 Somwhere street'
-      }))
+      .then(() => this.models.Establishment.query().insert([
+        {
+          id: ids.establishmentId,
+          name: 'An establishment'
+        },
+        {
+          id: ids.additionalEstablishment,
+          name: 'Additional establishment'
+        }
+      ]))
       .then(() => this.models.Project.query().insert([
         {
           id: ids.draftProject,
           establishmentId: ids.establishmentId,
-          title: 'Anti cancer research',
+          title: 'Draft project',
           licenceHolderId: ids.vincentMalloy,
           status: 'inactive'
         },
@@ -97,6 +105,22 @@ describe('Project model', () => {
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
+        },
+        {
+          id: ids.additionalProject,
+          establishmentId: ids.establishmentId,
+          title: 'Additional availability',
+          expiryDate: moment().add(6, 'M').format(),
+          licenceHolderId: ids.sterlingArcher,
+          status: 'active'
+        },
+        {
+          id: ids.draftAdditionalProject,
+          establishmentId: ids.additionalEstablishment,
+          title: 'Draft additional availability',
+          expiryDate: moment().add(6, 'M').format(),
+          licenceHolderId: ids.sterlingArcher,
+          status: 'active'
         }
       ]))
       .then(() => this.models.ProjectVersion.query().insert([
@@ -109,6 +133,16 @@ describe('Project model', () => {
           id: uuid(),
           projectId: ids.submittedDraft,
           status: 'submitted'
+        },
+        {
+          id: ids.additionalVersion,
+          projectId: ids.additionalProject,
+          status: 'granted'
+        },
+        {
+          id: ids.draftAdditionalVersion,
+          projectId: ids.draftAdditionalProject,
+          status: 'draft'
         }
       ]))
       .then(() => {
@@ -139,7 +173,7 @@ describe('Project model', () => {
 
     it('returns projects where provided profileId is the licenceHolder', () => {
       const expectedTitles = [
-        'Anti cancer research',
+        'Draft project',
         'Some expired research',
         'Some more research',
         'Some more expired research'
@@ -159,14 +193,14 @@ describe('Project model', () => {
     it('can search on project title', () => {
       const opts = {
         establishmentId: 8201,
-        search: 'Anti cancer research',
+        search: 'Draft project',
         status: 'inactive'
       };
       return Promise.resolve()
         .then(() => this.models.Project.search(opts))
         .then(projects => {
           assert.deepEqual(projects.total, 1);
-          assert.deepEqual(projects.results[0].title, 'Anti cancer research');
+          assert.deepEqual(projects.results[0].title, 'Draft project');
         });
     });
 
@@ -219,7 +253,7 @@ describe('Project model', () => {
     describe('getOwnProjects', () => {
       it('returns only the users non-expired projects', () => {
         const expectedTitles = [
-          'Anti cancer research',
+          'Draft project',
           'Some more research'
         ];
         const notExpectedTitles = [
@@ -261,7 +295,7 @@ describe('Project model', () => {
     describe('getOwn', () => {
       it('can retrieve own project', () => {
         const licenceHolderId = ids.vincentMalloy;
-        const title = 'Anti cancer research';
+        const title = 'Draft project';
         return Promise.resolve()
           .then(() => this.models.Project.query().where({ title }))
           .then(projects => projects[0])
@@ -321,5 +355,82 @@ describe('Project model', () => {
           assert.ok(version.project.deleted, 'linked project should be deleted');
         });
     });
+  });
+
+  describe('whereHasAvailability', () => {
+
+    beforeEach(() => {
+      return Promise.resolve()
+        .then(() => {
+          // add an additional availability record
+          return this.models.ProjectEstablishment.query().insert([
+            {
+              projectId: ids.draftProject,
+              establishmentId: ids.additionalEstablishment,
+              status: 'draft',
+              versionId: ids.draftProjectVersion
+            },
+            {
+              projectId: ids.additionalProject,
+              establishmentId: ids.additionalEstablishment,
+              status: 'active',
+              versionId: ids.additionalVersion
+            },
+            {
+              projectId: ids.draftAdditionalProject,
+              establishmentId: ids.establishmentId,
+              status: 'draft',
+              versionId: ids.draftAdditionalVersion
+            }
+          ]);
+        });
+    });
+
+    it('returns projects with active additional availability', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereHasAvailability(ids.additionalEstablishment))
+        .then(projects => {
+          assert.equal(projects.length, 3);
+          const titles = projects.map(p => p.title);
+          ['Additional availability']
+            .forEach(title => {
+              assert.ok(titles.includes(title), `${titles} should include ${title}`);
+            });
+        });
+    });
+
+    it('returns inactive projects with draft additional availability', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereHasAvailability(ids.additionalEstablishment))
+        .then(projects => {
+          assert.equal(projects.length, 3);
+          const titles = projects.map(p => p.title);
+          ['Draft project']
+            .forEach(title => {
+              assert.ok(titles.includes(title), `${titles} should include ${title}`);
+            });
+        });
+    });
+
+    it('does not include draft additional availability on active projects', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereHasAvailability(ids.establishmentId))
+        .then(projects => {
+          const titles = projects.map(p => p.title);
+          ['Draft additional availability']
+            .forEach(title => {
+              assert.ok(!titles.includes(title), `${titles} should not include ${title}`);
+            });
+        });
+    });
+
+    it('returns own projects', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereHasAvailability(ids.establishmentId))
+        .then(projects => {
+          assert.equal(projects.length, 7);
+        });
+    });
+
   });
 });
