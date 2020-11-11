@@ -345,6 +345,17 @@
     "schemaVersion": 1
   },
   {
+    "id": "163c30f5-d6f9-4b34-9c63-21f21e7948ba",
+    "establishmentId": 8201,
+    "title": "Additional availability old style",
+    "status": "active",
+    "licenceNumber": "PR-X12346",
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "schemaVersion": 1
+  },
+  {
     "id": "519eb1d6-e8f0-4d9c-8628-8da4394c2d2e",
     "establishmentId": 8201,
     "title": "Active project",

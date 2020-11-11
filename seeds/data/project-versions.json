@@ -187,6 +187,25 @@
     "status": "granted"
   },
   {
+    "projectId": "163c30f5-d6f9-4b34-9c63-21f21e7948ba",
+    "status": "granted",
+    "data": {
+      "title": "Additional availability old style",
+      "other-establishments": true,
+      "transfer-of-animals-complete": true,
+      "establishments": [
+        {
+          "id": "c57600db-6d2e-443b-bec9-c21f070861ce",
+          "establishment-name": "Marv Pharm"
+        },
+        {
+          "id": "79be38a4-c797-4b96-a6a5-f2bcaeaaf056",
+          "establishment-name": "Mini Pharm"
+        }
+      ]
+    }
+  },
+  {
     "projectId": "38008c26-8748-45f8-b0a5-18f1bafbae70",
     "data": {
       "title": "Draft legacy project",
