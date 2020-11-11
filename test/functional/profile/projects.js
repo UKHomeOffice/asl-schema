@@ -36,6 +36,10 @@ describe('Profile Projects', () => {
         {
           id: 222,
           name: 'Another establishment'
+        },
+        {
+          id: 333,
+          name: 'A third establishment'
         }
       ]))
       .then(() => this.models.Profile.query().insert([
@@ -72,6 +76,11 @@ describe('Profile Projects', () => {
           profileId: ids.profile.additional,
           establishmentId: 222,
           role: 'basic'
+        },
+        {
+          profileId: ids.profile.additional,
+          establishmentId: 333,
+          role: 'basic'
         }
       ]).returning('*'))
       .then(() => this.models.Project.query().insertGraph([
@@ -80,6 +89,13 @@ describe('Profile Projects', () => {
           licenceHolderId: ids.profile.regular,
           establishmentId: 111,
           title: 'Ordinary project',
+          status: 'active'
+        },
+        {
+          id: uuid(),
+          licenceHolderId: ids.profile.additional,
+          establishmentId: 333,
+          title: 'Another ordinary project',
           status: 'active'
         },
         {
@@ -125,6 +141,12 @@ describe('Profile Projects', () => {
           establishmentId: 111,
           versionId: ids.version.grantedAdditional,
           status: 'active'
+        },
+        {
+          projectId: ids.project.grantedAdditional,
+          establishmentId: 333,
+          versionId: ids.version.grantedAdditional,
+          status: 'active'
         }
       ]));
   });
@@ -167,6 +189,39 @@ describe('Profile Projects', () => {
         assert.deepEqual(profile.projects.map(p => p.title), [
           'Granted additional project'
         ]);
+      });
+  });
+
+  it('shows all projects when not scoped to an establishment', () => {
+    return this.models.Profile.get({ id: ids.profile.additional })
+      .then(profile => {
+        assert.deepEqual(profile.projects.map(p => p.title), [
+          'Another ordinary project',
+          'Draft additional project',
+          'Granted additional project'
+        ]);
+      });
+  });
+
+  it('includes additional establishment data on projects only for the establishments are in scope', () => {
+    return Promise.resolve()
+      .then(() => {
+        return this.models.Profile.get({ establishmentId: 111, id: ids.profile.additional });
+      })
+      .then(profile => {
+        const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);
+        assert.equal(project.additionalEstablishments.length, 1);
+        // only the scoped establishment is included
+        assert.deepEqual(project.additionalEstablishments[0], { id: 111, name: 'An establishment' });
+      })
+      .then(() => {
+        return this.models.Profile.get({ establishmentId: 333, id: ids.profile.additional });
+      })
+      .then(profile => {
+        const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);
+        assert.equal(project.additionalEstablishments.length, 1);
+        // only the scoped establishment is included
+        assert.deepEqual(project.additionalEstablishments[0], { id: 333, name: 'A third establishment' });
       });
   });
 
