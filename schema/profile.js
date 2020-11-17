@@ -90,7 +90,8 @@ class Profile extends BaseModel {
         asruSupport: { type: 'boolean' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
-        deleted: { type: ['string', 'null'], format: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' },
+        emailConfirmed: { type: 'boolean' }
       }
     };
   }
