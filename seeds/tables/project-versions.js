@@ -21,6 +21,7 @@ const defaults = {
       'id': uuid()
     }
   ],
+  'aim-complete': true,
   'purpose-bred': false,
   'wild-animals': false,
   'feral-animals': false,
@@ -35,7 +36,6 @@ const defaults = {
   'reduction-complete': true,
   'experience-complete': true,
   'experience-projects': true,
-  'nts-review-complete': true,
   'refinement-complete': true,
   'action-plan-complete': true,
   'commercial-slaughter': false,
