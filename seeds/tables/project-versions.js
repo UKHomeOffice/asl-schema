@@ -35,6 +35,7 @@ const defaults = {
   'protocols-complete': true,
   'reduction-complete': true,
   'experience-complete': true,
+  'nts-review-complete': true,
   'experience-projects': true,
   'refinement-complete': true,
   'action-plan-complete': true,
