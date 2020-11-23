@@ -306,14 +306,7 @@ class Profile extends BaseModel {
             .where({ establishmentId })
             .where('profiles.id', ref('roles.profileId'));
 
-          const admin = Permission.query()
-            .select(1)
-            .where({ establishmentId, role: 'admin' })
-            .where('profiles.id', ref('permissions.profileId'));
-
-          builder
-            .whereExists(role)
-            .orWhereExists(admin);
+          builder.whereExists(role);
 
           if (includeSelf) {
             builder.orWhere('profiles.id', userId);
