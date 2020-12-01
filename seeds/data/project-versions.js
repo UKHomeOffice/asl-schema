@@ -1,27 +1,5 @@
 const uuid = require('uuid/v4');
-const toRichText = (...strings) => {
-  return {
-    object: 'value',
-    document: {
-      object: 'document',
-      data: {},
-      nodes: strings.map(text => {
-        return {
-          object: 'block',
-          type: 'paragraph',
-          data: {},
-          nodes: [
-            {
-              object: 'text',
-              text,
-              marks: []
-            }
-          ]
-        };
-      })
-    }
-  };
-};
+const toRichText = require('../tables/utils/to-rich-text');
 
 module.exports = [
   {
