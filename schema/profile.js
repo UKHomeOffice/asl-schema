@@ -135,7 +135,8 @@ class Profile extends BaseModel {
         getEstablishment: builder => {
           builder.select([
             'establishments.id',
-            'establishments.name'
+            'establishments.name',
+            'projectEstablishments.status'
           ]);
           if (establishmentId) {
             builder.where({ 'establishments.id': establishmentId });

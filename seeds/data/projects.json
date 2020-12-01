@@ -330,7 +330,7 @@
     "establishmentId": 8201,
     "title": "Additional availability draft",
     "status": "inactive",
-    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
     "schemaVersion": 1
   },
   {
@@ -341,7 +341,7 @@
     "licenceNumber": "PR-X12345",
     "issueDate": "2019-04-23",
     "expiryDate": "2024-04-23",
-    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
     "schemaVersion": 1
   },
   {
@@ -352,7 +352,7 @@
     "licenceNumber": "PR-X12346",
     "issueDate": "2019-04-23",
     "expiryDate": "2024-04-23",
-    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
     "schemaVersion": 1
   },
   {

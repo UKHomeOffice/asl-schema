@@ -212,7 +212,7 @@ describe('Profile Projects', () => {
         const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);
         assert.equal(project.additionalEstablishments.length, 1);
         // only the scoped establishment is included
-        assert.deepEqual(project.additionalEstablishments[0], { id: 111, name: 'An establishment' });
+        assert.deepEqual(project.additionalEstablishments[0], { id: 111, name: 'An establishment', status: 'active' });
       })
       .then(() => {
         return this.models.Profile.get({ establishmentId: 333, id: ids.profile.additional });
@@ -221,7 +221,7 @@ describe('Profile Projects', () => {
         const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);
         assert.equal(project.additionalEstablishments.length, 1);
         // only the scoped establishment is included
-        assert.deepEqual(project.additionalEstablishments[0], { id: 333, name: 'A third establishment' });
+        assert.deepEqual(project.additionalEstablishments[0], { id: 333, name: 'A third establishment', status: 'active' });
       });
   });
 

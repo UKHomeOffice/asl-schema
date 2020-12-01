@@ -262,6 +262,32 @@
     ]
   },
   {
+    "id": "caf67e14-dfcd-432f-8dad-859af40e85c9",
+    "userId": "8008dce7-61b8-474a-89ca-8cc457e7ddd9",
+    "firstName": "AA",
+    "lastName": "User",
+    "email": "aa@example.com",
+    "dob": "1980-01-01",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 30001,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 9999,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "id": "e1ef893c-0766-4ccb-b1f8-d13238deac23",
     "userId": "ae7458db-4688-452b-bddb-ea3971dd02bc",
     "title": "Mr",
