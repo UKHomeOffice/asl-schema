@@ -1,4 +1,4 @@
-const projectVersions = require('../data/project-versions.json');
+const projectVersions = require('../data/project-versions');
 const projects = require('../data/projects.json');
 const { merge } = require('lodash');
 const uuid = require('uuid/v4');
