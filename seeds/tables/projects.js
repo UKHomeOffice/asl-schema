@@ -1,7 +1,7 @@
 const projects = require('../data/projects.json');
 const getNonRandomProject = require('./utils/get-non-random-item');
 
-const nopes = ['Basic', 'Read', 'Ella', 'Unaffiliated'];
+const nopes = ['Basic', 'Read', 'Ella', 'Unaffiliated', 'AA'];
 
 module.exports = {
   populate: knex => {
