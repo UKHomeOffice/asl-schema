@@ -77,9 +77,9 @@ const extractLegacy = data => {
     });
 };
 
-function getSpecies(data, { schemaVersion, id } = {}) {
+function getSpecies(data, { schema_version, id } = {}) {
   try {
-    if (schemaVersion === 0) {
+    if (schema_version === 0) {
       return uniq(extractLegacy(data));
     }
     return uniq(extract(data));
@@ -97,10 +97,10 @@ exports.up = async function(knex) {
     .then(() => {
       return knex('projects')
         .select('id', 'status', 'schema_version')
-        .where({ deleted: null })
+        .where({ deleted: null });
     })
     .then(projects => {
-      console.log(`found ${projects.length} projects`)
+      console.log(`found ${projects.length} projects`);
       return projects.reduce((promise, project, index) => {
         return promise
           .then(() => {
@@ -119,14 +119,13 @@ exports.up = async function(knex) {
                 if (!species || !species.length) {
                   return Promise.resolve();
                 }
-                console.log({ species })
                 return knex('projects')
                   .where({ id: project.id })
                   .update({ species: JSON.stringify(species) });
               })
               .then(() => {
                 console.log(`finshed patching project: ${project.id}, ${index + 1} of ${projects.length}`);
-              })
+              });
           })
           .catch(e => {
             console.error(`Failed to update project: ${project.id}`);

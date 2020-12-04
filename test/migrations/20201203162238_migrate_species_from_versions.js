@@ -4,7 +4,7 @@ const uuid = require('uuid/v4');
 const db = require('./helpers/db');
 const { getSpecies, up } = require('../../migrations/20201203162238_migrate_species_from_versions');
 
-describe.only('getSpecies', () => {
+describe('getSpecies', () => {
   it('returns an empty array if data or project are undefined', () => {
     assert.deepEqual(getSpecies(), []);
   });
@@ -114,10 +114,12 @@ describe.only('getSpecies', () => {
 describe('up', () => {
   const ids = {
     project: {
-      active: uuid(),
+      activeWithSpecies: uuid(),
+      activeNoSpecies: uuid(),
       activeMultipleVersions: uuid(),
-      legacy: uuid(),
-      draft: uuid()
+      draft: uuid(),
+      legacyWithSpecies: uuid(),
+      legacyNoSpecies: uuid()
     }
   };
 
@@ -162,7 +164,7 @@ describe('up', () => {
       id: ids.project.draft,
       title: 'Test project',
       licence_holder_id: licenceHolder.id,
-      status: 'active',
+      status: 'inactive',
       schema_version: 1
     },
     {
@@ -211,7 +213,7 @@ describe('up', () => {
       project_id: ids.project.activeMultipleVersions,
       status: 'granted',
       data: {
-        species: ['mice'],
+        species: ['mice']
       },
       created_at: moment().subtract(2, 'weeks').toISOString()
     },
@@ -219,7 +221,7 @@ describe('up', () => {
       project_id: ids.project.activeMultipleVersions,
       status: 'granted',
       data: {
-        species: ['mice', 'rats'],
+        species: ['mice', 'rats']
       },
       created_at: moment().subtract(1, 'week').toISOString()
     },
@@ -227,7 +229,7 @@ describe('up', () => {
       project_id: ids.project.activeMultipleVersions,
       status: 'draft',
       data: {
-        species: ['mice', 'rats', 'cats'],
+        species: ['mice', 'rats', 'cats']
       },
       created_at: moment().toISOString()
     },
@@ -235,7 +237,7 @@ describe('up', () => {
       project_id: ids.project.draft,
       status: 'submitted',
       data: {
-        species: ['mice', 'rats', 'cats'],
+        species: ['mice', 'rats', 'cats']
       }
     },
     {
@@ -301,7 +303,7 @@ describe('up', () => {
   it('adds species to project model', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.activeWithSpecies).first())
+      .then(() => this.knex('projects').where('id', ids.project.activeWithSpecies).first())
       .then(project => {
         const expected = [
           'Mice',
@@ -327,7 +329,7 @@ describe('up', () => {
   it('skips projects without species', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.activeNoSpecies).first())
+      .then(() => this.knex('projects').where('id', ids.project.activeNoSpecies).first())
       .then(project => {
         assert.deepEqual(project.species, null);
       });
@@ -336,7 +338,7 @@ describe('up', () => {
   it('gets species from latest granted version for active project', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.activeMultipleVersions).first())
+      .then(() => this.knex('projects').where('id', ids.project.activeMultipleVersions).first())
       .then(project => {
         assert.deepEqual(project.species, ['Mice', 'Rats']);
       });
@@ -345,7 +347,7 @@ describe('up', () => {
   it('gets species from latest submitted version for draft project', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.draft).first())
+      .then(() => this.knex('projects').where('id', ids.project.draft).first())
       .then(project => {
         assert.deepEqual(project.species, ['Mice', 'Rats', 'Cats']);
       });
@@ -354,7 +356,7 @@ describe('up', () => {
   it('adds species from protocols to legacy projects', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.legacyWithSpecies).first())
+      .then(() => this.knex('projects').where('id', ids.project.legacyWithSpecies).first())
       .then(project => {
         const expected = [
           'Amphibians',
@@ -369,7 +371,7 @@ describe('up', () => {
   it('ignores legacy projects without species', () => {
     return Promise.resolve()
       .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.projects.legacyNoSpecies).first())
+      .then(() => this.knex('projects').where('id', ids.project.legacyNoSpecies).first())
       .then(project => {
         assert.deepEqual(project.species, null);
       });
