@@ -93,6 +93,10 @@ class Project extends BaseModel {
         deleted: { type: ['string', 'null'], format: 'date-time' },
         amendedDate: { type: ['string', 'null'], format: 'date-time' },
         isLegacyStub: { type: 'boolean' },
+        species: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
         transferredInDate: { type: ['string', 'null'], format: 'date-time' },
         transferredOutDate: { type: ['string', 'null'], format: 'date-time' },
         previousProjectId: { type: ['string', 'null'], pattern: uuid.v4 },
