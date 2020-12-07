@@ -11,7 +11,7 @@ describe('getSpecies', () => {
 
   describe('legacy', () => {
     it('returns an empty array if no protocols', () => {
-      assert.deepEqual(getSpecies({}, { schemaVersion: 0 }), []);
+      assert.deepEqual(getSpecies({}, { schema_version: 0 }), []);
     });
 
     it('returns an empty array if no species added', () => {
@@ -22,7 +22,7 @@ describe('getSpecies', () => {
           }
         ]
       };
-      assert.deepEqual(getSpecies(data, { schemaVersion: 0 }), []);
+      assert.deepEqual(getSpecies(data, { schema_version: 0 }), []);
     });
 
     it('can extract species from legacy style data, ignoring dupes', () => {
@@ -63,7 +63,7 @@ describe('getSpecies', () => {
         'BABU'
       ];
 
-      assert.deepEqual(getSpecies(data, { schemaVersion: 0 }), expected);
+      assert.deepEqual(getSpecies(data, { schema_version: 0 }), expected);
     });
   });
 
@@ -72,7 +72,7 @@ describe('getSpecies', () => {
       const data = {
         some: 'fields'
       };
-      assert.deepEqual(getSpecies(data, { schemaVersion: 1 }), []);
+      assert.deepEqual(getSpecies(data, { schema_version: 1 }), []);
     });
 
     it('can extract species from data ignoring dupes', () => {
@@ -106,7 +106,7 @@ describe('getSpecies', () => {
         'Bastard lizard',
         'Kangaroo'
       ];
-      assert.deepEqual(getSpecies(data, { schemaVersion: 1 }), expected);
+      assert.deepEqual(getSpecies(data, { schema_version: 1 }), expected);
     });
   });
 });
