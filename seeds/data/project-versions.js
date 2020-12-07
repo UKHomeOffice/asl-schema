@@ -130,6 +130,40 @@ module.exports = [
     'updatedAt': '2019-10-14'
   },
   {
+    'projectId': '9ad36797-7bb4-4f4f-96c1-a8162c5eec44',
+    'data': {
+      'title': 'Download test project',
+      'project-aim': toRichText('This is a project used for testing file downloads. DO NOT USE IT FOR AMENDMENTS!'),
+      'permissible-purpose': ['basic-research'],
+      'protocols': [
+        {
+          'id': '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          'steps': [
+            {
+              'id': '43bb032e-1cde-43f7-93a9-cd137e2ce990'
+            }
+          ],
+          'complete': true,
+          'speciesDetails': []
+        }
+      ],
+      'objectives': [
+        {
+          'id': 'ee39ef5f-7fbb-4f2d-bda6-85151069a59a'
+        }
+      ],
+      'keywords': [
+        'barbershop',
+        'clementine',
+        'muffintop'
+      ],
+      'id': '1689353d-e064-4898-bf56-7d1a4061d6b7'
+    },
+    'status': 'granted',
+    'createdAt': '2020-10-14',
+    'updatedAt': '2020-10-14'
+  },
+  {
     'projectId': 'e3310c1a-5fe0-4e59-95b8-6410d8fd8031',
     'data': {
       'title': 'First basic user project title'
