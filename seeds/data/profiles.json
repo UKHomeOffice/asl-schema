@@ -56,6 +56,18 @@
     "asruSupport": false
   },
   {
+    "title": "Dr",
+    "firstName": "Inspector",
+    "lastName": "Gadget",
+    "dob": "1985-09-24",
+    "email": "inspector.gadget@example.com",
+    "asruUser": true,
+    "asruAdmin": false,
+    "asruInspector": true,
+    "asruLicensing": false,
+    "asruSupport": false
+  },
+  {
     "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d2",
     "userId": "dee8605d-2113-4411-8a0a-dc131af87a76",
     "title": "Miss",
