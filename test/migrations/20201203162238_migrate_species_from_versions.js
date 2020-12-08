@@ -14,6 +14,24 @@ describe('getSpecies', () => {
       assert.deepEqual(getSpecies({}, { schema_version: 0 }), []);
     });
 
+    it('ignores falsy values', () => {
+      const data = {
+        protocols: [
+          {
+            species: [
+              {
+                foo: 'bar'
+              },
+              {
+                speciesId: '20'
+              }
+            ]
+          }
+        ]
+      };
+      assert.deepEqual(getSpecies(data, { schema_version: 0 }), ['Mice']);
+    });
+
     it('returns an empty array if no species added', () => {
       const data = {
         protocols: [
@@ -119,7 +137,8 @@ describe('up', () => {
       activeMultipleVersions: uuid(),
       draft: uuid(),
       legacyWithSpecies: uuid(),
-      legacyNoSpecies: uuid()
+      legacyNoSpecies: uuid(),
+      legacyWithFalsySpecies: uuid()
     }
   };
 
@@ -169,6 +188,13 @@ describe('up', () => {
     },
     {
       id: ids.project.legacyWithSpecies,
+      title: 'Legacy Project',
+      licence_holder_id: licenceHolder.id,
+      status: 'active',
+      schema_version: 0
+    },
+    {
+      id: ids.project.legacyWithFalsySpecies,
       title: 'Legacy Project',
       licence_holder_id: licenceHolder.id,
       status: 'active',
@@ -271,6 +297,24 @@ describe('up', () => {
       }
     },
     {
+      project_id: ids.project.legacyWithFalsySpecies,
+      status: 'granted',
+      data: {
+        protocols: [
+          {
+            species: [
+              {
+                foo: 'bar'
+              },
+              {
+                speciesId: '20'
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       project_id: ids.project.legacyNoSpecies,
       status: 'granted',
       data: {
@@ -364,6 +408,16 @@ describe('up', () => {
           'JABU',
           'BABU'
         ];
+        assert.deepEqual(project.species, expected);
+      });
+  });
+
+  it('adds species from protocols to legacy projects', () => {
+    return Promise.resolve()
+      .then(() => up(this.knex))
+      .then(() => this.knex('projects').where('id', ids.project.legacyWithFalsySpecies).first())
+      .then(project => {
+        const expected = ['Mice'];
         assert.deepEqual(project.species, expected);
       });
   });

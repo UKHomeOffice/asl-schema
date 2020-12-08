@@ -1,4 +1,4 @@
-const { uniq, flatten } = require('lodash');
+const { uniq, flatten, compact } = require('lodash');
 const { projectSpecies } = require('@asl/constants');
 
 const species = flatten(Object.values(projectSpecies));
@@ -80,9 +80,9 @@ const extractLegacy = data => {
 function getSpecies(data, { schema_version, id } = {}) {
   try {
     if (schema_version === 0) {
-      return uniq(extractLegacy(data));
+      return compact(uniq(extractLegacy(data)));
     }
-    return uniq(extract(data));
+    return compact(uniq(extract(data)));
   } catch (e) {
     console.error(`Failed to extract species from project ${id}`);
     console.error(e.stack);
