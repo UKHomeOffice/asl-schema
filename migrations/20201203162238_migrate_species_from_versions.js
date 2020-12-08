@@ -115,13 +115,13 @@ exports.up = async function(knex) {
                 if (!version) {
                   return Promise.resolve();
                 }
-                const species = getSpecies(version.data, project);
+                let species = getSpecies(version.data, project);
                 if (!species || !species.length) {
-                  return Promise.resolve();
+                  species = null;
                 }
                 return knex('projects')
                   .where({ id: project.id })
-                  .update({ species: JSON.stringify(species) });
+                  .update({ species: species ? JSON.stringify(species) : species });
               })
               .then(() => {
                 console.log(`finshed patching project: ${project.id}, ${index + 1} of ${projects.length}`);
