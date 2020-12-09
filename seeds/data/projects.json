@@ -37,6 +37,17 @@
     "status": "active"
   },
   {
+    "id": "1cbbb865-f5e7-4314-a35d-e8adcf19a811",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "establishmentId": 8201,
+    "schemaVersion": 0,
+    "title": "Legacy change licence holder",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "licenceNumber": "PR-000000",
+    "status": "active"
+  },
+  {
     "id": "a1149bae-a448-4ef8-b2d8-39414fe34ba5",
     "licenceHolderId": "fcfd3d23-0582-4d90-9822-1db678a41792",
     "establishmentId": 8201,

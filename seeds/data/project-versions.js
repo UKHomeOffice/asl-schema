@@ -97,6 +97,14 @@ module.exports = [
     'status': 'granted'
   },
   {
+    'projectId': '1cbbb865-f5e7-4314-a35d-e8adcf19a811',
+    'data': {
+      'title': 'Legacy change licence holder',
+      'experience-knowledge': toRichText('Experience content before')
+    },
+    'status': 'granted'
+  },
+  {
     'projectId': 'e3310c1a-5fe0-4e59-95b8-6410d8fd8031',
     'data': {
       'title': 'Basic user project',
