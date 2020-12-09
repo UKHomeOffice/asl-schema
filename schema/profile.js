@@ -130,7 +130,16 @@ class Profile extends BaseModel {
       query.scopeToEstablishment('establishments.id', establishmentId);
     }
     return query
-      .withGraphFetched('[roles.places, establishments, pil(getLicenceNumber).establishment, projects.[establishment(constrainEstParams), additionalEstablishments(getEstablishment)], certificates, exemptions, asru, trainingPils.trainingCourse.[establishment, project]]')
+      .withGraphFetched(`[
+        roles.places,
+        establishments,
+        pil(getLicenceNumber).establishment,
+        projects.[establishment(constrainEstParams), additionalEstablishments(getEstablishment)],
+        certificates,
+        exemptions,
+        asru,
+        trainingPils.trainingCourse.[establishment, project]
+      ]`)
       .modifiers({
         getEstablishment: builder => {
           builder.select([
