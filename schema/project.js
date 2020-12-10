@@ -190,9 +190,8 @@ class Project extends BaseModel {
       .whereHasAvailability(establishmentId)
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
-      .withGraphFetched('[licenceHolder, additionalEstablishments(onlyInScope), establishment(constrainEstParams)]')
+      .withGraphFetched('[licenceHolder, additionalEstablishments(constrainEstParams), establishment(constrainEstParams)]')
       .modifiers({
-        onlyInScope: builder => builder.where({ establishmentId }),
         constrainEstParams: builder => builder.select('id', 'name')
       })
       .where(builder => {
