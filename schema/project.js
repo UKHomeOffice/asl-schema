@@ -192,7 +192,7 @@ class Project extends BaseModel {
       .leftJoinRelation('licenceHolder')
       .withGraphFetched('[licenceHolder, additionalEstablishments(constrainEstParams), establishment(constrainEstParams)]')
       .modifiers({
-        constrainEstParams: builder => builder.select('id', 'name')
+        constrainEstParams: builder => builder.select('id', 'name', 'status')
       })
       .where(builder => {
         if (search) {
