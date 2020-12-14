@@ -3,6 +3,7 @@ const profiles = require('./tables/profiles');
 const places = require('./tables/places');
 const projects = require('./tables/projects');
 const projectVersions = require('./tables/project-versions');
+const additionalAvailability = require('./tables/additional-availability');
 const trainingCourses = require('./tables/training-courses');
 
 exports.seed = knex => {
@@ -13,7 +14,7 @@ exports.seed = knex => {
     .then(() => knex('training_pils').del())
     .then(() => knex('training_courses').del())
     .then(() => knex('project_profiles').del())
-    .then(() => knex('project_establishments').del())
+    .then(() => additionalAvailability.delete(knex))
     .then(() => projectVersions.delete(knex))
     .then(() => projects.delete(knex))
     .then(() => knex('place_roles').del())
@@ -29,5 +30,6 @@ exports.seed = knex => {
     .then(() => places.populate(knex))
     .then(() => projects.populate(knex))
     .then(() => projectVersions.populate(knex))
+    .then(() => additionalAvailability.populate(knex))
     .then(() => trainingCourses.populate(knex));
 };
