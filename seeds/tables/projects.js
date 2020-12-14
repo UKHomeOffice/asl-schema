@@ -1,3 +1,4 @@
+const { omit } = require('lodash');
 const projects = require('../data/projects.json');
 const getNonRandomProject = require('./utils/get-non-random-item');
 
@@ -17,12 +18,12 @@ module.exports = {
             return knex('projects')
               .insert({
                 licenceHolderId: getNonRandomProject(profiles, project.title),
-                ...project
+                ...omit(project, 'additionalEstablishments')
               });
           });
       })
     )
-      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId)))
+      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId).map(p => omit(p, 'additionalEstablishments'))))
       .then(() => knex('projects').where('expiryDate', '<', (new Date()).toISOString()).update({ status: 'expired' }));
   },
   delete: knex => knex('projects').del()

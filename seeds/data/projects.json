@@ -352,7 +352,7 @@
   {
     "id": "77af45c8-761e-49f6-b6fb-e105f0e67185",
     "establishmentId": 8201,
-    "title": "Additional availability draft",
+    "title": "Additional availability to be added draft",
     "status": "inactive",
     "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
     "schemaVersion": 1
@@ -360,13 +360,31 @@
   {
     "id": "5cb97819-3e21-4ea5-85f0-32df2b06213b",
     "establishmentId": 8201,
-    "title": "Additional availability active",
+    "title": "Additional availability to be added",
     "status": "active",
     "licenceNumber": "PR-X12345",
     "issueDate": "2019-04-23",
     "expiryDate": "2024-04-23",
     "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
     "schemaVersion": 1
+  },
+  {
+    "id": "5cb97819-3e21-4ea5-85f0-32df2b06213c",
+    "establishmentId": 8201,
+    "title": "Additional availability active",
+    "status": "active",
+    "licenceNumber": "PR-X23456",
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
+    "schemaVersion": 1,
+    "additionalEstablishments": [
+      {
+        "establishmentId": 30001,
+        "status": "active",
+        "versionId": "2b80b02a-3ee1-408a-b86d-6417a1ac5483"
+      }
+    ]
   },
   {
     "id": "163c30f5-d6f9-4b34-9c63-21f21e7948ba",
