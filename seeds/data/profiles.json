@@ -2639,5 +2639,29 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "id": "c74379bc-6a46-4e9b-8f4c-4d7c9a5a2dc4",
+    "firstName": "Melanie",
+    "lastName": "Hope",
+    "email": "melanie.hope@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "id": "1a47f322-67ad-443a-8adc-7b10c062c908",
+    "firstName": "Roger",
+    "lastName": "Dorsett",
+    "email": "roger.dorsett@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
   }
 ]
