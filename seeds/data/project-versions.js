@@ -396,6 +396,51 @@ module.exports = [
     createdAt: '2019-09-18T11:39:17.292Z'
   },
   {
+    id: '74ddb097-a988-4955-920b-a439e580041a',
+    projectId: 'e022533a-bc01-438a-815b-6cbf6ec1f31c',
+    data: {
+      title: 'Draft Application',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          title: 'A protocol',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText('Second submission')
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
+    },
+    status: 'submitted',
+    createdAt: '2019-09-18T11:39:36.146Z'
+  },
+  {
+    projectId: 'e022533a-bc01-438a-815b-6cbf6ec1f31c',
+    data: {
+      title: 'Draft Application',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          title: 'A protocol',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText('Initial submission')
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
+    },
+    status: 'submitted',
+    createdAt: '2019-09-18T11:39:17.292Z'
+  },
+  {
     'projectId': '6b9b7471-396e-47fe-a98f-da0c76e0a26b',
     'data': {
       'title': 'Project with legacy list',
