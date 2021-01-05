@@ -346,20 +346,99 @@ module.exports = [
   },
   {
     'id': 'b603d058-267a-4f7b-8356-389271076c06',
-    'projectId': '6b9b7471-396e-47fe-a98f-da0c76e0a26a',
-    'data': {
-      'title': 'Amend in prog project 2'
+    projectId: '6b9b7471-396e-47fe-a98f-da0c76e0a26a',
+    data: {
+      title: 'Amend in prog project 2',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText(
+                'Step content after amendment',
+                'with another paragraph',
+                'and a changed paragraph'
+              )
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
     },
-    'status': 'submitted',
-    'createdAt': '2019-09-18T11:39:36.146Z'
+    status: 'submitted',
+    createdAt: '2019-09-18T11:39:36.146Z'
   },
   {
-    'projectId': '6b9b7471-396e-47fe-a98f-da0c76e0a26a',
-    'data': {
-      'title': 'Amend in prog project'
+    projectId: '6b9b7471-396e-47fe-a98f-da0c76e0a26a',
+    data: {
+      title: 'Amend in prog project',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText(
+                'Step content before amendment',
+                'with another paragraph',
+                'and another paragraph'
+              )
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
     },
-    'status': 'granted',
-    'createdAt': '2019-09-18T11:39:17.292Z'
+    status: 'granted',
+    createdAt: '2019-09-18T11:39:17.292Z'
+  },
+  {
+    id: '74ddb097-a988-4955-920b-a439e580041a',
+    projectId: 'e022533a-bc01-438a-815b-6cbf6ec1f31c',
+    data: {
+      title: 'Draft Application',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          title: 'A protocol',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText('Second submission')
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
+    },
+    status: 'submitted',
+    createdAt: '2019-09-18T11:39:36.146Z'
+  },
+  {
+    projectId: 'e022533a-bc01-438a-815b-6cbf6ec1f31c',
+    data: {
+      title: 'Draft Application',
+      protocols: [
+        {
+          id: '119b4a7e-ee08-4437-9328-283a8fe1a190',
+          title: 'A protocol',
+          steps: [
+            {
+              id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
+              title: toRichText('Initial submission')
+            }
+          ],
+          complete: true,
+          speciesDetails: []
+        }
+      ]
+    },
+    status: 'submitted',
+    createdAt: '2019-09-18T11:39:17.292Z'
   },
   {
     'projectId': '6b9b7471-396e-47fe-a98f-da0c76e0a26b',
