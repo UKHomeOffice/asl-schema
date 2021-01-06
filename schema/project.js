@@ -268,6 +268,14 @@ class Project extends BaseModel {
           to: 'projectVersions.projectId'
         }
       },
+      retrospectiveAssessments: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/retrospective-assessment`,
+        join: {
+          from: 'projects.id',
+          to: 'retrospectiveAssessments.projectId'
+        }
+      },
       collaborators: {
         relation: this.ManyToManyRelation,
         modelClass: `${__dirname}/profile`,

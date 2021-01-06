@@ -14,6 +14,7 @@ exports.seed = knex => {
     .then(() => knex('training_pils').del())
     .then(() => knex('training_courses').del())
     .then(() => knex('project_profiles').del())
+    .then(() => knex('retrospective_assessments').del())
     .then(() => additionalAvailability.delete(knex))
     .then(() => projectVersions.delete(knex))
     .then(() => projects.delete(knex))

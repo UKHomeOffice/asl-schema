@@ -11,6 +11,7 @@ const Profile = require('./profile');
 const ProjectEstablishment = require('./project-establishment');
 const Project = require('./project');
 const ProjectVersion = require('./project-version');
+const RetrospectiveAssessment = require('./retrospective-assessment');
 const Role = require('./role');
 const Certificate = require('./certificate');
 const Exemption = require('./exemption');
@@ -43,5 +44,6 @@ module.exports = db => ({
   ProjectProfile: ProjectProfile.bindKnex(db),
   TrainingCourse: TrainingCourse.bindKnex(db),
   TrainingPil: TrainingPil.bindKnex(db),
-  DocumentCache: DocumentCache.bindKnex(db)
+  DocumentCache: DocumentCache.bindKnex(db),
+  RetrospectiveAssessment: RetrospectiveAssessment.bindKnex(db)
 });
