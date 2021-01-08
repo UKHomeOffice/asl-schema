@@ -831,5 +831,46 @@ module.exports = [
     },
     'createdAt': '2020-06-01',
     'updatedAt': '2020-06-01'
+  },
+  {
+    'id': '32814630-4b9b-42df-9963-329df1b4a0d1',
+    'projectId': 'd661f113-9594-4374-b461-b75d1b6a02db',
+    'status': 'granted',
+    'data': {
+      'title': 'Unsubmitted amendment'
+    },
+    'createdAt': '2021-01-08 12:00:00',
+    'updatedAt': '2021-01-08 12:00:00'
+  },
+  {
+    'id': '878cf7d7-a6fc-48a0-b1d6-dc61147724c8',
+    'projectId': 'd661f113-9594-4374-b461-b75d1b6a02db',
+    'status': 'draft',
+    'data': {
+      'title': 'Unsubmitted amendment'
+    },
+    'createdAt': '2021-01-08 13:00:00',
+    'updatedAt': '2021-01-08 13:00:00'
+  },
+  {
+    'id': '9d85a472-942f-48eb-9e13-34e41fcf879f',
+    'projectId': '78508e8c-26e9-4960-88cd-2761eb1afd57',
+    'status': 'granted',
+    'data': {
+      'title': 'Unsubmitted ASRU amendment'
+    },
+    'createdAt': '2021-01-08 12:00:00',
+    'updatedAt': '2021-01-08 12:00:00'
+  },
+  {
+    'id': '701de6c8-1ac0-4258-afeb-fca7077b12e3',
+    'projectId': '78508e8c-26e9-4960-88cd-2761eb1afd57',
+    'status': 'draft',
+    'data': {
+      'title': 'Unsubmitted ASRU amendment'
+    },
+    'asruVersion': true,
+    'createdAt': '2021-01-08 13:00:00',
+    'updatedAt': '2021-01-08 13:00:00'
   }
 ];

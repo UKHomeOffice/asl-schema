@@ -636,5 +636,21 @@
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "createdAt": "2020-06-01",
     "updatedAt": "2020-06-01"
+  },
+  {
+    "id": "d661f113-9594-4374-b461-b75d1b6a02db",
+    "establishmentId": 8201,
+    "title": "Unsubmitted amendment",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+  },
+  {
+    "id": "78508e8c-26e9-4960-88cd-2761eb1afd57",
+    "establishmentId": 8201,
+    "title": "Unsubmitted ASRU amendment",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   }
 ]
