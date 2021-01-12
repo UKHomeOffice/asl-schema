@@ -24,7 +24,11 @@ module.exports = {
       })
     )
       .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId).map(p => omit(p, 'additionalEstablishments'))))
-      .then(() => knex('projects').where('expiryDate', '<', (new Date()).toISOString()).update({ status: 'expired' }));
+      .then(() => knex('projects')
+        .where('expiryDate', '<', (new Date()).toISOString())
+        .where({ status: 'active' })
+        .update({ status: 'expired' })
+      );
   },
   delete: knex => knex('projects').del()
 };
