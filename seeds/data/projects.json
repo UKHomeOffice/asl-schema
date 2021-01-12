@@ -288,8 +288,8 @@
     "id": "d42196ff-eb93-4b20-8b71-22673901873e",
     "establishmentId": 8201,
     "title": "Revoked project",
-    "issueDate": "2017-04-23",
-    "expiryDate": "2022-03-01",
+    "issueDate": "2015-03-01",
+    "expiryDate": "2020-03-01",
     "revocationDate": "2018-04-23",
     "licenceNumber": "PR-000000",
     "status": "revoked"
