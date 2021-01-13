@@ -872,5 +872,30 @@ module.exports = [
     'asruVersion': true,
     'createdAt': '2021-01-08 13:00:00',
     'updatedAt': '2021-01-08 13:00:00'
+  },
+  {
+    'projectId': 'b978c34f-d3bf-4747-ab03-97e44e2a80d8',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due revoked',
+      'retrospectiveAssessment': true
+    }
+  },
+  {
+    'projectId': 'a6eaf231-6228-4974-8c53-1e967f9ed216',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due revoked training licence',
+      'retrospectiveAssessment': true,
+      'training-licence': true
+    }
+  },
+  {
+    'projectId': '9bf6b04a-5aae-4016-b090-832fd6d75f4d',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due revoked legacy',
+      'retrospectiveAssessment': true
+    }
   }
 ];
