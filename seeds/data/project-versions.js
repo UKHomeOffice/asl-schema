@@ -897,5 +897,113 @@ module.exports = [
       'title': 'RA due revoked legacy',
       'retrospectiveAssessment': true
     }
+  },
+  {
+    id: '0f41ed69-967c-4a71-9ec4-b80a7551fa98',
+    projectId: '3110030b-3a79-48ee-b288-10218afcbd48',
+    status: 'granted',
+    raCompulsory: true,
+    data: {
+      title: 'Ticking all the boxes',
+      establishments: [{ 'establishment-id': 8202, 'name': 'Marvell Pharmaceutical' }],
+      polesList: [{ 'id': 'acb1b3e4-82bb-47c7-b61d-f69b2555150e', 'title': 'Somewhere' }],
+      protocols: [
+        {
+          id: 'd1b3876f-3c16-433e-99ae-e1df492ad2b2',
+          title: 'Protocol 1',
+          complete: true,
+          speciesDetails: [],
+          severity: 'mild'
+        },
+        {
+          id: 'ec5d1e34-a80b-4c88-b741-f131f1ac1a38',
+          title: 'Protocol 2',
+          complete: true,
+          speciesDetails: [],
+          severity: 'severe',
+          gaas: true
+        },
+        {
+          id: '474badcd-5c2c-4821-9c25-2dc56e58cdde',
+          title: 'Protocol 3',
+          complete: true,
+          speciesDetails: [],
+          severity: 'moderate'
+        }
+      ],
+      'nmbas-used': true,
+      'purpose-bred': true,
+      'endangered-animals': true,
+      'wild-animals': true,
+      'feral-animals': true,
+      'commercial-slaughter': true,
+      'animals-containing-human-material': true,
+      'experimental-design-sexes': true,
+      'funding-basic-translational': true,
+      'scientific-background-producing-data': true,
+      'scientific-background-producing-data-service': true,
+      'scientific-background-non-regulatory': true,
+      'scientific-background-genetically-altered': true,
+      'scientific-background-vaccines': true,
+      'project-continuation': [{
+        id: '920322e2-e0a9-4192-896d-32b01cd3abc8',
+        'expiry-date': '2022-01-01',
+        'licence-number': 'P12345678'
+      }]
+    }
+  },
+  {
+    id: '5d7971ea-1d43-418e-b421-a74ad2cbe7b6',
+    projectId: '723c7c7c-d6c6-4ef0-84a8-939eb7f8f838',
+    status: 'granted',
+    raCompulsory: true,
+    data: {
+      title: 'Ticking all the boxes',
+      establishments: [{ 'establishment-id': 8202, 'name': 'Marvell Pharmaceutical' }],
+      protocols: [
+        {
+          id: 'd1b3876f-3c16-433e-99ae-e1df492ad2b2',
+          title: 'Protocol 1',
+          species: [
+            {
+              id: 'be3282ee-2642-4b9a-8cd3-ced02e23c0c3',
+              quantity: '100',
+              speciesId: '5',
+              'life-stages': 'embryo',
+              'genetically-altered': false
+            }
+          ],
+          severity: 'Mild'
+        },
+        {
+          id: 'ec5d1e34-a80b-4c88-b741-f131f1ac1a38',
+          title: 'Protocol 2',
+          species: [
+            {
+              id: 'be3282ee-2642-4b9a-8cd3-ced02e23c0c3',
+              quantity: '100',
+              speciesId: '5',
+              'life-stages': 'adult',
+              'genetically-altered': false
+            }
+          ],
+          severity: 'Severe'
+        },
+        {
+          id: '474badcd-5c2c-4821-9c25-2dc56e58cdde',
+          title: 'Protocol 3',
+          species: [
+            {
+              id: 'be3282ee-2642-4b9a-8cd3-ced02e23c0c3',
+              quantity: '400',
+              speciesId: '18',
+              'life-stages': 'adult',
+              'genetically-altered': true
+            }
+          ],
+          severity: 'Moderate'
+        }
+      ]
+    }
   }
 ];
