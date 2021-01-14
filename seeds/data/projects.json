@@ -691,5 +691,35 @@
     "revocationDate": "2020-01-01",
     "licenceNumber": "PR-X567126",
     "raDate": "2025-01-01"
+  },
+  {
+    "id": "3110030b-3a79-48ee-b288-10218afcbd48",
+    "establishmentId": 8201,
+    "title": "Ticking all the boxes",
+    "status": "active",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01",
+    "licenceNumber": "PR-ALL-BOXES",
+    "raDate": "2025-01-01",
+    "species": "[\"Cats\",\"Dogs\"]"
+  },
+  {
+    "id": "723c7c7c-d6c6-4ef0-84a8-939eb7f8f838",
+    "establishmentId": 8201,
+    "title": "Ticking all the boxes legacy",
+    "status": "active",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "schemaVersion": 0,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01",
+    "licenceNumber": "PR-ALL-BOXES-LEGACY",
+    "raDate": "2025-01-01",
+    "species": "[\"Cats\",\"Dogs\"]"
   }
 ]
