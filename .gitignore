@@ -58,3 +58,6 @@ typings/
 .env
 
 sync.js
+
+# Generated seeds
+seeds/data/profiles-*.json
