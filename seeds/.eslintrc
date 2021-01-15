@@ -1,0 +1,5 @@
+extends:
+  - ../.eslintrc
+
+rules:
+  implicit-dependencies/no-implicit: [2, { dev: true }]

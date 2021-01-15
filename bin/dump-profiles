@@ -5,7 +5,7 @@
 
 const minimist = require('minimist');
 const fs = require('fs');
-const generateProfiles = require('../lib/generate-profiles');
+const generateProfiles = require('../seeds/generate-profiles');
 
 const args = minimist(process.argv.slice(2));
 

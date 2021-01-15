@@ -1,4 +1,3 @@
-// eslint-disable-next-line implicit-dependencies/no-implicit
 const faker = require('faker');
 const uuid = require('uuid');
 
