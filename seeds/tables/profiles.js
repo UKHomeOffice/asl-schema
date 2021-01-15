@@ -2,7 +2,6 @@
 const glob = require('glob');
 const { omit } = require('lodash');
 const moment = require('moment');
-const generateProfiles = require('../../lib/generate-profiles');
 
 const fixtureProfiles = require('../data/profiles.json');
 
@@ -12,11 +11,7 @@ const dumpedProfiles = glob.sync('seeds/data/profiles-*.json').reduce((profiles,
   return profiles.concat(data);
 }, []);
 
-// generate another 100 random profiles on the fly
-const establishmentIds = require('../data/establishments.json').map(e => e.id);
-const randomProfiles = generateProfiles({ count: 100, establishmentIds });
-
-const profiles = fixtureProfiles.concat(dumpedProfiles).concat(randomProfiles);
+const profiles = fixtureProfiles.concat(dumpedProfiles);
 
 module.exports = {
   populate: knex => {
