@@ -721,5 +721,18 @@
     "licenceNumber": "PR-ALL-BOXES-LEGACY",
     "raDate": "2025-01-01",
     "species": "[\"Cats\",\"Dogs\"]"
+  },
+  {
+    "id": "a91150dd-e6b1-4582-9764-7af9a05b4aff",
+    "establishmentId": 8201,
+    "title": "Content search test",
+    "status": "active",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-11-01",
+    "updatedAt": "2020-11-01",
+    "licenceNumber": "PR-CONTENT"
   }
 ]
