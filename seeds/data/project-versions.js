@@ -18,11 +18,11 @@ module.exports = [
       ],
       'objective-relation': toRichText(
         'Some reasoning about how the objectives relate',
-        'Additional text content in a scond paragraph'
+        'Additional text content in a second paragraph'
       ),
       'objectives-alternatives': toRichText(
         'Some description about alternatives',
-        'Additional text content in a scond paragraph'
+        'Additional text content in a second paragraph'
       ),
       protocols: [
         {
@@ -71,6 +71,30 @@ module.exports = [
           'path': 'code-of-practice.versions.0',
           'type': 'authorisation',
           'autoAdded': true
+        }
+      ]
+    },
+    'status': 'granted'
+  },
+  {
+    id: uuid(),
+    'projectId': 'a91150dd-e6b1-4582-9764-7af9a05b4aff',
+    'data': {
+      'title': 'Content search test',
+      'keywords': ['Voila', 'Une', 'Autre', 'Baguette'],
+      'training-licence': false,
+      'permissible-purpose': ['basic-research'],
+      'translational-research': ['translational-research-1'],
+      protocols: [
+        {
+          id: uuid(),
+          title: 'First protocol title',
+          description: toRichText(
+            `I am the very model of a modern Major-General,`,
+            `I've information vegetable, animal, and mineral,`,
+            `I know the kings of England, and I quote the fights historical`,
+            `From Marathon to Waterloo, in order categorical.`
+          )
         }
       ]
     },
