@@ -10,7 +10,7 @@ USER 999
 COPY .npmrc /app/.npmrc
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
-RUN npm ci --production --no-optional --ignore-scripts
+RUN npm ci --no-optional --ignore-scripts
 COPY . /app
 
 RUN rm /app/.npmrc
