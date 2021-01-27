@@ -513,6 +513,14 @@ class Profile extends BaseModel {
           },
           to: 'establishments.id'
         }
+      },
+      emailPreferences: {
+        relation: this.HasOneRelation,
+        modelClass: `${__dirname}/email-preferences`,
+        join: {
+          from: 'profiles.id',
+          to: 'emailPreferences.profileId'
+        }
       }
     };
   }

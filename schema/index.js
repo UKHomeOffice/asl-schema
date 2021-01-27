@@ -21,6 +21,7 @@ const ProjectProfile = require('./project-profile');
 const TrainingCourse = require('./training-course');
 const TrainingPil = require('./training-pil');
 const DocumentCache = require('./document-cache');
+const EmailPreferences = require('./email-preferences');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -45,5 +46,6 @@ module.exports = db => ({
   TrainingCourse: TrainingCourse.bindKnex(db),
   TrainingPil: TrainingPil.bindKnex(db),
   DocumentCache: DocumentCache.bindKnex(db),
-  RetrospectiveAssessment: RetrospectiveAssessment.bindKnex(db)
+  RetrospectiveAssessment: RetrospectiveAssessment.bindKnex(db),
+  EmailPreferences: EmailPreferences.bindKnex(db)
 });
