@@ -323,6 +323,16 @@
     "status": "expired"
   },
   {
+    "id": "6949f7e8-2c4a-4cdc-b64d-297e0c1a722c",
+    "establishmentId": 8201,
+    "title": "Expired legacy project",
+    "issueDate": "2015-07-04",
+    "expiryDate": "2020-07-04",
+    "licenceNumber": "PR-349578",
+    "status": "expired",
+    "schemaVersion": 0
+  },
+  {
     "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
     "establishmentId": 8201,
     "title": "Amend in prog project",
