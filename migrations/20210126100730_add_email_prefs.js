@@ -4,7 +4,6 @@ exports.up = function(knex) {
     .createTable('email_preferences', table => {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.uuid('profile_id').references('id').inTable('profiles').notNull().unique();
-      table.index('profile_id');
       table.jsonb('preferences');
       table.timestamps(false, true);
     });
