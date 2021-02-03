@@ -703,6 +703,19 @@
     "raDate": "2025-01-01"
   },
   {
+    "id": "765775b8-845f-4b9d-9c32-950fc392afea",
+    "establishmentId": 8201,
+    "title": "RA test submission internal",
+    "status": "revoked",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01",
+    "revocationDate": "2021-01-01",
+    "licenceNumber": "PR-RA-TEST",
+    "raDate": "2025-01-01"
+  },
+  {
     "id": "3110030b-3a79-48ee-b288-10218afcbd48",
     "establishmentId": 8201,
     "title": "Ticking all the boxes",
