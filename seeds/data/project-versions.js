@@ -1047,5 +1047,5 @@ module.exports = [
       purpose: ['purpose-a', 'purpose-b', 'purpose-c', 'purpose-d', 'purpose-e', 'purpose-f', 'purpose-g'],
       'purpose-b': ['purpose-b1', 'purpose-b2', 'purpose-b3']
     }
-  },
+  }
 ];
