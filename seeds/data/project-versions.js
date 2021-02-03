@@ -1038,5 +1038,14 @@ module.exports = [
         }
       ]
     }
-  }
+  },
+  {
+    projectId: '53e28f7b-3aaa-467f-8b3b-3d721f524d94',
+    status: 'granted',
+    data: {
+      title: 'Legacy permissible purpose NTS regression',
+      purpose: ['purpose-a', 'purpose-b', 'purpose-c', 'purpose-d', 'purpose-e', 'purpose-f', 'purpose-g'],
+      'purpose-b': ['purpose-b1', 'purpose-b2', 'purpose-b3']
+    }
+  },
 ];

@@ -757,5 +757,18 @@
     "createdAt": "2020-11-01",
     "updatedAt": "2020-11-01",
     "licenceNumber": "PR-CONTENT"
+  },
+  {
+    "id": "53e28f7b-3aaa-467f-8b3b-3d721f524d94",
+    "establishmentId": 8201,
+    "title": "Legacy permissible purpose NTS regression",
+    "status": "active",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "schemaVersion": 0,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-11-01",
+    "updatedAt": "2020-11-01",
+    "licenceNumber": "PR-891234"
   }
 ]
