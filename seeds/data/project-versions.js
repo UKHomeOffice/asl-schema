@@ -923,6 +923,15 @@ module.exports = [
     }
   },
   {
+    'projectId': '765775b8-845f-4b9d-9c32-950fc392afea',
+    'status': 'granted',
+    'data': {
+      'title': 'RA test submission internal',
+      'retrospectiveAssessment': true
+    },
+    raCompulsory: true
+  },
+  {
     id: '0f41ed69-967c-4a71-9ec4-b80a7551fa98',
     projectId: '3110030b-3a79-48ee-b288-10218afcbd48',
     status: 'granted',
