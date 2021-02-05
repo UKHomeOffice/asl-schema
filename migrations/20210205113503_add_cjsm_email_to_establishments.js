@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+exports.up = function(knex) {
   return knex.schema.table('establishments', table => {
     table.string('cjsm_email').nullable();
   });
