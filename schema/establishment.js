@@ -29,6 +29,7 @@ class Establishment extends BaseModel {
         country: { type: 'string', enum: establishmentCountries },
         address: { type: ['string', 'null'] },
         email: { type: ['string', 'null'], format: 'email' },
+        cjsmEmail: { type: ['string', 'null'], format: 'email' },
         procedure: { type: 'boolean' },
         breeding: { type: 'boolean' },
         supplying: { type: 'boolean' },
