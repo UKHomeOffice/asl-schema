@@ -6,6 +6,12 @@ class Establishment extends BaseModel {
     return 'establishments';
   }
 
+  static get unlicensed() {
+    return [
+      'cjsmEmail'
+    ];
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
