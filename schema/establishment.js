@@ -8,7 +8,9 @@ class Establishment extends BaseModel {
 
   static get unlicensed() {
     return [
-      'cjsmEmail'
+      'billing',
+      'cjsmEmail',
+      'sharedKey'
     ];
   }
 
