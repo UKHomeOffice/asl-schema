@@ -404,6 +404,23 @@
     ]
   },
   {
+    "id": "27c98cdb-fd33-4449-852c-823d43ccda03",
+    "establishmentId": 8201,
+    "title": "Additional availability to transfer",
+    "status": "active",
+    "licenceNumber": "PR-YAAAA",
+    "issueDate": "2021-01-10",
+    "expiryDate": "2026-01-10",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
+    "schemaVersion": 1,
+    "additionalEstablishments": [
+      {
+        "establishmentId": 30001,
+        "status": "active"
+      }
+    ]
+  },
+  {
     "id": "163c30f5-d6f9-4b34-9c63-21f21e7948ba",
     "establishmentId": 8201,
     "title": "Additional availability old style",
