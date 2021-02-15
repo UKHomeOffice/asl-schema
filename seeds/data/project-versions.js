@@ -338,6 +338,18 @@ module.exports = [
     'status': 'granted'
   },
   {
+    id: '74671de8-bf09-4e94-9d66-60096f2d6228',
+    'projectId': '27c98cdb-fd33-4449-852c-823d43ccda03',
+    'data': {
+      'title': 'Additional availability to transfer',
+      'other-establishments': true,
+      establishments: [
+        { 'establishment-id': 30001 }
+      ]
+    },
+    'status': 'granted'
+  },
+  {
     'projectId': '163c30f5-d6f9-4b34-9c63-21f21e7948ba',
     'status': 'granted',
     'data': {
