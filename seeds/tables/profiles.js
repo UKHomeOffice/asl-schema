@@ -25,7 +25,8 @@ module.exports = {
             'projectId',
             'certificates',
             'exemptions',
-            'feeWaivers'
+            'feeWaivers',
+            'emailPreferences'
           ]))
           .returning('id')
           .then(ids => ids[0])
@@ -123,6 +124,14 @@ module.exports = {
                   return Promise.all(profile.roles.map(role => {
                     return knex('roles').insert({ ...role, profileId });
                   }));
+                }
+              })
+              .then(() => {
+                if (profile.emailPreferences) {
+                  return promise
+                    .then(() => {
+                      return knex('emailPreferences').insert({ ...profile.emailPreferences, profileId });
+                    });
                 }
               });
           });
