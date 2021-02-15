@@ -271,7 +271,12 @@
         "establishmentId": 8201,
         "role": "admin"
       }
-    ]
+    ],
+    "emailPreferences": {
+      "preferences": {
+        "alerts-8201": ["pel"]
+      }
+    }
   },
   {
     "id": "caf67e14-dfcd-432f-8dad-859af40e85c9",
