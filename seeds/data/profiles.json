@@ -1213,6 +1213,11 @@
     "pil": {
       "issueDate": "2015-07-02",
       "conditions": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinarsed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
+    },
+    "emailPreferences": {
+      "preferences": {
+        "newsletters": ["operational"]
+      }
     }
   },
   {
@@ -1231,6 +1236,11 @@
     "pil": {
       "issueDate": "2017-06-17",
       "conditions": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis."
+    },
+    "emailPreferences": {
+      "preferences": {
+        "newsletters": ["operational"]
+      }
     }
   },
   {
@@ -1249,6 +1259,11 @@
     "pil": {
       "issueDate": "2015-05-19",
       "conditions": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem."
+    },
+    "emailPreferences": {
+      "preferences": {
+        "newsletters": ["non-operational"]
+      }
     }
   },
   {
