@@ -345,6 +345,9 @@ module.exports = [
       'other-establishments': true,
       establishments: [
         { 'establishment-id': 30001 }
+      ],
+      protocols: [
+        { title: 'First protocol', complete: true }
       ]
     },
     'status': 'granted'
