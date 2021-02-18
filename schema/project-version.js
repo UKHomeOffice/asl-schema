@@ -21,6 +21,7 @@ class ProjectVersion extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         data: { type: ['object', 'null'] },
         projectId: { type: 'string', pattern: uuid.v4 },
+        licenceHolderId: { type: ['string', 'null'], pattern: uuid.v4 },
         status: { type: 'string', enum: projectVersionStatuses },
         asruVersion: { type: 'boolean' },
         raCompulsory: { type: 'boolean' },
@@ -45,6 +46,14 @@ class ProjectVersion extends BaseModel {
         join: {
           from: 'projectVersions.projectId',
           to: 'projects.id'
+        }
+      },
+      licenceHolder: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'projectVersions.licenceHolderId',
+          to: 'profiles.id'
         }
       }
     };
