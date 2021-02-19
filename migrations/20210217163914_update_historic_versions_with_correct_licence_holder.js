@@ -51,11 +51,7 @@ exports.up = function(knex) {
       console.log(`found ${nopes.length} change of licence holder we can't fix`);
       console.log(nopes);
 
-      const promises = fixers.map(fix => {
-        const query = updateProjectVersionHolderQuery(fix);
-        console.log(query.toString());
-        return query;
-      });
+      const promises = fixers.map(fix => updateProjectVersionHolderQuery(fix));
 
       return Promise.all(promises);
     });
