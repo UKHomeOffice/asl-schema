@@ -1,5 +1,4 @@
 const projectVersions = require('../data/project-versions');
-const projects = require('../data/projects.json');
 const { merge } = require('lodash');
 const uuid = require('uuid/v4');
 
@@ -66,27 +65,32 @@ const defaults = {
 
 module.exports = {
   populate: knex => {
-
-    const missing = projects
-      .filter(project => {
-        return !projectVersions.find(version => version.projectId === project.id);
-      })
-      .map(project => {
-        return {
-          projectId: project.id,
-          status: project.status === 'inactive' ? 'draft' : 'granted',
-          data: {
-            title: project.title
-          }
-        };
+    return Promise.resolve()
+      .then(() => knex('projects'))
+      .then(projects => {
+        const missing = projects
+          .filter(project => {
+            return !projectVersions.find(version => version.projectId === project.id);
+          })
+          .map(project => {
+            return {
+              projectId: project.id,
+              status: project.status === 'inactive' ? 'draft' : 'granted',
+              data: {
+                title: project.title
+              },
+              licenceHolderId: project.licenceHolderId
+            };
+          });
+        // insert one at a time asyncly to force unique ordered creation timestamps
+        return [ ...projectVersions, ...missing ]
+          .reverse()
+          .reduce((p, projectVersion) => {
+            projectVersion.data = merge({}, defaults, projectVersion.data);
+            projectVersion.licenceHolderId = projectVersion.licenceHolderId || projects.find(p => p.id === projectVersion.projectId).licenceHolderId;
+            return p.then(version => knex('projectVersions').insert(projectVersion));
+          }, Promise.resolve());
       });
-    // insert one at a time asyncly to force unique ordered creation timestamps
-    return [ ...projectVersions, ...missing ]
-      .reverse()
-      .reduce((p, projectVersion) => {
-        projectVersion.data = merge({}, defaults, projectVersion.data);
-        return p.then(version => knex('projectVersions').insert(projectVersion));
-      }, Promise.resolve());
   },
   delete: knex => knex('projectVersions').del()
 };
