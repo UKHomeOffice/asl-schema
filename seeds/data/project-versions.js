@@ -123,8 +123,15 @@ module.exports = [
   {
     'projectId': '1cbbb865-f5e7-4314-a35d-e8adcf19a811',
     'data': {
-      'title': 'Legacy change licence holder',
+      'title': 'Test legacy change licence holder',
       'experience-knowledge': toRichText('Experience content before')
+    },
+    'status': 'granted'
+  },
+  {
+    'projectId': 'eef743f2-de64-421b-a1bc-2a0c7cd81814',
+    'data': {
+      'title': 'Test change licence holder'
     },
     'status': 'granted'
   },

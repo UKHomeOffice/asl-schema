@@ -54,10 +54,21 @@
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "establishmentId": 8201,
     "schemaVersion": 0,
-    "title": "Legacy change licence holder",
+    "title": "Test legacy change licence holder",
     "issueDate": "2020-11-01",
     "expiryDate": "2025-11-01",
     "licenceNumber": "PR-000000",
+    "status": "active"
+  },
+  {
+    "id": "eef743f2-de64-421b-a1bc-2a0c7cd81814",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "establishmentId": 8201,
+    "schemaVersion": 1,
+    "title": "Test change licence holder",
+    "issueDate": "2020-11-01",
+    "expiryDate": "2025-11-01",
+    "licenceNumber": "PR-458145",
     "status": "active"
   },
   {
