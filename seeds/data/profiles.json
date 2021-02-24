@@ -400,6 +400,25 @@
     ]
   },
   {
+    "id": "dbf68d0d-81c0-46c9-9442-78a6c7ba3e98",
+    "userId": "896efae2-1f8b-4353-b6b0-b0224fdb002a",
+    "title": "Mrs",
+    "firstName": "Also",
+    "lastName": "Basic",
+    "dob": "1970-10-27",
+    "email": "basic2.user@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "basic"
+      }
+    ]
+  },
+  {
     "id": "9f463d0e-c18d-4251-8b8c-436f899812e1",
     "userId": "8f674c9a-7d58-4a9a-a3da-f6a6d8e3cca8",
     "title": "Mr",
@@ -1313,6 +1332,7 @@
         "establishmentId": 8201
       }
     ],
+    "userId": "",
     "title": "Ms",
     "firstName": "Dagny",
     "lastName": "Aberkirder",
