@@ -798,5 +798,13 @@
     "createdAt": "2020-11-01",
     "updatedAt": "2020-11-01",
     "licenceNumber": "PR-891234"
+  },
+  {
+    "id": "7296249e-a719-4c2f-8115-8047b40091ac",
+    "establishmentId": 8201,
+    "title": "Version comparison test",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   }
 ]
