@@ -1069,5 +1069,13 @@ module.exports = [
       purpose: ['purpose-a', 'purpose-b', 'purpose-c', 'purpose-d', 'purpose-e', 'purpose-g'],
       'purpose-b': ['purpose-b1', 'purpose-b2', 'purpose-b3']
     }
+  },
+  {
+    projectId: 'a398cc56-ea40-46fa-856e-8915dd831c78',
+    status: 'granted',
+    data: {
+      title: 'Version comparison test amendment',
+      'project-aim': toRichText('Granted version')
+    }
   }
 ];
