@@ -802,9 +802,20 @@
   {
     "id": "7296249e-a719-4c2f-8115-8047b40091ac",
     "establishmentId": 8201,
-    "title": "Version comparison test",
+    "title": "Version comparison test application",
     "status": "inactive",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "a398cc56-ea40-46fa-856e-8915dd831c78",
+    "establishmentId": 8201,
+    "title": "Version comparison test amendment",
+    "status": "active",
+    "issueDate": "2021-01-01",
+    "expiryDate": "2026-01-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "licenceNumber": "COMPARE"
   }
 ]
