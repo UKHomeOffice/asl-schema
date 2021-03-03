@@ -817,5 +817,16 @@
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "licenceNumber": "COMPARE"
+  },
+  {
+    "id": "6a33993f-bc63-49e0-a7ba-79581fbfd9b6",
+    "establishmentId": 8201,
+    "title": "Test changes to POLEs",
+    "status": "active",
+    "issueDate": "2021-01-01",
+    "expiryDate": "2026-01-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "P0L35"
   }
 ]
