@@ -6,15 +6,54 @@ class Procedure extends BaseModel {
     return 'procedures';
   }
 
+  static get editableFields() {
+    return [
+      'species',
+      'reuse',
+      'placesOfBirth',
+      'nhpsOrigin',
+      'nhpsColonyStatus',
+      'nhpsGeneration',
+      'ga',
+      'purposes',
+      'newGeneticLine',
+      'basicSubpurposes',
+      'regulatorySubpurposes',
+      'regulatoryLegislation',
+      'regulatoryLegislationOrigin',
+      'translationalSubpurposes',
+      'severity',
+      'severityNum',
+      'severityHoNote',
+      'severityPersonalNote'
+    ];
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        data: { type: ['object', 'null'] },
-        projectId: { type: 'string', pattern: uuid.v4 },
-        status: { type: 'string', enum: projectVersionStatuses },
+        ropId: { type: 'string', pattern: uuid.v4 },
+        species: { type: 'string' },
+        reuse: { type: ['boolean', 'null'] },
+        placesOfBirth: { type: ['string', 'null'] },
+        nhpsOrigin: { type: ['string', 'null'] },
+        nhpsColonyStatus: { type: ['string', 'null'] },
+        nhpsGeneration: { type: ['string', 'null'] },
+        ga: { type: 'string' },
+        purposes: { type: 'string' },
+        newGeneticLine: { type: 'boolean' },
+        basicSubpurposes: { type: ['string', 'null'] },
+        regulatorySubpurposes: { type: ['string', 'null'] },
+        regulatoryLegislation: { type: ['string', 'null'] },
+        regulatoryLegislationOrigin: { type: ['string', 'null'] },
+        translationalSubpurposes: { type: ['string', 'null'] },
+        severity: { type: 'string' },
+        severityNum: { type: 'integer' },
+        severityHoNote: { type: ['string', 'null'] },
+        severityPersonalNot: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
@@ -24,17 +63,39 @@ class Procedure extends BaseModel {
 
   static get relationMappings() {
     return {
-      project: {
+      rop: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: `${__dirname}/rop`,
         join: {
-          from: 'retrospectiveAssessments.projectId',
-          to: 'projects.id'
+          from: 'procedures.ropId',
+          to: 'rops.id'
         }
       }
     };
   }
 
+  static count(ropId) {
+    return this.query()
+      .where({ ropId })
+      .countDistinct('id')
+      .then(results => results[0])
+      .then(result => parseInt(result.count, 10));
+  }
+
+  static list({ ropId, sort = {}, limit, offset }) {
+
+    let query = this.query()
+      .where({ ropId });
+
+    if (sort.column) {
+      query = this.orderBy({ query, sort });
+    }
+
+    query = this.paginate({ query, limit, offset });
+
+    return query;
+  }
+
 }
 
-module.exports = RetrospectiveAssessment;
+module.exports = Procedure;

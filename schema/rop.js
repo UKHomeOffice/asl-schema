@@ -1,15 +1,50 @@
 const BaseModel = require('./base-model');
 const { uuid } = require('../lib/regex-validation');
 
-const projectVersionStatuses = [
+const ropStatuses = [
   'draft',
-  'granted',
   'submitted'
 ];
 
 class Rops extends BaseModel {
   static get tableName() {
     return 'rops';
+  }
+
+  static get editableFields() {
+    return [
+      'proceduresCompleted',
+      'postnatal',
+      'endangered',
+      'endangeredDetails',
+      'nmbas',
+      'generalAnaesthesia',
+      'generalAnaesthesiaDetails',
+      'rodenticide',
+      'rodenticideDetails',
+      'productTesting',
+      'productTestingTypes',
+      'otherSpecies',
+      'species',
+      'reuse',
+      'placesOfBirth',
+      'scheduleTwoDetails',
+      'nhpsOrigin',
+      'nhpsColonyStatus',
+      'nhpsGeneration',
+      'ga',
+      'purposes',
+      'basicSubpurposes',
+      'basicSubpurposesOther',
+      'regulatorySubpurposes',
+      'regulatorySubpurposesOther',
+      'regulatoryLegislation',
+      'regulatoryLegislationOther',
+      'regulatoryLegislationOrigin',
+      'translationalSubpurposes',
+      'translationalSubpurposesOther',
+      'newGeneticLine'
+    ];
   }
 
   static get jsonSchema() {
@@ -19,7 +54,72 @@ class Rops extends BaseModel {
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         projectId: { type: 'string', pattern: uuid.v4 },
-        status: { type: 'string', enum: projectVersionStatuses },
+        status: { type: 'string', enum: ropStatuses },
+        year: { type: 'integer' },
+        proceduresCompleted: { type: ['boolean', 'null'] },
+        postnatal: { type: ['boolean', 'null'] },
+        endangered: { type: ['boolean', 'null'] },
+        endangeredDetails: { type: ['string', 'null'] },
+        nmbas: { type: ['boolean', 'null'] },
+        generalAnaesthesia: { type: ['boolean', 'null'] },
+        generalAnaesthesiaDetails: { type: ['string', 'null'] },
+        rodenticide: { type: ['boolean', 'null'] },
+        rodenticideDetails: { type: ['string', 'null'] },
+        productTesting: { type: ['boolean', 'null'] },
+        productTestingTypes: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        otherSpecies: { type: ['boolean', 'null'] },
+        species: { type: ['object', 'null'] },
+        nhpsOrigin: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        nhpsColonyStatus: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        nhpsGeneration: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        reuse: { type: ['boolean', 'null'] },
+        placesOfBirth: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        scheduleTwoDetails: { type: ['string', 'null'] },
+        ga: { type: ['boolean', 'null'] },
+        purposes: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        basicSubpurposes: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        basicSubpurposesOther: { type: ['string', 'null'] },
+        regulatorySubpurposes: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        regulatorySubpurposesOther: { type: ['string', 'null'] },
+        regulatoryLegislation: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        regulatoryLegislationOther: { type: ['string', 'null'] },
+        regulatoryLegislationOrigin: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        translationalSubpurposes: {
+          type: ['array', 'null'],
+          items: { type: 'string' }
+        },
+        translationalSubpurposesOther: { type: ['string', 'null'] },
+        newGeneticLine: { type: ['boolean', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
@@ -50,4 +150,4 @@ class Rops extends BaseModel {
 
 }
 
-module.exports = RetrospectiveAssessment;
+module.exports = Rops;

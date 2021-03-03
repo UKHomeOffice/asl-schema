@@ -22,6 +22,8 @@ const TrainingCourse = require('./training-course');
 const TrainingPil = require('./training-pil');
 const DocumentCache = require('./document-cache');
 const EmailPreferences = require('./email-preferences');
+const Rop = require('./rop');
+const Procedure = require('./procedure');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -29,6 +31,8 @@ module.exports = db => ({
   Permission: Permission.bindKnex(db),
   Invitation: Invitation.bindKnex(db),
   PIL: PIL.bindKnex(db),
+  Rop: Rop.bindKnex(db),
+  Procedure: Procedure.bindKnex(db),
   PilTransfer: PilTransfer.bindKnex(db),
   FeeWaiver: FeeWaiver.bindKnex(db),
   Place: Place.bindKnex(db),

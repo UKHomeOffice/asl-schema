@@ -288,6 +288,14 @@ class Project extends BaseModel {
           },
           to: 'profiles.id'
         }
+      },
+      rops: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/rop`,
+        join: {
+          from: 'projects.id',
+          to: 'rops.projectId'
+        }
       }
     };
   }
