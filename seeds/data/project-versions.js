@@ -1077,5 +1077,30 @@ module.exports = [
       title: 'Version comparison test amendment',
       'project-aim': toRichText('Granted version')
     }
+  },
+  {
+    projectId: '6a33993f-bc63-49e0-a7ba-79581fbfd9b6',
+    status: 'granted',
+    data: {
+      'poles': true,
+      'title': 'Test changes to POLEs',
+      'polesList': [
+        {
+          'id': 'a714da27-f074-499c-a276-005a1d217a8e',
+          'title': 'Windermere',
+          'pole-info': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'A lake.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } }
+        },
+        {
+          'id': '13f7226b-0f77-4505-a761-a3c70cd23be2',
+          'title': 'Conniston',
+          'pole-info': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'Also a lake.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } }
+        }
+      ],
+      'poles-transfer': false,
+      'poles-inspection': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'Ensure.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } },
+      'poles-environment': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'Environment.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } },
+      'poles-justification': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'It needs to be done outside.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } },
+      'conditions': [{ 'key': 'poles', 'path': 'poles.versions.0', 'type': 'condition', 'autoAdded': true }]
+    }
   }
 ];
