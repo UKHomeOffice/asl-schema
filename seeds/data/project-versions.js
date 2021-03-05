@@ -932,11 +932,101 @@ module.exports = [
     }
   },
   {
+    'projectId': '98876c9f-9917-4c3b-bb88-722b0bb5a351',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due cats',
+      'species': ['cats']
+    }
+  },
+  {
+    'projectId': '8804dfc0-ae9b-4bfc-9343-200b845b9cb0',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due nhp',
+      'species': ['rhesus']
+    }
+  },
+  {
+    'projectId': 'db22f92c-0c2d-470f-9152-c203eb5d3262',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due endangered',
+      'species-other': ['Dodos', 'Velociraptors'],
+      'endangered-animals': true
+    }
+  },
+  {
+    'projectId': 'b87aa91e-65d8-4d38-9a70-305ba81c6109',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due severe procedures',
+      'species': ['mice'],
+      'protocols': [
+        {
+          id: 'c56ff0ed-64a0-409f-a112-3f1884567111',
+          title: 'Protocol 1',
+          complete: true,
+          speciesDetails: [],
+          severity: 'severe',
+          gaas: true
+        }
+      ]
+    }
+  },
+  {
+    'projectId': '22436667-60d8-4afe-beaf-7284c1642e79',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due multiple reasons (dogs, severe)',
+      'species': ['beagles'],
+      'protocols': [
+        {
+          id: 'f422b5e4-9866-4b06-adda-1e855e20e188',
+          title: 'Protocol 1',
+          complete: true,
+          speciesDetails: [],
+          severity: 'severe',
+          gaas: true
+        }
+      ]
+    }
+  },
+  {
+    'projectId': '6ae2295c-dd09-4c30-bd19-c67dd7f24cea',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due asru added',
+      'species': ['rats'],
+      'retrospectiveAssessment': true
+    }
+  },
+  {
+    'projectId': 'd63ddbd0-3e8b-49b4-a87a-9867408d5697',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due previous version',
+      'species': ['rats']
+    },
+    'createdAt': '2020-06-02',
+    'updatedAt': '2020-06-02'
+  },
+  {
+    // same project as above, earlier version with cats to trigger RA
+    'projectId': 'd63ddbd0-3e8b-49b4-a87a-9867408d5697',
+    'status': 'granted',
+    'data': {
+      'title': 'RA due previous version',
+      'species': ['cats']
+    },
+    'createdAt': '2020-06-01',
+    'updatedAt': '2020-06-01'
+  },
+  {
     'projectId': 'a6eaf231-6228-4974-8c53-1e967f9ed216',
     'status': 'granted',
     'data': {
-      'title': 'RA due revoked training licence',
-      'retrospectiveAssessment': true,
+      'title': 'RA due training licence',
       'training-licence': true
     }
   },
