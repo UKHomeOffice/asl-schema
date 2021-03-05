@@ -453,7 +453,9 @@ module.exports = [
           steps: [
             {
               id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
-              title: toRichText('Second submission')
+              title: toRichText('Initial submission'),
+              adverse: true,
+              'adverse-effects': toRichText('Changed effects')
             }
           ],
           complete: true,
@@ -475,7 +477,9 @@ module.exports = [
           steps: [
             {
               id: '43bb032e-1cde-43f7-93a9-cd137e2ce990',
-              title: toRichText('Initial submission')
+              title: toRichText('Initial submission'),
+              adverse: true,
+              'adverse-effects': toRichText('Adverse effects')
             }
           ],
           complete: true,
