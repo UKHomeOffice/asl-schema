@@ -33,6 +33,7 @@ class Procedure extends BaseModel {
     return {
       type: 'object',
       additionalProperties: false,
+      required: ['ropId', 'species', 'ga', 'purposes', 'newGeneticLine', 'severity', 'severityNum'],
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         ropId: { type: 'string', pattern: uuid.v4 },
@@ -53,7 +54,7 @@ class Procedure extends BaseModel {
         severity: { type: 'string' },
         severityNum: { type: 'integer' },
         severityHoNote: { type: ['string', 'null'] },
-        severityPersonalNot: { type: ['string', 'null'] },
+        severityPersonalNote: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
