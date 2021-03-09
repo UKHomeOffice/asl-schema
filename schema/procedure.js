@@ -33,6 +33,7 @@ class Procedure extends BaseModel {
     return {
       type: 'object',
       additionalProperties: false,
+      required: ['ropId', 'species', 'ga', 'purposes', 'newGeneticLine', 'severity', 'severityNum'],
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
         ropId: { type: 'string', pattern: uuid.v4 },
