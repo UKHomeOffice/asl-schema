@@ -382,7 +382,7 @@ class Profile extends BaseModel {
   }
 
   static getAsruProfiles(params) {
-    const filters = ['admin', 'support', 'licensing', 'inspector'];
+    const filters = ['admin', 'support', 'rops', 'licensing', 'inspector'];
 
     const countAsruProfiles = this.query()
       .countDistinct('profiles.id')
