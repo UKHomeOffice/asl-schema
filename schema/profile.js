@@ -88,6 +88,7 @@ class Profile extends BaseModel {
         asruLicensing: { type: 'boolean' },
         asruInspector: { type: 'boolean' },
         asruSupport: { type: 'boolean' },
+        asruRops: { type: 'boolean' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' },
@@ -104,6 +105,7 @@ class Profile extends BaseModel {
       this.asruLicensing = false;
       this.asruInspector = false;
       this.asruSupport = false;
+      this.asruRops = false;
     }
   }
 
@@ -362,6 +364,9 @@ class Profile extends BaseModel {
       }
       if (filters.asruRoles.includes('admin')) {
         query.where('profiles.asruAdmin', true);
+      }
+      if (filters.asruRoles.includes('rops')) {
+        query.where('profiles.asruRops', true);
       }
     }
 
