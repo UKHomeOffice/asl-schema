@@ -11,7 +11,8 @@
     "asruAdmin": true,
     "asruInspector": true,
     "asruLicensing": true,
-    "asruSupport": true
+    "asruSupport": true,
+    "asruRops": true
   },
   {
     "id": "a8e6f04b-f3a6-4378-91fa-f612d4ed1102",
@@ -25,7 +26,8 @@
     "asruAdmin": true,
     "asruInspector": false,
     "asruLicensing": false,
-    "asruSupport": false
+    "asruSupport": false,
+    "asruRops": false
   },
   {
     "id": "6891fe52-fb55-4d81-a7f5-24046d590407",
@@ -39,7 +41,23 @@
     "asruAdmin": false,
     "asruInspector": false,
     "asruLicensing": false,
-    "asruSupport": true
+    "asruSupport": true,
+    "asruRops": false
+  },
+  {
+    "id": "f0bce9a2-9832-4aa8-8a83-b7210fa6e541",
+    "userId": "1cdc0d83-0ded-4f28-8159-5adaf8972c44",
+    "title": "Mr",
+    "firstName": "Asru",
+    "lastName": "Ropper",
+    "dob": "1980-01-01",
+    "email": "asru-ropper@homeoffice.gov.uk",
+    "asruUser": true,
+    "asruAdmin": false,
+    "asruInspector": false,
+    "asruLicensing": false,
+    "asruSupport": false,
+    "asruRops": true
   },
   {
     "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d1",
@@ -53,7 +71,8 @@
     "asruAdmin": false,
     "asruInspector": true,
     "asruLicensing": false,
-    "asruSupport": false
+    "asruSupport": false,
+    "asruRops": false
   },
   {
     "title": "Dr",
@@ -65,7 +84,8 @@
     "asruAdmin": false,
     "asruInspector": true,
     "asruLicensing": false,
-    "asruSupport": false
+    "asruSupport": false,
+    "asruRops": false
   },
   {
     "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d2",
@@ -80,7 +100,8 @@
     "asruAdmin": false,
     "asruInspector": false,
     "asruLicensing": true,
-    "asruSupport": false
+    "asruSupport": false,
+    "asruRops": false
   },
   {
     "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
