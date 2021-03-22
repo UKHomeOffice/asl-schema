@@ -926,5 +926,27 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "P0L35"
+  },
+  {
+    "id": "1f69a7f8-e23b-42f6-b74b-ddf5d40f43cf",
+    "establishmentId": 8201,
+    "title": "ROP creation test 1",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP1"
+  },
+  {
+    "id": "6d3942fd-e647-4c06-a186-1b4dd0407043",
+    "establishmentId": 8201,
+    "title": "ROP creation test 2",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP1"
   }
 ]
