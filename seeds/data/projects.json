@@ -588,6 +588,7 @@
     "establishmentId": 8201,
     "title": "ASRU amendment in progress: draft",
     "status": "active",
+    "issueDate": "2020-04-29",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   },
@@ -596,6 +597,7 @@
     "establishmentId": 8201,
     "title": "ASRU amendment in progress: submitted",
     "status": "active",
+    "issueDate": "2020-04-29",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   },
@@ -604,6 +606,7 @@
     "establishmentId": 8201,
     "title": "Continuation ids migration",
     "status": "active",
+    "issueDate": "2020-08-01",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   },
@@ -612,6 +615,7 @@
     "establishmentId": 8201,
     "title": "Continuation migrated",
     "status": "active",
+    "issueDate": "2020-07-01",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   },
@@ -680,6 +684,7 @@
     "establishmentId": 8201,
     "title": "Unsubmitted amendment",
     "status": "active",
+    "issueDate": "2021-01-08",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   },
@@ -688,6 +693,7 @@
     "establishmentId": 8201,
     "title": "Unsubmitted ASRU amendment",
     "status": "active",
+    "issueDate": "2021-01-08",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
   },
