@@ -5,6 +5,7 @@ const projects = require('./tables/projects');
 const projectVersions = require('./tables/project-versions');
 const additionalAvailability = require('./tables/additional-availability');
 const trainingCourses = require('./tables/training-courses');
+const rops = require('./tables/rops');
 
 exports.seed = knex => {
   return Promise.resolve()
@@ -16,7 +17,7 @@ exports.seed = knex => {
     .then(() => knex('project_profiles').del())
     .then(() => knex('retrospective_assessments').del())
     .then(() => knex('procedures').del())
-    .then(() => knex('rops').del())
+    .then(() => rops.delete(knex))
     .then(() => additionalAvailability.delete(knex))
     .then(() => projectVersions.delete(knex))
     .then(() => projects.delete(knex))
@@ -35,5 +36,6 @@ exports.seed = knex => {
     .then(() => projects.populate(knex))
     .then(() => projectVersions.populate(knex))
     .then(() => additionalAvailability.populate(knex))
-    .then(() => trainingCourses.populate(knex));
+    .then(() => trainingCourses.populate(knex))
+    .then(() => rops.populate(knex));
 };
