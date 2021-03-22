@@ -1197,5 +1197,21 @@ module.exports = [
       'poles-justification': { 'object': 'value', 'document': { 'data': {}, 'nodes': [{ 'data': {}, 'type': 'paragraph', 'nodes': [{ 'text': 'It needs to be done outside.', 'marks': [], 'object': 'text' }], 'object': 'block' }], 'object': 'document' } },
       'conditions': [{ 'key': 'poles', 'path': 'poles.versions.0', 'type': 'condition', 'autoAdded': true }]
     }
+  },
+  {
+    projectId: '1f69a7f8-e23b-42f6-b74b-ddf5d40f43cf',
+    status: 'granted',
+    data: {
+      title: 'ROP creation test 1',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '6d3942fd-e647-4c06-a186-1b4dd0407043',
+    status: 'granted',
+    data: {
+      title: 'ROP creation test 2',
+      species: ['mice']
+    }
   }
 ];
