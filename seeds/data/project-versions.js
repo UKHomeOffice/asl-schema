@@ -12,6 +12,7 @@ module.exports = [
       'permissible-purpose': ['basic-research'],
       'translational-research': ['translational-research-1'],
       'project-aim': toRichText('Lorem ipsum dolor', 'Sit amet'),
+      species: ['mice'],
       objectives: [
         { id: uuid(), title: 'First objective' },
         { id: uuid(), title: 'Second objective' }
