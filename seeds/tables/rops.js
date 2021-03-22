@@ -1,10 +1,14 @@
 const { sample } = require('lodash');
 const rops = require('../data/rops.json');
 
+// don't generate rops for these project ids
+const nopes = [];
+
 module.exports = {
   populate: knex => {
     return knex('projects')
       .whereIn('status', ['expired', 'revoked'])
+      .then(projects => projects.filter(p => !nopes.includes(p.id)))
       .then(projects => {
         const generatedRops = projects.reduce((grops, project) => {
           grops.push({
@@ -14,8 +18,6 @@ module.exports = {
           });
           return grops;
         }, []);
-
-        console.log(generatedRops);
 
         return knex('rops').insert(rops.concat(generatedRops));
       });
