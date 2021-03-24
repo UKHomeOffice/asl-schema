@@ -39,8 +39,7 @@ class ProjectQueryBuilder extends QueryBuilder {
     if (Array.isArray(search)) {
       search = search[0];
     }
-    const parts = search.split(' ').join(' & ');
-    const q = `to_tsvector(unaccent(projects.title)) @@ to_tsquery('${parts}')`;
+    const q = `to_tsvector(unaccent(projects.title)) @@ websearch_to_tsquery('${search}')`;
 
     return this.whereRaw(q);
   }
