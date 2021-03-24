@@ -6,7 +6,9 @@ const Role = require('./role');
 const Permission = require('./permission');
 const { date, uuid } = require('../lib/regex-validation');
 
-class ProfileQueryBuilder extends BaseModel.QueryBuilder {
+const QueryBuilder = require('./query-builder');
+
+class ProfileQueryBuilder extends QueryBuilder {
 
   whereNotWaived() {
     const { establishmentId, year } = this.context();
@@ -56,7 +58,7 @@ class Profile extends BaseModel {
   }
 
   static get QueryBuilder() {
-    return ProfileQueryBuilder;
+    return ProfileQueryBuilder.mixin(QueryBuilder.NameSearch);
   }
 
   static get jsonSchema() {
@@ -212,25 +214,6 @@ class Profile extends BaseModel {
       .then(result => parseInt(result.count, 10));
   }
 
-  static searchFullName({ query, search, prefix }) {
-    const parts = search.split(' ');
-    let firstName = 'firstName';
-    let lastName = 'lastName';
-    if (prefix) {
-      firstName = `${prefix}.${firstName}`;
-      lastName = `${prefix}.${lastName}`;
-    }
-    if (parts.length > 1) {
-      query
-        .where(firstName, 'iLike', `${parts[0]}%`)
-        .andWhere(lastName, 'iLike', `${parts[1]}%`);
-    } else {
-      query
-        .where(firstName, 'iLike', `%${search}%`)
-        .orWhere(lastName, 'iLike', `%${search}%`);
-    }
-  }
-
   static searchAndFilter({
     query,
     establishmentId,
@@ -253,7 +236,7 @@ class Profile extends BaseModel {
         if (search) {
           return builder
             .where('pilLicenceNumber', 'iLike', search && `%${search}%`)
-            .orWhere(builder => this.searchFullName({ search, query: builder }));
+            .orWhere(builder => builder.whereNameMatch(search));
         }
       });
 
