@@ -964,6 +964,17 @@
     "expiryDate": "2026-03-01",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
-    "licenceNumber": "ROP1"
+    "licenceNumber": "ROP2"
+  },
+  {
+    "id": "a5a2ae4e-0d9a-4eec-b0c6-991fc3a62e46",
+    "establishmentId": 8201,
+    "title": "ROP creation test 3",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP3"
   }
 ]

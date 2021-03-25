@@ -1213,5 +1213,13 @@ module.exports = [
       title: 'ROP creation test 2',
       species: ['mice']
     }
+  },
+  {
+    projectId: 'a5a2ae4e-0d9a-4eec-b0c6-991fc3a62e46',
+    status: 'granted',
+    data: {
+      title: 'ROP creation test 3',
+      species: ['mice']
+    }
   }
 ];
