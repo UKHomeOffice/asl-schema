@@ -1,9 +1,9 @@
 const BaseModel = require('./base-model');
 const { pilStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
-const Profile = require('./profile');
+const QueryBuilder = require('./query-builder');
 
-class PILQueryBuilder extends BaseModel.QueryBuilder {
+class PILQueryBuilder extends QueryBuilder {
 
   whereBillable({ establishmentId, start, end }) {
     const year = parseInt(start.substr(0, 4), 10);
@@ -69,7 +69,7 @@ class PILQueryBuilder extends BaseModel.QueryBuilder {
 class PIL extends BaseModel {
 
   static get QueryBuilder() {
-    return PILQueryBuilder;
+    return PILQueryBuilder.mixin(QueryBuilder.NameSearch);
   }
 
   static get tableName() {
@@ -131,11 +131,7 @@ class PIL extends BaseModel {
           return builder
             .orWhere('profile.pilLicenceNumber', 'iLike', `%${search}%`)
             .orWhere(b => {
-              Profile.searchFullName({
-                search,
-                prefix: 'profile',
-                query: b
-              });
+              b.whereNameMatch(search, 'profile');
             });
         }
       });

@@ -6,9 +6,6 @@ const db = require('./helpers/db');
 const BaseModel = require('../../schema/base-model');
 
 describe('Base Model', () => {
-  it('Has a custom QueryBuilder', () => {
-    assert.equal(BaseModel.QueryBuilder.name, 'SoftDeleteQueryBuilder');
-  });
 
   describe('Custom methods', () => {
     before(() => {

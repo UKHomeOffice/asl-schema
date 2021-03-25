@@ -1,7 +1,8 @@
 const BaseModel = require('./base-model');
-const Profile = require('./profile');
 const { projectStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
+
+const QueryBuilder = require('./query-builder');
 
 const statusQuery = status => query => Array.isArray(status)
   ? query.whereIn('projects.status', status)
@@ -32,7 +33,16 @@ const hasAdditionalAvailability = establishmentId => builder => {
     .where(canSeeProject);
 };
 
-class ProjectQueryBuilder extends BaseModel.QueryBuilder {
+class ProjectQueryBuilder extends QueryBuilder {
+
+  whereTitleMatch(search) {
+    if (Array.isArray(search)) {
+      search = search[0];
+    }
+    const q = `to_tsvector(unaccent(projects.title)) @@ websearch_to_tsquery('${search}')`;
+
+    return this.whereRaw(q);
+  }
 
   whereIsCollaborator(profileId) {
     return this
@@ -67,7 +77,7 @@ class Project extends BaseModel {
   }
 
   static get QueryBuilder() {
-    return ProjectQueryBuilder;
+    return ProjectQueryBuilder.mixin(QueryBuilder.NameSearch);
   }
 
   static get jsonSchema() {
@@ -199,15 +209,9 @@ class Project extends BaseModel {
       .where(builder => {
         if (search) {
           return builder
-            .where('projects.title', 'iLike', `%${search}%`)
+            .whereTitleMatch(search)
             .orWhere('licenceNumber', 'iLike', `%${search}%`)
-            .orWhere(b => {
-              Profile.searchFullName({
-                search,
-                prefix: 'licenceHolder',
-                query: b
-              });
-            });
+            .orWhere(b => b.whereNameMatch(search, 'licence_holder'));
         }
       });
 

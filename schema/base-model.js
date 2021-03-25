@@ -1,43 +1,7 @@
 const { isUndefined } = require('lodash');
 const { Model } = require('objection');
+const QueryBuilder = require('./query-builder');
 const ValidationError = require('./validation-error');
-
-class SoftDeleteQueryBuilder extends Model.QueryBuilder {
-  delete() {
-    this.mergeContext({
-      softDelete: true
-    });
-
-    return this.patch({
-      deleted: this.knex().fn.now()
-    });
-  }
-
-  undelete() {
-    this.mergeContext({
-      undelete: true
-    });
-    return this.patch({
-      deleted: null
-    });
-  }
-
-  hardDelete() {
-    return super.delete();
-  }
-
-  scopeToEstablishment(column, establishmentId, role) {
-    const query = this.mergeContext({ establishmentId })
-      .joinRelation('establishments')
-      .where(column, establishmentId);
-
-    if (role) {
-      query.where({ role });
-    }
-
-    return query;
-  }
-}
 
 class BaseModel extends Model {
   $beforeUpdate() {
@@ -45,7 +9,7 @@ class BaseModel extends Model {
   }
 
   static get QueryBuilder() {
-    return SoftDeleteQueryBuilder;
+    return QueryBuilder;
   }
 
   static query(...args) {
