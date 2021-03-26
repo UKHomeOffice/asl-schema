@@ -1,6 +1,7 @@
 const BaseModel = require('./base-model');
 const { projectStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
+const moment = require('moment');
 
 const QueryBuilder = require('./query-builder');
 
@@ -67,6 +68,75 @@ class ProjectQueryBuilder extends QueryBuilder {
     return this.whereExists(
       Project.relatedQuery('projectEstablishments').where(hasAdditionalAvailability(establishmentId))
     );
+  }
+
+  whereRopsDue(year) {
+    return this.where('projects.issueDate', '<=', `${year}-12-31`)
+      .andWhere(builder => {
+        builder
+          .where('projects.status', 'active')
+          .orWhere(qb => {
+            qb
+              .where('projects.status', 'expired')
+              .where('projects.expiryDate', '>=', `${year}-01-01`);
+          })
+          .orWhere(qb => {
+            qb
+              .where('projects.status', 'revoked')
+              .where('projects.revocationDate', '>=', `${year}-01-01`);
+          });
+      });
+  }
+
+  whereRopsSubmitted(year) {
+    return this.whereExists(
+      Project.relatedQuery('rops')
+        .where('year', year)
+        .where('rops.status', 'submitted')
+    );
+  }
+
+  whereRopsOutstanding(year) {
+    return this.whereNotExists(
+      Project.relatedQuery('rops')
+        .where('year', year)
+        .where('rops.status', 'submitted')
+    );
+  }
+
+  withRops(year, ropsStatus) {
+    const query = this.withGraphFetched('rops(constrainRops)')
+      .modifiers({
+        constrainRops: builder => {
+          builder.where('rops.year', year);
+          if (ropsStatus === 'submitted') {
+            builder.where('rops.status', 'submitted');
+          }
+        }
+      });
+
+    if (ropsStatus === 'outstanding') {
+      const endOfJanNextYear = moment(`${parseInt(year, 10) + 1}-01-31`).endOf('day').toISOString();
+      query.select(this.knex().raw(`
+        CASE
+          WHEN projects.status = 'active' THEN '${endOfJanNextYear}'
+          WHEN projects.status = 'expired' THEN date_trunc('day', projects.expiry_date) + INTERVAL '29 days - 1 millisecond'
+          WHEN projects.status = 'revoked' THEN date_trunc('day', projects.revocation_date) + INTERVAL '29 days - 1 millisecond'
+        END rops_deadline
+      `));
+    }
+
+    if (ropsStatus === 'submitted') {
+      query.select(
+        Project.relatedQuery('rops')
+          .select('updatedAt')
+          .where('year', year)
+          .where('rops.status', 'submitted')
+          .as('ropsSubmittedDate')
+      );
+    }
+
+    return query;
   }
 
 }
@@ -174,11 +244,21 @@ class Project extends BaseModel {
       .where('version.status', '!=', 'draft');
   }
 
-  static count({ query, establishmentId, status, isAsru }) {
+  static count({ query, establishmentId, status, isAsru, ropsStatus, ropsYear }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
       query = this.filterUnsubmittedDrafts(query);
+    }
+
+    if (ropsStatus && ropsYear) {
+      query.whereRopsDue(ropsYear);
+
+      if (ropsStatus === 'submitted') {
+        query.whereRopsSubmitted(ropsYear);
+      } else if (ropsStatus === 'outstanding') {
+        query.whereRopsOutstanding(ropsYear);
+      }
     }
 
     return query
@@ -189,7 +269,7 @@ class Project extends BaseModel {
       .then(result => parseInt(result.count, 10));
   }
 
-  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset, isAsru }) {
+  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
@@ -214,6 +294,17 @@ class Project extends BaseModel {
             .orWhere(b => b.whereNameMatch(search, 'licence_holder'));
         }
       });
+
+    if (ropsStatus && ropsYear) {
+      query.whereRopsDue(ropsYear)
+        .withRops(ropsYear, ropsStatus);
+
+      if (ropsStatus === 'submitted') {
+        query.whereRopsSubmitted(ropsYear);
+      } else if (ropsStatus === 'outstanding') {
+        query.whereRopsOutstanding(ropsYear);
+      }
+    }
 
     if (sort.column) {
       query = this.orderBy({ query, sort });
