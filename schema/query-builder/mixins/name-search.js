@@ -9,7 +9,7 @@ module.exports = (Base) => {
         search = search[0];
       }
 
-      const query = stringify(search.split(' ').map(p => p + '*').join(' '));
+      const query = stringify(search.split(/\s|-/).map(p => p + '*').join(' '));
 
       // remove apostrophes and accented characters from names
       const tsvector = field => `to_tsvector('simple', unaccent(replace(${prefix}.${field}, '''', '')))`;
