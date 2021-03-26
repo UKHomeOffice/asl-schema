@@ -117,11 +117,12 @@ class ProjectQueryBuilder extends QueryBuilder {
 
     if (ropsStatus === 'outstanding') {
       const endOfJanNextYear = moment(`${parseInt(year, 10) + 1}-01-31`).endOf('day').toISOString();
+      const interval28Days = `INTERVAL '29 days - 1 millisecond'`;
       query.select(this.knex().raw(`
         CASE
-          WHEN projects.status = 'active' THEN '${endOfJanNextYear}'
-          WHEN projects.status = 'expired' THEN date_trunc('day', projects.expiry_date) + INTERVAL '29 days - 1 millisecond'
-          WHEN projects.status = 'revoked' THEN date_trunc('day', projects.revocation_date) + INTERVAL '29 days - 1 millisecond'
+          WHEN projects.status = 'active' THEN LEAST('${endOfJanNextYear}'::timestamptz, date_trunc('day', projects.expiry_date) + ${interval28Days})
+          WHEN projects.status = 'expired' THEN DATE_TRUNC('day', projects.expiry_date) + ${interval28Days}
+          WHEN projects.status = 'revoked' THEN DATE_TRUNC  ('day', projects.revocation_date) + ${interval28Days}
         END rops_deadline
       `));
     }
