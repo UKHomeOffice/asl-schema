@@ -1,5 +1,5 @@
 const tsquery = require('pg-tsquery');
-const stringify = tsquery();
+const parse = tsquery();
 
 module.exports = (Base) => {
 
@@ -9,7 +9,7 @@ module.exports = (Base) => {
         search = search[0];
       }
 
-      const query = stringify(search.split(/\s|-/).map(p => p + '*').join(' '));
+      const query = parse(search.split(/\s|-/).map(p => p + '*').join(' '));
 
       // remove apostrophes and accented characters from names
       const tsvector = field => `to_tsvector('simple', unaccent(replace(${prefix}.${field}, '''', '')))`;
