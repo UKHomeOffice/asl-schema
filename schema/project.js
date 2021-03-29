@@ -122,7 +122,7 @@ class ProjectQueryBuilder extends QueryBuilder {
         CASE
           WHEN projects.status = 'active' THEN LEAST('${endOfJanNextYear}'::timestamptz, date_trunc('day', projects.expiry_date) + ${interval28Days})
           WHEN projects.status = 'expired' THEN DATE_TRUNC('day', projects.expiry_date) + ${interval28Days}
-          WHEN projects.status = 'revoked' THEN DATE_TRUNC  ('day', projects.revocation_date) + ${interval28Days}
+          WHEN projects.status = 'revoked' THEN DATE_TRUNC('day', projects.revocation_date) + ${interval28Days}
         END rops_deadline
       `));
     }
