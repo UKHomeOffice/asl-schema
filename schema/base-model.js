@@ -34,8 +34,7 @@ class BaseModel extends Model {
     return (query || this.query())
       .where({ establishmentId })
       .countDistinct(`${this.tableName}.id`)
-      .then(results => results[0])
-      .then(result => parseInt(result.count, 10));
+      .then(results => results[0].count);
   }
 
   static upsert(model, where, transaction) {

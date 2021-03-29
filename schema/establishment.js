@@ -152,8 +152,7 @@ class Establishment extends BaseModel {
   static count() {
     return this.query()
       .countDistinct('establishments.id')
-      .then(results => results[0])
-      .then(result => parseInt(result.count, 10));
+      .then(results => results[0].count);
   }
 }
 
