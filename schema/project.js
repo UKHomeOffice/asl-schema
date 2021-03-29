@@ -253,17 +253,20 @@ class Project extends BaseModel {
     }
 
     if (ropsStatus && ropsYear) {
-      query.whereRopsDue(ropsYear);
+      query
+        .where('projects.establishmentId', establishmentId)
+        .whereRopsDue(ropsYear);
 
       if (ropsStatus === 'submitted') {
         query.whereRopsSubmitted(ropsYear);
       } else if (ropsStatus === 'outstanding') {
         query.whereRopsOutstanding(ropsYear);
       }
+    } else {
+      query.whereHasAvailability(establishmentId);
     }
 
     return query
-      .whereHasAvailability(establishmentId)
       .where(statusQuery(status))
       .countDistinct('projects.id')
       .then(result => result[0])
@@ -279,7 +282,6 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .whereHasAvailability(establishmentId)
       .where(statusQuery(status))
       .leftJoinRelation('licenceHolder')
       .withGraphFetched('[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]')
@@ -297,7 +299,9 @@ class Project extends BaseModel {
       });
 
     if (ropsStatus && ropsYear) {
-      query.whereRopsDue(ropsYear)
+      query
+        .where('projects.establishmentId', establishmentId)
+        .whereRopsDue(ropsYear)
         .withRops(ropsYear, ropsStatus);
 
       if (ropsStatus === 'submitted') {
@@ -305,6 +309,8 @@ class Project extends BaseModel {
       } else if (ropsStatus === 'outstanding') {
         query.whereRopsOutstanding(ropsYear);
       }
+    } else {
+      query.whereHasAvailability(establishmentId);
     }
 
     if (sort.column) {
