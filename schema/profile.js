@@ -210,8 +210,7 @@ class Profile extends BaseModel {
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
       .countDistinct('profiles.id')
-      .then(result => result[0])
-      .then(result => parseInt(result.count, 10));
+      .then(result => result[0].count);
   }
 
   static searchAndFilter({
@@ -370,8 +369,7 @@ class Profile extends BaseModel {
     const countAsruProfiles = this.query()
       .countDistinct('profiles.id')
       .where('asruUser', true)
-      .then(result => result[0])
-      .then(result => parseInt(result.count, 10));
+      .then(result => result[0].count);
 
     return Promise.all([
       Promise.resolve(filters),

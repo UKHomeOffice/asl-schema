@@ -37,8 +37,7 @@ class Invitation extends BaseModel {
     return this.query()
       .where({ establishmentId })
       .count()
-      .then(results => results[0])
-      .then(result => parseInt(result.count, 10));
+      .then(results => results[0].count);
   }
 
   static paginate({ establishmentId, sort = {}, limit, offset }) {

@@ -79,8 +79,7 @@ class Procedure extends BaseModel {
     return this.query()
       .where({ ropId })
       .countDistinct('id')
-      .then(results => results[0])
-      .then(result => parseInt(result.count, 10));
+      .then(results => results[0].count);
   }
 
   static list({ ropId, sort = {}, limit, offset }) {
