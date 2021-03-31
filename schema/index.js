@@ -1,5 +1,6 @@
 const Authorisation = require('./authorisation');
 const Establishment = require('./establishment');
+const Export = require('./export');
 const Permission = require('./permission');
 const Invitation = require('./invitation');
 const PIL = require('./pil');
@@ -28,6 +29,7 @@ const Procedure = require('./procedure');
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
   Establishment: Establishment.bindKnex(db),
+  Export: Export.bindKnex(db),
   Permission: Permission.bindKnex(db),
   Invitation: Invitation.bindKnex(db),
   PIL: PIL.bindKnex(db),
