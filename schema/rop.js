@@ -122,7 +122,8 @@ class Rops extends BaseModel {
         newGeneticLine: { type: ['boolean', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
-        deleted: { type: ['string', 'null'], format: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' },
+        submittedDate: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }

@@ -130,7 +130,7 @@ class ProjectQueryBuilder extends QueryBuilder {
     if (ropsStatus === 'submitted') {
       query.select(
         Project.relatedQuery('rops')
-          .select('updatedAt')
+          .select('submittedDate')
           .where('year', year)
           .where('rops.status', 'submitted')
           .as('ropsSubmittedDate')
