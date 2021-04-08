@@ -976,5 +976,16 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "ROP3"
+  },
+  {
+    "id": "0c01cd7d-394b-45bb-99fd-ae31aac6943d",
+    "establishmentId": 8201,
+    "title": "ROP unsubmit test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "UNSUBMIT"
   }
 ]

@@ -33,5 +33,10 @@ module.exports = [
     projectId: '6ae2295c-dd09-4c30-bd19-c67dd7f24cea',
     year: '2021',
     status: 'draft'
+  },
+  {
+    projectId: '0c01cd7d-394b-45bb-99fd-ae31aac6943d',
+    year: '2021',
+    status: 'submitted'
   }
 ];
