@@ -12,6 +12,7 @@ exports.seed = knex => {
     .then(() => knex('establishment_merge_log').del())
     .then(() => knex('document_cache').del())
     .then(() => knex('changelog').del())
+    .then(() => knex('notifications').del())
     .then(() => knex('exports').del())
     .then(() => knex('training_pils').del())
     .then(() => knex('training_courses').del())

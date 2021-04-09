@@ -25,6 +25,7 @@ const DocumentCache = require('./document-cache');
 const EmailPreferences = require('./email-preferences');
 const Rop = require('./rop');
 const Procedure = require('./procedure');
+const Notification = require('./notification');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -53,5 +54,6 @@ module.exports = db => ({
   TrainingPil: TrainingPil.bindKnex(db),
   DocumentCache: DocumentCache.bindKnex(db),
   RetrospectiveAssessment: RetrospectiveAssessment.bindKnex(db),
-  EmailPreferences: EmailPreferences.bindKnex(db)
+  EmailPreferences: EmailPreferences.bindKnex(db),
+  Notification: Notification.bindKnex(db)
 });

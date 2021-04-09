@@ -507,6 +507,14 @@ class Profile extends BaseModel {
           from: 'profiles.id',
           to: 'emailPreferences.profileId'
         }
+      },
+      notifications: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/notification`,
+        join: {
+          from: 'profiles.id',
+          to: 'notifications.profileId'
+        }
       }
     };
   }
