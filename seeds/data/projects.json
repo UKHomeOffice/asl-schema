@@ -987,5 +987,19 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "UNSUBMIT"
+  },
+  {
+    "id": "f641942d-1fe0-4a75-9415-eb8c9950f0ff",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "establishmentId": 8201,
+    "title": "Project with NHPs",
+    "issueDate": "2020-02-05",
+    "expiryDate": "2025-02-04",
+    "licenceNumber": "PR-NHP5",
+    "status": "active",
+    "createdAt":"2020-02-05",
+    "updatedAt":"2020-02-05",
+    "amendedDate":"2020-02-05",
+    "species": "[\"marmosets\"]"
   }
 ]
