@@ -161,7 +161,24 @@ describe('Profile model', () => {
             profileId: TRAINEE_ID
           }
         ]
-      }));
+      }))
+      // give asru users the same names as non-ASRU users to test search filtering
+      .then(() => this.models.Profile.query().insert([
+        {
+          id: uuid(),
+          firstName: 'Double',
+          lastName: 'Agent',
+          email: 'asru1@example.com',
+          asruUser: true
+        },
+        {
+          id: uuid(),
+          firstName: 'Bruce',
+          lastName: 'Forsyth',
+          email: 'asru2@example.com',
+          asruUser: true
+        }
+      ]));
   });
 
   afterEach(() => {
@@ -210,6 +227,18 @@ describe('Profile model', () => {
         .then(() => this.models.Profile.searchAndFilter(opts))
         .then(profiles => {
           assert.deepEqual(profiles.total, 0);
+        });
+    });
+
+    it('can search ASRU users on full name', () => {
+      const opts = {
+        search: 'Bruce Forsyth'
+      };
+      return Promise.resolve()
+        .then(() => this.models.Profile.searchAndFilterAsru(opts))
+        .then(profiles => {
+          assert.deepEqual(profiles.total, 1);
+          assert.equal(profiles.results[0].email, 'asru2@example.com');
         });
     });
 

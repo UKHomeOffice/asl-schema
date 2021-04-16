@@ -330,7 +330,7 @@ class Profile extends BaseModel {
         if (search) {
           return builder
             .where('email', 'iLike', search && `%${search}%`)
-            .orWhere(builder => this.searchFullName({ search, query: builder }));
+            .orWhere(builder => builder.whereNameMatch(search));
         }
       });
 
