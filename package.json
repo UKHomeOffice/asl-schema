@@ -30,7 +30,7 @@
     "csv-stringify": "^5.4.3",
     "deep-diff": "^1.0.2",
     "immutable": "^4.0.0-rc.12",
-    "knex": "^0.19.5",
+    "knex": "^0.95.4",
     "lodash": "^4.17.19",
     "minimist": "^1.2.3",
     "moment": "^2.22.2",
