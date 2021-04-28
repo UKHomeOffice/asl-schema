@@ -38,7 +38,9 @@ exports.up = function(knex) {
         );
     })
     .then(waivers => {
-      return knex('pil_fee_waivers').insert(waivers);
+      if (waivers.length > 0) {
+        return knex('pil_fee_waivers').insert(waivers);
+      }
     });
 };
 
