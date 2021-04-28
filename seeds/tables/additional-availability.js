@@ -10,7 +10,10 @@ module.exports = {
         });
         return list.concat(aas);
       }, []);
-    return knex('project_establishments').insert(aa);
+
+    if (aa.length > 0) {
+      return knex('project_establishments').insert(aa);
+    }
   },
   delete: knex => knex('project_establishments').del()
 };

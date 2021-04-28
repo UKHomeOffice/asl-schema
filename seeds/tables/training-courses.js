@@ -18,7 +18,9 @@ module.exports = {
               training_course_id: id
             };
           });
-          return knex('training_pils').insert(participants);
+          if (participants.length > 0) {
+            return knex('training_pils').insert(participants);
+          }
         });
     }, Promise.resolve());
   }

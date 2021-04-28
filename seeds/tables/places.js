@@ -51,7 +51,11 @@ module.exports = {
               };
             });
 
-            return knex('place_roles').insert(concat(seededPlaceRoles, randomPlaceRoles));
+            const placeRoles = concat(seededPlaceRoles, randomPlaceRoles);
+
+            if (placeRoles.length > 0) {
+              return knex('place_roles').insert(placeRoles);
+            }
           });
       });
   },
