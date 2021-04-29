@@ -104,7 +104,7 @@ class ProjectQueryBuilder extends QueryBuilder {
     );
   }
 
-  getRopsDeadline(year) {
+  selectRopsDeadline(year) {
     const endOfJanNextYear = moment(`${parseInt(year, 10) + 1}-01-31`).endOf('day').toISOString();
     const interval28Days = `INTERVAL '29 days - 1 millisecond'`;
 
@@ -301,7 +301,7 @@ class Project extends BaseModel {
         .where('projects.establishmentId', establishmentId)
         .whereRopsDue(ropsYear)
         .withRops(ropsYear, ropsStatus)
-        .getRopsDeadline(ropsYear);
+        .selectRopsDeadline(ropsYear);
 
       if (ropsStatus === 'submitted') {
         query.whereRopsSubmitted(ropsYear);
