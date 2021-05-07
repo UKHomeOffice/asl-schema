@@ -31,7 +31,7 @@
     "deep-diff": "^1.0.2",
     "immutable": "^4.0.0-rc.12",
     "knex": "^0.95.4",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.3",
     "moment": "^2.22.2",
     "objection": "^2.1.3",
