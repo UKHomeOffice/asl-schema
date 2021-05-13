@@ -1001,5 +1001,18 @@
     "updatedAt":"2020-02-05",
     "amendedDate":"2020-02-05",
     "species": "[\"marmosets\"]"
+  },
+  {
+    "id": "822892a7-d080-41f8-9e33-55f11466fdc1",
+    "establishmentId": 8201,
+    "title": "Project with task history",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "PP2617822",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
   }
 ]

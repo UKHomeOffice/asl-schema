@@ -1229,5 +1229,27 @@ module.exports = [
       title: 'Project with NHPs',
       species: ['marmosets']
     }
+  },
+  {
+    'id': '96e46b82-5146-4b49-8a1e-56cd69903d5a',
+    'projectId': '822892a7-d080-41f8-9e33-55f11466fdc1',
+    'status': 'submitted',
+    'data': {
+      'title': 'Project with task history'
+    },
+    'createdAt': '2021-05-13 11:43:49.857962+00',
+    'updatedAt': '2021-05-13 11:48:14.714+00',
+    'licenceHolderId': '5b7bad13-f34b-4959-bd08-c6067ae2fcdd'
+  },
+  {
+    'id': '3d2619f6-5146-4ab0-8d43-bef9e8754203',
+    'projectId': '822892a7-d080-41f8-9e33-55f11466fdc1',
+    'status': 'granted',
+    'data': {
+      'title': 'Project with task history'
+    },
+    'createdAt': '2021-05-13 11:48:33.063993+00',
+    'updatedAt': '2021-05-13 11:49:35.204+00',
+    'licenceHolderId': '5b7bad13-f34b-4959-bd08-c6067ae2fcdd'
   }
 ];
