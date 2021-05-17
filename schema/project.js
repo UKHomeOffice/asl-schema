@@ -2,6 +2,7 @@ const BaseModel = require('./base-model');
 const { projectStatuses } = require('@asl/constants');
 const { uuid } = require('../lib/regex-validation');
 const moment = require('moment');
+const { get } = require('lodash');
 
 const QueryBuilder = require('./query-builder');
 
@@ -139,6 +140,24 @@ class ProjectQueryBuilder extends QueryBuilder {
     return query;
   }
 
+  whereRaDue() {
+    return this.whereNotNull('projects.raDate');
+  }
+
+  whereRaIncomplete() {
+    return this.whereNotNull('projects.raDate').whereNull('projects.raGrantedDate');
+  }
+
+  whereRaComplete() {
+    return this.whereNotNull('projects.raGrantedDate');
+  }
+
+  whereRaOverdue() {
+    return this.whereNotNull('projects.raDate')
+      .where('projects.raDate', '<', (new Date()).toISOString())
+      .whereNull('projects.raGrantedDate');
+  }
+
 }
 
 class Project extends BaseModel {
@@ -271,7 +290,7 @@ class Project extends BaseModel {
       .then(result => result[0].count);
   }
 
-  static search({ query, establishmentId, search, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear }) {
+  static search({ query, establishmentId, search, filters, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
@@ -310,6 +329,21 @@ class Project extends BaseModel {
       }
     } else {
       query.whereHasAvailability(establishmentId);
+    }
+
+    const raFilter = get(filters, '[retrospective-assessment][0]');
+
+    if (raFilter === 'RA required') {
+      query.whereRaDue();
+    }
+    if (raFilter === 'RA incomplete') {
+      query.whereRaIncomplete();
+    }
+    if (raFilter === 'RA complete') {
+      query.whereRaComplete();
+    }
+    if (raFilter === 'RA overdue') {
+      query.whereRaOverdue();
     }
 
     if (sort.column) {
