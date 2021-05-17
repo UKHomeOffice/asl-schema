@@ -144,7 +144,7 @@ class ProjectQueryBuilder extends QueryBuilder {
     return this.whereNotNull('projects.raDate');
   }
 
-  whereRaIncomplete() {
+  whereRaOutstanding() {
     return this.whereNotNull('projects.raDate').whereNull('projects.raGrantedDate');
   }
 
@@ -333,16 +333,16 @@ class Project extends BaseModel {
 
     const raFilter = get(filters, '[retrospective-assessment][0]');
 
-    if (raFilter === 'RA required') {
+    if (raFilter === 'required') {
       query.whereRaDue();
     }
-    if (raFilter === 'RA incomplete') {
-      query.whereRaIncomplete();
+    if (raFilter === 'outstanding') {
+      query.whereRaOutstanding();
     }
-    if (raFilter === 'RA complete') {
+    if (raFilter === 'complete') {
       query.whereRaComplete();
     }
-    if (raFilter === 'RA overdue') {
+    if (raFilter === 'overdue') {
       query.whereRaOverdue();
     }
 
