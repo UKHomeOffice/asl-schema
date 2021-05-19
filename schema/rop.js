@@ -38,6 +38,7 @@ class Rops extends BaseModel {
       'basicSubpurposesOther',
       'regulatorySubpurposes',
       'regulatorySubpurposesOther',
+      'regulatorySubpurposesOtherEfficacy',
       'regulatoryLegislation',
       'regulatoryLegislationOther',
       'regulatoryLegislationOrigin',
@@ -105,6 +106,7 @@ class Rops extends BaseModel {
           items: { type: 'string' }
         },
         regulatorySubpurposesOther: { type: ['string', 'null'] },
+        regulatorySubpurposesOtherEfficacy: { type: ['string', 'null'] },
         regulatoryLegislation: {
           type: ['array', 'null'],
           items: { type: 'string' }
