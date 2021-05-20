@@ -230,13 +230,16 @@ class Profile extends BaseModel {
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
       .leftJoinRelation('[pil, projects, roles, trainingPils]')
-      .withGraphFetched('[pil, projects, establishments, roles, trainingPils]')
+      .withGraphFetched('[pil.establishment(constrainEstParams), projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {
           return builder
             .where('pilLicenceNumber', 'iLike', search && `%${search}%`)
             .orWhere(builder => builder.whereNameMatch(search));
         }
+      })
+      .modifiers({
+        constrainEstParams: builder => builder.select('id', 'name')
       });
 
     if (filters.roles && filters.roles.length) {
