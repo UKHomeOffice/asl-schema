@@ -419,7 +419,8 @@ class Project extends BaseModel {
           from: 'projects.id',
           through: {
             from: 'projectProfiles.projectId',
-            to: 'projectProfiles.profileId'
+            to: 'projectProfiles.profileId',
+            extra: ['role']
           },
           to: 'profiles.id'
         }

@@ -2,7 +2,7 @@ const BaseModel = require('./base-model');
 
 class ProjectProfile extends BaseModel {
   static get tableName() {
-    return 'project_profiles';
+    return 'projectProfiles';
   }
 
   static get idColumn() {
@@ -17,9 +17,23 @@ class ProjectProfile extends BaseModel {
       properties: {
         projectId: { type: 'string' },
         profileId: { type: 'string' },
+        role: { type: 'string' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
+      }
+    };
+  }
+
+  static get relationMappings() {
+    return {
+      profile: {
+        relation: this.HasOneRelation,
+        modelClass: `${__dirname}/profile`,
+        join: {
+          from: 'projectProfiles.profileId',
+          to: 'profiles.id'
+        }
       }
     };
   }
