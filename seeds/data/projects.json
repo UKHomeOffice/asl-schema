@@ -23,7 +23,17 @@
     "status": "active",
     "createdAt":"2017-02-05",
     "updatedAt":"2019-10-14",
-    "amendedDate":"2019-10-14"
+    "amendedDate":"2019-10-14",
+    "collaborators": [
+      {
+        "profileId": "22f027e8-064f-45bd-9b82-8e21b67f4c10",
+        "role": "basic"
+      },
+      {
+        "profileId": "736c6491-b73b-4522-908a-45069ccbad96",
+        "role": "edit"
+      }
+    ]
   },
   {
     "id": "9ad36797-7bb4-4f4f-96c1-a8162c5eec44",

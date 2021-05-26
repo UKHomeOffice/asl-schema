@@ -2823,5 +2823,31 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "id": "22f027e8-064f-45bd-9b82-8e21b67f4c10",
+    "userId": "ece2e9af-2db8-4ccb-a17d-a6e98a8dc480",
+    "firstName": "Colin",
+    "lastName": "Laborator",
+    "email": "collabread@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "id": "736c6491-b73b-4522-908a-45069ccbad96",
+    "userId": "c83da091-e401-4176-9bb5-ec8b16d595c1",
+    "firstName": "Coleen",
+    "lastName": "Labrador",
+    "email": "collabedit@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
   }
 ]

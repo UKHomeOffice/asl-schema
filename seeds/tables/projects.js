@@ -18,12 +18,21 @@ module.exports = {
             return knex('projects')
               .insert({
                 licenceHolderId: getNonRandomProject(profiles, project.title),
-                ...omit(project, 'additionalEstablishments')
+                ...omit(project, 'additionalEstablishments', 'collaborators')
               });
           });
       })
     )
-      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId).map(p => omit(p, 'additionalEstablishments'))))
+      .then(() => knex('projects').insert(projects.filter(p => p.licenceHolderId).map(p => omit(p, 'additionalEstablishments', 'collaborators'))))
+      .then(() => {
+        return Promise.all(
+          projects
+            .filter(project => project.collaborators)
+            .map(project => {
+              return knex('projectProfiles').insert(project.collaborators.map(c => ({ ...c, projectId: project.id })));
+            })
+        );
+      })
       .then(() => knex('projects')
         .where('expiryDate', '<', (new Date()).toISOString())
         .where({ status: 'active' })
