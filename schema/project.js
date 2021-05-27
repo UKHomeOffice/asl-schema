@@ -46,13 +46,15 @@ class ProjectQueryBuilder extends QueryBuilder {
     return this.whereRaw(q, [search]);
   }
 
-  whereIsCollaborator(profileId) {
+  whereIsCollaborator(profileId, role) {
     return this
       .where(builder => {
         return builder
           .where({ licenceHolderId: profileId })
           .orWhereExists(
-            Project.relatedQuery('collaborators').where({ 'collaborators.id': profileId })
+            Project.relatedQuery('collaborators')
+              .where({ 'collaborators.id': profileId })
+              .where(builder => role && builder.where({ role }))
           );
       });
   }
