@@ -1260,5 +1260,13 @@ module.exports = [
       'retrospectiveAssessment': true
     },
     raCompulsory: true
+  },
+  {
+    projectId: '993f312b-2216-4e5a-b14e-070875a630d1',
+    status: 'granted',
+    data: {
+      title: 'ROP collaborator test',
+      species: ['mice']
+    }
   }
 ];
