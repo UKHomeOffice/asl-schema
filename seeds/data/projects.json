@@ -1048,5 +1048,26 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "id": "993f312b-2216-4e5a-b14e-070875a630d1",
+    "establishmentId": 8201,
+    "title": "ROP collaborator test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-COLLAB",
+    "collaborators": [
+      {
+        "profileId": "736c6491-b73b-4522-908a-45069ccbad96",
+        "role": "edit"
+      },
+      {
+        "profileId": "22f027e8-064f-45bd-9b82-8e21b67f4c10",
+        "role": "basic"
+      }
+    ]
   }
 ]
