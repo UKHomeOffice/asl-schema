@@ -1251,5 +1251,14 @@ module.exports = [
     'createdAt': '2021-05-13 11:48:33.063993+00',
     'updatedAt': '2021-05-13 11:49:35.204+00',
     'licenceHolderId': '5b7bad13-f34b-4959-bd08-c6067ae2fcdd'
+  },
+  {
+    'projectId': '704ad1d8-685b-4377-9e23-5be056306390',
+    'status': 'granted',
+    'data': {
+      'title': 'RA test collaborator',
+      'retrospectiveAssessment': true
+    },
+    raCompulsory: true
   }
 ];

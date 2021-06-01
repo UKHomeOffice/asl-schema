@@ -1024,5 +1024,29 @@
     "licenceNumber": "PP2617822",
     "createdAt": "2021-05-13 11:43:49.857962+00",
     "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "704ad1d8-685b-4377-9e23-5be056306390",
+    "establishmentId": 8201,
+    "title": "RA test collaborator",
+    "status": "revoked",
+    "issueDate": "2020-06-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01",
+    "revocationDate": "2021-01-01",
+    "licenceNumber": "COL-RA-TEST",
+    "raDate": "2025-01-01",
+    "collaborators": [
+      {
+        "profileId": "736c6491-b73b-4522-908a-45069ccbad96",
+        "role": "edit"
+      },
+      {
+        "profileId": "22f027e8-064f-45bd-9b82-8e21b67f4c10",
+        "role": "basic"
+      }
+    ]
   }
 ]
