@@ -1268,5 +1268,14 @@ module.exports = [
       title: 'ROP collaborator test',
       species: ['mice']
     }
+  },
+  {
+    projectId: 'c63226d1-69ca-4fe2-a79b-811755cb4456',
+    data: {
+      'title': 'Collaborator active project'
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
   }
 ];
