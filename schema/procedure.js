@@ -89,6 +89,8 @@ class Procedure extends BaseModel {
 
     if (sort.column) {
       query = this.orderBy({ query, sort });
+    } else {
+      query.orderBy('createdAt', 'asc');
     }
 
     query = this.paginate({ query, limit, offset });
