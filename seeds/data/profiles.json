@@ -1490,6 +1490,9 @@
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 8202
       }
     ],
     "title": "Miss",
@@ -1500,8 +1503,10 @@
     "telephone": 4869783707,
     "pilLicenceNumber": "BQ-918819",
     "pil": {
+      "status": "active",
       "issueDate": "2018-01-24",
-      "conditions": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nEtiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem."
+      "procedures": ["A", "B"],
+      "species": ["Mice", "Rats"]
     }
   },
   {
