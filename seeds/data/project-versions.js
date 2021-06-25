@@ -1277,5 +1277,54 @@ module.exports = [
     status: 'granted',
     createdAt: '2020-10-01',
     updatedAt: '2020-10-01'
+  },
+  {
+    projectId: 'e482a24d-835a-4580-97da-47fad3739b0a',
+    data: {
+      'title': 'Content search - application',
+      'funding-how': toRichText('This term appears in the full application')
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
+  },
+  {
+    projectId: '5850275f-e8fd-4d93-a7bc-088d81e93389',
+    data: {
+      'title': 'Content search - NTS',
+      'project-aim': toRichText('This term appears in the NTS section')
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
+  },
+  {
+    projectId: 'ce588984-6ae7-4772-9ae4-41204a5db4d0',
+    data: {
+      'title': 'Content search - granted',
+      'objective-relation': toRichText('This term appears in the granted licence')
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
+  },
+  {
+    projectId: 'f21caac5-2ecf-4e3f-b2e2-4e8bee775ad8',
+    data: {
+      'title': 'Content search - ra'
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
+  },
+  {
+    projectId: '46c41498-5e2b-4949-956d-e0159d89b78c',
+    data: {
+      'title': 'Content search - continuation',
+      'transfer-expiring': true
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
   }
 ];
