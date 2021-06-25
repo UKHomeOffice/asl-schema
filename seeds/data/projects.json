@@ -1082,5 +1082,71 @@
         "role": "edit"
       }
     ]
+  },
+  {
+    "id": "e482a24d-835a-4580-97da-47fad3739b0a",
+    "establishmentId": 8201,
+    "title": "Content search - application",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "CONTENT-APPLICATION",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "5850275f-e8fd-4d93-a7bc-088d81e93389",
+    "establishmentId": 8201,
+    "title": "Content search - NTS",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "CONTENT-NTS",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "ce588984-6ae7-4772-9ae4-41204a5db4d0",
+    "establishmentId": 8201,
+    "title": "Content search - granted",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "CONTENT-GRANTED",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "f21caac5-2ecf-4e3f-b2e2-4e8bee775ad8",
+    "establishmentId": 8201,
+    "title": "Content search - ra",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "raDate": "2026-10-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "CONTENT-GRANTED",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "46c41498-5e2b-4949-956d-e0159d89b78c",
+    "establishmentId": 8201,
+    "title": "Content search - continuation",
+    "status": "active",
+    "issueDate": "2021-05-13 11:49:35.214+00",
+    "expiryDate": "2026-05-13 11:49:35.214+00",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "CONTENT-GRANTED",
+    "createdAt": "2021-05-13 11:43:49.857962+00",
+    "updatedAt": "2021-05-13 11:49:35.215+00"
   }
 ]
