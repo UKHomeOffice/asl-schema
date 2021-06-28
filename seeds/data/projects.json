@@ -1148,5 +1148,16 @@
     "licenceNumber": "CONTENT-GRANTED",
     "createdAt": "2021-05-13 11:43:49.857962+00",
     "updatedAt": "2021-05-13 11:49:35.215+00"
+  },
+  {
+    "id": "32bf9973-6bc1-4529-a887-2aca5f06cab2",
+    "establishmentId": 8201,
+    "title": "ROP re-use/endangered/GAAs test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROPGAAS"
   }
 ]

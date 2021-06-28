@@ -1326,5 +1326,29 @@ module.exports = [
     status: 'granted',
     createdAt: '2020-10-01',
     updatedAt: '2020-10-01'
+  },
+  {
+    projectId: '32bf9973-6bc1-4529-a887-2aca5f06cab2',
+    status: 'granted',
+    data: {
+      title: 'ROP re-use/endangered/GAAs test',
+      species: ['mice', 'rats'],
+      protocols: [
+        {
+          gaas: true,
+          speciesDetails: [
+            {
+              value: 'mice',
+              reuse: true
+            },
+            {
+              value: 'rats',
+              reuse: false
+            }
+          ]
+        }
+      ],
+      'endangered-animals': true
+    }
   }
 ];
