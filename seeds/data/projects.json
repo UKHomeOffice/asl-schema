@@ -1159,5 +1159,16 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "ROPGAAS"
+  },
+  {
+    "id": "209696c6-13ac-4297-911d-bbce28954a62",
+    "establishmentId": 8201,
+    "title": "Internal amendment test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "INTAMEND"
   }
 ]
