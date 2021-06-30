@@ -1318,6 +1318,15 @@ module.exports = [
     updatedAt: '2020-10-01'
   },
   {
+    projectId: '209696c6-13ac-4297-911d-bbce28954a62',
+    data: {
+      'title': 'Internal amendment test'
+    },
+    status: 'granted',
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
+  },
+  {
     projectId: '46c41498-5e2b-4949-956d-e0159d89b78c',
     data: {
       'title': 'Content search - continuation',
