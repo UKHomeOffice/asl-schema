@@ -878,7 +878,17 @@ module.exports = [
     'projectId': '52949a8f-879c-45bd-b6a4-cbc01c746da0',
     'status': 'submitted',
     'data': {
-      'title': 'Testing deadline extension (old style)'
+      'title': 'Testing deadline passed'
+    },
+    'createdAt': '2020-06-01',
+    'updatedAt': '2020-06-01'
+  },
+  {
+    'id': '08e4cc9a-8627-48ff-b89f-24ff18224630',
+    'projectId': '52949a8f-879c-45bd-b6a4-cbc01c746da1',
+    'status': 'submitted',
+    'data': {
+      'title': 'Testing deadline passed external'
     },
     'createdAt': '2020-06-01',
     'updatedAt': '2020-06-01'

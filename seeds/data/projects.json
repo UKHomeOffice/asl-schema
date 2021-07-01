@@ -680,6 +680,16 @@
     "updatedAt": "2020-06-01"
   },
   {
+    "id": "52949a8f-879c-45bd-b6a4-cbc01c746da1",
+    "establishmentId": 8201,
+    "title": "Testing deadline passed external",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01"
+  },
+  {
     "id": "d661f113-9594-4374-b461-b75d1b6a02db",
     "establishmentId": 8201,
     "title": "Unsubmitted amendment",
