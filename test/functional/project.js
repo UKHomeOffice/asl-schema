@@ -264,6 +264,58 @@ describe('Project model', () => {
           assert.deepEqual(project.additionalEstablishments, expected);
         });
     });
+
+    it('does not include draft aa for active projects', () => {
+      const opts = {
+        establishmentId: 8201,
+        status: 'active',
+        search: 'Additional availability'
+      };
+
+      const projEst = {
+        projectId: ids.additionalProject,
+        establishmentId: ids.additionalEstablishment,
+        status: 'draft',
+        versionId: ids.additionalVersion
+      };
+
+      return Promise.resolve()
+        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
+        .then(() => this.models.Project.search(opts))
+        .then(results => results.results[0])
+        .then(project => {
+          const expected = [];
+          assert.deepEqual(project.additionalEstablishments, expected);
+        });
+    });
+
+    it('includes draft aa for draft projects', () => {
+      const opts = {
+        establishmentId: 8201,
+        status: 'inactive',
+        search: 'draft project'
+      };
+
+      const projEst = {
+        projectId: ids.draftProject,
+        establishmentId: ids.additionalEstablishment,
+        status: 'draft',
+        versionId: ids.draftProjectVersion
+      };
+
+      return Promise.resolve()
+        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
+        .then(() => this.models.Project.search(opts))
+        .then(results => results.results[0])
+        .then(project => {
+          const expected = [{
+            id: ids.additionalEstablishment,
+            name: 'Additional establishment',
+            status: 'draft'
+          }];
+          assert.deepEqual(project.additionalEstablishments, expected);
+        });
+    });
   });
 
   describe('scoped methods', () => {
