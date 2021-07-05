@@ -289,6 +289,61 @@ describe('Project model', () => {
         });
     });
 
+    it('includes removed aa for active projects', () => {
+      const opts = {
+        establishmentId: ids.establishmentId,
+        status: 'active',
+        search: 'Additional availability'
+      };
+
+      const projEst = {
+        projectId: ids.additionalProject,
+        establishmentId: ids.additionalEstablishment,
+        status: 'removed',
+        versionId: ids.additionalVersion
+      };
+
+      return Promise.resolve()
+        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
+        .then(() => this.models.Project.search(opts))
+        .then(results => results.results[0])
+        .then(project => {
+          assert.equal(project.additionalEstablishments.length, 1);
+          assert.equal(project.additionalEstablishments[0].id, ids.additionalEstablishment);
+          assert.equal(project.additionalEstablishments[0].status, 'removed');
+        });
+    });
+
+    it('includes removed aa for active projects when searching from the removed establishment', () => {
+      const opts = {
+        establishmentId: ids.additionalEstablishment,
+        status: 'active',
+        search: 'Additional availability',
+        // add a sort so that the first project is not `Draft additional availability`
+        sort: {
+          column: 'title',
+          ascending: 'true'
+        }
+      };
+
+      const projEst = {
+        projectId: ids.additionalProject,
+        establishmentId: ids.additionalEstablishment,
+        status: 'removed',
+        versionId: ids.additionalVersion
+      };
+
+      return Promise.resolve()
+        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
+        .then(() => this.models.Project.search(opts))
+        .then(results => results.results[0])
+        .then(project => {
+          assert.equal(project.additionalEstablishments.length, 1);
+          assert.equal(project.additionalEstablishments[0].id, ids.additionalEstablishment);
+          assert.equal(project.additionalEstablishments[0].status, 'removed');
+        });
+    });
+
     it('includes draft aa for draft projects', () => {
       const opts = {
         establishmentId: 8201,

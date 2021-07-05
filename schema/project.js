@@ -308,7 +308,7 @@ class Project extends BaseModel {
         constrainAAParams: builder => {
           builder.select('id', 'name', 'projectEstablishments.status');
           if (status !== 'inactive') {
-            builder.where('projectEstablishments.status', 'active');
+            builder.whereIn('projectEstablishments.status', ['active', 'removed']);
           }
         },
         constrainEstParams: builder => builder.select('id', 'name')
