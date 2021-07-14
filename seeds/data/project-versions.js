@@ -1369,5 +1369,14 @@ module.exports = [
       ],
       'endangered-animals': true
     }
+  },
+  {
+    projectId: 'e33259f0-e8ba-4093-a6b4-b7129af7b8e6',
+    status: 'granted',
+    data: {
+      title: 'Project task recovery test'
+    },
+    createdAt: '2020-10-01',
+    updatedAt: '2020-10-01'
   }
 ];
