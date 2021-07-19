@@ -1,4 +1,3 @@
-// eslint-disable-next-line implicit-dependencies/no-implicit
 const glob = require('glob');
 const { omit } = require('lodash');
 const moment = require('moment');
