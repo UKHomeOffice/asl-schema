@@ -1378,5 +1378,22 @@ module.exports = [
     },
     createdAt: '2020-10-01',
     updatedAt: '2020-10-01'
+  },
+  {
+    projectId: 'c8880526-7d92-4973-a87f-e0257d0bc03b',
+    status: 'granted',
+    data: {
+      title: 'ROP standard species test',
+      species: ['mice', 'rats']
+    }
+  },
+  {
+    projectId: '6cd7f54b-598d-4519-9798-9c64d641e8ac',
+    status: 'granted',
+    data: {
+      title: 'ROP standard species test',
+      species: ['mice', 'other-rodents'],
+      'species-other-rodents': ['Chinchilla', 'Capybara']
+    }
   }
 ];
