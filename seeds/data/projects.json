@@ -1191,5 +1191,29 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "PROJRECOVERY"
+  },
+  {
+    "id": "c8880526-7d92-4973-a87f-e0257d0bc03b",
+    "establishmentId": 8201,
+    "title": "ROP standard species test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-SPECIES-STANDARD",
+    "species": "[\"mice\", \"rats\"]"
+  },
+  {
+    "id": "6cd7f54b-598d-4519-9798-9c64d641e8ac",
+    "establishmentId": 8201,
+    "title": "ROP other species test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-SPECIES-OTHER",
+    "species": "[\"mice\", \"Chinchilla\", \"Capybara\"]"
   }
 ]
