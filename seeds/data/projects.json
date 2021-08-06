@@ -1215,5 +1215,17 @@
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "ROP-SPECIES-OTHER",
     "species": "[\"mice\", \"Chinchilla\", \"Capybara\"]"
+  },
+  {
+    "id": "5dea79ff-990b-4278-a772-d13ee7913547",
+    "establishmentId": 8201,
+    "title": "ROP with procedures",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-WITH-PROCEDURES",
+    "species": "[\"mice\"]"
   }
 ]

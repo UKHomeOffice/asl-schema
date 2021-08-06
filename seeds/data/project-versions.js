@@ -1395,5 +1395,13 @@ module.exports = [
       species: ['mice', 'other-rodents'],
       'species-other-rodents': ['Chinchilla', 'Capybara']
     }
+  },
+  {
+    projectId: '5dea79ff-990b-4278-a772-d13ee7913547',
+    status: 'granted',
+    data: {
+      title: 'ROP with procedures',
+      species: ['mice']
+    }
   }
 ];
