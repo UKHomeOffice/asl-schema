@@ -102,20 +102,38 @@ class Rops extends BaseModel {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        basicSubpurposesOther: { type: ['string', 'null'] },
+        basicSubpurposesOther: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
         regulatorySubpurposes: {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        regulatorySubpurposesOther: { type: ['string', 'null'] },
-        regulatorySubpurposesOtherEfficacy: { type: ['string', 'null'] },
-        regulatorySubpurposesOtherToxicity: { type: ['string', 'null'] },
-        regulatorySubpurposesOtherToxicityEcotoxicity: { type: ['string', 'null'] },
+        regulatorySubpurposesOther: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
+        regulatorySubpurposesOtherEfficacy: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
+        regulatorySubpurposesOtherToxicity: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
+        regulatorySubpurposesOtherToxicityEcotoxicity: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
         regulatoryLegislation: {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        regulatoryLegislationOther: { type: ['string', 'null'] },
+        regulatoryLegislationOther: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
         regulatoryLegislationOrigin: {
           type: ['array', 'null'],
           items: { type: 'string' }
@@ -124,7 +142,10 @@ class Rops extends BaseModel {
           type: ['array', 'null'],
           items: { type: 'string' }
         },
-        translationalSubpurposesOther: { type: ['string', 'null'] },
+        translationalSubpurposesOther: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
         newGeneticLine: { type: ['boolean', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
