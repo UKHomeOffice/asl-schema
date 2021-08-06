@@ -113,7 +113,7 @@ exports.up = function(knex) {
               return Promise.resolve();
             }
             return Promise.resolve()
-              .then(() => knex('rops').where({ id: rop.id }).update(mapValues(updates, JSON.stringify)))
+              .then(() => knex('rops').where({ id: rop.id }).update(mapValues(updates, value => JSON.stringify(value))))
               .then(() => knex('procedures').where({ rop_id: rop.id }))
               .then(procs => {
                 return procs.reduce((procPromise, proc) => {
