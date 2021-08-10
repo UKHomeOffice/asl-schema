@@ -1391,9 +1391,26 @@ module.exports = [
     projectId: '6cd7f54b-598d-4519-9798-9c64d641e8ac',
     status: 'granted',
     data: {
-      title: 'ROP standard species test',
+      title: 'ROP other species not started',
       species: ['mice', 'other-rodents'],
       'species-other-rodents': ['Chinchilla', 'Capybara']
+    }
+  },
+  {
+    projectId: 'd564d049-4cb9-422d-b039-fd94dbaa22e0',
+    status: 'granted',
+    data: {
+      title: 'ROP other species submitted',
+      species: ['other-amphibians'],
+      'species-other-amphibians': ['Cane Toads']
+    }
+  },
+  {
+    projectId: '5dea79ff-990b-4278-a772-d13ee7913547',
+    status: 'granted',
+    data: {
+      title: 'ROP with procedures',
+      species: ['mice']
     }
   }
 ];

@@ -1,3 +1,4 @@
+const { omit } = require('lodash');
 const rops = require('../data/rops');
 
 const defaults = {
@@ -19,12 +20,22 @@ const defaults = {
 };
 
 module.exports = {
-  populate: knex => knex('rops').insert(
-    rops.map(rop => ({
-      ...defaults,
-      submittedDate: rop.status === 'submitted' ? (new Date()).toISOString() : null,
-      ...rop
-    }))
-  ),
+  populate: knex => {
+    return knex('rops').insert(
+      rops.map(rop => ({
+        ...defaults,
+        submittedDate: rop.status === 'submitted' ? (new Date()).toISOString() : null,
+        ...omit(rop, 'procedures')
+      }))
+    ).then(() => {
+      const procedures = rops.reduce((procs, rop) => {
+        (rop.procedures || []).map(procedure => {
+          procs.push({ ...procedure, ropId: rop.id });
+        });
+        return procs;
+      }, []);
+      return knex('procedures').insert(procedures);
+    });
+  },
   delete: knex => knex('rops').del()
 };
