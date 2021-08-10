@@ -80,7 +80,7 @@ module.exports = [
         severityNum: 30,
         severityHoNote: '',
         severityPersonalNote: '',
-        special_technique_used: false
+        specialTechniqueUsed: false
       },
       {
         species: 'mice',
@@ -96,7 +96,83 @@ module.exports = [
         severityNum: 50,
         severityHoNote: 'Note for HO',
         severityPersonalNote: '',
-        special_technique_used: false
+        specialTechniqueUsed: false
+      }
+    ]
+  },
+  {
+    id: '9b0cb70f-5e9e-4014-a1a8-d44eed98ac45',
+    projectId: 'd564d049-4cb9-422d-b039-fd94dbaa22e0',
+    year: 2021,
+    status: 'submitted',
+    proceduresCompleted: true,
+    postnatal: true,
+    endangered: false,
+    nmbas: true,
+    generalAnaesthesia: false,
+    generalAnaesthesiaDetails: 'Reason for no GA',
+    rodenticide: false,
+    productTesting: false,
+    species: {'precoded': ['other-amphibians'], 'otherSpecies': [], 'species-other-amphibians': ['Cane Toads']},
+    reuse: false,
+    placesOfBirth: JSON.stringify(['eu-registered']),
+    ga: false,
+    purposes: JSON.stringify(['basic', 'translational']),
+    basicSubpurposes: JSON.stringify(['immune']),
+    translationalSubpurposes: JSON.stringify(['other', 'diagnosis']),
+    translationalSubpurposesOther: JSON.stringify([{'id': '2fbd3d1c-119b-4298-9568-91321b0d24ff', 'value': 'Disorder A'}, {'id': '2daf812b-21b5-44ea-b126-231a5fd3819a', 'value': 'Disorder B'}]),
+    newGeneticLine: false,
+    submittedDate: '2021-08-04 15:57:28.319+00',
+    procedures: [
+      {
+        species: 'Cane Toads',
+        placesOfBirth: 'eu-registered',
+        ga: 'no-ga',
+        purposes: 'translational',
+        translationalSubpurposes: 'other',
+        newGeneticLine: false,
+        severity: 'severe',
+        severityNum: 5,
+        severityHoNote: '',
+        severityPersonalNote: '',
+        subpurposeOther: '2daf812b-21b5-44ea-b126-231a5fd3819a'
+      },
+      {
+        species: 'Cane Toads',
+        placesOfBirth: 'eu-registered',
+        ga: 'no-ga',
+        purposes: 'basic',
+        basicSubpurposes: 'immune',
+        newGeneticLine: false,
+        severity: 'sub',
+        severityNum: 50,
+        severityHoNote: 'Note for the HO',
+        severityPersonalNote: ''
+      },
+      {
+        species: 'Cane Toads',
+        placesOfBirth: 'eu-registered',
+        ga: 'no-ga',
+        purposes: 'translational',
+        translationalSubpurposes: 'diagnosis',
+        newGeneticLine: false,
+        severity: 'mild',
+        severityNum: 10,
+        severityHoNote: '',
+        severityPersonalNote: ''
+      },
+      {
+        species: 'Cane Toads',
+        placesOfBirth: 'eu-registered',
+        ga: 'no-ga',
+        purposes: 'translational',
+        translationalSubpurposes: 'other',
+        newGeneticLine: false,
+        severity: 'moderate',
+        severityNum: 15,
+        severityHoNote: '',
+        severityPersonalNote: '',
+        subpurposeOther: '2fbd3d1c-119b-4298-9568-91321b0d24ff'
       }
     ]
   }

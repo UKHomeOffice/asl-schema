@@ -1207,14 +1207,26 @@
   {
     "id": "6cd7f54b-598d-4519-9798-9c64d641e8ac",
     "establishmentId": 8201,
-    "title": "ROP other species test",
+    "title": "ROP other species not started",
     "status": "active",
     "issueDate": "2021-03-01",
     "expiryDate": "2026-03-01",
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
-    "licenceNumber": "ROP-SPECIES-OTHER",
+    "licenceNumber": "ROP-SPECIES-OTHER-NOT-START",
     "species": "[\"mice\", \"Chinchilla\", \"Capybara\"]"
+  },
+  {
+    "id": "d564d049-4cb9-422d-b039-fd94dbaa22e0",
+    "establishmentId": 8201,
+    "title": "ROP other species submitted",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-SPECIES-OTHER-SUBMITTED",
+    "species": "[\"Cane Toads\"]"
   },
   {
     "id": "5dea79ff-990b-4278-a772-d13ee7913547",
