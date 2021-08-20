@@ -341,7 +341,11 @@ module.exports = [
     id: '2b80b02a-3ee1-408a-b86d-6417a1ac5483',
     'projectId': '5cb97819-3e21-4ea5-85f0-32df2b06213c',
     'data': {
-      'title': 'Additional availability active'
+      'title': 'Additional availability active',
+      'other-establishments': true,
+      establishments: [
+        { 'establishment-id': 30001, 'name': 'Small Pharma' }
+      ]
     },
     'status': 'granted'
   },
@@ -352,7 +356,7 @@ module.exports = [
       'title': 'Additional availability to transfer',
       'other-establishments': true,
       establishments: [
-        { 'establishment-id': 30001 }
+        { 'establishment-id': 30001, 'name': 'Small Pharma' }
       ],
       protocols: [
         { title: 'First protocol', complete: true }
