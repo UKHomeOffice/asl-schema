@@ -409,8 +409,7 @@
     "additionalEstablishments": [
       {
         "establishmentId": 30001,
-        "status": "active",
-        "versionId": "2b80b02a-3ee1-408a-b86d-6417a1ac5483"
+        "status": "active"
       }
     ]
   },
