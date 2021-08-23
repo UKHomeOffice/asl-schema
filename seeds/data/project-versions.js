@@ -122,6 +122,20 @@ module.exports = [
     'status': 'granted'
   },
   {
+    'projectId': 'ba50976e-1cca-4cda-baa7-f7d0be53d83a',
+    'data': {
+      'title': 'Legacy AWERB test',
+      'primary-establishment': 'University of Croydon',
+      'protocols': [
+        {
+          'id': 'f975dde0-7e1c-41c4-b5d3-71040e7f4ea8',
+          'steps': null
+        }
+      ]
+    },
+    'status': 'granted'
+  },
+  {
     'projectId': '1cbbb865-f5e7-4314-a35d-e8adcf19a811',
     'data': {
       'title': 'Test legacy change licence holder',
