@@ -50,6 +50,17 @@
     "status": "active"
   },
   {
+    "id": "ba50976e-1cca-4cda-baa7-f7d0be53d83a",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "establishmentId": 8201,
+    "schemaVersion": 0,
+    "title": "Legacy AWERB test",
+    "issueDate": "2014-11-01",
+    "expiryDate": "2022-11-01",
+    "licenceNumber": "LEGACY-AWERB",
+    "status": "active"
+  },
+  {
     "id": "1cbbb865-f5e7-4314-a35d-e8adcf19a811",
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "establishmentId": 8201,
