@@ -48,6 +48,7 @@
     "id": 54321,
     "name": "Training Establishment",
     "status": "active",
+    "country": "england",
     "issueDate": "07/05/2018 12:00",
     "licenceNumber": "XCC09J64E",
     "isTrainingEstablishment": true,
@@ -59,6 +60,7 @@
     "name": "University of Life",
     "type": "University, medical school",
     "status": "active",
+    "country": "england",
     "issueDate": "07/05/2018 12:00",
     "licenceNumber": "SOME-PILS-NO-PPLS",
     "createdAt": "05/11/2017 12:00",
@@ -69,6 +71,7 @@
     "name": "University of Hope",
     "type": "University, medical school",
     "status": "revoked",
+    "country": "england",
     "issueDate": "06/04/2018 12:00",
     "licenceNumber": "XCC09J64J",
     "revocationDate": "10/10/2019 12:00",
@@ -80,6 +83,7 @@
     "name": "University of Cheese",
     "type": "University, medical school",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -88,6 +92,7 @@
     "name": "Big Pharma",
     "type": "Pharmaceutical company",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -96,6 +101,7 @@
     "name": "Medium Pharma",
     "type": "Pharmaceutical company",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -104,6 +110,7 @@
     "name": "Small Pharma",
     "type": "Pharmaceutical company",
     "status": "active",
+    "country": "england",
     "issueDate": "05/11/2019 12:00",
     "revocationDate": null,
     "licenceNumber": "NO-PILS-SOME-PPLS",
@@ -115,6 +122,7 @@
     "name": "Tiny Pharma",
     "type": "Pharmaceutical company",
     "status": "active",
+    "country": "england",
     "issueDate": "05/11/2019 12:00",
     "revocationDate": null,
     "licenceNumber": "NO-PILS-NO-PPLS",
@@ -126,6 +134,7 @@
     "name": "Research 101",
     "type": "Research lab",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -134,6 +143,7 @@
     "name": "Super Research",
     "type": "Research lab",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -142,6 +152,7 @@
     "name": "MedTech",
     "type": "Research lab",
     "status": "inactive",
+    "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
   },
@@ -150,6 +161,7 @@
     "name": "Source Establishment",
     "type": "Merge test",
     "status": "active",
+    "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00"
   },
@@ -158,6 +170,7 @@
     "name": "Target Establishment",
     "type": "Merge test",
     "status": "active",
+    "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00"
   }
