@@ -42,6 +42,7 @@ class Rops extends BaseModel {
       'regulatorySubpurposesOtherEfficacy',
       'regulatorySubpurposesOtherToxicity',
       'regulatorySubpurposesOtherToxicityEcotoxicity',
+      'regulatorySubpurposesOtherToxicityLethal',
       'regulatoryLegislation',
       'regulatoryLegislationOther',
       'regulatoryLegislationOrigin',
@@ -128,6 +129,10 @@ class Rops extends BaseModel {
           items: { type: 'object' }
         },
         regulatorySubpurposesOtherToxicityEcotoxicity: {
+          type: ['array', 'null'],
+          items: { type: 'object' }
+        },
+        regulatorySubpurposesOtherToxicityLethal: {
           type: ['array', 'null'],
           items: { type: 'object' }
         },
