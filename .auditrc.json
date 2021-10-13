@@ -1,0 +1,8 @@
+{
+  "comments": [
+    "1002482 - this is an objection vuln that is disputed, see https://github.com/advisories/GHSA-r659-8xfp-j327"
+  ],
+  "allowlist": [
+    1002482
+  ]
+}
