@@ -184,6 +184,15 @@ module.exports = [
     'updatedAt': '2019-10-14'
   },
   {
+    'projectId': 'e2b36165-d85d-4467-a9f9-0014af089131',
+    'data': {
+      'title': 'Change licence holder'
+    },
+    'status': 'granted',
+    'createdAt': '2019-10-14',
+    'updatedAt': '2019-10-14'
+  },
+  {
     'projectId': '9ad36797-7bb4-4f4f-96c1-a8162c5eec44',
     'data': {
       'title': 'Download test project',

@@ -26,6 +26,19 @@
     "amendedDate":"2019-10-14"
   },
   {
+    "id": "e2b36165-d85d-4467-a9f9-0014af089131",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "establishmentId": 8201,
+    "title": "Change licence holder",
+    "issueDate": "2017-02-05",
+    "expiryDate": "2022-10-01",
+    "licenceNumber": "PR-250877",
+    "status": "active",
+    "createdAt":"2017-02-05",
+    "updatedAt":"2019-10-14",
+    "amendedDate":"2019-10-14"
+  },
+  {
     "id": "9ad36797-7bb4-4f4f-96c1-a8162c5eec44",
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "establishmentId": 8201,
