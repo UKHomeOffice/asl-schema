@@ -2855,5 +2855,49 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "firstName": "Anne-Marie",
+    "lastName": "Barber",
+    "email": "am.barber@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Anne-Marie",
+    "lastName": "Shoemaker",
+    "email": "am.shoemaker@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Anne Marie",
+    "lastName": "Cooper",
+    "email": "am.cooper@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Anne Marie",
+    "lastName": "Fletcher",
+    "email": "am.fletcher@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
   }
 ]
