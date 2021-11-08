@@ -2899,5 +2899,16 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "firstName": "Anne Marie",
+    "lastName": "Anne Marie",
+    "email": "am.am@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
   }
 ]
