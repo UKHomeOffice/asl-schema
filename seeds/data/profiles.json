@@ -2910,5 +2910,49 @@
         "role": "basic"
       }
     ]
+  },
+  {
+    "firstName": "Ben",
+    "lastName": "James",
+    "email": "ben.james@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Benjamin",
+    "lastName": "James",
+    "email": "benjamin.james@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Gaben",
+    "lastName": "James",
+    "email": "gaben.james@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
+  },
+  {
+    "firstName": "Gabe",
+    "lastName": "James",
+    "email": "gabe.james@example.com",
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "basic"
+      }
+    ]
   }
 ]
