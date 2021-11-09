@@ -175,5 +175,54 @@ module.exports = [
         subpurposeOther: '2fbd3d1c-119b-4298-9568-91321b0d24ff'
       }
     ]
+  },
+  {
+    id: 'e16a0d06-ec12-40c1-b8ce-8fce70b41992',
+    projectId: '48dab955-a0b7-4ad3-bdc0-6b79d0aaeac8',
+    year: 2021,
+    status: 'draft',
+    proceduresCompleted: true,
+    postnatal: true,
+    endangered: false,
+    nmbas: true,
+    generalAnaesthesia: false,
+    generalAnaesthesiaDetails: 'Reason for no GA',
+    rodenticide: false,
+    productTesting: false,
+    species: {'precoded': ['mice'], 'otherSpecies': []},
+    reuse: true,
+    placesOfBirth: JSON.stringify(['uk-licenced', 'rest-of-world']),
+    scheduleTwoDetails: '',
+    ga: true,
+    purposes: JSON.stringify(['preservation']),
+    newGeneticLine: true,
+    procedures: [
+      {
+        species: 'mice',
+        reuse: true,
+        placesOfBirth: 'uk-licenced',
+        ga: 'no-ga',
+        purposes: 'preservation',
+        newGeneticLine: true,
+        severity: 'mild',
+        severityNum: 30,
+        severityHoNote: '',
+        severityPersonalNote: '',
+        specialTechniqueUsed: false
+      },
+      {
+        species: 'mice',
+        reuse: false,
+        placesOfBirth: 'uk-licenced',
+        ga: 'ga-not-harmful',
+        purposes: 'preservation',
+        newGeneticLine: false,
+        severity: 'mild',
+        severityNum: 50,
+        severityHoNote: 'Note for HO',
+        severityPersonalNote: '',
+        specialTechniqueUsed: false
+      }
+    ]
   }
 ];
