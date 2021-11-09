@@ -1262,5 +1262,16 @@
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "ROP-WITH-PROCEDURES",
     "species": "[\"mice\"]"
+  },
+  {
+    "id": "48dab955-a0b7-4ad3-bdc0-6b79d0aaeac8",
+    "establishmentId": 8201,
+    "title": "ROP submission test",
+    "status": "active",
+    "issueDate": "2021-03-01",
+    "expiryDate": "2026-03-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "licenceNumber": "ROP-SUBMIT"
   }
 ]
