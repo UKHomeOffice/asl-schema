@@ -1273,5 +1273,14 @@
     "schemaVersion": 1,
     "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
     "licenceNumber": "ROP-SUBMIT"
+  },
+  {
+    "id": "782732c5-4457-46d6-9d46-6610a0ecf872",
+    "establishmentId": 8201,
+    "title": "Comment Count Test",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+    "species": "[\"mice\"]"
   }
 ]

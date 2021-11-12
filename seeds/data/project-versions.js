@@ -1439,5 +1439,30 @@ module.exports = [
       title: 'ROP with procedures',
       species: ['mice']
     }
+  },
+  {
+    id: 'f5e19fb1-38ce-4c91-b3a2-7d4a272fbda9',
+    projectId: '782732c5-4457-46d6-9d46-6610a0ecf872',
+    status: 'submitted',
+    data: {
+      title: 'Comment Count Test',
+      species: ['mice'],
+      poles: true,
+      'poles-environment': toRichText('Environment answer'),
+      'poles-inspection': toRichText('Inspection answer'),
+      'poles-justification': toRichText('Justification answer'),
+      polesList: [
+        {
+          id: uuid(),
+          title: 'First POLE',
+          'pole-info': toRichText('POLE one info')
+        },
+        {
+          id: uuid(),
+          title: 'Second POLE',
+          'pole-info': toRichText('POLE two info')
+        }
+      ]
+    }
   }
 ];
