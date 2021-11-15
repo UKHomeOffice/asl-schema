@@ -1446,7 +1446,20 @@ module.exports = [
     status: 'submitted',
     data: {
       title: 'Comment Count Test',
-      species: ['mice'],
+      species: ['mice', 'rats'],
+      'other-establishments': true,
+      establishments: [
+        {
+          'establishment-id': 8202,
+          name: 'Marvell Pharmaceutical',
+          'establishment-about': toRichText('First establishment details')
+        },
+        {
+          'establishment-id': 9999,
+          name: 'Big Pharma',
+          'establishment-about': toRichText('Second establishment details')
+        }
+      ],
       poles: true,
       'poles-environment': toRichText('Environment answer'),
       'poles-inspection': toRichText('Inspection answer'),
@@ -1461,6 +1474,59 @@ module.exports = [
           id: uuid(),
           title: 'Second POLE',
           'pole-info': toRichText('POLE two info')
+        }
+      ],
+      protocols: [
+        {
+          title: 'First protocol',
+          species: ['mice', 'rats'],
+          speciesDetails: [
+            {
+              name: 'Mice',
+              value: 'mice',
+              reuse: true,
+              'maximum-animals': 100,
+              'maximum-times-used': 100
+            },
+            {
+              name: 'Rats',
+              value: 'rats',
+              reuse: false
+            }
+          ],
+          steps: [
+            {
+              title: toRichText('Step one')
+            },
+            {
+              title: toRichText('Step two')
+            },
+            {
+              title: toRichText('Step three')
+            }
+          ]
+        },
+        {
+          title: 'Second protocol',
+          species: ['mice'],
+          speciesDetails: [
+            {
+              name: 'Mice',
+              value: 'mice',
+              reuse: true
+            }
+          ],
+          steps: [
+            {
+              title: toRichText('Step one')
+            },
+            {
+              title: toRichText('Step two')
+            },
+            {
+              title: toRichText('Step three')
+            }
+          ]
         }
       ]
     }
