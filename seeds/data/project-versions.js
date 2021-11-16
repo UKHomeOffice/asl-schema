@@ -1450,11 +1450,13 @@ module.exports = [
       'other-establishments': true,
       establishments: [
         {
+          id: uuid(),
           'establishment-id': 8202,
           name: 'Marvell Pharmaceutical',
           'establishment-about': toRichText('First establishment details')
         },
         {
+          id: uuid(),
           'establishment-id': 9999,
           name: 'Big Pharma',
           'establishment-about': toRichText('Second establishment details')
@@ -1478,10 +1480,12 @@ module.exports = [
       ],
       protocols: [
         {
+          id: uuid(),
           title: 'First protocol',
           species: ['mice', 'rats'],
           speciesDetails: [
             {
+              id: uuid(),
               name: 'Mice',
               value: 'mice',
               reuse: true,
@@ -1489,6 +1493,7 @@ module.exports = [
               'maximum-times-used': 100
             },
             {
+              id: uuid(),
               name: 'Rats',
               value: 'rats',
               reuse: false
@@ -1496,21 +1501,26 @@ module.exports = [
           ],
           steps: [
             {
+              id: uuid(),
               title: toRichText('Step one')
             },
             {
+              id: uuid(),
               title: toRichText('Step two')
             },
             {
+              id: uuid(),
               title: toRichText('Step three')
             }
           ]
         },
         {
+          id: uuid(),
           title: 'Second protocol',
           species: ['mice'],
           speciesDetails: [
             {
+              id: uuid(),
               name: 'Mice',
               value: 'mice',
               reuse: true
@@ -1518,12 +1528,15 @@ module.exports = [
           ],
           steps: [
             {
+              id: uuid(),
               title: toRichText('Step one')
             },
             {
+              id: uuid(),
               title: toRichText('Step two')
             },
             {
+              id: uuid(),
               title: toRichText('Step three')
             }
           ]
