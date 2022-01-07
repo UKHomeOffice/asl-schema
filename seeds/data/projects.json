@@ -948,6 +948,14 @@
     "licenceNumber": "PR-891234"
   },
   {
+    "id": "4f56fe77-26e7-4626-a27c-7b68fa78dd03",
+    "establishmentId": 8201,
+    "title": "Training record test application",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
     "id": "7296249e-a719-4c2f-8115-8047b40091ac",
     "establishmentId": 8201,
     "title": "Version comparison test application",

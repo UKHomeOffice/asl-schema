@@ -406,6 +406,21 @@
     "dob": "1970-10-27",
     "email": "basic.user@example.com",
     "projectId": "e3310c1a-5fe0-4e59-95b8-6410d8fd8031",
+    "certificates": [
+      {
+        "modules": [
+          "PILA (theory)",
+          "PILA (skills)"
+        ],
+        "species": [
+          "Mice",
+          "Rats"
+        ],
+        "passDate": "2020-06-04",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "12345"
+      }
+    ],
     "permissions": [
       {
         "establishmentId": 8201,
