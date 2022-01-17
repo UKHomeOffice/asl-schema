@@ -6,9 +6,11 @@ const projectVersions = require('./tables/project-versions');
 const additionalAvailability = require('./tables/additional-availability');
 const trainingCourses = require('./tables/training-courses');
 const rops = require('./tables/rops');
+const dataExports = require('./tables/exports');
 
 exports.seed = knex => {
   return Promise.resolve()
+    .then(() => dataExports.delete(knex))
     .then(() => knex('establishment_merge_log').del())
     .then(() => knex('document_cache').del())
     .then(() => knex('changelog').del())
@@ -39,5 +41,6 @@ exports.seed = knex => {
     .then(() => projectVersions.populate(knex))
     .then(() => additionalAvailability.populate(knex))
     .then(() => trainingCourses.populate(knex))
-    .then(() => rops.populate(knex));
+    .then(() => rops.populate(knex))
+    .then(() => dataExports.populate(knex));
 };
