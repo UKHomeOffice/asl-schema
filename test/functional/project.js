@@ -12,8 +12,10 @@ const ids = {
   submittedDraft: uuid(),
   vincentMalloy: uuid(),
   sterlingArcher: uuid(),
+  ropsUser: uuid(),
   establishmentId: 8201,
   additionalEstablishment: 8202,
+  anotherEstablishment: 8203,
   additionalProject: uuid(),
   additionalVersion: uuid(),
   draftAdditionalProject: uuid(),
@@ -47,6 +49,12 @@ describe('Project model', () => {
           firstName: 'Basic',
           lastName: 'User',
           email: 'basicuser@example.com'
+        },
+        {
+          id: ids.ropsUser,
+          firstName: 'Rops',
+          lastName: 'User',
+          email: 'rops@example.com'
         }
       ]))
       .then(() => this.models.Establishment.query().insert([
@@ -57,6 +65,10 @@ describe('Project model', () => {
         {
           id: ids.additionalEstablishment,
           name: 'Additional establishment'
+        },
+        {
+          id: ids.anotherEstablishment,
+          name: 'Another establishment'
         }
       ]))
       .then(() => this.models.Project.query().insert([
@@ -121,6 +133,30 @@ describe('Project model', () => {
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.anotherEstablishment,
+          title: 'Revoked ROPs test',
+          licenceHolderId: ids.ropsUser,
+          status: 'revoked',
+          revocationDate: '2022-01-10T12:00:00.000Z'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.anotherEstablishment,
+          title: 'Expired ROPs test',
+          licenceHolderId: ids.ropsUser,
+          status: 'expired',
+          expiryDate: '2022-01-10T12:00:00.000Z'
+        },
+        {
+          id: uuid(),
+          establishmentId: ids.anotherEstablishment,
+          title: 'Active ROPs test',
+          licenceHolderId: ids.ropsUser,
+          status: 'active',
+          expiryDate: '2022-07-10T12:00:00.000Z'
         }
       ]))
       .then(() => this.models.ProjectVersion.query().insert([
@@ -566,6 +602,70 @@ describe('Project model', () => {
         .then(projects => {
           assert.equal(projects.length, 7);
         });
+    });
+
+  });
+
+  describe('selectRopsDeadline', () => {
+
+    describe('active project', () => {
+
+      it('returns a ROPs due date of 31st Jan if the project is active at the end of the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Active ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
+          });
+      });
+
+      it('returns a ROPs due date of expiry + 28 days if the project is going to expire during the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Active ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-08-07T23:59:59.999Z');
+          });
+      });
+
+    });
+
+    describe('expired project', () => {
+
+      it('returns a ROPs due date of 31st Jan if the project expired after the end of the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Expired ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
+          });
+      });
+
+      it('returns a ROPs due date of expiry + 28 days if the project expired during the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Expired ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
+          });
+      });
+
+    });
+
+    describe('revoked project', () => {
+
+      it('returns a ROPs due date of 31st Jan if the project was revoked after the end of the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Revoked ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
+          });
+      });
+
+      it('returns a ROPs due date of revocation + 28 days if the project was revoked during the year', () => {
+        return Promise.resolve()
+          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Revoked ROPs test' }).first())
+          .then(project => {
+            assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
+          });
+      });
+
     });
 
   });

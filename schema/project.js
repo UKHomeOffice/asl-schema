@@ -113,9 +113,9 @@ class ProjectQueryBuilder extends QueryBuilder {
 
     return this.select(this.knex().raw(`
       CASE
-        WHEN projects.status = 'active' THEN LEAST('${endOfJanNextYear}'::timestamptz, DATE_TRUNC('day', projects.expiry_date) + ${interval28Days})
-        WHEN projects.status = 'expired' THEN DATE_TRUNC('day', projects.expiry_date) + ${interval28Days}
-        WHEN projects.status = 'revoked' THEN DATE_TRUNC('day', projects.revocation_date) + ${interval28Days}
+        WHEN (projects.status = 'expired' and DATE_TRUNC('day', projects.expiry_date) <= '${year}-12-31') THEN DATE_TRUNC('day', projects.expiry_date) + ${interval28Days}
+        WHEN (projects.status = 'revoked' and DATE_TRUNC('day', projects.revocation_date) <= '${year}-12-31') THEN DATE_TRUNC('day', projects.revocation_date) + ${interval28Days}
+        ELSE LEAST('${endOfJanNextYear}'::timestamptz, DATE_TRUNC('day', projects.expiry_date) + ${interval28Days})
       END rops_deadline
     `));
   }
