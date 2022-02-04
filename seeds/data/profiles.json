@@ -1565,6 +1565,15 @@
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 8202
+      },
+      {
+        "establishmentId": 30001
+      },
+      {
+        "establishmentId": 9999
       }
     ],
     "id": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
