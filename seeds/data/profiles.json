@@ -1565,9 +1565,19 @@
     "permissions": [
       {
         "establishmentId": 8201
+      },
+      {
+        "establishmentId": 8202
+      },
+      {
+        "establishmentId": 30001
+      },
+      {
+        "establishmentId": 9999
       }
     ],
     "id": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "userId": "2214f3be-5329-4c77-b447-068712b2a10c",
     "title": "Dr",
     "firstName": "Imojean",
     "lastName": "Addlestone",
