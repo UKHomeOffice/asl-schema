@@ -1543,5 +1543,61 @@ module.exports = [
         }
       ]
     }
+  },
+  {
+    projectId: '1c8f324a-c93a-4b93-b3ce-ca27dc6383cb',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline future',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '562ec6a3-be67-454d-83dc-6cd6e379956b',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline urgent',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '4ac58c06-6350-4bc8-a5b6-ead1e0ffbb9b',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline past',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'f88fadc5-fd31-4932-86fd-0da593b6e9c2',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline future, statutory deadline future (same date)',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '42c30236-65aa-4f51-8ea5-9ff7a3d31148',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline future, statutory deadline future (internal earlier)',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '6e4cb09b-f084-47f9-bc31-4a548edb0145',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline past, statutory deadline future',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'c4f8df6e-0e9d-4fea-aeb0-d444211a63d8',
+    status: 'submitted',
+    data: {
+      title: 'Internal deadline past, statutory deadline past',
+      species: ['mice']
+    }
   }
 ];
