@@ -1290,5 +1290,75 @@
     "schemaVersion": 1,
     "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
     "species": "[\"mice\"]"
+  },
+  {
+    "id": "1c8f324a-c93a-4b93-b3ce-ca27dc6383cb",
+    "establishmentId": 8201,
+    "title": "Internal deadline future",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-FUT",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "562ec6a3-be67-454d-83dc-6cd6e379956b",
+    "establishmentId": 8201,
+    "title": "Internal deadline urgent",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-URG",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "4ac58c06-6350-4bc8-a5b6-ead1e0ffbb9b",
+    "establishmentId": 8201,
+    "title": "Internal deadline past",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-PAST",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "f88fadc5-fd31-4932-86fd-0da593b6e9c2",
+    "establishmentId": 8201,
+    "title": "Internal deadline future, statutory deadline future (same date)",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-STAT-FUT",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "42c30236-65aa-4f51-8ea5-9ff7a3d31148",
+    "establishmentId": 8201,
+    "title": "Internal deadline future, statutory deadline future (internal earlier)",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-EARLY-STAT",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "6e4cb09b-f084-47f9-bc31-4a548edb0145",
+    "establishmentId": 8201,
+    "title": "Internal deadline past, statutory deadline future",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-PAST-STAT-FUT",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "c4f8df6e-0e9d-4fea-aeb0-d444211a63d8",
+    "establishmentId": 8201,
+    "title": "Internal deadline past, statutory deadline past",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "licenceNumber": "INTDL-PAST-STAT-PAST",
+    "species": "[\"mice\"]"
   }
 ]
