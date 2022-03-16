@@ -1386,5 +1386,75 @@
     "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
     "licenceNumber": "INTDL-PAST-STAT-PAST",
     "species": "[\"mice\"]"
+  },
+  {
+    "id": "4dfed9cc-00a1-4ab5-9e20-b1dcb44a1994",
+    "establishmentId": 8201,
+    "title": "Enforcement open case 1",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "a6d3653a-37ab-4b20-8258-7a17ab324083",
+    "licenceNumber": "ENF-OPEN-1",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "078c345b-21b8-4692-a1fc-f77d6fa8e77a",
+    "establishmentId": 8201,
+    "title": "Enforcement open case 2",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "a6d3653a-37ab-4b20-8258-7a17ab324083",
+    "licenceNumber": "ENF-OPEN-2",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "48f7340f-add9-460a-ba15-8eb042d2dc58",
+    "establishmentId": 8201,
+    "title": "Enforcement open against profile but not this project",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "a6d3653a-37ab-4b20-8258-7a17ab324083",
+    "licenceNumber": "ENF-OPEN-NOT-THIS",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "6464df1b-5dd1-4ee2-8fad-e430ff57de87",
+    "establishmentId": 8201,
+    "title": "Enforcement open project at Croydon",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "bd92e4b2-62a5-4ce3-94d4-df6220d733dc",
+    "licenceNumber": "ENF-OPEN-EST-1",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "6483cd4f-829f-45c9-9580-fe3950ecfc16",
+    "establishmentId": 8202,
+    "title": "Enforcement open project at Marvell",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "bd92e4b2-62a5-4ce3-94d4-df6220d733dc",
+    "licenceNumber": "ENF-OPEN-EST-2",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "2ccd2c57-8855-4a27-a482-1eb7068c02b0",
+    "establishmentId": 8201,
+    "title": "Enforcement open one project many profiles",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "78f16dc0-7fba-4e93-b27c-54707bb7ffe6",
+    "licenceNumber": "ENF-OPEN-1-PROJ-MANY-PEEPS",
+    "species": "[\"mice\"]",
+    "collaborators": [
+      {
+        "profileId": "1e45ff46-adc1-4dc8-95eb-ea2fb55e0117",
+        "role": "basic"
+      },
+      {
+        "profileId": "a791f32c-329c-4678-8b2e-f7a62e51d53d",
+        "role": "basic"
+      }
+    ]
   }
 ]

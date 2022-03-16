@@ -7,10 +7,14 @@ const additionalAvailability = require('./tables/additional-availability');
 const trainingCourses = require('./tables/training-courses');
 const rops = require('./tables/rops');
 const dataExports = require('./tables/exports');
+const enforcementCases = require('./tables/enforcement-cases');
+const enforcementFlags = require('./tables/enforcement-flags');
 
 exports.seed = knex => {
   return Promise.resolve()
     .then(() => dataExports.delete(knex))
+    .then(() => knex('enforcement_flags').del())
+    .then(() => knex('enforcement_cases').del())
     .then(() => knex('establishment_merge_log').del())
     .then(() => knex('document_cache').del())
     .then(() => knex('changelog').del())
@@ -42,5 +46,7 @@ exports.seed = knex => {
     .then(() => additionalAvailability.populate(knex))
     .then(() => trainingCourses.populate(knex))
     .then(() => rops.populate(knex))
+    .then(() => enforcementCases.populate(knex))
+    .then(() => enforcementFlags.populate(knex))
     .then(() => dataExports.populate(knex));
 };
