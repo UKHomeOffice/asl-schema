@@ -10,7 +10,7 @@ class PlaceQueryBuilder extends BaseModel.QueryBuilder {
       .leftJoinRelated('roles.profile')
       .withGraphFetched('roles(notDeleted).profile(constrainProfileParams)')
       .modifiers({
-        notDeleted: builder => builder.whereNull('placeRoles.deleted'),
+        notDeleted: builder => builder.whereNull('placeRoles.deleted').whereNull('roles.deleted'),
         constrainProfileParams: builder => builder.select('id', 'firstName', 'lastName')
       });
   }
