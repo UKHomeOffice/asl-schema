@@ -495,6 +495,13 @@
     "status": "inactive"
   },
   {
+    "id": "2ae6a098-9447-49a2-b841-6c63dc8a9767",
+    "establishmentId": 8201,
+    "title": "Submit application test",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "status": "inactive"
+  },
+  {
     "id": "6fcbc8cc-2665-4c79-9b03-1f67edc664e8",
     "establishmentId": 8201,
     "title": "Transfer draft test",
