@@ -19,7 +19,9 @@ const ids = {
   additionalProject: uuid(),
   additionalVersion: uuid(),
   draftAdditionalProject: uuid(),
-  draftAdditionalVersion: uuid()
+  draftAdditionalVersion: uuid(),
+  transferIn: uuid(),
+  transferOut: uuid()
 };
 
 describe('Project model', () => {
@@ -83,6 +85,7 @@ describe('Project model', () => {
           id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Some expired research',
+          issueDate: moment().subtract(66, 'M').format(),
           expiryDate: moment().subtract(6, 'M').format(),
           licenceHolderId: ids.vincentMalloy,
           status: 'expired'
@@ -98,6 +101,7 @@ describe('Project model', () => {
           id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Some more expired research',
+          issueDate: moment().subtract(61, 'M').format(),
           expiryDate: moment().subtract(1, 'M').format(),
           licenceHolderId: ids.vincentMalloy,
           status: 'expired'
@@ -106,6 +110,7 @@ describe('Project model', () => {
           id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Hair loss prevention',
+          issueDate: moment().subtract(54, 'M').format(),
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
@@ -114,6 +119,7 @@ describe('Project model', () => {
           id: ids.collaborationProject,
           establishmentId: ids.establishmentId,
           title: 'Collaboration',
+          issueDate: moment().subtract(54, 'M').format(),
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
@@ -122,6 +128,7 @@ describe('Project model', () => {
           id: ids.additionalProject,
           establishmentId: ids.establishmentId,
           title: 'Additional availability',
+          issueDate: moment().subtract(54, 'M').format(),
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
@@ -130,6 +137,7 @@ describe('Project model', () => {
           id: ids.draftAdditionalProject,
           establishmentId: ids.additionalEstablishment,
           title: 'Draft additional availability',
+          issueDate: moment().subtract(54, 'M').format(),
           expiryDate: moment().add(6, 'M').format(),
           licenceHolderId: ids.sterlingArcher,
           status: 'active'
@@ -140,6 +148,8 @@ describe('Project model', () => {
           title: 'Revoked ROPs test',
           licenceHolderId: ids.ropsUser,
           status: 'revoked',
+          issueDate: '2018-01-10T12:00:00.000Z',
+          expiryDate: '2023-01-10T12:00:00.000Z',
           revocationDate: '2022-01-10T12:00:00.000Z'
         },
         {
@@ -148,6 +158,7 @@ describe('Project model', () => {
           title: 'Expired ROPs test',
           licenceHolderId: ids.ropsUser,
           status: 'expired',
+          issueDate: '2017-01-10T12:00:00.000Z',
           expiryDate: '2022-01-10T12:00:00.000Z'
         },
         {
@@ -156,7 +167,32 @@ describe('Project model', () => {
           title: 'Active ROPs test',
           licenceHolderId: ids.ropsUser,
           status: 'active',
+          issueDate: '2017-07-10T12:00:00.000Z',
           expiryDate: '2022-07-10T12:00:00.000Z'
+        },
+        {
+          id: ids.transferOut,
+          establishmentId: ids.establishmentId,
+          title: 'Transferred project',
+          licenceHolderId: ids.ropsUser,
+          status: 'transferred',
+          issueDate: '2019-07-10T12:00:00.000Z',
+          expiryDate: '2024-07-10T12:00:00.000Z',
+          transferredOutDate: '2021-07-10T12:00:00.000Z',
+          transferEstablishmentId: ids.anotherEstablishment,
+          transferProjectId: ids.transferIn
+        },
+        {
+          id: ids.transferIn,
+          establishmentId: ids.anotherEstablishment,
+          title: 'Transferred project',
+          licenceHolderId: ids.ropsUser,
+          status: 'active',
+          issueDate: '2019-07-10T12:00:00.000Z',
+          expiryDate: '2024-07-10T12:00:00.000Z',
+          transferredInDate: '2021-07-10T12:00:00.000Z',
+          previousProjectId: ids.transferOut,
+          previousEstablishmentId: ids.establishmentId
         }
       ]))
       .then(() => this.models.ProjectVersion.query().insert([
@@ -600,7 +636,55 @@ describe('Project model', () => {
       return Promise.resolve()
         .then(() => this.models.Project.query().whereHasAvailability(ids.establishmentId))
         .then(projects => {
-          assert.equal(projects.length, 7);
+          assert.equal(projects.length, 8);
+        });
+    });
+
+  });
+
+  describe('whereRopsDue', () => {
+
+    it('does not include projects transferred in after the end of the year', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereRopsDue(2020))
+        .then(projects => {
+          return projects.map(project => project.id);
+        })
+        .then(projectIds => {
+          assert.ok(!projectIds.includes(ids.transferIn));
+        });
+    });
+
+    it('does include projects transferred in during the year', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereRopsDue(2021))
+        .then(projects => {
+          return projects.map(project => project.id);
+        })
+        .then(projectIds => {
+          assert.ok(projectIds.includes(ids.transferIn));
+        });
+    });
+
+    it('does include projects transferred out after the end of the year', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereRopsDue(2020))
+        .then(projects => {
+          return projects.map(project => project.id);
+        })
+        .then(projectIds => {
+          assert.ok(projectIds.includes(ids.transferOut));
+        });
+    });
+
+    it('does not include projects transferred out during the year', () => {
+      return Promise.resolve()
+        .then(() => this.models.Project.query().whereRopsDue(2021))
+        .then(projects => {
+          return projects.map(project => project.id);
+        })
+        .then(projectIds => {
+          assert.ok(!projectIds.includes(ids.transferOut));
         });
     });
 
