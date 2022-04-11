@@ -28,11 +28,18 @@ class EnforcementFlag extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         caseId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
-        modelId: { type: 'string' },
+        profileId: { type: 'string' },
         modelType: { type: 'string' },
+        modelId: { type: 'string' },
         modelOptions: { type: ['object', 'null'] },
         status: { type: 'string', enum: statuses },
-        remedialAction: { type: 'string', enum: remedialActions },
+        remedialAction: {
+          type: 'array',
+          items: {
+            type: 'string',
+            enum: remedialActions
+          }
+        },
         remedialOther: { type: 'string' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
@@ -63,7 +70,7 @@ class EnforcementFlag extends BaseModel {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
         join: {
-          from: 'enforcementFlags.modelId',
+          from: 'enforcementFlags.profileId',
           to: 'profiles.id'
         }
       },

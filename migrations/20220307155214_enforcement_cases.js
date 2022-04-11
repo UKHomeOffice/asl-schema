@@ -13,20 +13,14 @@ exports.up = function(knex) {
       table.index('case_id');
       table.integer('establishment_id').references('id').inTable('establishments').notNull();
       table.index('establishment_id');
+      table.uuid('profile_id').references('id').inTable('profiles').notNull();
+      table.index('profile_id');
       table.string('model_type').notNull();
       table.string('model_id'); // null when model_type === 'establishment'
       table.index('model_id');
       table.jsonb('model_options');
       table.enum('status', ['open', 'closed', 'no-breach']).defaultsTo('open').notNull();
-      table.enum('remedial_action', [
-        'inspector-advice',
-        'letter-of-reprimand',
-        'reprimand-retraining',
-        'compliance-notice',
-        'suspension-retraining',
-        'licence-revocation',
-        'other'
-      ]);
+      table.jsonb('remedial_action');
       table.string('remedial_other');
       table.timestamps(false, true);
       table.dateTime('deleted');
