@@ -26,11 +26,11 @@ class EnforcementFlag extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        caseId: { type: 'string', pattern: uuid.v4 },
-        establishmentId: { type: 'integer' },
-        profileId: { type: 'string' },
+        subjectId: { type: 'string', pattern: uuid.v4 },
+        profileId: { type: 'string', pattern: uuid.v4 },
         modelType: { type: 'string' },
-        modelId: { type: 'string' },
+        modelId: { type: 'string', pattern: uuid.v4 },
+        establishmentId: { type: 'integer' },
         modelOptions: { type: ['object', 'null'] },
         status: { type: 'string', enum: statuses },
         remedialAction: {
@@ -50,12 +50,12 @@ class EnforcementFlag extends BaseModel {
 
   static get relationMappings() {
     return {
-      enforcementCase: {
+      subject: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/enforcement-case`,
+        modelClass: `${__dirname}/enforcement-subject`,
         join: {
-          from: 'enforcementFlags.caseId',
-          to: 'enforcementCases.id'
+          from: 'enforcementFlags.subjectId',
+          to: 'enforcementSubjects.id'
         }
       },
       establishment: {
@@ -70,7 +70,7 @@ class EnforcementFlag extends BaseModel {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
         join: {
-          from: 'enforcementFlags.profileId',
+          from: 'enforcementFlags.modelId',
           to: 'profiles.id'
         }
       },

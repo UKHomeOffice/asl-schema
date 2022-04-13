@@ -23,12 +23,12 @@ class EnforcementCase extends BaseModel {
 
   static get relationMappings() {
     return {
-      flags: {
+      subjects: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/enforcement-flag`,
+        modelClass: `${__dirname}/enforcement-subject`,
         join: {
           from: 'enforcementCases.id',
-          to: 'enforcementFlags.caseId'
+          to: 'enforcementSubjects.caseId'
         }
       }
     };
