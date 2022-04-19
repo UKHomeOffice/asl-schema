@@ -29,6 +29,14 @@ class Role extends BaseModel {
 
   static get relationMappings() {
     return {
+      establishment: {
+        relation: this.BelongsToOneRelation,
+        modelClass: `${__dirname}/establishment`,
+        join: {
+          from: 'roles.establishmentId',
+          to: 'establishments.id'
+        }
+      },
       profile: {
         relation: this.BelongsToOneRelation,
         modelClass: `${__dirname}/profile`,
