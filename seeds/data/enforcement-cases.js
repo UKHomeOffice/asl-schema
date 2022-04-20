@@ -164,7 +164,7 @@ module.exports = [
           {
             establishmentId: 40001,
             modelType: 'establishment',
-            modelOptions: { places: true, roles: true, details: true }
+            modelOptions: JSON.stringify(['places', 'roles', 'details'])
           }
         ]
       }

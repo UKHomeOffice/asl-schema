@@ -31,7 +31,7 @@ class EnforcementFlag extends BaseModel {
         modelType: { type: 'string' },
         modelId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
-        modelOptions: { type: ['object', 'null'] },
+        modelOptions: { type: 'array', items: { type: 'string' } },
         status: { type: 'string', enum: statuses },
         remedialAction: {
           type: 'array',
