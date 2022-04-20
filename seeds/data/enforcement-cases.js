@@ -153,11 +153,11 @@ module.exports = [
     caseNumber: '10070',
     subjects: [
       {
-        establishmentId: 8201,
+        establishmentId: 40001,
         profileId: '92d74467-f871-4146-955e-f3ea53f971c0', // Juliann Holson
         flags: [
           {
-            establishmentId: 8201,
+            establishmentId: 40001,
             modelType: 'profile',
             modelId: '92d74467-f871-4146-955e-f3ea53f971c0'
           },
