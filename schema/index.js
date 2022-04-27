@@ -26,6 +26,9 @@ const EmailPreferences = require('./email-preferences');
 const Rop = require('./rop');
 const Procedure = require('./procedure');
 const Notification = require('./notification');
+const EnforcementCase = require('./enforcement-case');
+const EnforcementSubject = require('./enforcement-subject');
+const EnforcementFlag = require('./enforcement-flag');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -55,5 +58,8 @@ module.exports = db => ({
   DocumentCache: DocumentCache.bindKnex(db),
   RetrospectiveAssessment: RetrospectiveAssessment.bindKnex(db),
   EmailPreferences: EmailPreferences.bindKnex(db),
-  Notification: Notification.bindKnex(db)
+  Notification: Notification.bindKnex(db),
+  EnforcementCase: EnforcementCase.bindKnex(db),
+  EnforcementSubject: EnforcementSubject.bindKnex(db),
+  EnforcementFlag: EnforcementFlag.bindKnex(db)
 });
