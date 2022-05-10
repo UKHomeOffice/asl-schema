@@ -10,7 +10,7 @@ class QueryBuilder extends Model.QueryBuilder {
   }
 
   scopeToEstablishment(column, establishmentId, role) {
-    const query = this.mergeContext({ establishmentId })
+    const query = this.context({ establishmentId })
       .joinRelation('establishments')
       .where(column, establishmentId);
 

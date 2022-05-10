@@ -2,7 +2,7 @@ module.exports = (Base) => {
 
   class Mixed extends Base {
     delete() {
-      this.mergeContext({
+      this.context({
         softDelete: true
       });
 
@@ -12,7 +12,7 @@ module.exports = (Base) => {
     }
 
     undelete() {
-      this.mergeContext({
+      this.context({
         undelete: true
       });
       return this.patch({
