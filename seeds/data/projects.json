@@ -521,6 +521,13 @@
     "status": "inactive"
   },
   {
+    "id": "a5a71e6f-f03d-4771-bc25-deed74a01794",
+    "establishmentId": 8201,
+    "title": "Submit on behalf test",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "status": "inactive"
+  },
+  {
     "id": "6fcbc8cc-2665-4c79-9b03-1f67edc664e8",
     "establishmentId": 8201,
     "title": "Transfer draft test",
