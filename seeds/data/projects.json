@@ -629,7 +629,13 @@
     "issueDate": "2019-04-23",
     "expiryDate": "2024-04-23",
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-    "licenceNumber": "PR-X10017"
+    "licenceNumber": "PR-X10017",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 8202,
+        "status": "active"
+      }
+    ]
   },
   {
     "id": "b5554241-083c-4fce-a031-71403fdae509",

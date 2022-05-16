@@ -31,7 +31,7 @@ module.exports = [
           title: 'First protocol title',
           description: toRichText('Description of the first protocol.'),
           severity: 'mild',
-          locations: ['University of Croydon'],
+          locations: ['University of Croydon', 'Invalid location'],
           objectives: ['First objective', 'Second objective'],
           gaas: false,
           steps: [
@@ -646,7 +646,58 @@ module.exports = [
     'projectId': '3b125d04-a0ec-46fe-9954-80a13b3e39f9',
     'status': 'granted',
     'data': {
-      'title': 'Transfer basic user project'
+      'title': 'Transfer basic user project',
+      'protocols': [
+        {
+          'id': uuid(),
+          'steps': [],
+          'title': 'P1',
+          'severity': 'mild',
+          'locations': ['University of Croydon'],
+          'speciesDetails': [],
+          'complete': true
+        },
+        {
+          'id': uuid(),
+          'steps': [],
+          'title': 'P2',
+          'severity': 'moderate',
+          'locations': ['University of Croydon'],
+          'speciesDetails': [],
+          'complete': true
+        }
+      ],
+      'other-establishments': true,
+      establishments: [
+        {
+          id: uuid(),
+          'establishment-id': 8202,
+          name: 'Marvell Pharmaceutical',
+          'establishment-about': toRichText('First establishment details')
+        },
+        {
+          id: uuid(),
+          'establishment-id': 10001,
+          name: 'University of Life',
+          'establishment-about': toRichText('Second establishment details')
+        }
+      ],
+      poles: true,
+      'poles-environment': toRichText('Environment answer'),
+      'poles-inspection': toRichText('Inspection answer'),
+      'poles-justification': toRichText('Justification answer'),
+      polesList: [
+        {
+          id: uuid(),
+          title: 'First POLE',
+          'pole-info': toRichText('POLE one info')
+        },
+        {
+          id: uuid(),
+          title: 'Second POLE',
+          'pole-info': toRichText('POLE two info')
+        }
+      ]
     },
     'createdAt': '2019-05-31',
     'updatedAt': '2019-06-01'
