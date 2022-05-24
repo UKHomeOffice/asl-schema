@@ -368,6 +368,13 @@ module.exports = [
       'other-establishments': true,
       establishments: [
         { 'establishment-id': 30001, 'name': 'Small Pharma' }
+      ],
+      protocols: [
+        {
+          title: 'First protocol',
+          complete: true,
+          locations: ['University of Croydon', 'Small Pharma']
+        }
       ]
     },
     'status': 'granted'
