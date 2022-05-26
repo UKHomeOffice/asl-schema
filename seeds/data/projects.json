@@ -931,6 +931,20 @@
     "raDate": "2025-01-01"
   },
   {
+    "id": "c519cb97-2431-445f-9ad8-0fbd90dd33ad",
+    "establishmentId": 8201,
+    "title": "RA test editable states",
+    "status": "revoked",
+    "issueDate": "2020-06-01",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01",
+    "revocationDate": "2021-01-01",
+    "licenceNumber": "PR-RA-TEST-2",
+    "raDate": "2025-01-01"
+  },
+  {
     "id": "3110030b-3a79-48ee-b288-10218afcbd48",
     "establishmentId": 8201,
     "title": "Ticking all the boxes",
