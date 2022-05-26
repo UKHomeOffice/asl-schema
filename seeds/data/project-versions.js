@@ -1144,6 +1144,15 @@ module.exports = [
     raCompulsory: true
   },
   {
+    'projectId': 'c519cb97-2431-445f-9ad8-0fbd90dd33ad',
+    'status': 'granted',
+    'data': {
+      'title': 'RA test editable states',
+      'retrospectiveAssessment': true
+    },
+    raCompulsory: true
+  },
+  {
     id: '0f41ed69-967c-4a71-9ec4-b80a7551fa98',
     projectId: '3110030b-3a79-48ee-b288-10218afcbd48',
     status: 'granted',
