@@ -449,6 +449,14 @@ class Project extends BaseModel {
           from: 'projects.id',
           to: 'rops.projectId'
         }
+      },
+      reminders: {
+        relation: this.HasManyRelation,
+        modelClass: `${__dirname}/reminder`,
+        join: {
+          from: 'projects.id',
+          to: 'reminders.modelId'
+        }
       }
     };
   }

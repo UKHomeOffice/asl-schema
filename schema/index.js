@@ -29,6 +29,8 @@ const Notification = require('./notification');
 const EnforcementCase = require('./enforcement-case');
 const EnforcementSubject = require('./enforcement-subject');
 const EnforcementFlag = require('./enforcement-flag');
+const Reminder = require('./reminder');
+const ReminderDismissed = require('./reminder-dismissed');
 
 module.exports = db => ({
   Authorisation: Authorisation.bindKnex(db),
@@ -61,5 +63,7 @@ module.exports = db => ({
   Notification: Notification.bindKnex(db),
   EnforcementCase: EnforcementCase.bindKnex(db),
   EnforcementSubject: EnforcementSubject.bindKnex(db),
-  EnforcementFlag: EnforcementFlag.bindKnex(db)
+  EnforcementFlag: EnforcementFlag.bindKnex(db),
+  Reminder: Reminder.bindKnex(db),
+  ReminderDismissed: ReminderDismissed.bindKnex(db)
 });
