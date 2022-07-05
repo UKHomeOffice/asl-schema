@@ -2,7 +2,7 @@
 exports.up = function(knex) {
   return knex.schema
     .createTable('attachments', table => {
-      table.string('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
+      table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('mimetype').notNull();
       table.string('filename').notNull();
       table.string('token').notNull();
