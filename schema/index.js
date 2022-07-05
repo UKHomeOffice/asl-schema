@@ -1,3 +1,4 @@
+const Attachment = require('./attachment');
 const Authorisation = require('./authorisation');
 const Establishment = require('./establishment');
 const Export = require('./export');
@@ -33,6 +34,7 @@ const Reminder = require('./reminder');
 const ReminderDismissed = require('./reminder-dismissed');
 
 module.exports = db => ({
+  Attachment: Attachment.bindKnex(db),
   Authorisation: Authorisation.bindKnex(db),
   Establishment: Establishment.bindKnex(db),
   Export: Export.bindKnex(db),
