@@ -179,7 +179,7 @@ module.exports = [
   {
     id: 'e16a0d06-ec12-40c1-b8ce-8fce70b41992',
     projectId: '48dab955-a0b7-4ad3-bdc0-6b79d0aaeac8',
-    year: 2021,
+    year: (new Date()).getFullYear(),
     status: 'draft',
     proceduresCompleted: true,
     postnatal: true,
