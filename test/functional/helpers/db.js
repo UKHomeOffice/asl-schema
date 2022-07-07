@@ -1,41 +1,16 @@
 const Schema = require('../../../');
 const settings = require('../../../knexfile').test;
 
-const tables = [
-  'Changelog',
-  'TrainingPil',
-  'TrainingCourse',
-  'AsruEstablishment',
-  'ProjectEstablishment',
-  'Procedure',
-  'Rop',
-  'ProjectProfile',
-  'ProjectVersion',
-  'Project',
-  'Permission',
-  'Invitation',
-  'Authorisation',
-  'FeeWaiver',
-  'PilTransfer',
-  'PIL',
-  'PlaceRole',
-  'Place',
-  'Role',
-  'Certificate',
-  'Exemption',
-  'Profile',
-  'Establishment'
-];
+const snakeCase = str => str.replace(/[A-Z]/g, s => `_${s.toLowerCase()}`);
 
 module.exports = {
   init: () => Schema(settings.connection),
   clean: schema => {
-    return tables.reduce((p, table) => {
+    return Object.keys(schema).reduce((p, table) => {
       return p.then(() => {
-        if (typeof schema[table].queryWithDeleted === 'function') {
-          return schema[table].queryWithDeleted().hardDelete();
+        if (schema[table].tableName) {
+          return schema[table].knex().raw(`truncate ${snakeCase(schema[table].tableName)} cascade;`);
         }
-        return schema[table].query().delete();
       });
     }, Promise.resolve());
   }
