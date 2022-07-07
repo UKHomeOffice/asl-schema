@@ -54,7 +54,7 @@
     "eslint": "^5.16.0",
     "eslint-config-lennym": "^1.4.0",
     "faker": "^5.1.0",
-    "mocha": "^5.2.0",
+    "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "uuid-validate": "0.0.3"
   }
