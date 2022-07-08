@@ -12,7 +12,7 @@ class Notification extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        profileId: { type: 'string', pattern: uuid.v4 },
+        profileId: { type: ['string', 'null'], pattern: uuid.v4 },
         to: { type: 'string', format: 'email' },
         name: { type: 'string' },
         subject: { type: 'string' },
