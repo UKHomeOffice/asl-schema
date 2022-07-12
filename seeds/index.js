@@ -9,41 +9,23 @@ const rops = require('./tables/rops');
 const dataExports = require('./tables/exports');
 const enforcementCases = require('./tables/enforcement-cases');
 
-exports.seed = knex => {
-  return Promise.resolve()
-    .then(() => dataExports.delete(knex))
-    .then(() => enforcementCases.delete(knex))
-    .then(() => knex('establishment_merge_log').del())
-    .then(() => knex('document_cache').del())
-    .then(() => knex('changelog').del())
-    .then(() => knex('notifications').del())
-    .then(() => knex('exports').del())
-    .then(() => knex('training_pils').del())
-    .then(() => knex('training_courses').del())
-    .then(() => knex('project_profiles').del())
-    .then(() => knex('retrospective_assessments').del())
-    .then(() => knex('procedures').del())
-    .then(() => rops.delete(knex))
-    .then(() => additionalAvailability.delete(knex))
-    .then(() => projectVersions.delete(knex))
-    .then(() => projects.delete(knex))
-    .then(() => knex('place_roles').del())
-    .then(() => places.delete(knex))
-    .then(() => knex('certificates').del())
-    .then(() => knex('exemptions').del())
-    .then(() => knex('email_preferences').del())
-    .then(() => profiles.delete(knex))
-    .then(() => knex('authorisations').del())
-    .then(() => establishments.delete(knex))
+exports.seed = async knex => {
+  const tables = await knex.select('table_name')
+    .from('information_schema.tables')
+    .whereRaw('table_schema = current_schema()')
+    .where('table_catalog', knex.client.database())
+    .then(results => results.map(r => r.tableName).filter(tableName => !tableName.includes('knex_')));
 
-    .then(() => establishments.populate(knex))
-    .then(() => profiles.populate(knex))
-    .then(() => places.populate(knex))
-    .then(() => projects.populate(knex))
-    .then(() => projectVersions.populate(knex))
-    .then(() => additionalAvailability.populate(knex))
-    .then(() => trainingCourses.populate(knex))
-    .then(() => rops.populate(knex))
-    .then(() => enforcementCases.populate(knex))
-    .then(() => dataExports.populate(knex));
+  await Promise.all(tables.map(table => knex.raw(`TRUNCATE TABLE ${table} CASCADE`)));
+
+  await establishments.populate(knex);
+  await profiles.populate(knex);
+  await places.populate(knex);
+  await projects.populate(knex);
+  await projectVersions.populate(knex);
+  await additionalAvailability.populate(knex);
+  await trainingCourses.populate(knex);
+  await rops.populate(knex);
+  await enforcementCases.populate(knex);
+  await dataExports.populate(knex);
 };
