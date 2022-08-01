@@ -111,6 +111,7 @@
     "type": "Pharmaceutical company",
     "status": "active",
     "country": "england",
+    "address": "1 Some Street",
     "issueDate": "05/11/2019 12:00",
     "revocationDate": null,
     "licenceNumber": "NO-PILS-SOME-PPLS",
