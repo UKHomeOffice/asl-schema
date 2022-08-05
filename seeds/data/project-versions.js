@@ -1666,5 +1666,93 @@ module.exports = [
       title: 'Internal deadline past, statutory deadline past',
       species: ['mice']
     }
+  },
+  {
+    projectId: 'e7295338-beb8-4b66-8bb6-2e65da0e0e3b',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: submitted',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'e2265359-f8eb-4607-951b-c4cf3c213132',
+    status: 'draft', // returned projects need a forked draft
+    data: {
+      title: 'Refuse PPL: can resubmit',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'e2265359-f8eb-4607-951b-c4cf3c213132',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: can resubmit',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'b75ff8d7-fee4-4436-8598-e70b7101f446',
+    status: 'draft', // returned projects need a forked draft
+    data: {
+      title: 'Refuse PPL: deadline future with applicant',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'b75ff8d7-fee4-4436-8598-e70b7101f446',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: deadline future with applicant',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '92ff5870-fc92-4d71-bd14-e72f83e4dae7',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: deadline passed with applicant',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '92ff5870-fc92-4d71-bd14-e72f83e4dae7',
+    status: 'draft',
+    data: {
+      title: 'Refuse PPL: deadline passed with applicant',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '3545e6a5-ed37-4f25-8cae-15367b295a77',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: deadline future with asru',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '23ab7fdc-cf39-4a50-8bbb-b1f817d06e29',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: deadline passed with asru',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'c0038b53-3417-4a6e-aeb0-6bc92969b3ac',
+    status: 'draft', // returned projects need a forked draft
+    data: {
+      title: 'Refuse PPL: refused',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'c0038b53-3417-4a6e-aeb0-6bc92969b3ac',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: refused',
+      species: ['mice']
+    }
   }
 ];
