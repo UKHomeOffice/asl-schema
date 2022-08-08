@@ -1546,6 +1546,7 @@
     "title": "Refuse PPL: refused",
     "status": "inactive",
     "schemaVersion": 1,
-    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "refusedDate": "2022-08-08"
   }
 ]
