@@ -26,11 +26,13 @@ describe('Base Model', () => {
             {
               id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
               type: 'killing',
-              method: 'captive bolt'
+              method: 'captive bolt',
+              updatedAt: '2019-10-01T12:00:00.000Z'
             },
             {
               id: '561dfe21-fc2a-420f-8bb6-100b1f1e2735',
-              type: 'rehomes'
+              type: 'rehomes',
+              updatedAt: '2019-10-01T12:00:00.000Z'
             }
           ]);
         });
@@ -97,6 +99,28 @@ describe('Base Model', () => {
             assert.deepEqual(model, undefined);
           });
       });
+    });
+
+    describe('preserveUpdatedAt', () => {
+
+      it('updates the `updatedAt` timestamp to now by default', () => {
+        return Promise.resolve()
+          .then(() => this.Model.query().update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' }))
+          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
+          .then(model => {
+            assert.equal(model.updatedAt.split('T')[0], new Date().toISOString().split('T')[0]);
+          });
+      });
+
+      it('preserves the `updatedAt` timestamp if `preserveUpdatedAt` context is set', () => {
+        return Promise.resolve()
+          .then(() => this.Model.query().context({ preserveUpdatedAt: true }).update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' }))
+          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
+          .then(model => {
+            assert.equal(model.updatedAt.split('T')[0], '2019-10-01');
+          });
+      });
+
     });
 
     describe('upsert', () => {

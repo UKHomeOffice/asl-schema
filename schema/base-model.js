@@ -4,8 +4,10 @@ const QueryBuilder = require('./query-builder');
 const ValidationError = require('./validation-error');
 
 class BaseModel extends Model {
-  $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
+  $beforeUpdate(opt, context) {
+    if (!context.preserveUpdatedAt) {
+      this.updatedAt = new Date().toISOString();
+    }
   }
 
   static get QueryBuilder() {
