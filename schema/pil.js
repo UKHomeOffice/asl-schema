@@ -88,6 +88,7 @@ class PIL extends BaseModel {
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
         reviewDate: { type: ['string', 'null'], format: 'date-time' },
+        suspendedDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
         conditions: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
