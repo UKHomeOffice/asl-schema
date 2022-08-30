@@ -32,6 +32,7 @@ class Establishment extends BaseModel {
         status: { type: 'string', enum: establishmentStatuses },
         issueDate: { type: ['string', 'null'], format: 'date-time' },
         revocationDate: { type: ['string', 'null'], format: 'date-time' },
+        suspendedDate: { type: ['string', 'null'], format: 'date-time' },
         licenceNumber: { type: ['string', 'null'] },
         sharedKey: { type: ['string', 'null'] },
         country: { type: 'string', enum: establishmentCountries },
