@@ -1548,5 +1548,25 @@
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "refusedDate": "2022-08-08"
+  },
+  {
+    "id": "e3b2dc42-bb7a-4d1e-8693-6c36928f1eea",
+    "establishmentId": 8201,
+    "title": "Suspend PPL",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "licenceNumber": "SUSP-1",
+    "species": "[\"mice\"]"
+  },
+  {
+    "id": "6ef7ad7f-5275-4c1d-bb5f-e9e33e2fbdb6",
+    "establishmentId": 100002,
+    "title": "Suspend Establishment",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
+    "licenceNumber": "SUSP-2",
+    "species": "[\"mice\"]"
   }
 ]
