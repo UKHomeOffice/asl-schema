@@ -152,7 +152,8 @@
     "id": 100002,
     "name": "MedTech",
     "type": "Research lab",
-    "status": "inactive",
+    "status": "active",
+    "licenceNumber": "TEST-SUSP",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00"
