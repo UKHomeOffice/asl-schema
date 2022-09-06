@@ -6,9 +6,20 @@ const { get } = require('lodash');
 
 const QueryBuilder = require('./query-builder');
 
-const statusQuery = status => query => Array.isArray(status)
-  ? query.whereIn('projects.status', status)
-  : query.where('projects.status', status);
+const statusQuery = (status, includeSuspended = false) => query => {
+  query.where(builder => {
+    Array.isArray(status)
+      ? builder.whereIn('projects.status', status)
+      : builder.where('projects.status', status);
+
+    if (includeSuspended) {
+      builder.orWhere(qb => {
+        qb.where({ status: 'active' })
+          .whereNotNull('suspendedDate');
+      });
+    }
+  });
+};
 
 function isDraftRelationAndProject(builder) {
   return builder
@@ -224,6 +235,7 @@ class Project extends BaseModel {
   static scopeToParams(params) {
     if (params.status === 'inactive-statuses') {
       params.status = ['expired', 'revoked', 'transferred'];
+      params.includeSuspended = true;
     }
     return {
       getAll: () => this.getProjects(params),
@@ -304,7 +316,7 @@ class Project extends BaseModel {
       .then(result => result[0].count);
   }
 
-  static search({ query, establishmentId, search, filters, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear }) {
+  static search({ query, establishmentId, search, filters, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear, includeSuspended }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
@@ -313,7 +325,7 @@ class Project extends BaseModel {
 
     query
       .distinct('projects.*', 'licenceHolder.lastName')
-      .where(statusQuery(status))
+      .where(statusQuery(status, includeSuspended))
       .leftJoinRelation('licenceHolder')
       .withGraphFetched('[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]')
       .modifiers({
