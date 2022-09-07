@@ -1501,6 +1501,14 @@
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   },
   {
+    "id": "482fa74c-56b2-40ca-9dca-6b00d174b5e4",
+    "establishmentId": 8201,
+    "title": "Refuse PPL: submitted - No licenceHolder on task",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
     "id": "e2265359-f8eb-4607-951b-c4cf3c213132",
     "establishmentId": 8201,
     "title": "Refuse PPL: can resubmit",
