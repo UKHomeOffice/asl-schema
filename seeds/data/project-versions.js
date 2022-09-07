@@ -1676,6 +1676,14 @@ module.exports = [
     }
   },
   {
+    projectId: '482fa74c-56b2-40ca-9dca-6b00d174b5e4',
+    status: 'submitted',
+    data: {
+      title: 'Refuse PPL: submitted - No licenceHolder on task',
+      species: ['mice']
+    }
+  },
+  {
     projectId: 'e2265359-f8eb-4607-951b-c4cf3c213132',
     status: 'draft', // returned projects need a forked draft
     data: {
