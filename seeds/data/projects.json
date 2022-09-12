@@ -742,6 +742,16 @@
     "updatedAt": "2020-06-01"
   },
   {
+    "id": "04e9f8f0-ba3c-4357-b4ef-39e8bb4445f1",
+    "establishmentId": 8201,
+    "title": "Testing deadline remove",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "createdAt": "2020-06-01",
+    "updatedAt": "2020-06-01"
+  },
+  {
     "id": "52949a8f-879c-45bd-b6a4-cbc01c746da1",
     "establishmentId": 8201,
     "title": "Testing deadline passed external",
