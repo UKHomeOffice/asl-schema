@@ -969,6 +969,16 @@ module.exports = [
     'updatedAt': '2020-06-01'
   },
   {
+    'id': '4e1b4de2-4e9d-4c9d-9009-6fcffff47443',
+    'projectId': '04e9f8f0-ba3c-4357-b4ef-39e8bb4445f1',
+    'status': 'submitted',
+    'data': {
+      'title': 'Testing deadline removed'
+    },
+    'createdAt': '2020-06-01',
+    'updatedAt': '2020-06-01'
+  },
+  {
     'id': '08e4cc9a-8627-48ff-b89f-24ff18224630',
     'projectId': '52949a8f-879c-45bd-b6a4-cbc01c746da1',
     'status': 'submitted',
