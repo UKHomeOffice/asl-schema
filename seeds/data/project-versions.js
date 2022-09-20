@@ -122,6 +122,13 @@ module.exports = [
     'status': 'granted'
   },
   {
+    'projectId': '395fd103-b933-44c2-a42b-05af4d39c1ec',
+    'data': {
+      'title': 'Legacy other species test'
+    },
+    'status': 'granted'
+  },
+  {
     'projectId': 'ba50976e-1cca-4cda-baa7-f7d0be53d83a',
     'data': {
       'title': 'Legacy AWERB test',
