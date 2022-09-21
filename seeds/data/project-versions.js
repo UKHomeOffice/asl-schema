@@ -1849,6 +1849,25 @@ module.exports = [
               'maximum-times-used': '1'
             }
           ]
+        },
+        {
+          id: uuid(),
+          title: 'Third protocol (Should be unchanged)',
+          complete: true,
+          severity: 'mild',
+          species: ['mice'],
+          speciesDetails: [
+            {
+              id: uuid(),
+              name: 'Mice',
+              value: 'mice',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '5',
+              'maximum-times-used': '1'
+            }
+          ]
         }
       ]
     }
