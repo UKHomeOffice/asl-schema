@@ -1597,5 +1597,16 @@
     "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
     "licenceNumber": "SUSP-2",
     "species": "[\"mice\"]"
+  },
+  {
+    "id": "120311bb-2209-4123-bca2-a2dea7dba2c0",
+    "establishmentId": 8201,
+    "title": "Removing project level species shows protocols as changed",
+    "issueDate": "2019-04-01",
+    "expiryDate": "2024-04-01",
+    "licenceNumber": "PR-PSC",
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+    "schemaVersion": 1,
+    "status": "active"
   }
 ]

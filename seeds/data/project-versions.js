@@ -1779,5 +1779,97 @@ module.exports = [
       title: 'Refuse PPL: refused',
       species: ['mice']
     }
+  },
+  {
+    projectId: '120311bb-2209-4123-bca2-a2dea7dba2c0',
+    status: 'granted',
+    data: {
+      title: 'Removing project level species shows protocols as changed',
+      'training-licence': false,
+      duration: {
+        'years': 5,
+        'months': 0
+      },
+      species: ['mice', 'rats'],
+      protocols: [
+        {
+          id: uuid(),
+          title: 'First protocol',
+          complete: true,
+          severity: 'mild',
+          species: ['mice', 'rats'],
+          speciesDetails: [
+            {
+              id: uuid(),
+              name: 'Mice',
+              value: 'mice',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '100',
+              'maximum-times-used': '1'
+            },
+            {
+              id: uuid(),
+              name: 'Rats',
+              value: 'rats',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '50',
+              'maximum-times-used': '1'
+            }
+          ]
+        },
+        {
+          id: uuid(),
+          title: 'Second protocol',
+          complete: true,
+          severity: 'mild',
+          species: ['mice', 'rats'],
+          speciesDetails: [
+            {
+              id: uuid(),
+              name: 'Mice',
+              value: 'mice',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '30',
+              'maximum-times-used': '1'
+            },
+            {
+              id: uuid(),
+              name: 'Rats',
+              value: 'rats',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '10',
+              'maximum-times-used': '1'
+            }
+          ]
+        },
+        {
+          id: uuid(),
+          title: 'Third protocol (Should be unchanged)',
+          complete: true,
+          severity: 'mild',
+          species: ['mice'],
+          speciesDetails: [
+            {
+              id: uuid(),
+              name: 'Mice',
+              value: 'mice',
+              reuse: false,
+              'life-stages': ['adult'],
+              'continued-use': false,
+              'maximum-animals': '5',
+              'maximum-times-used': '1'
+            }
+          ]
+        }
+      ]
+    }
   }
 ];
