@@ -1608,5 +1608,12 @@
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "schemaVersion": 1,
     "status": "active"
+  },
+  {
+    "id": "356835fa-3835-416d-9d11-076e6c85b7f6",
+    "establishmentId": 8201,
+    "title": "Condition reminders",
+    "licenceHolderId": "7816dcdc-47d6-42ab-b561-aa5fef591e83",
+    "status": "inactive"
   }
 ]

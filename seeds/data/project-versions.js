@@ -1871,5 +1871,32 @@ module.exports = [
         }
       ]
     }
+  },
+  {
+    id: 'aa345414-d5f0-4060-a365-195a49c9dc10',
+    projectId: '356835fa-3835-416d-9d11-076e6c85b7f6',
+    status: 'draft',
+    data: {
+      title: 'Condition reminders',
+      'training-licence': false,
+      duration: { 'years': 5, 'months': 0 },
+      species: ['mice', 'rats'],
+      protocols: [
+        {
+          id: uuid(),
+          title: 'First protocol',
+          complete: true,
+          severity: 'mild',
+          species: ['mice']
+        },
+        {
+          id: uuid(),
+          title: 'Second protocol',
+          complete: true,
+          severity: 'mild',
+          species: ['rats']
+        }
+      ]
+    }
   }
 ];
