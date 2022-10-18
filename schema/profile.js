@@ -398,7 +398,10 @@ class Profile extends BaseModel {
       .whereIn('modelId', asruUserAdded)
       .as('asruRemoved');
 
-    const query = this.query().innerJoin(asruUserRemoved, 'profiles.id', 'asruRemoved.id');
+    const query = this.query()
+      .innerJoin(asruUserRemoved, 'profiles.id', 'asruRemoved.id')
+      .where({ asruUser: false });
+
     const countQuery = query.clone().count();
 
     let profilesQuery = query.select('profiles.*', 'asruRemoved.removedAt');
