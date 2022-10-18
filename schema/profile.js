@@ -1,6 +1,7 @@
 const { ref } = require('objection');
 const { compact, remove } = require('lodash');
 const BaseModel = require('./base-model');
+const Changelog = require('./changelog');
 const TrainingPil = require('./training-pil');
 const Role = require('./role');
 const Permission = require('./permission');
@@ -378,6 +379,50 @@ class Profile extends BaseModel {
       Promise.resolve(filters),
       countAsruProfiles,
       this.searchAndFilterAsru(params)
+    ])
+      .then(([filters, total, profiles]) => ({ filters, total, profiles }));
+  }
+
+  static getFormerAsruProfiles(params) {
+    const { search, limit, offset, sort = {} } = params;
+
+    const asruUserAdded = Changelog.query()
+      .select('modelId')
+      .where({ modelType: 'profile', action: 'update' })
+      .whereJsonSupersetOf('state', { asruUser: true });
+
+    const asruUserRemoved = Changelog.query()
+      .select(this.raw('uuid(model_id) AS id'))
+      .select('updatedAt AS removedAt')
+      .whereJsonSupersetOf('state', { asruUser: false })
+      .whereIn('modelId', asruUserAdded)
+      .as('asruRemoved');
+
+    const query = this.query()
+      .innerJoin(asruUserRemoved, 'profiles.id', 'asruRemoved.id')
+      .where({ asruUser: false });
+
+    const countQuery = query.clone().count();
+
+    let profilesQuery = query.select('profiles.*', 'asruRemoved.removedAt');
+
+    if (search) {
+      profilesQuery.where('email', 'iLike', search && `%${search}%`)
+        .orWhere(builder => builder.whereNameMatch(search));
+    }
+
+    if (sort.column) {
+      profilesQuery = this.orderBy({ query: profilesQuery, sort });
+    } else {
+      profilesQuery.orderBy('lastName');
+    }
+
+    profilesQuery = this.paginate({ query: profilesQuery, limit, offset });
+
+    return Promise.all([
+      Promise.resolve({}),
+      countQuery.then(results => results[0].count),
+      profilesQuery
     ])
       .then(([filters, total, profiles]) => ({ filters, total, profiles }));
   }
