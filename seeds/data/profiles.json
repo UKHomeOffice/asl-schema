@@ -3096,5 +3096,33 @@
         "establishmentId": 8201
       }
     ]
+  },
+  {
+    "firstName": "Dave",
+    "lastName": "Baker",
+    "email": "d.baker@example.com",
+    "permissions": [
+      {
+        "establishmentId": 30001,
+        "role": "basic"
+      }
+    ],
+    "roles": [
+      {
+        "establishmentId": 30001,
+        "type": "pelh"
+      }
+    ]
+  },
+  {
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "j.smith@example.com",
+    "permissions": [
+      {
+        "establishmentId": 30001,
+        "role": "basic"
+      }
+    ]
   }
 ]
