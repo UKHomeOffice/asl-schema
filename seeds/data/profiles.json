@@ -3106,12 +3106,6 @@
         "establishmentId": 30001,
         "role": "basic"
       }
-    ],
-    "roles": [
-      {
-        "establishmentId": 30001,
-        "type": "pelh"
-      }
     ]
   },
   {
