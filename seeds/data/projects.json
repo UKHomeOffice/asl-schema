@@ -1622,5 +1622,22 @@
     "title": "Reusable steps",
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
     "status": "inactive"
+  },
+  {
+    "id": "5cb97819-3e21-4ea5-85f0-32df2b06213d",
+    "establishmentId": 8201,
+    "title": "Additional availability at Only AA Licences",
+    "status": "active",
+    "licenceNumber": "PR-X23457",
+    "issueDate": "2019-04-23",
+    "expiryDate": "2024-04-23",
+    "licenceHolderId": "caf67e14-dfcd-432f-8dad-859af40e85c9",
+    "schemaVersion": 1,
+    "additionalEstablishments": [
+      {
+        "establishmentId": 10263,
+        "status": "active"
+      }
+    ]
   }
 ]
