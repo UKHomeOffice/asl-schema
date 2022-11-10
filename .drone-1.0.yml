@@ -4,7 +4,7 @@ name: default
 type: kubernetes
 steps:
   - name: install
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -13,7 +13,7 @@ steps:
     commands:
       - npm ci
   - name: test
-    image: node:14
+    image: node:18
     environment:
       DATABASE_NAME: asl-test
       DATABASE_HOST: postgres
@@ -26,7 +26,7 @@ steps:
     commands:
       - npm test
   - name: audit
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -80,7 +80,7 @@ steps:
       event: push
       branch: master
   - name: publish
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
