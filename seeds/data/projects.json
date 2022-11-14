@@ -1596,7 +1596,25 @@
     "schemaVersion": 1,
     "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
     "licenceNumber": "SUSP-2",
-    "species": "[\"mice\"]"
+    "species": "[\"mice\"]",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 8202,
+        "status": "active"
+      },
+      {
+        "establishmentId": 30001,
+        "status": "active"
+      },
+      {
+        "establishmentId": 40001,
+        "status": "active"
+      },
+      {
+        "establishmentId": 54321,
+        "status": "active"
+      }
+    ]
   },
   {
     "id": "120311bb-2209-4123-bca2-a2dea7dba2c0",
@@ -1636,6 +1654,74 @@
     "additionalEstablishments": [
       {
         "establishmentId": 10263,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": "6ef7ad7f-5275-4c1d-bb5f-e9e33e2fbdb7",
+    "establishmentId": 10264,
+    "title": "Suspended Primary Establishment",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
+    "licenceNumber": "SUSP-3",
+    "species": "[\"mice\"]",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 8202,
+        "status": "active"
+      },
+      {
+        "establishmentId": 30001,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": "6ef7ad7f-5275-4c1d-bb5f-e9e33e2fbdb8",
+    "establishmentId": 8202,
+    "title": "Suspended Additional Establishment",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
+    "licenceNumber": "SUSP-4",
+    "species": "[\"mice\"]",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 10264,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": "6ef7ad7f-5275-4c1d-bb5f-e9e33e2fbdb9",
+    "establishmentId": 10265,
+    "title": "Suspended Primary Establishment - no permission",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
+    "licenceNumber": "SUSP-5",
+    "species": "[\"mice\"]",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 8202,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": "6ef7ad7f-5275-4c1d-bb5f-e9e33e2fbdba",
+    "establishmentId": 8202,
+    "title": "Suspended Additional Establishment - no permission",
+    "status": "active",
+    "schemaVersion": 1,
+    "licenceHolderId": "ff50caf0-42c5-45aa-aacc-bea21b1b5f15",
+    "licenceNumber": "SUSP-6",
+    "species": "[\"mice\"]",
+    "additionalEstablishments": [
+      {
+        "establishmentId": 10265,
         "status": "active"
       }
     ]
