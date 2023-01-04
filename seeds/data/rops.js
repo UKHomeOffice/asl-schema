@@ -1,3 +1,4 @@
+const now = new Date();
 module.exports = [
   {
     projectId: 'b978c34f-d3bf-4747-ab03-97e44e2a80d8',
@@ -179,7 +180,7 @@ module.exports = [
   {
     id: 'e16a0d06-ec12-40c1-b8ce-8fce70b41992',
     projectId: '48dab955-a0b7-4ad3-bdc0-6b79d0aaeac8',
-    year: (new Date()).getFullYear(),
+    year: now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1,
     status: 'draft',
     proceduresCompleted: true,
     postnatal: true,
