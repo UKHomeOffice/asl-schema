@@ -1,8 +1,8 @@
 {
   "comments": [
-    "1002482 - this is an objection vuln that is disputed, see https://github.com/advisories/GHSA-r659-8xfp-j327"
+    "GHSA-4jv9-3563-23j3 - this is a SQL injection vulnerability that only affects MySQL see https://github.com/advisories/GHSA-4jv9-3563-23j3, https://github.com/knex/knex/issues/1227 & https://www.ghostccamm.com/blog/knex_sqli/"
   ],
   "allowlist": [
-    1002482
+    "GHSA-4jv9-3563-23j3"
   ]
 }
