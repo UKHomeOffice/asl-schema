@@ -234,6 +234,18 @@
       {
         "establishmentId": 10264,
         "role": "admin"
+      },
+      {
+        "establishmentId": 10001,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 10261,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 40001,
+        "role": "admin"
       }
     ]
   },
