@@ -1519,5 +1519,20 @@
     "site": "Alfa",
     "area": "Alfa",
     "name": "Bravo"
+  },
+  {
+    "id": "98688fb2-a4fe-433f-b23c-f5cda2c1a191",
+    "establishmentId": 40001,
+    "site": "Test site",
+    "name": "101",
+    "area": 1.89,
+    "suitability": [
+      "LA",
+      "NHP"
+    ],
+    "holding": [
+      "LTH"
+    ],
+    "restrictions": "Lorem ipsum dolor sit amet"
   }
 ]
