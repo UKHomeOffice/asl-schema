@@ -294,6 +294,10 @@
       {
         "establishmentId": 10001,
         "role": "basic"
+      },
+      {
+        "establishmentId": 10268,
+        "role": "basic"
       }
     ]
   },
