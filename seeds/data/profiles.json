@@ -75,6 +75,21 @@
     "asruRops": false
   },
   {
+    "id": "a942ffc7-e7ca-4d76-a001-0b5048a057d3",
+    "userId": "a6791c01-4e80-45d2-ae25-907fbc385ac6",
+    "title": "Mr",
+    "firstName": "Inspector",
+    "lastName": "Lynley",
+    "dob": "1985-09-24",
+    "email": "asru-inspector-rops@example.com",
+    "asruUser": true,
+    "asruAdmin": false,
+    "asruInspector": true,
+    "asruLicensing": false,
+    "asruSupport": false,
+    "asruRops": false
+  },
+  {
     "title": "Dr",
     "firstName": "Inspector",
     "lastName": "Gadget",
