@@ -163,7 +163,6 @@
     "name": "Source Establishment",
     "type": "Merge test",
     "status": "active",
-    "address": "12 Some Street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00"
@@ -173,7 +172,6 @@
     "name": "Target Establishment",
     "type": "Merge test",
     "status": "active",
-    "address": "12 Some Street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00"
@@ -221,6 +219,36 @@
     "name": "ROP Test establishment",
     "type": "Return of procedures",
     "status": "active",
+    "country": "england",
+    "createdAt": "2020-07-13 12:00",
+    "updatedAt": "2020-07-13 12:00"
+  },
+  {
+    "id": 10267,
+    "name": "For establishment update",
+    "type": "PEL conditions during amendment test",
+    "status": "active",
+    "address": "12 Some street",
+    "country": "england",
+    "createdAt": "2020-07-13 12:00",
+    "updatedAt": "2020-07-13 12:00"
+  },
+  {
+    "id": 10268,
+    "name": "For person update",
+    "type": "PEL conditions during amendment test",
+    "status": "active",
+    "address": "12 Other street",
+    "country": "england",
+    "createdAt": "2020-07-13 12:00",
+    "updatedAt": "2020-07-13 12:00"
+  },
+  {
+    "id": 10269,
+    "name": "For area update",
+    "type": "PEL conditions during amendment test",
+    "status": "active",
+    "address": "12 Next street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00"
