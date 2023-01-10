@@ -1061,7 +1061,7 @@
   },
   {
     "id": "1f69a7f8-e23b-42f6-b74b-ddf5d40f43cf",
-    "establishmentId": 8201,
+    "establishmentId": 10266,
     "title": "ROP creation test 1",
     "status": "active",
     "issueDate": "2021-03-01",
@@ -1072,7 +1072,7 @@
   },
   {
     "id": "6d3942fd-e647-4c06-a186-1b4dd0407043",
-    "establishmentId": 8201,
+    "establishmentId": 10266,
     "title": "ROP creation test 2",
     "status": "active",
     "issueDate": "2021-03-01",
@@ -1083,7 +1083,7 @@
   },
   {
     "id": "a5a2ae4e-0d9a-4eec-b0c6-991fc3a62e46",
-    "establishmentId": 8201,
+    "establishmentId": 10266,
     "title": "ROP creation test 3",
     "status": "active",
     "issueDate": "2021-03-01",
@@ -1106,7 +1106,7 @@
   {
     "id": "f641942d-1fe0-4a75-9415-eb8c9950f0ff",
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-    "establishmentId": 8201,
+    "establishmentId": 10266,
     "title": "Project with NHPs",
     "issueDate": "2020-02-05",
     "expiryDate": "2025-02-04",
