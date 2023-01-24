@@ -52,6 +52,7 @@ steps:
     pull: always
     environment:
       IMAGE_NAME: asl-schema
+      WHITELIST_FILE: cve-exceptions.txt
     when:
       event: push
   - name: docker push
