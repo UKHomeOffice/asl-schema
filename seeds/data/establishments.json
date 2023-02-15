@@ -20,7 +20,8 @@
     "rehomes": 1,
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
     "createdAt": "08/01/2014 10:27",
-    "updatedAt": "07/04/2017 10:54"
+    "updatedAt": "07/04/2017 10:54",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 8202,
@@ -42,7 +43,8 @@
     "rehomes": 1,
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
     "createdAt": "08/01/2014 10:27",
-    "updatedAt": "07/04/2017 10:54"
+    "updatedAt": "07/04/2017 10:54",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 54321,
@@ -53,7 +55,8 @@
     "licenceNumber": "XCC09J64E",
     "isTrainingEstablishment": true,
     "createdAt": "05/11/2017 12:00",
-    "updatedAt": "05/11/2017 12:00"
+    "updatedAt": "05/11/2017 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10001,
@@ -64,7 +67,8 @@
     "issueDate": "07/05/2018 12:00",
     "licenceNumber": "SOME-PILS-NO-PPLS",
     "createdAt": "05/11/2017 12:00",
-    "updatedAt": "05/11/2017 12:00"
+    "updatedAt": "05/11/2017 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 20001,
@@ -76,7 +80,8 @@
     "licenceNumber": "XCC09J64J",
     "revocationDate": "10/10/2019 12:00",
     "createdAt": "05/11/2017 12:00",
-    "updatedAt": "10/10/2019 12:00"
+    "updatedAt": "10/10/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 789,
@@ -85,7 +90,8 @@
     "status": "inactive",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 9999,
@@ -94,7 +100,8 @@
     "status": "inactive",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 12345,
@@ -103,7 +110,8 @@
     "status": "inactive",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 30001,
@@ -116,7 +124,8 @@
     "revocationDate": null,
     "licenceNumber": "NO-PILS-SOME-PPLS",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 40001,
@@ -128,7 +137,8 @@
     "revocationDate": null,
     "licenceNumber": "NO-PILS-NO-PPLS",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 101,
@@ -137,7 +147,8 @@
     "status": "inactive",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 100001,
@@ -146,7 +157,8 @@
     "status": "inactive",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 100002,
@@ -156,7 +168,8 @@
     "licenceNumber": "TEST-SUSP",
     "country": "england",
     "createdAt": "05/11/2019 12:00",
-    "updatedAt": "05/11/2019 12:00"
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10801,
@@ -165,7 +178,8 @@
     "status": "active",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10261,
@@ -174,7 +188,8 @@
     "status": "active",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10262,
@@ -183,7 +198,8 @@
     "status": "active",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10263,
@@ -192,7 +208,8 @@
     "status": "active",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10264,
@@ -202,7 +219,8 @@
     "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00",
-    "suspendedDate": "2022-11-01 12:00"
+    "suspendedDate": "2022-11-01 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10265,
@@ -212,7 +230,8 @@
     "country": "england",
     "createdAt": "2020-07-13 12:00",
     "updatedAt": "2020-07-13 12:00",
-    "suspendedDate": "2022-10-01 12:00"
+    "suspendedDate": "2022-10-01 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10266,
@@ -221,7 +240,8 @@
     "status": "active",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10267,
@@ -231,7 +251,8 @@
     "address": "12 Some street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10268,
@@ -241,7 +262,8 @@
     "address": "12 Other street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   },
   {
     "id": 10269,
@@ -251,6 +273,7 @@
     "address": "12 Next street",
     "country": "england",
     "createdAt": "2020-07-13 12:00",
-    "updatedAt": "2020-07-13 12:00"
+    "updatedAt": "2020-07-13 12:00",
+    "corporateStatus": "non-profit"
   }
 ]

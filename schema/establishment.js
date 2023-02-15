@@ -47,6 +47,10 @@ class Establishment extends BaseModel {
         isTrainingEstablishment: { type: 'boolean' },
         billing: { type: ['object', 'null'] },
         conditions: { type: ['string', 'null'] },
+        corporateStatus: { type: ['string', 'null'] },
+        legalName: { type: ['string', 'null'] },
+        legalPhone: { type: ['string', 'null'] },
+        legalEmail: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'], format: 'date-time' }
