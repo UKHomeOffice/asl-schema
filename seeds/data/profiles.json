@@ -227,6 +227,10 @@
       {
         "establishmentId": 30001,
         "type": "holc"
+      },
+      {
+        "establishmentId": 9999,
+        "type": "pelh"
       }
     ],
     "permissions": [
