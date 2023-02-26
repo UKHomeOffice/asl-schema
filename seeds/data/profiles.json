@@ -3167,6 +3167,10 @@
       {
         "establishmentId": 30002,
         "role": "basic"
+      },
+      {
+        "establishmentId": 10267,
+        "role": "basic"
       }
     ],
     "roles": [
@@ -3179,8 +3183,16 @@
         "type": "holc"
       },
       {
+        "establishmentId": 30001,
+        "type": "pelh"
+      },
+      {
         "establishmentId": 30002,
         "type": "nprc"
+      },
+      {
+        "establishmentId": 10267,
+        "type": "pelh"
       }
     ]
   },
