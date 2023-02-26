@@ -43,8 +43,7 @@
     "rehomes": 1,
     "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.",
     "createdAt": "08/01/2014 10:27",
-    "updatedAt": "07/04/2017 10:54",
-    "corporateStatus": "non-profit"
+    "updatedAt": "07/04/2017 10:54"
   },
   {
     "id": 54321,
@@ -126,6 +125,20 @@
     "createdAt": "05/11/2019 12:00",
     "updatedAt": "05/11/2019 12:00",
     "corporateStatus": "non-profit"
+  },
+  {
+    "id": 30002,
+    "name": "Corporate Pharma",
+    "type": "Pharmaceutical company",
+    "status": "active",
+    "country": "england",
+    "address": "1 Some Street",
+    "issueDate": "05/11/2019 12:00",
+    "revocationDate": null,
+    "licenceNumber": "CORP_PHARMA",
+    "createdAt": "05/11/2019 12:00",
+    "updatedAt": "05/11/2019 12:00",
+    "corporateStatus": "corporate"
   },
   {
     "id": 40001,
