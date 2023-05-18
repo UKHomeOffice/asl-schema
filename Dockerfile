@@ -21,4 +21,4 @@ RUN rm /app/.npmrc
 
 USER 999
 
-CMD node index.js
+CMD npm run migrate
