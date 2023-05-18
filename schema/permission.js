@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { externalPermissions } = require('@asl/constants');
+const { externalPermissions } = require('@ukhomeoffice/asl-constants');
 
 class Permission extends BaseModel {
   static get tableName() {

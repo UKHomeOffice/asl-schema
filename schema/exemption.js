@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { moduleCodes } = require('@asl/constants');
+const { moduleCodes } = require('@ukhomeoffice/asl-constants');
 const { uuid } = require('../lib/regex-validation');
 
 class Exemption extends BaseModel {

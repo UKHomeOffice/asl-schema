@@ -1,6 +1,6 @@
 const BaseModel = require('./base-model');
 const { uuid } = require('../lib/regex-validation');
-const { pilStatuses } = require('@asl/constants');
+const { pilStatuses } = require('@ukhomeoffice/asl-constants');
 
 class TrainingPil extends BaseModel {
   static get tableName() {

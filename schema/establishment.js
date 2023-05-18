@@ -1,5 +1,8 @@
 const BaseModel = require('./base-model');
-const { establishmentStatuses, establishmentCountries } = require('@asl/constants');
+const {
+  establishmentStatuses,
+  establishmentCountries
+} = require('@ukhomeoffice/asl-constants');
 
 class Establishment extends BaseModel {
   static get tableName() {
@@ -7,11 +10,7 @@ class Establishment extends BaseModel {
   }
 
   static get unlicensed() {
-    return [
-      'billing',
-      'cjsmEmail',
-      'sharedKey'
-    ];
+    return ['billing', 'cjsmEmail', 'sharedKey'];
   }
 
   static get jsonSchema() {
@@ -157,7 +156,7 @@ class Establishment extends BaseModel {
   static count() {
     return this.query()
       .countDistinct('establishments.id')
-      .then(results => results[0].count);
+      .then((results) => results[0].count);
   }
 }
 

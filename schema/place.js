@@ -1,20 +1,19 @@
 const { uniq, flatten } = require('lodash');
 const BaseModel = require('./base-model');
-const { suitabilityCodes, holdingCodes } = require('@asl/constants');
+const { suitabilityCodes, holdingCodes } = require('@ukhomeoffice/asl-constants');
 const { uuid } = require('../lib/regex-validation');
 
 class PlaceQueryBuilder extends BaseModel.QueryBuilder {
-
   joinRoles() {
-    return this
-      .leftJoinRelated('roles.profile')
+    return this.leftJoinRelated('roles.profile')
       .withGraphFetched('roles(notDeleted).profile(constrainProfileParams)')
       .modifiers({
-        notDeleted: builder => builder.whereNull('placeRoles.deleted').whereNull('roles.deleted'),
-        constrainProfileParams: builder => builder.select('id', 'firstName', 'lastName')
+        notDeleted: (builder) =>
+          builder.whereNull('placeRoles.deleted').whereNull('roles.deleted'),
+        constrainProfileParams: (builder) =>
+          builder.select('id', 'firstName', 'lastName')
       });
   }
-
 }
 
 class Place extends BaseModel {
@@ -69,10 +68,10 @@ class Place extends BaseModel {
       .where('roles.establishmentId', establishmentId)
       .whereIn('roles.type', types)
       .orderBy('roles:profile.lastName')
-      .then(results => {
+      .then((results) => {
         return {
           key,
-          values: results.map(r => {
+          values: results.map((r) => {
             return {
               label: `${r.firstName} ${r.lastName}`,
               value: r.id
@@ -84,14 +83,14 @@ class Place extends BaseModel {
 
   static getFilterOptions(establishmentId) {
     return Promise.all([
-      ...['site', 'suitability', 'holding'].map(filter =>
+      ...['site', 'suitability', 'holding'].map((filter) =>
         this.query()
           .where({ establishmentId })
           .distinct(filter)
-          .then(result => {
+          .then((result) => {
             return {
               key: filter,
-              values: uniq(flatten(result.map(r => r[filter]))).sort()
+              values: uniq(flatten(result.map((r) => r[filter]))).sort()
             };
           })
       ),
@@ -101,7 +100,6 @@ class Place extends BaseModel {
   }
 
   static filter({ establishmentId, filters = {}, sort = {}, limit, offset }) {
-
     let query = this.query()
       .select('places.*')
       .distinct('places.id')
@@ -124,24 +122,20 @@ class Place extends BaseModel {
 
     if (filters.nacwos) {
       query.whereExists(
-        Place.relatedQuery('roleJoins')
-          .whereIn('roleId', filters.nacwos)
+        Place.relatedQuery('roleJoins').whereIn('roleId', filters.nacwos)
       );
     }
 
     if (filters.nvssqps) {
       query.whereExists(
-        Place.relatedQuery('roleJoins')
-          .whereIn('roleId', filters.nvssqps)
+        Place.relatedQuery('roleJoins').whereIn('roleId', filters.nvssqps)
       );
     }
 
     if (sort.column) {
       query = this.orderBy({ query, sort });
     }
-    query.orderBy('site')
-      .orderBy('area')
-      .orderBy('name');
+    query.orderBy('site').orderBy('area').orderBy('name');
 
     query = this.paginate({ query, limit, offset });
 
