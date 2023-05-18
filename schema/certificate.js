@@ -1,6 +1,6 @@
 const BaseModel = require('./base-model');
 const { date, uuid } = require('../lib/regex-validation');
-const { moduleCodes } = require('@asl/constants');
+const { moduleCodes } = require('@ukhomeoffice/asl-constants');
 
 class Certificate extends BaseModel {
   static get tableName() {
@@ -37,7 +37,6 @@ class Certificate extends BaseModel {
       }
     };
   }
-
 }
 
 module.exports = Certificate;

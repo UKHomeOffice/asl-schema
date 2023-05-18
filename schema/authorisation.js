@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { authorisationTypes } = require('@asl/constants');
+const { authorisationTypes } = require('@ukhomeoffice/asl-constants');
 const { uuid } = require('../lib/regex-validation');
 
 class Authorisation extends BaseModel {

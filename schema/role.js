@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { roles } = require('@asl/constants');
+const { roles } = require('@ukhomeoffice/asl-constants');
 
 class Role extends BaseModel {
   static get tableName() {

@@ -1,5 +1,5 @@
 const BaseModel = require('./base-model');
-const { externalPermissions } = require('@asl/constants');
+const { externalPermissions } = require('@ukhomeoffice/asl-constants');
 const { uuid } = require('../lib/regex-validation');
 
 class Invitation extends BaseModel {
@@ -26,18 +26,16 @@ class Invitation extends BaseModel {
   }
 
   static getInvitations(props) {
-    return Promise.all([
-      this.count(props),
-      this.paginate(props)
-    ])
-      .then(([total, invitations]) => ({ total, invitations }));
+    return Promise.all([this.count(props), this.paginate(props)]).then(
+      ([total, invitations]) => ({ total, invitations })
+    );
   }
 
   static count({ establishmentId }) {
     return this.query()
       .where({ establishmentId })
       .count()
-      .then(results => results[0].count);
+      .then((results) => results[0].count);
   }
 
   static paginate({ establishmentId, sort = {}, limit, offset }) {
@@ -66,7 +64,6 @@ class Invitation extends BaseModel {
       }
     };
   }
-
 }
 
 module.exports = Invitation;

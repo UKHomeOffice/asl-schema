@@ -1,25 +1,26 @@
 const BaseModel = require('./base-model');
-const { projectStatuses } = require('@asl/constants');
+const { projectStatuses } = require('@ukhomeoffice/asl-constants');
 const { uuid } = require('../lib/regex-validation');
 const moment = require('moment');
 const { get } = require('lodash');
 
 const QueryBuilder = require('./query-builder');
 
-const statusQuery = (status, includeSuspended = false) => query => {
-  query.where(builder => {
-    Array.isArray(status)
-      ? builder.whereIn('projects.status', status)
-      : builder.where('projects.status', status);
+const statusQuery =
+  (status, includeSuspended = false) =>
+    (query) => {
+      query.where((builder) => {
+        Array.isArray(status)
+          ? builder.whereIn('projects.status', status)
+          : builder.where('projects.status', status);
 
-    if (includeSuspended) {
-      builder.orWhere(qb => {
-        qb.where({ status: 'active' })
-          .whereNotNull('suspendedDate');
+        if (includeSuspended) {
+          builder.orWhere((qb) => {
+            qb.where({ status: 'active' }).whereNotNull('suspendedDate');
+          });
+        }
       });
-    }
-  });
-};
+    };
 
 function isDraftRelationAndProject(builder) {
   return builder
@@ -28,10 +29,12 @@ function isDraftRelationAndProject(builder) {
 }
 
 function isActiveRelationAndProject(builder) {
-  return builder
-    // include removed as establishments need to retain visibility of these
-    .whereIn('projectEstablishments.status', ['active', 'removed'])
-    .whereIn('projects.status', ['active', 'expired', 'revoked']);
+  return (
+    builder
+      // include removed as establishments need to retain visibility of these
+      .whereIn('projectEstablishments.status', ['active', 'removed'])
+      .whereIn('projects.status', ['active', 'expired', 'revoked'])
+  );
 }
 
 function canSeeProject(builder) {
@@ -40,14 +43,13 @@ function canSeeProject(builder) {
     .orWhere(isActiveRelationAndProject);
 }
 
-const hasAdditionalAvailability = establishmentId => builder => {
+const hasAdditionalAvailability = (establishmentId) => (builder) => {
   builder
     .where('projectEstablishments.establishmentId', establishmentId)
     .where(canSeeProject);
 };
 
 class ProjectQueryBuilder extends QueryBuilder {
-
   whereTitleMatch(search) {
     if (Array.isArray(search)) {
       search = search[0];
@@ -58,56 +60,63 @@ class ProjectQueryBuilder extends QueryBuilder {
   }
 
   whereIsCollaborator(profileId, role) {
-    return this
-      .where(builder => {
-        return builder
-          .where({ licenceHolderId: profileId })
-          .orWhereExists(
-            Project.relatedQuery('collaborators')
-              .where({ 'collaborators.id': profileId })
-              .where(builder => role && builder.where({ role }))
-          );
-      });
+    return this.where((builder) => {
+      return builder.where({ licenceHolderId: profileId }).orWhereExists(
+        Project.relatedQuery('collaborators')
+          .where({ 'collaborators.id': profileId })
+          .where((builder) => role && builder.where({ role }))
+      );
+    });
   }
 
   whereHasAvailability(establishmentId) {
-    return this.where(builder => {
+    return this.where((builder) => {
       builder
         .where('projects.establishmentId', establishmentId)
-        .orWhere(builder => builder.whereHasAdditionalAvailability(establishmentId));
+        .orWhere((builder) =>
+          builder.whereHasAdditionalAvailability(establishmentId)
+        );
     });
   }
 
   whereHasAdditionalAvailability(establishmentId) {
     return this.whereExists(
-      Project.relatedQuery('projectEstablishments').where(hasAdditionalAvailability(establishmentId))
+      Project.relatedQuery('projectEstablishments').where(
+        hasAdditionalAvailability(establishmentId)
+      )
     );
   }
 
   whereRopsDue(year) {
     return this.where('projects.issueDate', '<=', `${year}-12-31`)
-      .andWhere(builder => {
+      .andWhere((builder) => {
         builder
           .whereNull('projects.transferredInDate')
           .orWhere('projects.transferredInDate', '<=', `${year}-12-31`);
       })
-      .andWhere(builder => {
+      .andWhere((builder) => {
         builder
           .where('projects.status', 'active')
-          .orWhere(qb => {
-            qb
-              .where('projects.status', 'transferred')
-              .where('projects.transferredOutDate', '>=', `${year}-12-31`);
+          .orWhere((qb) => {
+            qb.where('projects.status', 'transferred').where(
+              'projects.transferredOutDate',
+              '>=',
+              `${year}-12-31`
+            );
           })
-          .orWhere(qb => {
-            qb
-              .where('projects.status', 'expired')
-              .where('projects.expiryDate', '>=', `${year}-01-01`);
+          .orWhere((qb) => {
+            qb.where('projects.status', 'expired').where(
+              'projects.expiryDate',
+              '>=',
+              `${year}-01-01`
+            );
           })
-          .orWhere(qb => {
-            qb
-              .where('projects.status', 'revoked')
-              .where('projects.revocationDate', '>=', `${year}-01-01`);
+          .orWhere((qb) => {
+            qb.where('projects.status', 'revoked').where(
+              'projects.revocationDate',
+              '>=',
+              `${year}-01-01`
+            );
           });
       });
   }
@@ -129,28 +138,31 @@ class ProjectQueryBuilder extends QueryBuilder {
   }
 
   selectRopsDeadline(year) {
-    const endOfJanNextYear = moment(`${parseInt(year, 10) + 1}-01-31`).endOf('day').toISOString();
+    const endOfJanNextYear = moment(`${parseInt(year, 10) + 1}-01-31`)
+      .endOf('day')
+      .toISOString();
     const interval28Days = `INTERVAL '29 days - 1 millisecond'`;
 
-    return this.select(this.knex().raw(`
+    return this.select(
+      this.knex().raw(`
       CASE
         WHEN (projects.status = 'expired' and DATE_TRUNC('day', projects.expiry_date) <= '${year}-12-31') THEN DATE_TRUNC('day', projects.expiry_date) + ${interval28Days}
         WHEN (projects.status = 'revoked' and DATE_TRUNC('day', projects.revocation_date) <= '${year}-12-31') THEN DATE_TRUNC('day', projects.revocation_date) + ${interval28Days}
         ELSE LEAST('${endOfJanNextYear}'::timestamptz, DATE_TRUNC('day', projects.expiry_date) + ${interval28Days})
       END rops_deadline
-    `));
+    `)
+    );
   }
 
   withRops(year, ropsStatus) {
-    const query = this.withGraphFetched('rops(constrainRops)')
-      .modifiers({
-        constrainRops: builder => {
-          builder.where('rops.year', year);
-          if (ropsStatus === 'submitted') {
-            builder.where('rops.status', 'submitted');
-          }
+    const query = this.withGraphFetched('rops(constrainRops)').modifiers({
+      constrainRops: (builder) => {
+        builder.where('rops.year', year);
+        if (ropsStatus === 'submitted') {
+          builder.where('rops.status', 'submitted');
         }
-      });
+      }
+    });
 
     query.select(
       Project.relatedQuery('rops')
@@ -168,7 +180,9 @@ class ProjectQueryBuilder extends QueryBuilder {
   }
 
   whereRaOutstanding() {
-    return this.whereNotNull('projects.raDate').whereNull('projects.raGrantedDate');
+    return this.whereNotNull('projects.raDate').whereNull(
+      'projects.raGrantedDate'
+    );
   }
 
   whereRaComplete() {
@@ -177,10 +191,9 @@ class ProjectQueryBuilder extends QueryBuilder {
 
   whereRaOverdue() {
     return this.whereNotNull('projects.raDate')
-      .where('projects.raDate', '<', (new Date()).toISOString())
+      .where('projects.raDate', '<', new Date().toISOString())
       .whereNull('projects.raGrantedDate');
   }
-
 }
 
 class Project extends BaseModel {
@@ -265,31 +278,37 @@ class Project extends BaseModel {
       .eager('licenceHolder');
   }
 
-  static getOwnProjects({
-    licenceHolderId,
-    ...props
-  }) {
+  static getOwnProjects({ licenceHolderId, ...props }) {
     return Promise.all([
-      this.count({ query: this.query().whereIsCollaborator(licenceHolderId), ...props }),
-      this.search({ query: this.query().whereIsCollaborator(licenceHolderId), ...props })
-    ])
-      .then(([total, projects]) => ({ total, projects }));
+      this.count({
+        query: this.query().whereIsCollaborator(licenceHolderId),
+        ...props
+      }),
+      this.search({
+        query: this.query().whereIsCollaborator(licenceHolderId),
+        ...props
+      })
+    ]).then(([total, projects]) => ({ total, projects }));
   }
 
   static getProjects(props) {
-    return Promise.all([
-      this.count(props),
-      this.search(props)
-    ])
-      .then(([total, projects]) => ({ total, projects }));
+    return Promise.all([this.count(props), this.search(props)]).then(
+      ([total, projects]) => ({ total, projects })
+    );
   }
 
   static filterUnsubmittedDrafts(query) {
-    return query.joinRelation('version')
-      .where('version.status', '!=', 'draft');
+    return query.joinRelation('version').where('version.status', '!=', 'draft');
   }
 
-  static count({ query, establishmentId, status, isAsru, ropsStatus, ropsYear }) {
+  static count({
+    query,
+    establishmentId,
+    status,
+    isAsru,
+    ropsStatus,
+    ropsYear
+  }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
@@ -313,10 +332,23 @@ class Project extends BaseModel {
     return query
       .where(statusQuery(status))
       .countDistinct('projects.id')
-      .then(result => result[0].count);
+      .then((result) => result[0].count);
   }
 
-  static search({ query, establishmentId, search, filters, status = 'active', sort = {}, limit, offset, isAsru, ropsStatus, ropsYear, includeSuspended }) {
+  static search({
+    query,
+    establishmentId,
+    search,
+    filters,
+    status = 'active',
+    sort = {},
+    limit,
+    offset,
+    isAsru,
+    ropsStatus,
+    ropsYear,
+    includeSuspended
+  }) {
     query = query || this.query();
 
     if (status === 'inactive' && isAsru) {
@@ -327,22 +359,27 @@ class Project extends BaseModel {
       .distinct('projects.*', 'licenceHolder.lastName')
       .where(statusQuery(status, includeSuspended))
       .leftJoinRelation('licenceHolder')
-      .withGraphFetched('[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]')
+      .withGraphFetched(
+        '[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]'
+      )
       .modifiers({
-        constrainAAParams: builder => {
+        constrainAAParams: (builder) => {
           builder.select('id', 'name', 'projectEstablishments.status');
           if (status !== 'inactive') {
-            builder.whereIn('projectEstablishments.status', ['active', 'removed']);
+            builder.whereIn('projectEstablishments.status', [
+              'active',
+              'removed'
+            ]);
           }
         },
-        constrainEstParams: builder => builder.select('id', 'name')
+        constrainEstParams: (builder) => builder.select('id', 'name')
       })
-      .where(builder => {
+      .where((builder) => {
         if (search) {
           return builder
             .whereTitleMatch(search)
             .orWhere('licenceNumber', 'iLike', `%${search}%`)
-            .orWhere(b => b.whereNameMatch(search, 'licence_holder'));
+            .orWhere((b) => b.whereNameMatch(search, 'licence_holder'));
         }
       });
 
