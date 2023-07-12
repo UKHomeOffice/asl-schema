@@ -1,12 +1,7 @@
 const BaseModel = require('./base-model');
 const { uuid } = require('../lib/regex-validation');
 
-const projectVersionStatuses = [
-  'draft',
-  'granted',
-  'submitted',
-  'withdrawn'
-];
+const projectVersionStatuses = ['draft', 'granted', 'submitted', 'withdrawn'];
 
 class ProjectVersion extends BaseModel {
   static get tableName() {
@@ -21,6 +16,7 @@ class ProjectVersion extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         data: { type: ['object', 'null'] },
         projectId: { type: 'string', pattern: uuid.v4 },
+        hbaToken: { type: ['string', 'null'] },
         licenceHolderId: { type: ['string', 'null'], pattern: uuid.v4 },
         status: { type: 'string', enum: projectVersionStatuses },
         asruVersion: { type: 'boolean' },
@@ -33,9 +29,7 @@ class ProjectVersion extends BaseModel {
   }
 
   static get(id) {
-    return this.query()
-      .findById(id)
-      .eager('project');
+    return this.query().findById(id).eager('project');
   }
 
   static get relationMappings() {
@@ -58,7 +52,6 @@ class ProjectVersion extends BaseModel {
       }
     };
   }
-
 }
 
 module.exports = ProjectVersion;
