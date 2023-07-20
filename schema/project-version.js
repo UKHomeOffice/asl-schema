@@ -17,6 +17,7 @@ class ProjectVersion extends BaseModel {
         data: { type: ['object', 'null'] },
         projectId: { type: 'string', pattern: uuid.v4 },
         hbaToken: { type: ['string', 'null'] },
+        hbaFilename: { type: ['string', 'null'] },
         licenceHolderId: { type: ['string', 'null'], pattern: uuid.v4 },
         status: { type: 'string', enum: projectVersionStatuses },
         asruVersion: { type: 'boolean' },
