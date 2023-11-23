@@ -1749,6 +1749,22 @@ module.exports = [
     }
   },
   {
+    projectId: '1b02489d-1583-4836-9ba7-925f8c062cc5',
+    status: 'submitted',
+    data: {
+      title: 'Intent to refuse PPL: deadline passed with applicant',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: '1b02489d-1583-4836-9ba7-925f8c062cc5',
+    status: 'draft',
+    data: {
+      title: 'Intent to refuse PPL: deadline passed with applicant',
+      species: ['mice']
+    }
+  },
+  {
     projectId: '3545e6a5-ed37-4f25-8cae-15367b295a77',
     status: 'submitted',
     data: {
@@ -1761,6 +1777,14 @@ module.exports = [
     status: 'submitted',
     data: {
       title: 'Refuse PPL: deadline passed with asru',
+      species: ['mice']
+    }
+  },
+  {
+    projectId: 'a8c7622f-f629-4685-baa5-e55c23cb223c',
+    status: 'submitted',
+    data: {
+      title: 'Intent to refuse PPL: deadline passed with asru',
       species: ['mice']
     }
   },
