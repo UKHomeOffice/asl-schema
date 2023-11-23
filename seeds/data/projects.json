@@ -1554,6 +1554,14 @@
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
   },
   {
+    "id": "1b02489d-1583-4836-9ba7-925f8c062cc5",
+    "establishmentId": 8201,
+    "title": "Intent to refuse PPL: deadline passed with applicant",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
     "id": "3545e6a5-ed37-4f25-8cae-15367b295a77",
     "establishmentId": 8201,
     "title": "Refuse PPL: deadline future with asru",
@@ -1565,6 +1573,14 @@
     "id": "23ab7fdc-cf39-4a50-8bbb-b1f817d06e29",
     "establishmentId": 8201,
     "title": "Refuse PPL: deadline passed with asru",
+    "status": "inactive",
+    "schemaVersion": 1,
+    "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
+  },
+  {
+    "id": "a8c7622f-f629-4685-baa5-e55c23cb223c",
+    "establishmentId": 8201,
+    "title": "Intent to refuse PPL: deadline passed with asru",
     "status": "inactive",
     "schemaVersion": 1,
     "licenceHolderId": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
