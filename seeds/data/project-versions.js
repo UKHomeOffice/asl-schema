@@ -608,8 +608,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2018-12-31',
-    'updatedAt': '2019-01-01'
+    'createdAt': '2022-12-31',
+    'updatedAt': '2023-01-01'
   },
   {
     'projectId': 'fab30838-4316-4863-9070-5caa08e87d47',
@@ -617,8 +617,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2019-01-31',
-    'updatedAt': '2019-02-01'
+    'createdAt': '2023-01-31',
+    'updatedAt': '2023-02-01'
   },
   {
     'projectId': 'fab30838-4316-4863-9070-5caa08e87d47',
@@ -626,8 +626,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2019-02-28',
-    'updatedAt': '2019-03-01'
+    'createdAt': '2023-02-28',
+    'updatedAt': '2023-03-01'
   },
   {
     'projectId': 'fab30838-4316-4863-9070-5caa08e87d47',
@@ -635,8 +635,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2019-03-31',
-    'updatedAt': '2019-04-01'
+    'createdAt': '2023-03-31',
+    'updatedAt': '2023-04-01'
   },
   {
     'projectId': 'fab30838-4316-4863-9070-5caa08e87d47',
@@ -644,8 +644,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2019-04-30',
-    'updatedAt': '2019-05-01'
+    'createdAt': '2023-04-30',
+    'updatedAt': '2023-05-01'
   },
   {
     'projectId': 'fab30838-4316-4863-9070-5caa08e87d47',
@@ -653,8 +653,8 @@ module.exports = [
     'data': {
       'title': 'Project with multiple versions'
     },
-    'createdAt': '2019-05-31',
-    'updatedAt': '2019-06-01'
+    'createdAt': '2023-05-31',
+    'updatedAt': '2023-06-01'
   },
   {
     'projectId': '3b125d04-a0ec-46fe-9954-80a13b3e39f9',
