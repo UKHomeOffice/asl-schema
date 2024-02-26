@@ -1,6 +1,6 @@
 {
   "name": "@asl/schema",
-  "version": "10.18.1",
+  "version": "10.18.3",
   "description": "Sequelize schema for licensing models",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-schema#readme",
   "dependencies": {
-    "@ukhomeoffice/asl-constants": "^2.1.1",
+    "@ukhomeoffice/asl-constants": "^2.1.4",
     "audit-ci": "^6.5.0",
     "csv-stringify": "^5.4.3",
     "deep-diff": "^1.0.2",
