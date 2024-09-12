@@ -1,2 +1,4 @@
 extends:
-  - lennym
+  - "@ukhomeoffice/asl"
+rules:
+  react/no-is-mounted: "off"
