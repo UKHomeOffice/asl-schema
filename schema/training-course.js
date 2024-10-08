@@ -21,6 +21,7 @@ class TrainingCourse extends BaseModel {
         },
         startDate: { type: ['string', 'null'], pattern: date.yearMonthDay },
         title: { type: 'string' },
+        coursePurpose: { type: 'string', enum: ['higher-education', 'training'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
