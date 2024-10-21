@@ -1,7 +1,9 @@
-
 exports.up = function(knex) {
-  return knex.schema.table('training_courses', (table) => {
+  return knex.schema
+  .table('training_courses', (table) => {
     table.string('course_purpose');
+  })
+  .table('training_pils', (table) => {
     table.string('organisation');
     table.string('qualification_level_and_subject');
     table.string('applicant_learning_use');
@@ -13,8 +15,11 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.table('training_courses', (table) => {
+  return knex.schema
+  .table('training_courses', (table) => {
     table.dropColumn('course_purpose');
+  })
+  .table('training_pils', (table) => {
     table.dropColumn('organisation');
     table.dropColumn('qualification_level_and_subject');
     table.dropColumn('applicant_learning_use');

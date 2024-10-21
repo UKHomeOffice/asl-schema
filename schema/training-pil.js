@@ -21,6 +21,13 @@ class TrainingPil extends BaseModel {
         expiryDate: { type: ['string', 'null'], format: 'date-time' },
         status: { type: 'string', enum: pilStatuses },
         trainingNeed: { type: ['string', 'null'] },
+        organisation: { type: ['string', 'null'] },
+        qualificationLevelAndSubject: { type: ['string', 'null'] },
+        applicantLearningUse: { type: ['string', 'null'] },
+        jobTitleOrQualification: { type: ['string', 'null'] },
+        fieldOfExpertise: { type: ['string', 'null'] },
+        applicantTrainingUseAtWork: { type: ['string', 'null'] },
+        otherNotes: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }

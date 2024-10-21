@@ -22,13 +22,6 @@ class TrainingCourse extends BaseModel {
         startDate: { type: ['string', 'null'], pattern: date.yearMonthDay },
         title: { type: 'string' },
         coursePurpose: { type: 'string', enum: ['higher-education', 'training'] },
-        organisation: { type: 'string' },
-        qualificationLevelAndSubject: { type: 'string' },
-        applicantLearningUse: { type: 'string' },
-        jobTitleOrQualification: { type: 'string' },
-        fieldOfExpertise: { type: 'string' },
-        applicantTrainingUseAtWork: { type: 'string' },
-        otherNotes: { type: 'string' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
