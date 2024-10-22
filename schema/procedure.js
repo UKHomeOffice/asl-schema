@@ -9,6 +9,8 @@ class Procedure extends BaseModel {
   static get editableFields() {
     return [
       'species',
+      'endangered',
+      'endangeredDetails',
       'reuse',
       'placesOfBirth',
       'nhpsOrigin',
@@ -42,6 +44,8 @@ class Procedure extends BaseModel {
         id: { type: 'string', pattern: uuid.v4 },
         ropId: { type: 'string', pattern: uuid.v4 },
         species: { type: 'string' },
+        endangered: { type: ['boolean', 'null'] },
+        endangeredDetails: { type: ['string', 'null'] },
         reuse: { type: ['boolean', 'null'] },
         placesOfBirth: { type: ['string', 'null'] },
         nhpsOrigin: { type: ['string', 'null'] },
