@@ -1,6 +1,6 @@
-const alterEnumColumn = require('../lib/alter-enum-column');
+import alterEnumColumn from '../lib/alter-enum-column.mjs';
 
-exports.up = function(knex, Promise) {
+export async function up(knex) {
   return knex.raw(alterEnumColumn(
     'pils',
     'status',
@@ -8,9 +8,9 @@ exports.up = function(knex, Promise) {
     'pending',
     true
   ));
-};
+}
 
-exports.down = function(knex, Promise) {
+export async function down(knex) {
   return knex.raw(alterEnumColumn(
     'pils',
     'status',
@@ -18,4 +18,4 @@ exports.down = function(knex, Promise) {
     'inactive',
     true
   ));
-};
+}

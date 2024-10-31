@@ -1,4 +1,4 @@
-const alterEnumColumn = require('../lib/alter-enum-column');
+const alterEnumColumn = require('../lib/alter-enum-column.mjs');
 
 exports.up = function(knex, Promise) {
   return knex.raw(alterEnumColumn(

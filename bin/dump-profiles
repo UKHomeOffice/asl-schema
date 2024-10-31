@@ -1,11 +1,48 @@
 #!/usr/bin/env node
 
-// ./bin/dump-profiles 50 --dry
-// ./bin/dump-profiles 5000 --estIds 8201,8202 --roles admin,basic --locale en_US --path somewhere/else/profiles.js
+//
+// // ./bin/dump-profiles.mjs 50 --dry
+// // ./bin/dump-profiles.mjs 5000 --estIds 8201,8202 --roles admin,basic --locale en_US --path somewhere/else/profiles.js
+//
+// const minimist = require('minimist');
+// const fs = require('fs');
+// const generateProfiles = require('../seeds/scripts/generate-profiles');
+//
+// const args = minimist(process.argv.slice(2));
+//
+// const count = args['_'][0] || args.count || 10;
+// const establishmentIds = args.estIds ? args.estIds.split(',') : [8202];
+// const roles = args.roles ? args.roles.split(',') : ['basic'];
+// const locale = args.locale || 'en_GB';
+// const dryRun = !!args.dry || false;
+//
+// const profiles = generateProfiles({ count, establishmentIds, roles, locale });
+//
+// // const util = require('util');
+// // console.log(util.inspect(profiles, false, null, true));
+//
+// if (!dryRun) {
+//   const filePath = args.path || `seeds/data/profiles-${Date.now()}.json`;
+//
+//   fs.writeFile(filePath, JSON.stringify(profiles, null, 2), (err) => {
+//     if (err) throw err;
+//     console.log('Profiles saved.');
+//   });
+// }
 
-const minimist = require('minimist');
-const fs = require('fs');
-const generateProfiles = require('../seeds/scripts/generate-profiles');
+/**
+ * Usage examples:
+ * To generate 50 profiles in a dry run (does not save output to a file):
+ * ```bash
+ * ./bin/dump-profiles.mjs 50 --dry
+ * ```
+ * // const util = require('util'); // todo: use import if ES is enabled
+ * // console.log(util.inspect(profiles, false, null, true));
+**/
+console.log("ssssss");
+import minimist from 'minimist';
+import fs from 'fs';
+import generateProfiles from '../seeds/scripts/generate-profiles.js';
 
 const args = minimist(process.argv.slice(2));
 
@@ -15,11 +52,8 @@ const roles = args.roles ? args.roles.split(',') : ['basic'];
 const locale = args.locale || 'en_GB';
 const dryRun = !!args.dry || false;
 
-const profiles = generateProfiles({ count, establishmentIds, roles, locale });
-
-// const util = require('util');
-// console.log(util.inspect(profiles, false, null, true));
-
+const profiles = generateProfiles(
+  { count, establishmentIds, roles, locale });
 if (!dryRun) {
   const filePath = args.path || `seeds/data/profiles-${Date.now()}.json`;
 
@@ -28,3 +62,4 @@ if (!dryRun) {
     console.log('Profiles saved.');
   });
 }
+
