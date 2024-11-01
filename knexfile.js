@@ -1,4 +1,5 @@
-const { knexSnakeCaseMappers } = require('objection');
+import objection from 'objection';
+const { knexSnakeCaseMappers } = objection;
 
 try {
   // eslint-disable-next-line implicit-dependencies/no-implicit
@@ -7,7 +8,7 @@ try {
 
 const snakeCaseMapper = process.env.SNAKE_MAPPER === 'true' ? knexSnakeCaseMappers() : {};
 
-module.exports = {
+export default {
   test: {
     ...snakeCaseMapper,
     client: 'postgresql',

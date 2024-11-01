@@ -1,5 +1,5 @@
 import assert from 'assert';
-import alterEnumColumn from '../../../lib/alter-enum-column.mjs';
+import alterEnumColumn from '../../../lib/alter-enum-column.js';
 
 describe('Change Default Pils Status Migration', () => {
   const tableName = 'pils';

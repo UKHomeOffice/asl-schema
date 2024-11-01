@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const Project = require('../../schema/project');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import Project from '../../schema/project.js';
 
 describe('Project', () => {
   it('throws a validation error when required properties are missing', () => {

@@ -1,14 +1,17 @@
-const { ref } = require('objection');
-const { compact, remove } = require('lodash');
-const BaseModel = require('./base-model');
-const Changelog = require('./changelog');
-const TrainingPil = require('./training-pil');
-const Role = require('./role');
-const Permission = require('./permission');
-const { date, uuid } = require('../lib/regex-validation');
+import {ref} from 'objection';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import Changelog from './changelog.js';
+import TrainingPil from './training-pil.js';
+import Role from './role.js';
+import Permission from './permission.js';
+// eslint-disable-next-line import/no-duplicates
+import uuid from '../lib/regex-validation.js';
+// eslint-disable-next-line import/no-duplicates
+import date from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
 
-const QueryBuilder = require('./query-builder');
-
+const {compact, remove} = pkg;
 class ProfileQueryBuilder extends QueryBuilder {
 
   whereNotWaived() {
@@ -568,4 +571,4 @@ class Profile extends BaseModel {
   }
 }
 
-module.exports = Profile;
+export default Profile;

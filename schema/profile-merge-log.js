@@ -1,5 +1,5 @@
-const { Model } = require('objection');
-const { uuid } = require('../lib/regex-validation');
+import {Model} from 'objection';
+import uuid from '../lib/regex-validation.js';
 
 class ProfileMergeLog extends Model {
   static get tableName() {
@@ -49,4 +49,4 @@ class ProfileMergeLog extends Model {
   }
 }
 
-module.exports = ProfileMergeLog;
+export default ProfileMergeLog;

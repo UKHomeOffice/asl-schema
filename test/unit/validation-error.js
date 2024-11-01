@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const ValidationError = require('../../schema/validation-error');
-const { ValidationError: ObjectionValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError as ObjectionValidationError} from 'objection';
+import ValidationError from '../../schema/validation-error.js';
 
 describe('ValidationError', () => {
   it('can be instantiated with a message string', () => {

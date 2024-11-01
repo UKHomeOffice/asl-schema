@@ -1,7 +1,7 @@
-const BaseModel = require('./base-model');
-const { pilStatuses } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
-const QueryBuilder = require('./query-builder');
+import {pilStatuses} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
 
 class PILQueryBuilder extends QueryBuilder {
   whereBillable({ establishmentId, start, end }) {
@@ -169,4 +169,4 @@ class PIL extends BaseModel {
   }
 }
 
-module.exports = PIL;
+export default PIL;

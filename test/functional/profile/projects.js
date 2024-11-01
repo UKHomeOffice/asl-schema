@@ -1,6 +1,6 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('../helpers/db');
+import uuid from 'uuid/v4';
+import assert from 'assert';
+import db from '../helpers/db';
 
 const ids = {
   profile: {

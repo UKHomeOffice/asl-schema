@@ -1,9 +1,9 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('../helpers/db');
+import {v4 as uuidv4} from 'uuid';
+import assert from 'assert';
+import db from '../helpers/db';
 
-const PROJECT_ID = uuid();
-const TRAINEE_ID = uuid();
+const PROJECT_ID = uuidv4();
+const TRAINEE_ID = uuidv4();
 
 describe('Profile model', () => {
 
@@ -165,14 +165,14 @@ describe('Profile model', () => {
       // give asru users the same names as non-ASRU users to test search filtering
       .then(() => this.models.Profile.query().insert([
         {
-          id: uuid(),
+          id: uuidv4(),
           firstName: 'Double',
           lastName: 'Agent',
           email: 'asru1@example.com',
           asruUser: true
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           firstName: 'Bruce',
           lastName: 'Forsyth',
           email: 'asru2@example.com',

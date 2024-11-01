@@ -1,6 +1,6 @@
-const BaseModel = require('./base-model');
-const { authorisationTypes } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {authorisationTypes} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class Authorisation extends BaseModel {
   static get tableName() {
@@ -26,4 +26,4 @@ class Authorisation extends BaseModel {
   }
 }
 
-module.exports = Authorisation;
+export default Authorisation;

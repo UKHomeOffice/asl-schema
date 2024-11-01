@@ -1,5 +1,5 @@
-const { Model } = require('objection');
-const { uuid } = require('../lib/regex-validation');
+import {Model} from 'objection';
+import uuid from '../lib/regex-validation.js';
 
 const statuses = [
   'draft',
@@ -35,4 +35,4 @@ class ProjectEstablishment extends Model {
   }
 }
 
-module.exports = ProjectEstablishment;
+export default ProjectEstablishment;

@@ -1,8 +1,5 @@
-const BaseModel = require('./base-model');
-const {
-  establishmentStatuses,
-  establishmentCountries
-} = require('@ukhomeoffice/asl-constants');
+import {establishmentStatuses, establishmentCountries} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
 
 class Establishment extends BaseModel {
   static get tableName() {
@@ -160,4 +157,4 @@ class Establishment extends BaseModel {
   }
 }
 
-module.exports = Establishment;
+export default Establishment;

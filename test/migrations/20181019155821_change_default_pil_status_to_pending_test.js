@@ -1,6 +1,6 @@
 import assert from 'assert';
 import knex from 'knex';
-import { up, down } from '../../migrations/20181019155821_change_default_pil_status_to_pending.mjs';
+import { up } from '../../migrations/20181019155821_change_default_pil_status_to_pending.mjs';
 
 describe('Change Default Pils Status Migration', () => {
   const db = knex({
@@ -51,7 +51,7 @@ describe('Change Default Pils Status Migration', () => {
         FROM information_schema.columns
         WHERE table_name = 'roles' AND column_name = 'type';
       `);
-      assert.strictEqual(defaultResult.rows[0].column_default, null, "Expected default to be null");
+      assert.strictEqual(defaultResult.rows[0].column_default, null, 'Expected default to be null');
     });
   });
 });

@@ -1,5 +1,7 @@
+import {Transform} from 'stream';
+import Schema from '../index';
+
 const args = require('minimist')(process.argv.slice(2));
-const { Transform } = require('stream');
 
 const main = {
   host: process.env.DATABASE_HOST,
@@ -8,8 +10,6 @@ const main = {
   user: process.env.DATABASE_USERNAME || 'postgres',
   password: process.env.DATABASE_PASSWORD
 };
-
-const Schema = require('../index');
 const { ProjectVersion, Project } = Schema(main);
 
 const searchTerm = args._[0];

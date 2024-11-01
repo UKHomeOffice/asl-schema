@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 const projectVersionStatuses = ['draft', 'granted', 'submitted', 'withdrawn'];
 
@@ -55,4 +55,4 @@ class ProjectVersion extends BaseModel {
   }
 }
 
-module.exports = ProjectVersion;
+export default ProjectVersion;

@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class FeeWaiver extends BaseModel {
   static get tableName() {
@@ -54,4 +54,4 @@ class FeeWaiver extends BaseModel {
   }
 }
 
-module.exports = FeeWaiver;
+export default FeeWaiver;

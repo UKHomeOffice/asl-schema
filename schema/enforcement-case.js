@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class EnforcementCase extends BaseModel {
 
@@ -42,4 +42,4 @@ class EnforcementCase extends BaseModel {
 
 }
 
-module.exports = EnforcementCase;
+export default EnforcementCase;

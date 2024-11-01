@@ -1,6 +1,6 @@
-const BaseModel = require('./base-model');
-const { externalPermissions } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {externalPermissions} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class Invitation extends BaseModel {
   static get tableName() {
@@ -66,4 +66,4 @@ class Invitation extends BaseModel {
   }
 }
 
-module.exports = Invitation;
+export default Invitation;

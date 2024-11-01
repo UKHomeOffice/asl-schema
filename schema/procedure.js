@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class Procedure extends BaseModel {
   static get tableName() {
@@ -108,4 +108,4 @@ class Procedure extends BaseModel {
 
 }
 
-module.exports = Procedure;
+export default Procedure;

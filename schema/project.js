@@ -1,11 +1,11 @@
-const BaseModel = require('./base-model');
-const { projectStatuses } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
-const moment = require('moment');
-const { get } = require('lodash');
+import {projectStatuses} from '@ukhomeoffice/asl-constants';
+import moment from 'moment';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
 
-const QueryBuilder = require('./query-builder');
-
+const {get} = pkg;
 const statusQuery =
   (status, includeSuspended = false) =>
     (query) => {
@@ -513,4 +513,4 @@ class Project extends BaseModel {
   }
 }
 
-module.exports = Project;
+export default Project;

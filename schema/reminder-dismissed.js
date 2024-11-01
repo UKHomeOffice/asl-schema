@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class ReminderDismissed extends BaseModel {
 
@@ -51,4 +51,4 @@ class ReminderDismissed extends BaseModel {
 
 }
 
-module.exports = ReminderDismissed;
+export default ReminderDismissed;

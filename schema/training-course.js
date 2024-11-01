@@ -1,5 +1,8 @@
-const BaseModel = require('./base-model');
-const { uuid, date } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+// eslint-disable-next-line import/no-duplicates
+import uuid from '../lib/regex-validation.js';
+// eslint-disable-next-line import/no-duplicates
+import date from '../lib/regex-validation.js';
 
 class TrainingCourse extends BaseModel {
   static get tableName() {
@@ -83,4 +86,4 @@ class TrainingCourse extends BaseModel {
   }
 }
 
-module.exports = TrainingCourse;
+export default TrainingCourse;

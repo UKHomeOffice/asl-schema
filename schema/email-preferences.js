@@ -1,5 +1,5 @@
-const { Model } = require('objection');
-const { uuid } = require('../lib/regex-validation');
+import {Model} from 'objection';
+import uuid from '../lib/regex-validation.js';
 
 class EmailPreferences extends Model {
   static get tableName() {
@@ -39,4 +39,4 @@ class EmailPreferences extends Model {
   }
 }
 
-module.exports = EmailPreferences;
+export default EmailPreferences;

@@ -1,6 +1,6 @@
-const BaseModel = require('./base-model');
-const { moduleCodes } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {moduleCodes} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 class Exemption extends BaseModel {
   static get tableName() {
@@ -28,4 +28,4 @@ class Exemption extends BaseModel {
   }
 }
 
-module.exports = Exemption;
+export default Exemption;

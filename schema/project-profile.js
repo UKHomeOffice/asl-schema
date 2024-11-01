@@ -1,4 +1,4 @@
-const BaseModel = require('./base-model');
+import BaseModel from './base-model.js';
 
 class ProjectProfile extends BaseModel {
   static get tableName() {
@@ -39,4 +39,4 @@ class ProjectProfile extends BaseModel {
   }
 }
 
-module.exports = ProjectProfile;
+export default ProjectProfile;

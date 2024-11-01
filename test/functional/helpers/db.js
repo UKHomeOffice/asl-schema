@@ -1,5 +1,5 @@
 const Schema = require('../../../');
-const settings = require('../../../knexfile').test;
+const settings = require('../../../knexfile.js').test;
 
 const snakeCase = str => str.replace(/[A-Z]/g, s => `_${s.toLowerCase()}`);
 

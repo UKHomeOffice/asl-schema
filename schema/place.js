@@ -1,8 +1,9 @@
-const { uniq, flatten } = require('lodash');
-const BaseModel = require('./base-model');
-const { suitabilityCodes, holdingCodes } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {suitabilityCodes, holdingCodes} from '@ukhomeoffice/asl-constants';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
+const {uniq, flatten} = pkg;
 class PlaceQueryBuilder extends BaseModel.QueryBuilder {
   joinRoles() {
     return this.leftJoinRelated('roles.profile')
@@ -176,4 +177,4 @@ class Place extends BaseModel {
   }
 }
 
-module.exports = Place;
+export default Place;

@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 const projectVersionStatuses = [
   'draft',
@@ -43,4 +43,4 @@ class RetrospectiveAssessment extends BaseModel {
 
 }
 
-module.exports = RetrospectiveAssessment;
+export default RetrospectiveAssessment;

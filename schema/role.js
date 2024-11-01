@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { roles } = require('@ukhomeoffice/asl-constants');
+import {roles} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
 
 class Role extends BaseModel {
   static get tableName() {
@@ -65,4 +65,4 @@ class Role extends BaseModel {
   }
 }
 
-module.exports = Role;
+export default Role;

@@ -1,5 +1,5 @@
 const Knex = require('knex');
-const settings = require('../../../knexfile').test;
+const settings = require('../../../knexfile.js').test;
 
 const tables = [
   'changelog',

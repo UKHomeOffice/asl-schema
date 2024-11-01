@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import uuid from '../lib/regex-validation.js';
 
 const statuses = ['open', 'closed'];
 
@@ -101,4 +101,4 @@ class EnforcementFlag extends BaseModel {
 
 }
 
-module.exports = EnforcementFlag;
+export default EnforcementFlag;

@@ -1,7 +1,8 @@
-const { isUndefined } = require('lodash');
-const { Model } = require('objection');
-const QueryBuilder = require('./query-builder');
-const ValidationError = require('./validation-error');
+import pkg from 'lodash';
+import {Model} from 'objection';
+import QueryBuilder from './query-builder/index.js';
+import ValidationError from './validation-error.js';
+const {isUndefined} = pkg;
 
 class BaseModel extends Model {
   $beforeUpdate(opt, context) {
@@ -89,4 +90,4 @@ class BaseModel extends Model {
   }
 }
 
-module.exports = BaseModel;
+export default BaseModel;
