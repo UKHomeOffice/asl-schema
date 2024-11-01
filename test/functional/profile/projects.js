@@ -1,21 +1,21 @@
-import uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import assert from 'assert';
-import db from '../helpers/db';
+import db from '../helpers/db.js';
 
 const ids = {
   profile: {
-    regular: uuid(),
-    additional: uuid()
+    regular: uuidv4(),
+    additional: uuidv4()
   },
   project: {
-    draftAdditional: uuid(),
-    grantedAdditional: uuid(),
-    regular: uuid()
+    draftAdditional: uuidv4(),
+    grantedAdditional: uuidv4(),
+    regular: uuidv4()
   },
   version: {
-    granted: uuid(),
-    draftAdditional: uuid(),
-    grantedAdditional: uuid()
+    granted: uuidv4(),
+    draftAdditional: uuidv4(),
+    grantedAdditional: uuidv4()
   }
 };
 
@@ -92,7 +92,7 @@ describe('Profile Projects', () => {
           status: 'active'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           licenceHolderId: ids.profile.additional,
           establishmentId: 333,
           title: 'Another ordinary project',

@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import assert from 'assert';
-import db from '../helpers/db';
+import db from '../helpers/db.js';
 
 const PROJECT_ID = uuidv4();
 const TRAINEE_ID = uuidv4();

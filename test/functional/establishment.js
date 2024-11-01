@@ -1,5 +1,5 @@
-const assert = require('assert');
-const db = require('./helpers/db');
+import assert from 'assert';
+import db from './helpers/db.js';
 
 const validEstablishment = {
   id: 8201,

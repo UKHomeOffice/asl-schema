@@ -1,27 +1,29 @@
-const uuid = require('uuid/v4');
-const { every } = require('lodash');
-const assert = require('assert');
-const db = require('./helpers/db');
-const moment = require('moment');
+import {v4 as uuidv4} from 'uuid';
+import assert from 'assert';
+import moment from 'moment';
+import pkg from 'lodash';
+import db from './helpers/db.js';
+
+const {every} = pkg;
 
 const ids = {
-  collaborator: uuid(),
-  collaborationProject: uuid(),
-  draftProject: uuid(),
-  draftProjectVersion: uuid(),
-  submittedDraft: uuid(),
-  vincentMalloy: uuid(),
-  sterlingArcher: uuid(),
-  ropsUser: uuid(),
+  collaborator: uuidv4(),
+  collaborationProject: uuidv4(),
+  draftProject: uuidv4(),
+  draftProjectVersion: uuidv4(),
+  submittedDraft: uuidv4(),
+  vincentMalloy: uuidv4(),
+  sterlingArcher: uuidv4(),
+  ropsUser: uuidv4(),
   establishmentId: 8201,
   additionalEstablishment: 8202,
   anotherEstablishment: 8203,
-  additionalProject: uuid(),
-  additionalVersion: uuid(),
-  draftAdditionalProject: uuid(),
-  draftAdditionalVersion: uuid(),
-  transferIn: uuid(),
-  transferOut: uuid()
+  additionalProject: uuidv4(),
+  additionalVersion: uuidv4(),
+  draftAdditionalProject: uuidv4(),
+  draftAdditionalVersion: uuidv4(),
+  transferIn: uuidv4(),
+  transferOut: uuidv4()
 };
 
 describe('Project model', () => {
@@ -82,7 +84,7 @@ describe('Project model', () => {
           status: 'inactive'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.establishmentId,
           title: 'Some expired research',
           issueDate: moment().subtract(66, 'M').format(),
@@ -98,7 +100,7 @@ describe('Project model', () => {
           status: 'inactive'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.establishmentId,
           title: 'Some more expired research',
           issueDate: moment().subtract(61, 'M').format(),
@@ -107,7 +109,7 @@ describe('Project model', () => {
           status: 'expired'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.establishmentId,
           title: 'Hair loss prevention',
           issueDate: moment().subtract(54, 'M').format(),
@@ -143,7 +145,7 @@ describe('Project model', () => {
           status: 'active'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.anotherEstablishment,
           title: 'Revoked ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -153,7 +155,7 @@ describe('Project model', () => {
           revocationDate: '2022-01-10T12:00:00.000Z'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.anotherEstablishment,
           title: 'Expired ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -162,7 +164,7 @@ describe('Project model', () => {
           expiryDate: '2022-01-10T12:00:00.000Z'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           establishmentId: ids.anotherEstablishment,
           title: 'Active ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -202,7 +204,7 @@ describe('Project model', () => {
           status: 'draft'
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           projectId: ids.submittedDraft,
           status: 'submitted'
         },

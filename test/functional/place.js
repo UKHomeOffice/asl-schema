@@ -1,17 +1,17 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const db = require('./helpers/db');
+import assert from 'assert';
+import {v4 as uuidv4} from 'uuid';
+import db from './helpers/db.js';
 
 describe('Place model', () => {
-  const nacwo1 = uuid();
-  const nacwo2 = uuid();
-  const nacwoRoleId1 = uuid();
-  const nacwoRoleId2 = uuid();
-  const placeId1 = uuid();
-  const nvsId = uuid();
-  const nvsRoleId = uuid();
-  const sqpId = uuid();
-  const sqpRoleId = uuid();
+  const nacwo1 = uuidv4();
+  const nacwo2 = uuidv4();
+  const nacwoRoleId1 = uuidv4();
+  const nacwoRoleId2 = uuidv4();
+  const placeId1 = uuidv4();
+  const nvsId = uuidv4();
+  const nvsRoleId = uuidv4();
+  const sqpId = uuidv4();
+  const sqpRoleId = uuidv4();
 
   before(() => {
     this.models = db.init();
@@ -102,7 +102,7 @@ describe('Place model', () => {
           ]
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           site: 'B site',
           name: 'B name',
           suitability: ['SA'],
@@ -124,7 +124,7 @@ describe('Place model', () => {
           ]
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           site: 'C site',
           name: 'C name',
           suitability: ['LA', 'DOG'],
@@ -142,7 +142,7 @@ describe('Place model', () => {
           ]
         },
         {
-          id: uuid(),
+          id: uuidv4(),
           site: 'D site',
           name: 'D name',
           suitability: ['AQ', 'AV'],

@@ -1,8 +1,8 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const db = require('./helpers/db');
+import assert from 'assert';
+import {v4 as uuidv4} from 'uuid';
+import db from './helpers/db.js';
 
-const ASRU_ID = uuid();
+const ASRU_ID = uuidv4();
 
 describe('PIL model', () => {
 
