@@ -1,6 +1,9 @@
 import {externalPermissions} from '@ukhomeoffice/asl-constants';
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+
+const { uuid } = regex;
 
 class Invitation extends BaseModel {
   static get tableName() {
@@ -56,7 +59,7 @@ class Invitation extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'invitations.establishmentId',
           to: 'establishments.id'

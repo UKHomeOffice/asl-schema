@@ -1,4 +1,5 @@
 import BaseModel from './base-model.js';
+import Profile from './profile.js';
 
 class ProjectProfile extends BaseModel {
   static get tableName() {
@@ -29,7 +30,7 @@ class ProjectProfile extends BaseModel {
     return {
       profile: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'projectProfiles.profileId',
           to: 'profiles.id'

@@ -2,7 +2,7 @@ import {authorisationTypes} from '@ukhomeoffice/asl-constants';
 import BaseModel from './base-model.js';
 import regex from '../lib/regex-validation.js';
 
-const uuid = regex.uuid;
+const { uuid } = regex;
 class Authorisation extends BaseModel {
   static get tableName() {
     return 'authorisations';

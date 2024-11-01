@@ -1,10 +1,8 @@
 import {moduleCodes} from '@ukhomeoffice/asl-constants';
 import BaseModel from './base-model.js';
-// eslint-disable-next-line import/no-duplicates
-import uuid from '../lib/regex-validation.js';
-// eslint-disable-next-line import/no-duplicates
-import date from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid, date } = regex;
 class Certificate extends BaseModel {
   static get tableName() {
     return 'certificates';

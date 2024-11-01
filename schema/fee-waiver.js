@@ -1,6 +1,9 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
+import Establishment from './establishment.js';
 
+const {uuid} = regex;
 class FeeWaiver extends BaseModel {
   static get tableName() {
     return 'pilFeeWaivers';
@@ -28,7 +31,7 @@ class FeeWaiver extends BaseModel {
     return {
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'pilFeeWaivers.profileId',
           to: 'profiles.id'
@@ -36,7 +39,7 @@ class FeeWaiver extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'pilFeeWaivers.establishmentId',
           to: 'establishments.id'
@@ -44,7 +47,7 @@ class FeeWaiver extends BaseModel {
       },
       waivedBy: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'pilFeeWaivers.waivedById',
           to: 'profiles.id'

@@ -1,6 +1,8 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
 
+const { uuid } = regex;
 class Notification extends BaseModel {
   static get tableName() {
     return 'notifications';
@@ -30,7 +32,7 @@ class Notification extends BaseModel {
     return {
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'notifications.profileId',
           to: 'profiles.id'

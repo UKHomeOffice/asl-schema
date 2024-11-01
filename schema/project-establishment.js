@@ -1,6 +1,7 @@
 import {Model} from 'objection';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid } = regex;
 const statuses = [
   'draft',
   'active',

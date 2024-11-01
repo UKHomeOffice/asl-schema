@@ -1,6 +1,9 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
+import Reminder from './reminder.js';
 
+const {uuid} = regex;
 class ReminderDismissed extends BaseModel {
 
   static get tableName() {
@@ -26,7 +29,7 @@ class ReminderDismissed extends BaseModel {
     return {
       reminder: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/reminder`,
+        modelClass: Reminder,
         join: {
           from: 'reminderDismissed.modelId',
           to: 'reminders.id'
@@ -34,7 +37,7 @@ class ReminderDismissed extends BaseModel {
       },
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'reminderDismissed.profileId',
           to: 'profiles.id'

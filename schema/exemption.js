@@ -1,7 +1,8 @@
 import {moduleCodes} from '@ukhomeoffice/asl-constants';
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid } = regex;
 class Exemption extends BaseModel {
   static get tableName() {
     return 'exemptions';

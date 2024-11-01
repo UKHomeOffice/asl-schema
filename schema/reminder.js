@@ -1,6 +1,10 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
-
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+import Pil from './pil.js';
+import ReminderDismissed from './reminder-dismissed.js';
+import Project from './project.js';
+const {uuid} = regex;
 class Reminder extends BaseModel {
 
   static get tableName() {
@@ -30,7 +34,7 @@ class Reminder extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'reminders.establishmentId',
           to: 'establishments.id'
@@ -38,7 +42,7 @@ class Reminder extends BaseModel {
       },
       pil: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'reminders.modelId',
           to: 'pils.id'
@@ -46,7 +50,7 @@ class Reminder extends BaseModel {
       },
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'reminders.modelId',
           to: 'projects.id'
@@ -54,7 +58,7 @@ class Reminder extends BaseModel {
       },
       dismissed: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/reminder-dismissed`,
+        modelClass: ReminderDismissed,
         join: {
           from: 'reminders.id',
           to: 'reminderDismissed.reminderId'

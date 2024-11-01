@@ -1,6 +1,9 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Project from './project.js';
+import Procedure from './procedure.js';
 
+const {uuid} = regex;
 const ropStatuses = [
   'draft',
   'submitted'
@@ -169,7 +172,7 @@ class Rops extends BaseModel {
     return {
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'rops.projectId',
           to: 'projects.id'
@@ -177,7 +180,7 @@ class Rops extends BaseModel {
       },
       procedures: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/procedure`,
+        modelClass: Procedure,
         join: {
           from: 'rops.id',
           to: 'procedures.ropId'

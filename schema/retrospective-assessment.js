@@ -1,6 +1,8 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Project from './project.js';
 
+const { uuid } = regex;
 const projectVersionStatuses = [
   'draft',
   'granted',
@@ -32,7 +34,7 @@ class RetrospectiveAssessment extends BaseModel {
     return {
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'retrospectiveAssessments.projectId',
           to: 'projects.id'

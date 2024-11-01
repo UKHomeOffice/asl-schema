@@ -1,8 +1,12 @@
 import {suitabilityCodes, holdingCodes} from '@ukhomeoffice/asl-constants';
 import pkg from 'lodash';
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+import PlaceRole from './place-role.js';
+import Role from './role.js';
 
+const { uuid } = regex;
 const {uniq, flatten} = pkg;
 class PlaceQueryBuilder extends BaseModel.QueryBuilder {
   joinRoles() {
@@ -147,7 +151,7 @@ class Place extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'places.establishmentId',
           to: 'establishments.id'
@@ -155,7 +159,7 @@ class Place extends BaseModel {
       },
       roleJoins: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/place-role`,
+        modelClass: PlaceRole,
         join: {
           from: 'places.id',
           to: 'placeRoles.placeId'
@@ -163,7 +167,7 @@ class Place extends BaseModel {
       },
       roles: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/role`,
+        modelClass: Role,
         join: {
           from: 'places.id',
           through: {

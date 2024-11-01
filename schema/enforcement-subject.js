@@ -1,6 +1,11 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import EnforcementFlag from './enforcement-flag.js';
+import Profile from './profile.js';
+import Establishment from './establishment.js';
+import EnforcementCase from './enforcement-case.js';
 
+const { uuid } = regex;
 class EnforcementSubject extends BaseModel {
 
   static get tableName() {
@@ -27,7 +32,7 @@ class EnforcementSubject extends BaseModel {
     return {
       enforcementCase: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/enforcement-case`,
+        modelClass: EnforcementCase,
         join: {
           from: 'enforcementSubjects.caseId',
           to: 'enforcementCases.id'
@@ -35,7 +40,7 @@ class EnforcementSubject extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'enforcementSubjects.establishmentId',
           to: 'establishments.id'
@@ -43,7 +48,7 @@ class EnforcementSubject extends BaseModel {
       },
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'enforcementSubjects.profileId',
           to: 'profiles.id'
@@ -51,7 +56,7 @@ class EnforcementSubject extends BaseModel {
       },
       flags: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/enforcement-flag`,
+        modelClass: EnforcementFlag,
         join: {
           from: 'enforcementSubjects.id',
           to: 'enforcementFlags.subjectId'

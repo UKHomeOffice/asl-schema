@@ -1,5 +1,12 @@
 import {establishmentStatuses, establishmentCountries} from '@ukhomeoffice/asl-constants';
 import BaseModel from './base-model.js';
+import Place from './place.js';
+import Authorisation from './authorisation.js';
+import PilTransfer from './pil-transfer.js';
+import Pil from './pil.js';
+import Project from './project.js';
+import Profile from './profile.js';
+import Role from './role.js';
 
 class Establishment extends BaseModel {
   static get tableName() {
@@ -58,7 +65,7 @@ class Establishment extends BaseModel {
     return {
       places: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/place`,
+        modelClass: Place,
         join: {
           from: 'establishments.id',
           to: 'places.establishmentId'
@@ -66,7 +73,7 @@ class Establishment extends BaseModel {
       },
       authorisations: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/authorisation`,
+        modelClass: Authorisation,
         join: {
           from: 'establishments.id',
           to: 'authorisations.establishmentId'
@@ -74,7 +81,7 @@ class Establishment extends BaseModel {
       },
       roles: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/role`,
+        modelClass: Role,
         join: {
           from: 'establishments.id',
           to: 'roles.establishmentId'
@@ -82,7 +89,7 @@ class Establishment extends BaseModel {
       },
       profiles: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'establishments.id',
           through: {
@@ -95,7 +102,7 @@ class Establishment extends BaseModel {
       },
       invitations: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'establishments.id',
           through: {
@@ -108,11 +115,11 @@ class Establishment extends BaseModel {
       },
       transferredPils: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'establishments.id',
           through: {
-            modelClass: `${__dirname}/pil-transfer`,
+            modelClass: PilTransfer,
             from: 'pilTransfers.fromEstablishmentId',
             to: 'pilTransfers.pilId'
           },
@@ -121,7 +128,7 @@ class Establishment extends BaseModel {
       },
       pils: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'establishments.id',
           to: 'pils.establishmentId'
@@ -129,7 +136,7 @@ class Establishment extends BaseModel {
       },
       projects: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'establishments.id',
           to: 'projects.establishmentId'
@@ -137,7 +144,7 @@ class Establishment extends BaseModel {
       },
       asru: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'establishments.id',
           through: {

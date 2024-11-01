@@ -1,5 +1,10 @@
 import BaseModel from './base-model.js';
-import uuid from '../lib/regex-validation.js';
+import regex from '../lib/regex-validation.js';
+import EnforcementSubject from './enforcement-subject.js';
+import Establishment from './establishment.js';
+import Profile from './profile.js';
+import Pil from './pil.js';
+import Project from './project.js';
 
 const statuses = ['open', 'closed'];
 
@@ -13,6 +18,8 @@ const remedialActions = [
   'licence-revocation',
   'other'
 ];
+
+const { uuid } = regex;
 
 class EnforcementFlag extends BaseModel {
 
@@ -52,7 +59,7 @@ class EnforcementFlag extends BaseModel {
     return {
       subject: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/enforcement-subject`,
+        modelClass: EnforcementSubject,
         join: {
           from: 'enforcementFlags.subjectId',
           to: 'enforcementSubjects.id'
@@ -60,7 +67,7 @@ class EnforcementFlag extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'enforcementFlags.establishmentId',
           to: 'establishments.id'
@@ -68,7 +75,7 @@ class EnforcementFlag extends BaseModel {
       },
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'enforcementFlags.modelId',
           to: 'profiles.id'
@@ -76,7 +83,7 @@ class EnforcementFlag extends BaseModel {
       },
       pil: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'enforcementFlags.modelId',
           to: 'pils.id'
@@ -84,7 +91,7 @@ class EnforcementFlag extends BaseModel {
       },
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'enforcementFlags.modelId',
           to: 'projects.id'
