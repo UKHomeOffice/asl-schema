@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema
     .createTable('notifications', table => {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
@@ -15,8 +15,8 @@ exports.up = function(knex) {
       table.index('identifier');
       table.index('to');
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.dropTable('notifications');
-};
+}

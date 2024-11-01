@@ -1,5 +1,7 @@
-const { flatten, values } = require('lodash');
-const species = require('../lib/constants/species');
+import pkg from 'lodash';
+import species from '../lib/constants/species.js';
+
+const {flatten, values} = pkg;
 const SPECIES = flatten(values(species));
 
 function fixProtocols(protocols) {
@@ -33,13 +35,13 @@ function fixProtocols(protocols) {
   });
 }
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex
         .select('id')
         .from('projects')
-        .where({ 'schema_version': 1 })
+        .where({ 'schema_version': 1 });
     })
     .then(projects => {
       return Promise.all(projects.map(p => {
@@ -76,8 +78,8 @@ exports.up = function(knex) {
           });
       }));
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

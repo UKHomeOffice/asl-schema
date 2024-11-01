@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.table('profiles', table => {
     table.boolean('asru_rops').defaultsTo(false);
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.table('profiles', table => {
     table.dropColumn('asru_rops');
   });
-};
+}

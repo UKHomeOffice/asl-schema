@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.dropTableIfExists('project_establishments')
     .createTable('project_establishments', table => {
       table.uuid('project_id').references('id').inTable('projects').notNull();
@@ -13,8 +13,8 @@ exports.up = function(knex) {
       table.index('project_id');
       table.index('version_id');
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.dropTable('project_establishments');
-};
+}

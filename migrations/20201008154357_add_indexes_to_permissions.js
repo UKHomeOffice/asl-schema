@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.table('permissions', table => {
     table.index('establishment_id');
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.table('permissions', table => {
     table.dropIndex('establishment_id');
   });
-};
+}

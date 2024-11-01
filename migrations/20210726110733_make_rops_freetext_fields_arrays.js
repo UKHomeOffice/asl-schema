@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema
     .raw('UPDATE rops SET "basic_subpurposes_other" = to_json("basic_subpurposes_other")')
     .raw('UPDATE rops SET "regulatory_subpurposes_other" = to_json("regulatory_subpurposes_other")')
@@ -21,9 +21,9 @@ exports.up = function(knex) {
       table.uuid('subpurpose_other').nullable();
       table.uuid('legislation_other').nullable();
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema
     .table('procedures', table => {
       table.dropColumn('subpurpose_other');
@@ -45,4 +45,4 @@ exports.down = function(knex) {
     .raw('UPDATE rops SET "regulatory_subpurposes_other_efficacy" = trim(BOTH \'"\' FROM "regulatory_subpurposes_other_efficacy")')
     .raw('UPDATE rops SET "regulatory_subpurposes_other" = trim(BOTH \'"\' FROM "regulatory_subpurposes_other")')
     .raw('UPDATE rops SET "basic_subpurposes_other" = trim(BOTH \'"\' FROM "basic_subpurposes_other")');
-};
+}

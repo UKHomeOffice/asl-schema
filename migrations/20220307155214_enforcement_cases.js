@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema
     .createTable('enforcement_cases', table => {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
@@ -34,11 +34,11 @@ exports.up = function(knex) {
       table.timestamps(false, true);
       table.dateTime('deleted');
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema
     .dropTable('enforcement_flags')
     .dropTable('enforcement_subjects')
     .dropTable('enforcement_cases');
-};
+}

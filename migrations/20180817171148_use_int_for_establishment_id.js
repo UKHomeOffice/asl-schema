@@ -1,4 +1,4 @@
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema
     // remove any fk relations for establishment id
     .table('invitations', table => {
@@ -51,9 +51,9 @@ exports.up = function(knex, Promise) {
     .alterTable('roles', table => {
       table.integer('establishmentId').references('id').inTable('establishments').alter();
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema
     // remove any fk relations for establishment id
     .table('invitations', table => {
@@ -106,4 +106,4 @@ exports.down = function(knex, Promise) {
     .alterTable('roles', table => {
       table.string('establishmentId').references('id').inTable('establishments').alter();
     });
-};
+}

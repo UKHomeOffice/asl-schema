@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.dropTableIfExists('invitations')
     .createTable('invitations', table => {
       table.string('token');
@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
       table.string('establishmentId').references('id').inTable('establishments').notNull();
       table.uuid('profileId').references('id').inTable('profiles').notNull();
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema.dropTable('invitations');
-};
+}

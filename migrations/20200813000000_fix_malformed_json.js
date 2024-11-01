@@ -1,6 +1,6 @@
 const VERSION_ID = '5507ee39-14cd-424e-b6be-c4bb5883294c';
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => knex('project_versions')
       .select('data')
@@ -19,9 +19,9 @@ exports.up = function(knex) {
       };
       return knex('project_versions').where({ id: VERSION_ID }).update({ data });
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve()
     .then(() => knex('project_versions')
       .select('data')
@@ -40,4 +40,4 @@ exports.down = function(knex) {
       };
       return knex('project_versions').where({ id: VERSION_ID }).update({ data });
     });
-};
+}

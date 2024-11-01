@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.dropTableIfExists('changelog')
     .createTable('changelog', table => {
       table.uuid('message_id').primary().notNull();
@@ -12,8 +12,8 @@ exports.up = function(knex, Promise) {
       table.timestamps(false, true);
       table.dateTime('deleted');
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema.dropTable('changelog');
-};
+}

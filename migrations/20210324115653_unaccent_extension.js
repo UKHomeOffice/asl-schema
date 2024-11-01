@@ -1,8 +1,8 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.raw('create extension if not exists "unaccent"');
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.raw('drop extension if exists "unaccent"');
-};
+}

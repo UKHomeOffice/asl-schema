@@ -1,4 +1,4 @@
-import alterEnumColumn from '../lib/alter-enum-column.mjs';
+import alterEnumColumn from '../lib/alter-enum-column.js';
 
 export async function up(knex) {
   return knex.raw(alterEnumColumn(

@@ -1,5 +1,6 @@
-const { v4: uuid } = require('uuid');
-const { isEmpty, flatten, mapValues } = require('lodash');
+import {v4 as uuid} from 'uuid';
+import pkg from 'lodash';
+const {isEmpty, flatten, mapValues} = pkg;
 
 const fields = {
   basic_subpurposes: {
@@ -101,7 +102,7 @@ function transformRop(rop) {
   return updates;
 }
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => knex('rops').select('id', ...others))
     .then(rops => {
@@ -130,11 +131,11 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}
 
-exports.transformRop = transformRop;
-exports.transformProc = transformProc;
+export {transformRop};
+export {transformProc};

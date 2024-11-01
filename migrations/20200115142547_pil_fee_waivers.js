@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema
     .createTable('fee_waivers', table => {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
@@ -19,8 +19,8 @@ exports.up = function(knex) {
       table.timestamps(false, true);
       table.dateTime('deleted');
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema.dropTableIfExists('fee_waivers');
-};
+}

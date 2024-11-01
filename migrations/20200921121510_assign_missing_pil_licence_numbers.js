@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 function generateLicenceNumber(knex) {
   const buf = crypto.randomBytes(48).toString('hex');
@@ -16,7 +16,7 @@ function generateLicenceNumber(knex) {
     });
 }
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => knex('profiles').whereNull('pil_licence_number').whereExists(
       knex.select('*').from('pils').whereRaw('profiles.id = pils.profile_id').whereNotIn('status', ['inactive', 'pending'])
@@ -35,8 +35,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

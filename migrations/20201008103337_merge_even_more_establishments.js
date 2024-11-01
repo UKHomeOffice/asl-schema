@@ -1,12 +1,12 @@
-const { merge, revertMerge } = require('../lib/merge-establishments');
+import {merge, revertMerge} from '../lib/merge-establishments.js';
 
 const fromEstablishmentId = 8211;
 const toEstablishmentId = 8271;
 
-exports.up = function(knex) {
+export function up(knex) {
   return merge(knex, fromEstablishmentId, toEstablishmentId);
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return revertMerge(knex, fromEstablishmentId, toEstablishmentId);
-};
+}

@@ -1,8 +1,9 @@
-const moment = require('moment');
-const { get } = require('lodash');
-const { Value } = require('slate');
-const csv = require('csv-stringify');
+import moment from 'moment';
+import {Value} from 'slate';
+import csv from 'csv-stringify';
+import pkg from 'lodash';
 
+const {get} = pkg;
 const LICENCE_NUMBER = /((7|3)0(0|\/|\-)[0-9]{4})|P[0-9A-Z]{8}/g;
 const EXPIRYLONG = /([0-9]{1,2})(st|nd|rd|th)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)(r?uary|ch|il|e|y|ust|tember|ober|ember)?  ?((20)?(19|20|21))/;
 const EXPIRYLONG2 = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(r?uary|ch|ril|e|y|ust|tember|ober|ember)? ([0-9]{1,2})(st|nd|rd|th)? ((20)?(19|20|21))/;
@@ -101,12 +102,12 @@ const transform = (data, versionId, writeCsvLine) => {
         'expiry-date': date ? date.format('YYYY-MM-DD') : null
       }
     ]
-  }
+  };
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   const stringifier = csv();
   stringifier.write(['Type', 'Project ID', 'Version ID', 'Establishment ID', 'Project Title', 'Project Status', 'Version Status', 'Text input']);
   return Promise.resolve()
@@ -114,11 +115,11 @@ exports.up = function(knex) {
       return knex('project_versions')
         .select('project_versions.id', 'data')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 })
-        .whereRaw('cast(data->>\'transfer-expiring\' as boolean) IS TRUE')
+        .where({ 'schema_version': 1 })
+        .whereRaw('cast(data->>\'transfer-expiring\' as boolean) IS TRUE');
     })
     .then(versions => {
-      console.log(`found ${versions.length} versions`)
+      console.log(`found ${versions.length} versions`);
       return versions.reduce((promise, version, index) => {
         return promise
           .then(() => {
@@ -145,7 +146,7 @@ exports.up = function(knex) {
 
                 const data = transform(version.data, version.id, writeCsvLine);
                 if (!data) {
-                  console.log(`Skipping ${version.id}.`)
+                  console.log(`Skipping ${version.id}.`);
                   return Promise.resolve();
                 }
                 return knex('project_versions')
@@ -161,15 +162,15 @@ exports.up = function(knex) {
             console.error(e.stack);
             throw e;
           });
-      }, Promise.resolve())
+      }, Promise.resolve());
     })
     .then(() => {
       stringifier.pipe(process.stdout);
       stringifier.end();
     })
-    .catch(() => stringifier.end())
-};
+    .catch(() => stringifier.end());
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

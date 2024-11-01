@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema.table('profiles', table => {
     table.string('telephone_alt');
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema.table('profiles', table => {
     table.dropColumn('telephone_alt');
   });
-};
+}

@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema
     .dropTableIfExists('project_versions')
     .createTable('project_versions', table => {
@@ -14,12 +14,12 @@ exports.up = function(knex, Promise) {
     .table('projects', table => {
       table.integer('schema_version').notNull().defaultTo(1);
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema
     .table('projects', table => {
       table.dropColumn('schema_version');
     })
-    .dropTableIfExists('project_versions')
-};
+    .dropTableIfExists('project_versions');
+}

@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.table('rops', table => {
     table.dateTime('submitted_date').nullable();
   })
@@ -9,10 +9,10 @@ exports.up = function(knex) {
         WHERE status = 'submitted'
       `);
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.table('rops', table => {
     table.dropColumn('submitted_date');
   });
-};
+}

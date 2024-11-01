@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema.dropTableIfExists('place_roles')
     .createTable('place_roles', table => {
       table.uuid('place_id').references('id').inTable('places').notNull();
@@ -21,8 +21,8 @@ exports.up = function(knex) {
         WHERE "deleted" IS NULL`
       );
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema.dropTable('place_roles');
-};
+}

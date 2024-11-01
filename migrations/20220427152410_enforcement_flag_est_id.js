@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.alterTable('enforcement_flags', table => {
     table.integer('establishment_id').nullable().alter();
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.alterTable('enforcement_flags', table => {
     table.integer('establishment_id').notNullable().alter();
   });
-};
+}

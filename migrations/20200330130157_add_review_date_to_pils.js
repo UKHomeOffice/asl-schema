@@ -1,6 +1,6 @@
-const moment = require('moment');
+import moment from 'moment';
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex
     .select('id', 'updated_at', 'review_date')
     .from('pils')
@@ -16,8 +16,8 @@ exports.up = function(knex) {
         })
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

@@ -1,12 +1,12 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.table('projects', table => {
     table.string('title').nullable().alter();
   });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema.table('projects', table => {
     table.string('title').notNull().alter();
   });
-};
+}

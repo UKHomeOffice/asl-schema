@@ -1,4 +1,5 @@
-const { some } = require('lodash');
+import pkg from 'lodash';
+const {some} = pkg;
 
 const transform = data => {
   if (!data) {
@@ -20,15 +21,15 @@ const transform = data => {
   return data;
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
         .select('project_versions.id')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 });
+        .where({ 'schema_version': 1 });
     })
     .then(versions => {
       return versions.reduce((promise, version) => {
@@ -55,9 +56,9 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   // lolno
   return Promise.resolve();
-};
+}

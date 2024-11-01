@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+import { v4 as uuidv4 } from 'uuid';
 
 const transform = version => {
   if (!version) {
@@ -9,25 +9,25 @@ const transform = version => {
   }
   version['project-continuation'].forEach(item => {
     if (item && !item.id) {
-      item.id = uuid();
+      item.id = uuidv4();
     }
   });
   return version;
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
         .select('project_versions.id')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 })
+        .where({ 'schema_version': 1 })
         .whereRaw('data->>\'project-continuation\' IS NOT NULL');
     })
     .then(versions => {
-      console.log(`found ${versions.length} versions`)
+      console.log(`found ${versions.length} versions`);
       return versions.reduce((promise, version, index) => {
         return promise
           .then(() => {
@@ -53,8 +53,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

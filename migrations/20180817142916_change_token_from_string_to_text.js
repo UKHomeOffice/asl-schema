@@ -1,12 +1,12 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.alterTable('invitations', table => {
     table.text('token').alter();
   });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schmea.alterTable('invitations', table => {
     table.string('token').alter();
   });
-};
+}

@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.alterTable('changelog', table => {
     table.uuid('changed_by').nullable().alter();
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.alterTable('changelog', table => {
     table.uuid('changed_by').notNullable().alter();
   });
-};
+}

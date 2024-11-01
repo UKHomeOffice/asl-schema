@@ -1,6 +1,7 @@
-const { uniq, flatten, compact } = require('lodash');
-const { projectSpecies } = require('@ukhomeoffice/asl-constants');
+import pkg from 'lodash';
+import {projectSpecies} from '@ukhomeoffice/asl-constants';
 
+const {uniq, flatten, compact} = pkg;
 const species = flatten(Object.values(projectSpecies));
 
 const legacy = {
@@ -90,9 +91,9 @@ function getSpecies(data, { schema_version, id } = {}) {
   }
 }
 
-exports.getSpecies = getSpecies;
+export {getSpecies};
 
-exports.up = async function (knex) {
+export async function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('projects')
@@ -145,8 +146,8 @@ exports.up = async function (knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function (knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

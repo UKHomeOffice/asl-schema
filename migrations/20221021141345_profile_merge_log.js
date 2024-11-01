@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.createTable('profile_merge_log', table => {
     table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
     table.uuid('from_profile_id').references('id').inTable('profiles').notNull();
@@ -8,8 +8,8 @@ exports.up = function(knex) {
     table.index('to_profile_id');
     table.timestamps(false, true);
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.dropTable('profile_merge_log');
-};
+}

@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
 
   return knex.schema
     .dropTableIfExists('trainingModules')
@@ -134,9 +134,9 @@ exports.up = function(knex, Promise) {
       table.string('establishmentId').references('id').inTable('establishments').notNull();
       table.uuid('profileId').references('id').inTable('profiles').notNull();
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema
     .dropTable('permissions')
     .dropTable('trainingModules')
@@ -148,4 +148,4 @@ exports.down = function(knex, Promise) {
     .dropTable('authorisations')
     .dropTable('establishments')
     .raw('drop extension if exists "uuid-ossp"');
-};
+}

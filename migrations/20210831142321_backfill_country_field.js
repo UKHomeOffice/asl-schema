@@ -1,8 +1,8 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex('establishments').update({ country: 'england' }).whereNull('country');
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}
