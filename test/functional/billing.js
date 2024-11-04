@@ -1,6 +1,9 @@
 import assert from 'assert';
 import {v4 as uuidv4} from 'uuid';
 import db from './helpers/db.js';
+import BaseModel from '../../schema/base-model.js';
+import Knex from 'knex';
+import { test } from '../../knexfile.js';
 
 const ids = {
   asru: uuidv4(),
@@ -9,27 +12,52 @@ const ids = {
   ppl: uuidv4()
 };
 
+const settings = test;
+let Profile, Establishment, TrainingCourse, FeeWaiver;
+
 describe('Billing queries model', () => {
 
   before(() => {
-    return Promise.resolve()
-      .then(() => {
-        this.models = db.init();
-      })
-      .then(() => db.clean(this.models));
+    db.init();
+    db.clean(db.init());
+
+    Profile = class extends BaseModel {
+      static get tableName() {
+        return 'profiles';
+      }
+    };
+    Profile = Profile.bindKnex(Knex(settings));
+
+    Establishment = class extends BaseModel {
+      static get tableName() {
+        return 'establishments';
+      }
+    };
+    TrainingCourse = class extends BaseModel {
+      static get tableName() {
+        return 'training-courses';
+      }
+    };
+    FeeWaiver = class extends BaseModel {
+      static get tableName() {
+        return 'fee-waivers';
+      }
+    };
+
+    Profile = Profile.bindKnex(Knex(settings));
+    Establishment = Establishment.bindKnex(Knex(settings));
+    TrainingCourse = TrainingCourse.bindKnex(Knex(settings));
+    FeeWaiver = FeeWaiver.bindKnex(Knex(settings));
   });
 
-  after(() => {
-    return db.clean(this.models)
-      .then(() => this.models.destroy());
-  });
+  after(() => db.clean(BaseModel));
 
   describe('billable', () => {
 
     before(() => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query().insert([
+          return Profile.query().insert([
             {
               id: ids.asru,
               firstName: 'Asru',
@@ -69,7 +97,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return this.models.Establishment.query().insertGraph([
+          return Establishment.query().insertGraph([
             {
               id: 100,
               name: 'Training Establishment',
@@ -104,7 +132,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return this.models.TrainingCourse.query().insertGraph([
+          return TrainingCourse.query().insertGraph([
             {
               establishmentId: 100,
               title: 'Training Course',
@@ -149,7 +177,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return this.models.FeeWaiver.query().insertGraph([
+          return FeeWaiver.query().insertGraph([
             {
               establishmentId: 100,
               profileId: ids.piles[3],

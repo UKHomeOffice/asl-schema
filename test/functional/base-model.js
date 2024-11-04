@@ -6,7 +6,8 @@ import db from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 
 const settings = test;
-let Model, dbInstance;
+
+let Model;
 
 describe('Base Model', () => {
   before(() => {
@@ -15,11 +16,11 @@ describe('Base Model', () => {
         return 'authorisations';
       }
     };
-    dbInstance = db.init();
+    db.init();
     Model = Model.bindKnex(Knex(settings));
   });
 
-  after(() => dbInstance.clean(BaseModel));
+  after(() => db.clean(BaseModel));
 
   beforeEach(async () => {
     await Model.queryWithDeleted().hardDelete();
