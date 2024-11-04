@@ -1,6 +1,6 @@
 import moment from 'moment';
 import assert from 'assert';
-import Knex from 'knex';
+import knex from 'knex';
 import {test} from '../../knexfile.js';
 import db from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
@@ -11,13 +11,13 @@ let Model;
 
 describe('Base Model', () => {
   before(() => {
+    db.init();
     Model = class extends BaseModel {
       static get tableName() {
         return 'authorisations';
       }
     };
-    db.init();
-    Model = Model.bindKnex(Knex(settings));
+    Model = Model.bindKnex(knex(settings));
   });
 
   after(() => db.clean(BaseModel));

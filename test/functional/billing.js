@@ -2,8 +2,6 @@ import assert from 'assert';
 import {v4 as uuidv4} from 'uuid';
 import db from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
-import Knex from 'knex';
-import { test } from '../../knexfile.js';
 
 const ids = {
   asru: uuidv4(),
@@ -12,44 +10,14 @@ const ids = {
   ppl: uuidv4()
 };
 
-const settings = test;
-let Profile, Establishment, TrainingCourse, FeeWaiver;
-
 describe('Billing queries model', () => {
 
-  before(() => {
-    db.init();
-    db.clean(db.init());
-
-    Profile = class extends BaseModel {
-      static get tableName() {
-        return 'profiles';
-      }
-    };
-    Profile = Profile.bindKnex(Knex(settings));
-
-    Establishment = class extends BaseModel {
-      static get tableName() {
-        return 'establishments';
-      }
-    };
-    TrainingCourse = class extends BaseModel {
-      static get tableName() {
-        return 'training-courses';
-      }
-    };
-    FeeWaiver = class extends BaseModel {
-      static get tableName() {
-        return 'fee-waivers';
-      }
-    };
-
-    Profile = Profile.bindKnex(Knex(settings));
-    Establishment = Establishment.bindKnex(Knex(settings));
-    TrainingCourse = TrainingCourse.bindKnex(Knex(settings));
-    FeeWaiver = FeeWaiver.bindKnex(Knex(settings));
+  let Model = null;
+  before(async () => {
+    Model = db.init();
+    await db.latestMigration();
+    await db.clean(db.init());
   });
-
   after(() => db.clean(BaseModel));
 
   describe('billable', () => {
@@ -57,7 +25,7 @@ describe('Billing queries model', () => {
     before(() => {
       return Promise.resolve()
         .then(() => {
-          return Profile.query().insert([
+          return BaseModel.Profile.query().insert([
             {
               id: ids.asru,
               firstName: 'Asru',
@@ -97,7 +65,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return Establishment.query().insertGraph([
+          return Model.Establishment.query().insertGraph([
             {
               id: 100,
               name: 'Training Establishment',
@@ -132,7 +100,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return TrainingCourse.query().insertGraph([
+          return Model.TrainingCourse.query().insertGraph([
             {
               establishmentId: 100,
               title: 'Training Course',
@@ -177,7 +145,7 @@ describe('Billing queries model', () => {
           ]);
         })
         .then(() => {
-          return FeeWaiver.query().insertGraph([
+          return Model.FeeWaiver.query().insertGraph([
             {
               establishmentId: 100,
               profileId: ids.piles[3],
@@ -191,7 +159,7 @@ describe('Billing queries model', () => {
     it('includes training pils in billing data', () => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query()
+          return Model.Profile.query()
             .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' });
         })
         .then(result => {
@@ -202,7 +170,7 @@ describe('Billing queries model', () => {
     it('excludes training pils revoked before start of year', () => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query()
+          return Model.Profile.query()
             .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' });
         })
         .then(result => {
@@ -213,7 +181,7 @@ describe('Billing queries model', () => {
     it('excludes waived PILs if `whereNotWaived` is applied', () => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query()
+          return Model.Profile.query()
             .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' })
             .whereNotWaived();
         })
@@ -226,7 +194,7 @@ describe('Billing queries model', () => {
     it('does not exclude waived PILs for other years if `whereNotWaived` is applied', () => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query()
+          return Model.Profile.query()
             .whereHasBillablePIL({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
             .whereNotWaived();
         })
@@ -239,7 +207,7 @@ describe('Billing queries model', () => {
     it('includes ordinary PILs where a PIL-E is waived elsewhere', () => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query()
+          return Model.Profile.query()
             .whereHasBillablePIL({ establishmentId: 101, start: '2020-04-06', end: '2021-04-05' })
             .whereNotWaived();
         })

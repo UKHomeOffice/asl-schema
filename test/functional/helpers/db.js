@@ -9,15 +9,13 @@ const init = () => {
   return Schema(test);
 };
 
-// Clean function to truncate tables
-export const clean = async (schema) => {
-  const knexInstance = knex(test); // Create a new Knex instance if not using global one
+const clean = async (schema) => {
+  const knexInstance = knex(test);
   for (const table of Object.keys(schema)) {
     if (schema[table] && schema[table].tableName) {
       const tableName = toSnakeCase(schema[table].tableName);
       try {
-        const result = await knexInstance.raw(`TRUNCATE ${tableName} CASCADE;`);
-        console.log(`Table ${tableName} truncated successfully:`, result);
+        await knexInstance.client.raw(`TRUNCATE ${tableName} CASCADE;`);
       } catch (error) {
         console.error(`Error truncating table ${tableName}:`, error);
       }
@@ -25,6 +23,20 @@ export const clean = async (schema) => {
       console.error(`Table definition missing for: ${table}`);
     }
   }
+  console.log('Table truncated successfully');
 };
 
-export default {init, clean};
+const latestMigration = async () => {
+  const knexInstance = knex(test);
+  try {
+    await knexInstance.migrate.latest();
+    console.log('Migrations completed successfully!');
+  } catch (error) {
+    console.error('Error running migrations:', error);
+  } finally {
+    // Destroy the Knex instance to free up connections
+    await knexInstance.destroy();
+  }
+};
+
+export default {init, clean, latestMigration};
