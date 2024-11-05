@@ -1,222 +1,143 @@
 import assert from 'assert';
-import {v4 as uuidv4} from 'uuid';
-import db from './helpers/db.js';
-import BaseModel from '../../schema/base-model.js';
+import { v4 as uuidv4 } from 'uuid';
+import db from '../functional/helpers/db.js';
 
+// Define unique IDs
 const ids = {
   asru: uuidv4(),
-  piles: [uuidv4(), uuidv4(), uuidv4(), uuidv4()],
+  profiles: [uuidv4(), uuidv4(), uuidv4(), uuidv4()],
   pils: [uuidv4()],
-  ppl: uuidv4()
+  project: uuidv4()
 };
 
-describe('Billing queries model', () => {
+describe('Billing queries model', function () {
+  let models;
 
-  let Model = null;
+  // Helper function to insert profiles
+  const insertProfiles = async () => {
+    try {
+      const result = await models.Profile.query().insert([
+        { id: ids.asru, firstName: 'Asru', lastName: 'Admin', email: 'asruadmin@example.com' },
+        { id: ids.profiles[0], firstName: 'Jeff', lastName: 'Winger', email: 'jw@example.com' },
+        { id: ids.profiles[1], firstName: 'Abed', lastName: 'Nadir', email: 'an@example.com' },
+        { id: ids.profiles[2], firstName: 'Troy', lastName: 'Barnes', email: 'tb@example.com' },
+        { id: ids.profiles[3], firstName: 'Annie', lastName: 'Edison', email: 'ae@example.com' },
+        { id: ids.pils[0], firstName: 'Robert', lastName: 'Oppenheimer', email: 'ro@example.com' }
+      ]);
+      console.log('result: --- ', result);
+    } catch (error) {
+      console.log('error: ', error);
+    }
+
+  };
+
+  // Helper function to insert establishments with nested relationships
+  const insertEstablishments = async () => {
+    await models.Establishment.query().insertGraph([
+      {
+        id: 100,
+        name: 'Training Establishment',
+        projects: [{ id: ids.project, title: 'Training Project', status: 'active' }]
+      },
+      {
+        id: 101,
+        name: 'Research Establishment',
+        pils: [
+          { issueDate: '2020-04-01T12:00:00Z', status: 'active', procedures: ['A'], species: ['mice'], profileId: ids.profiles[3] },
+          { issueDate: '2020-04-01T12:00:00Z', status: 'active', procedures: ['A'], species: ['mice'], profileId: ids.pils[0] }
+        ]
+      }
+    ]);
+  };
+
+  // Helper function to insert training courses and fees
+  const insertTrainingCoursesAndFees = async () => {
+    await models.TrainingCourse.query().insertGraph([
+      {
+        establishmentId: 100,
+        title: 'Training Course',
+        projectId: ids.project,
+        startDate: '2020-04-01',
+        trainingPils: [
+          { profileId: ids.profiles[0], issueDate: '2020-04-01T12:00:00Z', expiryDate: '2020-07-01T12:00:00Z', status: 'expired' },
+          { profileId: ids.profiles[1], issueDate: '2020-04-01T12:00:00Z', expiryDate: '2020-07-01T12:00:00Z', revocationDate: '2020-04-04T12:00:00Z', status: 'revoked' },
+          { profileId: ids.profiles[2], issueDate: '2020-04-01T12:00:00Z', expiryDate: '2020-07-01T12:00:00Z', revocationDate: '2020-04-07T12:00:00Z', status: 'revoked' },
+          { profileId: ids.profiles[3], issueDate: '2020-04-01T12:00:00Z', expiryDate: '2020-07-01T12:00:00Z', status: 'expired' }
+        ]
+      }
+    ]);
+
+    await models.FeeWaiver.query().insertGraph([
+      { establishmentId: 100, profileId: ids.profiles[3], year: 2020, waivedById: ids.asru }
+    ]);
+  };
+
   before(async () => {
-    Model = db.init();
-    await db.latestMigration();
-    await db.clean(db.init());
+    models = db.init();
+    await db.clean(models);
+
+    await insertProfiles();
+    await insertEstablishments();
+    await insertTrainingCoursesAndFees();
   });
-  after(() => db.clean(BaseModel));
+
+  after(async () => {
+    await db.clean(models);
+    await models.destroy();
+  });
 
   describe('billable', () => {
 
-    before(() => {
-      return Promise.resolve()
-        .then(() => {
-          return BaseModel.Profile.query().insert([
-            {
-              id: ids.asru,
-              firstName: 'Asru',
-              lastName: 'Admin',
-              email: 'asruadmin@example.com'
-            },
-            {
-              id: ids.piles[0],
-              firstName: 'Jeff',
-              lastName: 'Winger',
-              email: 'jw@example.com'
-            },
-            {
-              id: ids.piles[1],
-              firstName: 'Abed',
-              lastName: 'Nadir',
-              email: 'an@example.com'
-            },
-            {
-              id: ids.piles[2],
-              firstName: 'Troy',
-              lastName: 'Barnes',
-              email: 'tb@example.com'
-            },
-            {
-              id: ids.piles[3],
-              firstName: 'Annie',
-              lastName: 'Edison',
-              email: 'ae@example.com'
-            },
-            {
-              id: ids.pils[0],
-              firstName: 'Robert',
-              lastName: 'Oppenheimer',
-              email: 'ro@example.com'
-            }
-          ]);
-        })
-        .then(() => {
-          return Model.Establishment.query().insertGraph([
-            {
-              id: 100,
-              name: 'Training Establishment',
-              projects: [
-                {
-                  id: ids.ppl,
-                  title: 'Training Project',
-                  status: 'active'
-                }
-              ]
-            },
-            {
-              id: 101,
-              name: 'Research Establishment',
-              pils: [
-                {
-                  issueDate: '2020-04-01T12:00:00Z',
-                  status: 'active',
-                  procedures: ['A'],
-                  species: ['mice'],
-                  profileId: ids.piles[3]
-                },
-                {
-                  issueDate: '2020-04-01T12:00:00Z',
-                  status: 'active',
-                  procedures: ['A'],
-                  species: ['mice'],
-                  profileId: ids.pils[0]
-                }
-              ]
-            }
-          ]);
-        })
-        .then(() => {
-          return Model.TrainingCourse.query().insertGraph([
-            {
-              establishmentId: 100,
-              title: 'Training Course',
-              projectId: ids.ppl,
-              startDate: '2020-04-01',
-              species: [],
-              trainingPils: [
-                {
-                  // expired naturally
-                  profileId: ids.piles[0],
-                  issueDate: '2020-04-01T12:00:00Z',
-                  expiryDate: '2020-07-01T12:00:00Z',
-                  revocationDate: null,
-                  status: 'expired'
-                },
-                {
-                  // revoked before start of period
-                  profileId: ids.piles[1],
-                  issueDate: '2020-04-01T12:00:00Z',
-                  expiryDate: '2020-07-01T12:00:00Z',
-                  revocationDate: '2020-04-04T12:00:00Z',
-                  status: 'revoked'
-                },
-                {
-                  // revoked after start of period
-                  profileId: ids.piles[2],
-                  issueDate: '2020-04-01T12:00:00Z',
-                  expiryDate: '2020-07-01T12:00:00Z',
-                  revocationDate: '2020-04-07T12:00:00Z',
-                  status: 'revoked'
-                },
-                {
-                  // waived
-                  profileId: ids.piles[3],
-                  issueDate: '2020-04-01T12:00:00Z',
-                  expiryDate: '2020-07-01T12:00:00Z',
-                  revocationDate: null,
-                  status: 'expired'
-                }
-              ]
-            }
-          ]);
-        })
-        .then(() => {
-          return Model.FeeWaiver.query().insertGraph([
-            {
-              establishmentId: 100,
-              profileId: ids.piles[3],
-              year: 2020,
-              waivedById: ids.asru
-            }
-          ]);
-        });
+    it('includes training PILs in billing data', async () => {
+      const result = await models.Profile.query().whereHasBillablePIL({
+        establishmentId: 100,
+        start: '2020-04-06',
+        end: '2021-04-05'
+      });
+      console.log('Billing data:', result);
+      assert.equal(result.length, 3);
     });
 
-    it('includes training pils in billing data', () => {
-      return Promise.resolve()
-        .then(() => {
-          return Model.Profile.query()
-            .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' });
-        })
-        .then(result => {
-          assert.equal(result.length, 3);
-        });
+    it('excludes training PILs revoked before start of year', async () => {
+      const result = await models.Profile.query().whereHasBillablePIL({
+        establishmentId: 100,
+        start: '2020-04-06',
+        end: '2021-04-05'
+      });
+      assert.ok(!result.map(p => p.email).includes('an@example.com'), 'Result should not include Abed Nadir');
     });
 
-    it('excludes training pils revoked before start of year', () => {
-      return Promise.resolve()
-        .then(() => {
-          return Model.Profile.query()
-            .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' });
-        })
-        .then(result => {
-          assert.ok(!result.map(p => p.email).includes('an@example.com'), 'result should not include Abed Nadir');
-        });
+    it('excludes waived PILs if `whereNotWaived` is applied', async () => {
+      const result = await models.Profile.query().whereHasBillablePIL({
+        establishmentId: 100,
+        start: '2020-04-06',
+        end: '2021-04-05'
+      }).whereNotWaived();
+
+      assert.equal(result.length, 2);
+      assert.ok(!result.map(p => p.email).includes('ae@example.com'), 'Result should not include Annie Edison');
     });
 
-    it('excludes waived PILs if `whereNotWaived` is applied', () => {
-      return Promise.resolve()
-        .then(() => {
-          return Model.Profile.query()
-            .whereHasBillablePIL({ establishmentId: 100, start: '2020-04-06', end: '2021-04-05' })
-            .whereNotWaived();
-        })
-        .then(result => {
-          assert.equal(result.length, 2);
-          assert.ok(!result.map(p => p.email).includes('ae@example.com'), 'result should not include Annie Edison');
-        });
+    it('does not exclude waived PILs for other years if `whereNotWaived` is applied', async () => {
+      const result = await models.Profile.query().whereHasBillablePIL({
+        establishmentId: 100,
+        start: '2019-04-06',
+        end: '2020-04-05'
+      }).whereNotWaived();
+
+      assert.equal(result.length, 4);
+      assert.ok(result.map(p => p.email).includes('ae@example.com'), 'Result should include Annie Edison');
     });
 
-    it('does not exclude waived PILs for other years if `whereNotWaived` is applied', () => {
-      return Promise.resolve()
-        .then(() => {
-          return Model.Profile.query()
-            .whereHasBillablePIL({ establishmentId: 100, start: '2019-04-06', end: '2020-04-05' })
-            .whereNotWaived();
-        })
-        .then(result => {
-          assert.equal(result.length, 4);
-          assert.ok(result.map(p => p.email).includes('ae@example.com'), 'result should include Annie Edison');
-        });
-    });
+    it('includes ordinary PILs where a PIL-E is waived elsewhere', async () => {
+      const result = await models.Profile.query().whereHasBillablePIL({
+        establishmentId: 101,
+        start: '2020-04-06',
+        end: '2021-04-05'
+      }).whereNotWaived();
 
-    it('includes ordinary PILs where a PIL-E is waived elsewhere', () => {
-      return Promise.resolve()
-        .then(() => {
-          return Model.Profile.query()
-            .whereHasBillablePIL({ establishmentId: 101, start: '2020-04-06', end: '2021-04-05' })
-            .whereNotWaived();
-        })
-        .then(result => {
-          assert.equal(result.length, 2);
-          assert.ok(result.map(p => p.email).includes('ae@example.com'), 'result should include Annie Edison');
-        });
+      assert.equal(result.length, 2);
+      assert.ok(result.map(p => p.email).includes('ae@example.com'), 'Result should include Annie Edison');
     });
-
   });
-
 });

@@ -6,7 +6,7 @@ import {test} from '../../../knexfile.js';
 const toSnakeCase = (str) => str.replace(/[A-Z]/g, (s) => `_${s.toLowerCase()}`);
 
 const init = () => {
-  return Schema(test);
+  return Schema(test.connection);
 };
 
 const clean = async (schema) => {
@@ -23,7 +23,7 @@ const clean = async (schema) => {
       console.error(`Table definition missing for: ${table}`);
     }
   }
-  console.log('Table truncated successfully');
+  console.log('Tables truncated successfully');
 };
 
 const latestMigration = async () => {

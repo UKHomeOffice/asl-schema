@@ -10,7 +10,7 @@ const snakeCaseMapper = process.env.SNAKE_MAPPER === 'true' ? knexSnakeCaseMappe
 
 export const test = {
   ...snakeCaseMapper,
-  client: 'postgresql',
+  client: 'pg',
   connection: {
     host: process.env.DATABASE_HOST || 'localhost',
     database: 'asl-test',

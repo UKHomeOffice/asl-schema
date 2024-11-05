@@ -14,11 +14,7 @@ class Authorisation extends BaseModel {
       required: ['type', 'method', 'description', 'establishmentId'],
       additionalProperties: false,
       properties: {
-        id: {
-          type: 'string',
-          pattern: uuid.v4,
-          errorMessage: 'should match pattern'
-        },
+        id: { type: 'string', pattern: uuid.v4 },
         type: { type: 'string', enum: authorisationTypes },
         method: { type: 'string' },
         description: { type: 'string' },
