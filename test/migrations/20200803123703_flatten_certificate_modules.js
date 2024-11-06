@@ -1,7 +1,7 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200803123703_flatten_certificate_modules');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import db from './helpers/db.js';
+import {transform, up} from '../../migrations/20200803123703_flatten_certificate_modules.js';
 
 describe('transform', () => {
   it('returns undefined if called without modules', () => {

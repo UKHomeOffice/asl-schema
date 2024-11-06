@@ -26,7 +26,7 @@ describe('Pil', () => {
       profileId: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       revocationDate: null
     };
-    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /id: should match pattern/);
+    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /id: must match pattern/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -35,7 +35,7 @@ describe('Pil', () => {
       profileId: '8EAF8190-2312-4EC9-A5A4-806ED573301F',
       unknown: 'example'
     };
-    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Pil.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

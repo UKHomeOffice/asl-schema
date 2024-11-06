@@ -1,11 +1,10 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const isuuid = require('uuid-validate');
-const { cloneDeep, omit } = require('lodash');
-const diff = require('deep-diff');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200406155335_map_prototcol_fate');
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import pkg from 'lodash';
+import db from './helpers/db.js';
+import {transform, up} from '../../migrations/20200406155335_map_prototcol_fate.js';
 
+const {cloneDeep, omit} = pkg;
 describe('transform', () => {
 
   it('returns undefined if passed a falsy data blob', () => {
@@ -211,7 +210,7 @@ describe('up', () => {
             'killing-method': ['schedule-1']
           }
         ]
-      },
+      }
     },
     {
       project_id: ids.active,
@@ -276,15 +275,15 @@ describe('up', () => {
       .then(before => {
         return Promise.resolve()
           .then(() => {
-            return up(this.knex)
+            return up(this.knex);
           })
           .then(() => {
             return this.knex('project_versions')
-              .where('project_id', ids.legacy)
+              .where('project_id', ids.legacy);
           })
           .then(after => {
-            assert.deepEqual(before, after, 'legacy licence versions should not have been updated')
-          })
+            assert.deepEqual(before, after, 'legacy licence versions should not have been updated');
+          });
       });
   });
 
@@ -293,7 +292,7 @@ describe('up', () => {
       .then(() => {
         return this.knex('project_versions')
           .where('project_id', ids.active)
-          .first()
+          .first();
       })
       .then(version => {
         assert.equal(version.data.protocols[0]['non-schedule-1'], undefined, 'It should not have set the non-schedule-1 property on first protocol as killing-method missing');
@@ -308,7 +307,7 @@ describe('up', () => {
     return up(this.knex)
       .then(() => {
         return this.knex('project_versions')
-          .where('project_id', ids.active)
+          .where('project_id', ids.active);
       })
       .then(versions => {
         const version = versions[versions.length - 1];

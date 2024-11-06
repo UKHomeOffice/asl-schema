@@ -1,7 +1,7 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { raCompulsory, up } = require('../../migrations/20200710105739_migrate_version_raCompulsory');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import db from './helpers/db.js';
+import {raCompulsory, up} from '../../migrations/20200710105739_migrate_version_raCompulsory.js';
 
 describe('raCompulsory', () => {
   it('is false if no version', () => {
@@ -163,7 +163,7 @@ describe('up', () => {
             severity: 'severe'
           }
         ]
-      },
+      }
     },
     {
       id: ids.version.activeNoRA,

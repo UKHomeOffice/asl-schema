@@ -26,7 +26,7 @@ describe('Project', () => {
       establishmentId: 100,
       unknown: 'example'
     };
-    expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Project.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

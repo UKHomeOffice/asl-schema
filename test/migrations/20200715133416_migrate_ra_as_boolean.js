@@ -1,7 +1,7 @@
-const assert = require('assert');
-const uuid = require('uuid');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200715133416_migrate_ra_as_boolean');
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import db from './helpers/db.js';
+import {transform, up} from '../../migrations/20200715133416_migrate_ra_as_boolean.js';
 
 describe('transform', () => {
   it('returns undefined if not called with data', () => {

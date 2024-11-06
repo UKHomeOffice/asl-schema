@@ -1,8 +1,8 @@
-const moment = require('moment');
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const db = require('./helpers/db');
-const { getSpecies, up } = require('../../migrations/20201203162238_migrate_species_from_versions');
+import moment from 'moment';
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import db from './helpers/db.js';
+import {getSpecies, up} from '../../migrations/20201203162238_migrate_species_from_versions.js';
 
 describe('getSpecies', () => {
   it('returns an empty array if data or project are undefined', () => {

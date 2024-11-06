@@ -1,12 +1,12 @@
-const assert = require('assert');
-const { cloneDeep } = require('lodash');
-const uuid = require('uuid/v4');
-const diff = require('deep-diff');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200401161126_move_nmbas_to_project_level');
+import assert from 'assert';
+import pkg from 'lodash';
+import { v4 as uuid } from 'uuid';
+import diff from 'deep-diff';
+import db from './helpers/db.js';
+import dbExtra from '../functional/helpers/db.js';
+import {transform, up} from '../../migrations/20200401161126_move_nmbas_to_project_level.js';
 
-const util = require('util')
-
+const {cloneDeep} = pkg;
 describe('Move NMBAs to project level', () => {
 
   describe('transform', () => {
@@ -158,7 +158,6 @@ describe('Move NMBAs to project level', () => {
 
   });
 
-
   describe('up', () => {
     const ids = {
       active: uuid(),
@@ -218,7 +217,7 @@ describe('Move NMBAs to project level', () => {
         licence_holder_id: licenceHolder.id,
         status: 'active',
         schema_version: 1
-      },
+      }
     ];
 
     const versions = [
@@ -367,21 +366,30 @@ describe('Move NMBAs to project level', () => {
       }
     ];
 
-    before(() => {
-      this.knex = db.init();
+    before(async () => {
+      try {
+        this.knex = await dbExtra.init();
+        console.log('Database initialized');
+        await dbExtra.clean(this.knex);
+        await dbExtra.latestMigration();
+      } catch (error) {
+        console.error('Error during before setup:', error);
+      }
     });
 
-    beforeEach(() => {
-      return Promise.resolve()
-        .then(() => db.clean(this.knex))
-        .then(() => this.knex('establishments').insert(establishment))
-        .then(() => this.knex('profiles').insert(licenceHolder))
-        .then(() => this.knex('projects').insert(projects))
-        .then(() => this.knex('project_versions').insert(versions));
+    beforeEach(async () => {
+      try {
+        await this.knex('establishments').insert(establishment);
+        await this.knex('profiles').insert(licenceHolder);
+        await this.knex('projects').insert(projects);
+        await this.knex('project_versions').insert(versions);
+      } catch (error) {
+        console.error('Error inserting data in beforeEach:', error);
+      }
     });
 
     afterEach(() => {
-      return db.clean(this.knex);
+      return db.clean(db.init());
     });
 
     after(() => {
@@ -406,7 +414,7 @@ describe('Move NMBAs to project level', () => {
               assert.ok(changes.every(change => {
                 return change.kind === 'N' && change.path.pop() === 'nmbas-used';
               }));
-            })
+            });
         });
     });
 

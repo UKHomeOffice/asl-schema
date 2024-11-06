@@ -1,10 +1,9 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const isUuid = require('uuid-validate');
-const db = require('./helpers/db');
-const diff = require('deep-diff');
-
-const { up, transform } = require('../../migrations/20200501141527_assign_ids_to_continuation');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import isUuid from 'uuid-validate';
+import db from './helpers/db.js';
+import diff from 'deep-diff';
+import {up, transform} from '../../migrations/20200501141527_assign_ids_to_continuation.js';
 
 describe('transform', () => {
   it('returns undefined if called without data', () => {
@@ -73,7 +72,7 @@ describe('up', () => {
     legacyVersion: uuid(),
     noContinuation: uuid(),
     missingContinuationIds: uuid()
-  }
+  };
 
   const projects = [
     {
@@ -96,7 +95,7 @@ describe('up', () => {
       id: ids.legacyVersion,
       project_id: ids.legacyProject,
       data: {
-        title: 'Legacy version',
+        title: 'Legacy version'
       }
     },
     {

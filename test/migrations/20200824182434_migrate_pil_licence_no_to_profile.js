@@ -1,8 +1,8 @@
-const uuid = require('uuid/v4');
-const moment = require('moment');
-const assert = require('assert');
-const { up } = require('../../migrations/20200824182434_migrate_pil_licence_no_to_profile');
-const db = require('./helpers/db');
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+import assert from 'assert';
+import {up} from '../../migrations/20200824182434_migrate_pil_licence_no_to_profile.js';
+import db from './helpers/db.js';
 
 describe('up', () => {
   const ids = {

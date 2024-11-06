@@ -1,10 +1,11 @@
-const assert = require('assert');
-const { isEmpty, omit } = require('lodash');
-const { v4: uuid } = require('uuid');
-const isUuid = require('uuid-validate');
-const db = require('./helpers/db');
-const { up, transformRop, transformProc } = require('../../migrations/20210727160551_migrate_rops_other_to_objects');
+import assert from 'assert';
+import pkg from 'lodash';
+import {v4 as uuid} from 'uuid';
+import isUuid from 'uuid-validate';
+import db from './helpers/db.js';
+import {up, transformRop, transformProc} from '../../migrations/20210727160551_migrate_rops_other_to_objects.js';
 
+const {isEmpty, omit} = pkg;
 describe('transformRop', () => {
   it('returns an empty object if no updates', () => {
     const rop = {};

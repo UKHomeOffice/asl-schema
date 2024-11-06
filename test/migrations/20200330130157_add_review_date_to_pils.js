@@ -1,14 +1,14 @@
-const moment = require('moment');
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { up } = require('../../migrations/20200330130157_add_review_date_to_pils');
+import moment from 'moment';
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import db from './helpers/db.js';
+import {up} from '../../migrations/20200330130157_add_review_date_to_pils.js';
 
 const ids = {
   reviewSet: uuid(),
   reviewNotSet: uuid(),
   noUpdatedAt: uuid()
-}
+};
 
 function isSame(timestamp1, timestamp2) {
   return moment(timestamp1).isSame(moment(timestamp2));
@@ -36,7 +36,7 @@ describe('Add review date migration', () => {
     name: 'An establishment',
     email: 'an@establishment.com',
     country: 'england',
-    address: '123 Somwhere street',
+    address: '123 Somwhere street'
   };
 
   const pils = [

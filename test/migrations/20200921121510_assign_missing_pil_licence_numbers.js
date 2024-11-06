@@ -1,8 +1,8 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const moment = require('moment');
-const { up } = require('../../migrations/20200921121510_assign_missing_pil_licence_numbers');
-const db = require('./helpers/db');
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+import {up} from '../../migrations/20200921121510_assign_missing_pil_licence_numbers.js';
+import db from './helpers/db.js';
 
 describe('generateLicenceNumber', () => {
   const ids = {

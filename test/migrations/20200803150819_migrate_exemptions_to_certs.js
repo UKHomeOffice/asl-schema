@@ -1,10 +1,11 @@
-const uuid = require('uuid/v4');
-const moment = require('moment');
-const { isMatch } = require('lodash');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200803150819_migrate_exemptions_to_certs');
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+import pkg from 'lodash';
+import assert from 'assert';
+import db from './helpers/db.js';
+import {transform, up} from '../../migrations/20200803150819_migrate_exemptions_to_certs.js';
 
+const {isMatch} = pkg;
 describe('transform', () => {
   it('returns an empty object if called with an empty array', () => {
     assert.deepEqual(transform([]), {});

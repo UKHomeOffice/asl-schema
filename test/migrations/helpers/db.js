@@ -1,5 +1,5 @@
-const Knex = require('knex');
-const settings = require('../../../knexfile.js').test;
+import Knex from 'knex';
+import {test as settings} from '../../../knexfile.js';
 
 const tables = [
   'changelog',
@@ -25,7 +25,7 @@ const tables = [
   'establishments'
 ];
 
-module.exports = {
+export default {
   init: () => Knex(settings),
   clean: knex => {
     return tables.reduce((p, table) => {

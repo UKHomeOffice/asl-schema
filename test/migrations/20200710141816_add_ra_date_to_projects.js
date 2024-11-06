@@ -1,8 +1,8 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const moment = require('moment');
-const db = require('./helpers/db');
-const { getRaDate, up } = require('../../migrations/20200710141816_add_ra_date_to_projects');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import moment from 'moment';
+import db from './helpers/db.js';
+import {getRaDate, up} from '../../migrations/20200710141816_add_ra_date_to_projects.js';
 
 describe('getRaDate', () => {
   it('returns null if no version', () => {
@@ -119,7 +119,7 @@ describe('up', () => {
     activeNoRA: uuid(),
     multipleVersionsLatestNoRa: uuid(),
     multipleVersionsLatestRa: uuid()
-  }
+  };
 
   const licenceHolder = {
     id: uuid(),
