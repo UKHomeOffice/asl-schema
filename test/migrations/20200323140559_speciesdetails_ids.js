@@ -356,25 +356,18 @@ describe('up', () => {
     issueDate: moment().subtract(1, 'month').toISOString()
   };
 
-  let database;
   let model = null;
 
   before(async () => {
-    // database = knex(test);
     model = await dbExtra.init();
-    // await dbExtra.latestMigration();
     await dbExtra.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
-    // Model.knex(database);
   });
 
   beforeEach(async () => {
     await dbExtra.clean(model);
     try {
-      // await Project.query().insertGraph({
-      //   establishment, licenceHolder, projects
-      // });
       await Profile.query().insert(profile);
       await Establishment.query().insert(establishment);
       await Pil.query().insert(pils);
@@ -387,9 +380,8 @@ describe('up', () => {
   });
 
   after(async () => {
-    // Destroy the database connection
+    // Destroy the database connection after cleanup.
     await dbExtra.clean(model);
-    // await database.destroy();
     await knexInstance.destroy();
   });
 
