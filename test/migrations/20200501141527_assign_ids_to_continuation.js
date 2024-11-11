@@ -95,12 +95,14 @@ describe('up', () => {
   const projects = [
     {
       id: ids.legacyProject,
+      establishmentId: establishment.id,
       title: 'Legacy',
       schemaVersion: 0,
       licenceHolderId: licenceHolder.id
     },
     {
       id: ids.activeProject,
+      establishmentId: establishment.id,
       title: 'Continuation',
       schemaVersion: 1,
       status: 'active',
