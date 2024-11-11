@@ -1,9 +1,16 @@
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
 import isUuid from 'uuid-validate';
-import db from './helpers/db.js';
 import diff from 'deep-diff';
 import {up, transform} from '../../migrations/20200501141527_assign_ids_to_continuation.js';
+import dbExtra from '../functional/helpers/db.js';
+import BaseModel from '../../schema/base-model.js';
+import Knex from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
+import Establishment from '../../schema/establishment.js';
+import Profile from '../../schema/profile.js';
+import Project from '../../schema/project.js';
+import ProjectVersion from '../../schema/project-version.js';
 
 describe('transform', () => {
   it('returns undefined if called without data', () => {
@@ -51,10 +58,21 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    },
+    ...knexSnakeCaseMappers()
+  });
+
   const licenceHolder = {
     id: uuid(),
-    first_name: 'Licence',
-    last_name: 'Holder',
+    firstName: 'Licence',
+    lastName: 'Holder',
     email: 'test@example.com'
   };
 
@@ -78,36 +96,36 @@ describe('up', () => {
     {
       id: ids.legacyProject,
       title: 'Legacy',
-      schema_version: 0,
-      licence_holder_id: licenceHolder.id
+      schemaVersion: 0,
+      licenceHolderId: licenceHolder.id
     },
     {
       id: ids.activeProject,
       title: 'Continuation',
-      schema_version: 1,
+      schemaVersion: 1,
       status: 'active',
-      licence_holder_id: licenceHolder.id
+      licenceHolderId: licenceHolder.id
     }
   ];
 
-  const projectVersions = [
+  const projectVersionsData = [
     {
       id: ids.legacyVersion,
-      project_id: ids.legacyProject,
+      projectId: ids.legacyProject,
       data: {
         title: 'Legacy version'
       }
     },
     {
       id: ids.noContinuation,
-      project_id: ids.activeProject,
+      projectId: ids.activeProject,
       data: {
         title: 'No continuation'
       }
     },
     {
       id: ids.missingContinuationIds,
-      project_id: ids.activeProject,
+      projectId: ids.activeProject,
       data: {
         title: 'Missing continuations ids',
         'project-continuation': [
@@ -129,26 +147,35 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
+    await dbExtra.clean(model);
+    await knexInstance.migrate.latest();
+    BaseModel.knex(knexInstance);
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(projectVersions));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await Establishment.query().insert(establishment);
+      await Profile.query().insert(licenceHolder);
+      await Project.query().insert(projects);
+      await ProjectVersion.query().insert(projectVersionsData);
+      console.log('Data inserted successfully');
+    } catch (error) {
+      console.error('Error inserting data in beforeEach:', error);
+    }
   });
 
   it('doesn\'t touch legacy versions', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.legacyVersion }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.legacyVersion }).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.legacyVersion }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.legacyVersion }).first())
           .then(after => {
             assert.deepEqual(before, after);
           });
@@ -157,11 +184,11 @@ describe('up', () => {
 
   it('doesn\'t touch non continuations', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.noContinuation }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.noContinuation }).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.noContinuation }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.noContinuation }).first())
           .then(after => {
             assert.deepEqual(before, after);
           });
@@ -170,11 +197,11 @@ describe('up', () => {
 
   it('assigns ids where missing', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.missingContinuationIds }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.missingContinuationIds }).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.missingContinuationIds }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.missingContinuationIds }).first())
           .then(after => {
             const changes = diff(before.data, after.data);
             assert.ok(changes.every(change => {
