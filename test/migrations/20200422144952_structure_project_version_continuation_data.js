@@ -3,10 +3,17 @@ import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
 import pkg from 'lodash';
-import db from './helpers/db.js';
+import dbExtra from '../functional/helpers/db.js';
 import {up, transform} from '../../migrations/20200422144952_structure_project_version_continuation_data.js';
+import Knex from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
+import BaseModel from '../../schema/base-model.js';
+import Establishment from '../../schema/establishment.js';
+import Profile from '../../schema/profile.js';
+import Project from '../../schema/project.js';
+import ProjectVersion from '../../schema/project-version.js';
 
-const {get, map} = pkg;
+const {get} = pkg;
 const DATE_FORMAT = 'YYYY-MM-DD';
 let spy;
 
@@ -269,10 +276,21 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    },
+    ...knexSnakeCaseMappers()
+  });
+
   const licenceHolder = {
     id: uuid(),
-    first_name: 'Licence',
-    last_name: 'Holder',
+    firstName: 'Licence',
+    lastName: 'Holder',
     email: 'test@example.com'
   };
 
@@ -302,42 +320,61 @@ describe('up', () => {
     [ids.LEGACY_SLATE_FORMAT]: '{"object":"value","document":{"object":"document","data":{},"nodes":[{"object":"block","type":"paragraph","data":{},"nodes":[{"object":"text","leaves":[{"object":"leaf","text":"PA1234567","marks":[]}]}]},{"object":"block","type":"paragraph","data":{},"nodes":[{"object":"text","leaves":[{"object":"leaf","text":"27 Feb 2020","marks":[]}]}]}]}}'
   };
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
+    await dbExtra.clean(model);
+    await knexInstance.migrate.latest();
+    BaseModel.knex(knexInstance);
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => {
-        let index = 0;
-        return Promise.all(map(continuations, (continuation, id) => {
-          const project = {
-            establishment_id: establishment.id,
-            title: `Continuation ${++index}`,
-            status: 'active',
-            licence_holder_id: licenceHolder.id
-          };
-          const projectVersion = {
-            id,
-            status: 'granted',
-            data: {
-              'transfer-expiring': true,
-              'expiring-yes': continuation
-            }
-          };
-          return this.knex('projects').insert(project).returning('id')
-            .then(ids => ids[0])
-            .then(id => this.knex('project_versions').insert({ ...projectVersion, project_id: id }));
-        }));
-      });
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    await Establishment.query().insert(establishment);
+    await Profile.query().insert(licenceHolder);
+
+    // Insert the projects and their versions in parallel
+    const insertProjectsAndVersions = Object.entries(continuations).map(([id, continuation], index) => {
+      const project = {
+        establishmentId: establishment.id,
+        title: `Continuation ${index + 1}`,
+        status: 'active',
+        licenceHolderId: licenceHolder.id
+      };
+
+      const projectVersion = {
+        id,
+        status: 'granted',
+        data: {
+          'transfer-expiring': true,
+          'expiring-yes': continuation
+        }
+      };
+
+      return Project.query()
+        .insertAndFetch(project)
+        .then(projectResult => {
+          // Insert project version using Objection
+          return ProjectVersion.query().insert({
+            ...projectVersion,
+            projectId: projectResult.id // Use the ID of the newly inserted project
+          });
+        });
+    });
+
+    await Promise.all(insertProjectsAndVersions);
+  });
+
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('adds licence number and expiry date as a project-continuation', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.VALID_INPUT }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.VALID_INPUT }).first())
       .then(before => {
         const expected = {
           ...before.data,
@@ -349,8 +386,8 @@ describe('up', () => {
           ]
         };
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.VALID_INPUT }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.VALID_INPUT }).first())
           .then(version => {
             assert.deepEqual(version.data, expected);
           });
@@ -360,11 +397,11 @@ describe('up', () => {
 
   it('skips invalid input', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.INVALID_INPUT }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.INVALID_INPUT }).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.INVALID_INPUT }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.INVALID_INPUT }).first())
           .then(version => {
             assert.deepEqual(version.data, before.data);
           });
@@ -373,7 +410,7 @@ describe('up', () => {
 
   it('skips invalid date, adds licence number', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.INVALID_DATE }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.INVALID_DATE }).first())
       .then(before => {
         const expected = {
           ...before.data,
@@ -385,8 +422,8 @@ describe('up', () => {
           ]
         };
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.INVALID_DATE }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.INVALID_DATE }).first())
           .then(version => {
             assert.deepEqual(version.data, expected);
           });
@@ -395,7 +432,7 @@ describe('up', () => {
 
   it('skips invalid licence number, adds expiry', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.INVALID_LICENCE_NUMBER }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.INVALID_LICENCE_NUMBER }).first())
       .then(before => {
         const expected = {
           ...before.data,
@@ -407,8 +444,8 @@ describe('up', () => {
           ]
         };
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.INVALID_LICENCE_NUMBER }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.INVALID_LICENCE_NUMBER }).first())
           .then(version => {
             assert.deepEqual(version.data, expected);
           });
@@ -417,7 +454,7 @@ describe('up', () => {
 
   it('adds the first licence number if multiple found', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.MULTIPLE_LICENCE_NUMBERS }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.MULTIPLE_LICENCE_NUMBERS }).first())
       .then(before => {
         const expected = {
           ...before.data,
@@ -428,18 +465,19 @@ describe('up', () => {
             }
           ]
         };
+
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.MULTIPLE_LICENCE_NUMBERS }).first())
+          .then(() => up(knexInstance)) // Apply your migration or update
+          .then(() => knexInstance('project_versions').where({ id: ids.MULTIPLE_LICENCE_NUMBERS }).first())
           .then(version => {
-            assert.deepEqual(version.data, expected);
+            assert.deepEqual(version.data, expected); // Check if the updated data matches expected
           });
       });
   });
 
   it('can process legacy slate format (leaves)', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where({ id: ids.LEGACY_SLATE_FORMAT }).first())
+      .then(() => knexInstance('project_versions').where({ id: ids.LEGACY_SLATE_FORMAT }).first())
       .then(before => {
         const expected = {
           ...before.data,
@@ -451,8 +489,8 @@ describe('up', () => {
           ]
         };
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where({ id: ids.LEGACY_SLATE_FORMAT }).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where({ id: ids.LEGACY_SLATE_FORMAT }).first())
           .then(version => {
             assert.deepEqual(version.data, expected);
           });
