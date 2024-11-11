@@ -1,21 +1,19 @@
 import moment from 'moment';
 
-export function up(knex) {
-  return knex
+export async function up(knex) {
+  const pils = await knex
     .select('id', 'updated_at', 'review_date')
     .from('pils')
-    .whereNull('review_date')
-    .then(pils => {
-      return pils.reduce((promise, pil) => {
-        const { id, updated_at } = pil;
-        const review_date = moment(updated_at).add(5, 'years').toISOString();
-        return promise.then(() => {
-          return knex('pils')
-            .where({ id })
-            .update({ review_date })
-        })
-      }, Promise.resolve());
-    });
+    .whereNull('review_date');
+
+  for (const pil of pils) {
+    const { id, updatedAt } = pil;
+    const review_date = moment(updatedAt).add(5, 'years').toISOString();
+
+    await knex('pils')
+      .where({ id })
+      .update({ review_date });
+  }
 }
 
 export function down(knex) {

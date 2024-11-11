@@ -2,12 +2,28 @@ import assert from 'assert';
 import pkg from 'lodash';
 import { v4 as uuid } from 'uuid';
 import diff from 'deep-diff';
-import db from './helpers/db.js';
 import dbExtra from '../functional/helpers/db.js';
 import {transform, up} from '../../migrations/20200401161126_move_nmbas_to_project_level.js';
+import BaseModel from '../../schema/base-model.js';
+import Knex from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
+import Establishment from '../../schema/establishment.js';
+import ProjectVersion from '../../schema/project-version.js';
+import Profile from '../../schema/profile.js';
+import Project from '../../schema/project.js';
 
 const {cloneDeep} = pkg;
 describe('Move NMBAs to project level', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    },
+    ...knexSnakeCaseMappers()
+  });
 
   describe('transform', () => {
 
@@ -169,8 +185,8 @@ describe('Move NMBAs to project level', () => {
 
     const licenceHolder = {
       id: uuid(),
-      first_name: 'Licence',
-      last_name: 'Holder',
+      firstName: 'Licence',
+      lastName: 'Holder',
       email: 'test@example.com'
     };
 
@@ -185,51 +201,56 @@ describe('Move NMBAs to project level', () => {
     const projects = [
       {
         id: ids.active,
+        establishmentId: establishment.id,
         title: 'Active Project',
-        licence_holder_id: licenceHolder.id,
+        licenceHolderId: licenceHolder.id,
         status: 'active',
-        schema_version: 1
+        schemaVersion: 1
       },
       {
         id: ids.draft,
+        establishmentId: establishment.id,
         title: 'Draft Project',
-        licence_holder_id: licenceHolder.id,
+        licenceHolderId: licenceHolder.id,
         status: 'inactive',
-        schema_version: 1
+        schemaVersion: 1
       },
       {
         id: ids.legacy,
+        establishmentId: establishment.id,
         title: 'Legacy Project',
-        licence_holder_id: licenceHolder.id,
+        licenceHolderId: licenceHolder.id,
         status: 'active',
-        schema_version: 0
+        schemaVersion: 0
       },
       {
         id: ids.noProtocols,
+        establishmentId: establishment.id,
         title: 'No protocols',
-        licence_holder_id: licenceHolder.id,
+        licenceHolderId: licenceHolder.id,
         status: 'inactive',
-        schema_version: 1
+        schemaVersion: 1
       },
       {
         id: ids.noNmbas,
+        establishmentId: establishment.id,
         title: 'Project no NMBAs',
-        licence_holder_id: licenceHolder.id,
+        licenceHolderId: licenceHolder.id,
         status: 'active',
-        schema_version: 1
+        schemaVersion: 1
       }
     ];
 
     const versions = [
       {
-        project_id: ids.noProtocols,
+        projectId: ids.noProtocols,
         status: 'draft',
         data: {
           title: 'No protocols'
         }
       },
       {
-        project_id: ids.legacy,
+        projectId: ids.legacy,
         status: 'granted',
         data: {
           title: 'Legacy Project',
@@ -246,7 +267,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.active,
+        projectId: ids.active,
         status: 'granted',
         data: {
           title: 'Active Project',
@@ -280,7 +301,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.active,
+        projectId: ids.active,
         status: 'granted',
         data: {
           title: 'Active Project',
@@ -297,7 +318,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.active,
+        projectId: ids.active,
         status: 'draft',
         data: {
           title: 'Active Project',
@@ -314,7 +335,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.draft,
+        projectId: ids.draft,
         status: 'submitted',
         data: {
           title: 'Draft Project',
@@ -331,7 +352,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.draft,
+        projectId: ids.draft,
         status: 'draft',
         data: {
           title: 'Draft Project',
@@ -348,7 +369,7 @@ describe('Move NMBAs to project level', () => {
         }
       },
       {
-        project_id: ids.noNmbas,
+        projectId: ids.noNmbas,
         status: 'granted',
         data: {
           title: 'Project no NMBAs',
@@ -366,34 +387,32 @@ describe('Move NMBAs to project level', () => {
       }
     ];
 
+    let model = null;
+
     before(async () => {
-      try {
-        this.knex = await dbExtra.init();
-        console.log('Database initialized');
-        await dbExtra.clean(this.knex);
-        await dbExtra.latestMigration();
-      } catch (error) {
-        console.error('Error during before setup:', error);
-      }
+      model = await dbExtra.init();
+      await dbExtra.clean(model);
+      await knexInstance.migrate.latest();
+      BaseModel.knex(knexInstance);
     });
 
     beforeEach(async () => {
+      await dbExtra.clean(model);
       try {
-        await this.knex('establishments').insert(establishment);
-        await this.knex('profiles').insert(licenceHolder);
-        await this.knex('projects').insert(projects);
-        await this.knex('project_versions').insert(versions);
+        await Establishment.query().insert(establishment);
+        await Profile.query().insert(licenceHolder);
+        await Project.query().insert(projects);
+        await ProjectVersion.query().insert(versions);
+        console.log('Data inserted successfully');
       } catch (error) {
         console.error('Error inserting data in beforeEach:', error);
       }
     });
 
-    afterEach(() => {
-      return db.clean(db.init());
-    });
-
-    after(() => {
-      return this.knex.destroy();
+    after(async () => {
+      // Destroy the database connection after cleanup.
+      await dbExtra.clean(model);
+      await knexInstance.destroy();
     });
 
     it('is ok', () => {
@@ -402,26 +421,26 @@ describe('Move NMBAs to project level', () => {
 
     it('does not change any properties, only adds nmbas-used', () => {
       return Promise.resolve()
-        .then(() => this.knex('project_versions').select('project_versions.*').orderBy('id'))
+        .then(() => knexInstance('project_versions').select('project_versions.*').orderBy('id'))
         .then(before => {
           return Promise.resolve()
             .then(() => {
-              return up(this.knex);
+              return up(knexInstance);
             })
-            .then(() => this.knex('project_versions').select('project_versions.*').orderBy('id'))
+            .then(() => knexInstance('project_versions').select('project_versions.*').orderBy('id'))
             .then(after => {
               const changes = diff(before, after);
               assert.ok(changes.every(change => {
-                return change.kind === 'N' && change.path.pop() === 'nmbas-used';
+                return change.kind === 'N' && change.path[change.path.length - 1] === 'nmbas-used';
               }));
             });
         });
     });
 
     it('does not add nmbas-used to schema v0 versions', () => {
-      return up(this.knex)
+      return up(knexInstance)
         .then(() => {
-          return this.knex('project_versions')
+          return knexInstance('project_versions')
             .join('projects', 'project_versions.project_id', 'projects.id')
             .where('projects.schema_version', 0);
         })
@@ -433,16 +452,16 @@ describe('Move NMBAs to project level', () => {
     });
 
     it('adds nmbas-used to schema v1 versions when used in any protocol step', () => {
-      return up(this.knex)
+      return up(knexInstance)
         .then(() => {
-          return this.knex('project_versions')
+          return knexInstance('project_versions')
             .select('project_versions.*')
             .join('projects', 'project_versions.project_id', 'projects.id')
             .where('projects.schema_version', 1);
         })
         .then(versions => {
           versions.forEach(version => {
-            if ([ids.noNmbas, ids.noProtocols].includes(version.project_id)) {
+            if ([ids.noNmbas, ids.noProtocols].includes(version.projectId)) {
               assert.equal(version.data['nmbas-used'], undefined, 'nmbas-used should not be added to version data');
             } else {
               assert.ok(version.data['nmbas-used'], 'nmbas-used should be added to version data');
