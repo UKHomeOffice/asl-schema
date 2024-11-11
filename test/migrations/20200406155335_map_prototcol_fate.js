@@ -1,7 +1,6 @@
 import assert from 'assert';
 import { v4 as uuid } from 'uuid';
 import pkg from 'lodash';
-import db from './helpers/db.js';
 import {transform, up} from '../../migrations/20200406155335_map_prototcol_fate.js';
 import dbExtra from '../functional/helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
