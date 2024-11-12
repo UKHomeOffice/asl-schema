@@ -2,8 +2,9 @@ import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import pkg from 'lodash';
 import assert from 'assert';
-import db from './helpers/db.js';
 import {transform, up} from '../../migrations/20200803150819_migrate_exemptions_to_certs.js';
+import Knex from 'knex';
+import dbExtra from '../functional/helpers/db.js';
 
 const {isMatch} = pkg;
 describe('transform', () => {
@@ -85,6 +86,15 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
 
   const ids = {
     profile: {
@@ -142,30 +152,32 @@ describe('up', () => {
       updated_at: moment().subtract(2, 'months').toISOString()
     }
   ];
+  let model = null;
 
-  before(() => {
-    this.knex = db.init();
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('profiles').insert(profiles))
-      .then(() => this.knex('exemptions').insert(exemptions));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await knexInstance('profiles').insert(profiles);
+      await knexInstance('exemptions').insert(exemptions);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('combines exemptions for holc', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('certificates').where('profile_id', ids.profile.holc).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('certificates').where('profile_id', ids.profile.holc).first())
       .then(certificate => {
         const expected = {
           profile_id: ids.profile.holc,
@@ -180,8 +192,8 @@ describe('up', () => {
 
   it('combines exemptions for other profile', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('certificates').where('profile_id', ids.profile.archer).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('certificates').where('profile_id', ids.profile.archer).first())
       .then(certificate => {
         const expected = {
           profile_id: ids.profile.archer,
