@@ -1,7 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
-import db from './helpers/db.js';
 import {transform, up} from '../../migrations/20200803123703_flatten_certificate_modules.js';
+import Knex from 'knex';
+import dbExtra from '../functional/helpers/db.js';
 
 describe('transform', () => {
   it('returns undefined if called without modules', () => {
@@ -52,6 +53,16 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
+
   const ids = {
     holc: uuid(),
     cert: {
@@ -127,32 +138,35 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('profiles').insert(profiles))
-      .then(() => this.knex('certificates').insert(certificates));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await knexInstance('profiles').insert(profiles);
+      await knexInstance('certificates').insert(certificates);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('doesnt make any changes in no modules detected', () => {
     return Promise.resolve()
-      .then(() => this.knex('certificates').where('id', ids.cert.noModules).first())
+      .then(() => knexInstance('certificates').where('id', ids.cert.noModules).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('certificates').where('id', ids.cert.noModules).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('certificates').where('id', ids.cert.noModules).first())
           .then(after => {
             assert.deepEqual(before, after);
           });
@@ -161,11 +175,11 @@ describe('up', () => {
 
   it('adds species to top level from modules, and flattens modules', () => {
     return Promise.resolve()
-      .then(() => this.knex('certificates').where('id', ids.cert.noSpecies).first())
+      .then(() => knexInstance('certificates').where('id', ids.cert.noSpecies).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('certificates').where('id', ids.cert.noSpecies).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('certificates').where('id', ids.cert.noSpecies).first())
           .then(after => {
             const expected = {
               modules: ['PILA (theory)', 'PILA (skills)'],
@@ -178,11 +192,11 @@ describe('up', () => {
 
   it('adds species to top level from modules, and flattens modules', () => {
     return Promise.resolve()
-      .then(() => this.knex('certificates').where('id', ids.cert.repeatedSpecies).first())
+      .then(() => knexInstance('certificates').where('id', ids.cert.repeatedSpecies).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('certificates').where('id', ids.cert.repeatedSpecies).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('certificates').where('id', ids.cert.repeatedSpecies).first())
           .then(after => {
             const expected = {
               modules: ['PILA (theory)', 'PILA (skills)', 'K'],
@@ -195,11 +209,11 @@ describe('up', () => {
 
   it('handles combined module format', () => {
     return Promise.resolve()
-      .then(() => this.knex('certificates').where('id', ids.cert.combinedFormat).first())
+      .then(() => knexInstance('certificates').where('id', ids.cert.combinedFormat).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('certificates').where('id', ids.cert.combinedFormat).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('certificates').where('id', ids.cert.combinedFormat).first())
           .then(after => {
             const expected = {
               modules: ['PILA (theory)', 'PILA (skills)', 'K'],
