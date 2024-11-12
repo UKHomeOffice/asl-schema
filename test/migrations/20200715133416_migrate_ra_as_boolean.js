@@ -1,7 +1,8 @@
 import assert from 'assert';
 import { v4 as uuid } from 'uuid';
-import db from './helpers/db.js';
 import {transform, up} from '../../migrations/20200715133416_migrate_ra_as_boolean.js';
+import Knex from 'knex';
+import dbExtra from '../functional/helpers/db.js';
 
 describe('transform', () => {
   it('returns undefined if not called with data', () => {
@@ -74,6 +75,16 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
+
   const ids = {
     activeProject: uuid(),
     legacyProject: uuid(),
@@ -175,34 +186,37 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await knexInstance('establishments').insert(establishment);
+      await knexInstance('profiles').insert(licenceHolder);
+      await knexInstance('projects').insert(projects);
+      await knexInstance('project_versions').insert(versions);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('sets ra to false if no conditions met, and key not present', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.noRa).first())
+      .then(() => knexInstance('project_versions').where('id', ids.noRa).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.noRa).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.noRa).first())
           .then(version => {
             const expected = {
               ...before.data,
@@ -215,11 +229,11 @@ describe('up', () => {
 
   it('leaves RA if defined', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.raFalse).first())
+      .then(() => knexInstance('project_versions').where('id', ids.raFalse).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.raFalse).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.raFalse).first())
           .then(version => {
             assert.deepEqual(version.data, before.data);
           });
@@ -228,11 +242,11 @@ describe('up', () => {
 
   it('leaves RA if defined', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.raTrue).first())
+      .then(() => knexInstance('project_versions').where('id', ids.raTrue).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.raTrue).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.raTrue).first())
           .then(version => {
             assert.deepEqual(version.data, before.data);
           });
@@ -241,11 +255,11 @@ describe('up', () => {
 
   it('sets ra as true if added as condition', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.raAsCondition).first())
+      .then(() => knexInstance('project_versions').where('id', ids.raAsCondition).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.raAsCondition).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.raAsCondition).first())
           .then(version => {
             const expected = {
               ...before.data,
@@ -258,11 +272,11 @@ describe('up', () => {
 
   it('sets ra as true if legacy ra is true', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.legacyRaTrue).first())
+      .then(() => knexInstance('project_versions').where('id', ids.legacyRaTrue).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.legacyRaTrue).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.legacyRaTrue).first())
           .then(version => {
             const expected = {
               ...before.data,
@@ -275,11 +289,11 @@ describe('up', () => {
 
   it('sets ra as true if legacy ra is true', () => {
     return Promise.resolve()
-      .then(() => this.knex('project_versions').where('id', ids.legacyRaFalse).first())
+      .then(() => knexInstance('project_versions').where('id', ids.legacyRaFalse).first())
       .then(before => {
         return Promise.resolve()
-          .then(() => up(this.knex))
-          .then(() => this.knex('project_versions').where('id', ids.legacyRaFalse).first())
+          .then(() => up(knexInstance))
+          .then(() => knexInstance('project_versions').where('id', ids.legacyRaFalse).first())
           .then(version => {
             const expected = {
               ...before.data,

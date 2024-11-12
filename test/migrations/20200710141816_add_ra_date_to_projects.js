@@ -1,8 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
 import moment from 'moment';
-import db from './helpers/db.js';
 import {getRaDate, up} from '../../migrations/20200710141816_add_ra_date_to_projects.js';
+import Knex from 'knex';
+import dbExtra from '../functional/helpers/db.js';
 
 describe('getRaDate', () => {
   it('returns null if no version', () => {
@@ -110,6 +111,16 @@ describe('getRaDate', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
+
   const ids = {
     draftProject: uuid(),
     revokedProject: uuid(),
@@ -310,31 +321,34 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await knexInstance('establishments').insert(establishment);
+      await knexInstance('profiles').insert(licenceHolder);
+      await knexInstance('projects').insert(projects);
+      await knexInstance('project_versions').insert(versions);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('does not set RA date for draft project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.draftProject).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.draftProject).first())
       .then(project => {
         assert.equal(project.ra_date, null);
       });
@@ -342,8 +356,8 @@ describe('up', () => {
 
   it('sets ra date from revocation date for revoked project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.revokedProject).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.revokedProject).first())
       .then(project => {
         const expected = moment(project.revocation_date).add(6, 'months');
         assert.ok(moment(project.ra_date).isSame(expected));
@@ -352,8 +366,8 @@ describe('up', () => {
 
   it('sets ra date from expiry date for expired project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.expiredProject).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.expiredProject).first())
       .then(project => {
         const expected = moment(project.expiry_date).add(6, 'months');
         assert.ok(moment(project.ra_date).isSame(expected));
@@ -362,8 +376,8 @@ describe('up', () => {
 
   it('sets ra date for legacy RA project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.legacyRa).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.legacyRa).first())
       .then(project => {
         const expected = moment(project.expiry_date).add(6, 'months');
         assert.ok(moment(project.ra_date).isSame(expected));
@@ -372,8 +386,8 @@ describe('up', () => {
 
   it('sets ra date for active project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.activeRA).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.activeRA).first())
       .then(project => {
         const expected = moment(project.expiry_date).add(6, 'months');
         assert.ok(moment(project.ra_date).isSame(expected));
@@ -382,8 +396,8 @@ describe('up', () => {
 
   it('does not set RA for non RA active project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.activeNoRA).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.activeNoRA).first())
       .then(project => {
         assert.equal(project.ra_date, null);
       });
@@ -391,8 +405,8 @@ describe('up', () => {
 
   it('does not set RA if latest granted version does not require ra', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.multipleVersionsLatestNoRa).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.multipleVersionsLatestNoRa).first())
       .then(project => {
         assert.equal(project.ra_date, null);
       });
@@ -400,8 +414,8 @@ describe('up', () => {
 
   it('sets RA if latest granted version requires ra', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.multipleVersionsLatestRa).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.multipleVersionsLatestRa).first())
       .then(project => {
         const expected = moment(project.expiry_date).add(6, 'months');
         assert.ok(moment(project.ra_date).isSame(expected));
