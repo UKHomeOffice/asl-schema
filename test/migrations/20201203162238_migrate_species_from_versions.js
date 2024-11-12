@@ -1,8 +1,9 @@
 import moment from 'moment';
 import assert from 'assert';
 import { v4 as uuid } from 'uuid';
-import db from './helpers/db.js';
 import {getSpecies, up} from '../../migrations/20201203162238_migrate_species_from_versions.js';
+import Knex from 'knex';
+import dbExtra from '../functional/helpers/db.js';
 
 describe('getSpecies', () => {
   it('returns an empty array if data or project are undefined', () => {
@@ -130,6 +131,16 @@ describe('getSpecies', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
+
   const ids = {
     project: {
       activeWithSpecies: uuid(),
@@ -323,31 +334,34 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      await knexInstance('establishments').insert(establishment);
+      await knexInstance('profiles').insert(licenceHolder);
+      await knexInstance('projects').insert(projects);
+      await knexInstance('project_versions').insert(versions);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('adds species to project model', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.activeWithSpecies).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.activeWithSpecies).first())
       .then(project => {
         const expected = [
           'Mice',
@@ -372,8 +386,8 @@ describe('up', () => {
 
   it('skips projects without species', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.activeNoSpecies).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.activeNoSpecies).first())
       .then(project => {
         assert.deepEqual(project.species, null);
       });
@@ -381,8 +395,8 @@ describe('up', () => {
 
   it('gets species from latest granted version for active project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.activeMultipleVersions).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.activeMultipleVersions).first())
       .then(project => {
         assert.deepEqual(project.species, ['Mice', 'Rats']);
       });
@@ -390,8 +404,8 @@ describe('up', () => {
 
   it('gets species from latest submitted version for draft project', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.draft).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.draft).first())
       .then(project => {
         assert.deepEqual(project.species, ['Mice', 'Rats', 'Cats']);
       });
@@ -399,8 +413,8 @@ describe('up', () => {
 
   it('adds species from protocols to legacy projects', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.legacyWithSpecies).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.legacyWithSpecies).first())
       .then(project => {
         const expected = [
           'Amphibians',
@@ -414,8 +428,8 @@ describe('up', () => {
 
   it('adds species from protocols to legacy projects', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.legacyWithFalsySpecies).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.legacyWithFalsySpecies).first())
       .then(project => {
         const expected = ['Mice'];
         assert.deepEqual(project.species, expected);
@@ -424,8 +438,8 @@ describe('up', () => {
 
   it('ignores legacy projects without species', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('projects').where('id', ids.project.legacyNoSpecies).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('projects').where('id', ids.project.legacyNoSpecies).first())
       .then(project => {
         assert.deepEqual(project.species, null);
       });
