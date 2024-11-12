@@ -2,7 +2,6 @@ import assert from 'assert';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import {up} from '../../migrations/20200921121510_assign_missing_pil_licence_numbers.js';
-import db from './helpers/db.js';
 import Knex from 'knex';
 import dbExtra from '../functional/helpers/db.js';
 
