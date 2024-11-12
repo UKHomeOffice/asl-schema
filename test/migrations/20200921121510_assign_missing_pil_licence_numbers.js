@@ -6,6 +6,7 @@ import Knex from 'knex';
 import dbExtra from '../functional/helpers/db.js';
 
 describe('generateLicenceNumber', () => {
+  // todo: get the config from helper method.
   const knexInstance = Knex({
     client: 'pg',
     connection: {

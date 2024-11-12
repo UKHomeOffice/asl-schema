@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import {transform, up} from '../../migrations/20200715133416_migrate_ra_as_boolean.js';
 import Knex from 'knex';
 import dbExtra from '../functional/helpers/db.js';
+import { knexSnakeCaseMappers } from 'objection';
 
 describe('transform', () => {
   it('returns undefined if not called with data', () => {
@@ -75,14 +76,10 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const { knexInstance: dbInstance } = dbExtra;
+
   const knexInstance = Knex({
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'test-password',
-      database: 'asl-test'
-    }
+    ...dbInstance.client.config
   });
 
   const ids = {

@@ -14,14 +14,10 @@ import Project from '../../schema/project.js';
 
 const {cloneDeep} = pkg;
 describe('Move NMBAs to project level', () => {
+  const { knexInstance: dbInstance } = dbExtra;
+
   const knexInstance = Knex({
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'test-password',
-      database: 'asl-test'
-    },
+    ...dbInstance.client.config,
     ...knexSnakeCaseMappers()
   });
 

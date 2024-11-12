@@ -22,14 +22,10 @@ function isSame(timestamp1, timestamp2) {
 const { knexSnakeCaseMappers } = objection;
 
 describe('Add review date migration', () => {
+  const { knexInstance: dbInstance } = dbExtra;
+
   const knexInstance = Knex({
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'test-password',
-      database: 'asl-test'
-    },
+    ...dbInstance.client.config,
     ...knexSnakeCaseMappers()
   });
 

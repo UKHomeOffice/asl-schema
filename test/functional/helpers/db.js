@@ -23,7 +23,6 @@ const clean = async (schema) => {
       const tableName = toSnakeCase(schema[table].tableName);
       try {
         await knexInstance.client.raw(`TRUNCATE ${tableName} CASCADE;`);
-        console.log(`Table ${tableName} truncated successfully`);
       } catch (error) {
         console.error(`Error truncating table ${tableName}:`, error);
       }
@@ -41,7 +40,6 @@ const latestMigration = async () => {
   const knexInstance = knex(test);
   try {
     await knexInstance.migrate.latest();
-    console.log('Migrations completed successfully!');
   } catch (error) {
     console.error('Error running migrations:', error);
   } finally {
@@ -50,4 +48,17 @@ const latestMigration = async () => {
   }
 };
 
-export default {init, clean, latestMigration};
+/**
+ * @return knexInstance - knex instance to query DB.
+ * @usuage
+ *   // ...knexSnakeCaseMappers() is to set the knex query pattern, see ObjectionJs docs for more info.
+ *   const { knexInstance: dbInstance } = dbExtra;
+ *
+ *   const knexInstance = Knex({
+ *     ...dbInstance.client.config,
+ *     ...knexSnakeCaseMappers()
+ *   });
+ * */
+const knexInstance = knex(test);
+
+export default {init, clean, latestMigration, knexInstance};

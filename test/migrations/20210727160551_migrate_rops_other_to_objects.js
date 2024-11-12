@@ -279,6 +279,7 @@ describe('transformProc', () => {
 });
 
 describe('up', () => {
+  // todo: get the config from helper method.
   const knexInstance = Knex({
     client: 'pg',
     connection: {
@@ -441,7 +442,6 @@ describe('up', () => {
       .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updated => {
         Object.keys(omit(rop, 'id', 'year', 'project_id')).forEach(key => {
-          console.log('aaa', key);
           const item = updated[key];
           assert.ok(Array.isArray(item));
           assert.equal(item.length, 1);

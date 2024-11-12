@@ -111,6 +111,7 @@ describe('getRaDate', () => {
 });
 
 describe('up', () => {
+  // todo: get config from helper method.
   const knexInstance = Knex({
     client: 'pg',
     connection: {
