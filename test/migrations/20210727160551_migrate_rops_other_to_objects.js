@@ -2,8 +2,9 @@ import assert from 'assert';
 import pkg from 'lodash';
 import {v4 as uuid} from 'uuid';
 import isUuid from 'uuid-validate';
-import db from './helpers/db.js';
 import {up, transformRop, transformProc} from '../../migrations/20210727160551_migrate_rops_other_to_objects.js';
+import dbExtra from '../functional/helpers/db.js';
+import Knex from 'knex';
 
 const {isEmpty, omit} = pkg;
 describe('transformRop', () => {
@@ -278,6 +279,15 @@ describe('transformProc', () => {
 });
 
 describe('up', () => {
+  const knexInstance = Knex({
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'test-password',
+      database: 'asl-test'
+    }
+  });
 
   const ids = {
     rop: uuid(),
@@ -317,7 +327,7 @@ describe('up', () => {
   const rop = {
     id: ids.rop,
     year: 2021,
-    project_id: ids.project,
+    project_id: project.id,
     basic_subpurposes_other: JSON.stringify('Basic subpurposes other'),
     regulatory_subpurposes_other: JSON.stringify('Regulatory subpurposes other'),
     regulatory_subpurposes_other_efficacy: JSON.stringify('Regulatory subpurposes other efficacy'),
@@ -398,34 +408,40 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(project))
-      .then(() => this.knex('rops').insert(rop))
-      .then(() => this.knex('procedures').insert(procedures))
-      .then(() => up(this.knex));
+  beforeEach(async () => {
+    await dbExtra.clean(model);
+    try {
+      // Insert the related records in the correct order
+      await knexInstance('establishments').insert(establishment);
+      await knexInstance('profiles').insert(licenceHolder);
+      await knexInstance('projects').insert(project);
+      await knexInstance('rops').insert(rop);
+      await knexInstance('procedures').insert(procedures);
+      await up(knexInstance);
+      console.log('Data inserted and migration completed successfully');
+    } catch (error) {
+      console.error('Error inserting data or running migration in beforeEach:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   it('updates `other` fields to arrays of objects with ids', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updated => {
         Object.keys(omit(rop, 'id', 'year', 'project_id')).forEach(key => {
+          console.log('aaa', key);
           const item = updated[key];
           assert.ok(Array.isArray(item));
           assert.equal(item.length, 1);
@@ -437,10 +453,11 @@ describe('up', () => {
 
   it('sets ids from other subpurposes to procs', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.basicSubpurposesOther).first())
+          .then(() => knexInstance('procedures').where('id', ids.basicSubpurposesOther).first())
           .then(proc => {
             assert.ok(proc.subpurpose_other);
             assert.equal(proc.legislation_other, null);
@@ -452,10 +469,10 @@ describe('up', () => {
 
   it('doesnt update if no others', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.basicSubpurposesNotOther).first())
+          .then(() => knexInstance('procedures').where('id', ids.basicSubpurposesNotOther).first())
           .then(proc => {
             assert.equal(proc.legislation_other, null);
             assert.equal(proc.legislation_other, null);
@@ -465,10 +482,10 @@ describe('up', () => {
 
   it('sets ids from other subpurposes to procs', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.regulatorySubpurposesOther).first())
+          .then(() => knexInstance('procedures').where('id', ids.regulatorySubpurposesOther).first())
           .then(proc => {
             assert.ok(proc.subpurpose_other);
             assert.equal(proc.legislation_other, null);
@@ -480,10 +497,10 @@ describe('up', () => {
 
   it('sets ids from other legislation to procs', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.regulatoryLegislation).first())
+          .then(() => knexInstance('procedures').where('id', ids.regulatoryLegislation).first())
           .then(proc => {
             assert.ok(proc.legislation_other);
             assert.equal(proc.subpurpose_other, null);
@@ -495,10 +512,10 @@ describe('up', () => {
 
   it('sets ids from other subpurpose and legislation to procs', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.regulatoryLegislationAndOther).first())
+          .then(() => knexInstance('procedures').where('id', ids.regulatoryLegislationAndOther).first())
           .then(proc => {
             assert.ok(proc.subpurpose_other);
             assert.ok(proc.legislation_other);
@@ -512,10 +529,10 @@ describe('up', () => {
 
   it('sets ids from other subpurpose to procs', () => {
     return Promise.resolve()
-      .then(() => this.knex('rops').where('id', ids.rop).first())
+      .then(() => knexInstance('rops').where('id', ids.rop).first())
       .then(updatedRop => {
         return Promise.resolve()
-          .then(() => this.knex('procedures').where('id', ids.translationalSubpurposesOther).first())
+          .then(() => knexInstance('procedures').where('id', ids.translationalSubpurposesOther).first())
           .then(proc => {
             assert.ok(proc.subpurpose_other);
             assert.equal(proc.legislation_other, null);

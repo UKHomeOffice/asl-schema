@@ -1,6 +1,5 @@
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
-import db from './helpers/db.js';
 import {raCompulsory, up} from '../../migrations/20200710105739_migrate_version_raCompulsory.js';
 import Knex from 'knex';
 import { knexSnakeCaseMappers } from 'objection';
