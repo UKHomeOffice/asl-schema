@@ -34,7 +34,7 @@ class ProfileQueryBuilder extends QueryBuilder {
   }
 
   whereHasBillablePIL({ establishmentId, start, end }) {
-    const year = parseInt(start.substr(0, 4), 10);
+    const year = parseInt(start.substring(0, 4), 10);
     this.context({ establishmentId, start, end, year });
     return this
       .where(builder => {
@@ -46,7 +46,7 @@ class ProfileQueryBuilder extends QueryBuilder {
           .orWhereExists(
             Profile
               .relatedQuery('trainingPils')
-              .joinRelation('trainingCourse')
+              .joinRelated('trainingCourse')
               .where('trainingCourse.establishmentId', establishmentId)
               .where('issueDate', '<', end)
               .where(builder => {
@@ -172,7 +172,7 @@ class Profile extends BaseModel {
           builder.select([
             'pils.*',
             'profile.pilLicenceNumber as licenceNumber'
-          ]).joinRelation('profile');
+          ]).joinRelated('profile');
         },
         constrainEstParams: builder => builder.select('id', 'name')
       });
@@ -211,7 +211,7 @@ class Profile extends BaseModel {
 
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
-      .joinRelation('roles')
+      .joinRelated('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
   }
@@ -241,7 +241,7 @@ class Profile extends BaseModel {
     query
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
-      .leftJoinRelation('[pil, projects, roles, trainingPils]')
+      .leftJoinRelated('[pil, projects, roles, trainingPils]')
       .withGraphFetched('[pil.establishment(constrainEstParams), projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {
