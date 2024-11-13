@@ -3,7 +3,6 @@ import assert from 'assert';
 import {transform, up} from '../../migrations/20200803123703_flatten_certificate_modules.js';
 import Knex from 'knex';
 import dbExtra from '../functional/helpers/db.js';
-import { knexSnakeCaseMappers } from 'objection';
 
 describe('transform', () => {
   it('returns undefined if called without modules', () => {
