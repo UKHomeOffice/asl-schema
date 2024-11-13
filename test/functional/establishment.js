@@ -1,5 +1,4 @@
 import assert from 'assert';
-import db from './helpers/db.js';
 import dbExtra from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Knex from 'knex';

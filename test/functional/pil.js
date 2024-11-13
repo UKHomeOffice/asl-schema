@@ -1,22 +1,33 @@
 import assert from 'assert';
 import {v4 as uuidv4} from 'uuid';
-import db from './helpers/db.js';
+import dbExtra from './helpers/db.js';
+import Knex from 'knex';
+import BaseModel from '../../schema/base-model.js';
+import Profile from '../../schema/profile.js';
+import Establishment from '../../schema/establishment.js';
+import PIL from '../../schema/pil.js';
 
 const ASRU_ID = uuidv4();
 
+const { knexInstance: dbInstance } = dbExtra;
+
+const knexInstance = Knex({
+  ...dbInstance.client.config
+});
 describe('PIL model', () => {
 
-  before(() => {
-    return Promise.resolve()
-      .then(() => {
-        this.models = db.init();
-      })
-      .then(() => db.clean(this.models));
+  let model = null;
+
+  before(async () => {
+    model = await dbExtra.init();
+    await dbExtra.clean(model);
+    BaseModel.knex(knexInstance);
   });
 
-  after(() => {
-    return db.clean(this.models)
-      .then(() => this.models.destroy());
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   describe('billable', () => {
@@ -24,7 +35,7 @@ describe('PIL model', () => {
     before(() => {
       return Promise.resolve()
         .then(() => {
-          return this.models.Profile.query().insert({
+          return Profile.query().insert({
             id: ASRU_ID,
             firstName: 'Asru',
             lastName: 'Admin',
@@ -32,7 +43,7 @@ describe('PIL model', () => {
           });
         })
         .then(() => {
-          return this.models.Establishment.query().insertGraph([
+          return Establishment.query().insertGraph([
             {
               id: 100,
               name: 'Establishment 1'
@@ -187,52 +198,52 @@ describe('PIL model', () => {
     };
 
     it('includes PILs which were valid in the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'activepil@example.com'));
     });
 
     it('does not include PILs which were revoked before the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'revokedpil@example.com'));
     });
 
     it('does not include PILs which were granted after the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2016-04-06', end: '2017-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 102, start: '2016-04-06', end: '2017-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'activepil@example.com'));
     });
 
     it('includes PILs which were re-granted after being revoked', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'reactivated@example.com'));
     });
 
     it('does not include PILs which were transfered into the establishment after the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transfered out of the establishment after the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 101, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transferred out of the establishment during the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 101, start: '2019-04-06', end: '2020-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'transferedpil@example.com'));
     });
 
     it('includes PILs which were transferred in and out of the establishment during the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 100, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 100, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'manytransfers@example.com'));
     });
 
     it('includes PILs which were transferred in and out of the establishment either side the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 101, start: '2017-04-06', end: '2018-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 101, start: '2017-04-06', end: '2018-04-05' }).withGraphFetched('[profile]')
         .then(results => isIncluded(results, 'manytransfers@example.com'));
     });
 
     it('does not include PILs which were transferred out of and into the establishment either side of the billing period', () => {
-      return this.models.PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
+      return PIL.query().whereBillable({ establishmentId: 102, start: '2018-04-06', end: '2019-04-05' }).withGraphFetched('[profile]')
         .then(results => isNotIncluded(results, 'manytransfers@example.com'));
     });
 
