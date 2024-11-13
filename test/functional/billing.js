@@ -33,7 +33,7 @@ describe('Billing queries model', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    // await dbExtra.clean(model);
+    await dbExtra.clean(model);
     await knexInstance.destroy();
   });
 
