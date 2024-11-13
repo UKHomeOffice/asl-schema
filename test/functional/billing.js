@@ -163,7 +163,6 @@ describe('Billing queries model', () => {
             waivedById: ids.asru
           }
         );
-        console.log('res:');
         console.log('Data insert successfully!!!');
       } catch (error) {
         console.log('insert unsuccessful: ', error);
