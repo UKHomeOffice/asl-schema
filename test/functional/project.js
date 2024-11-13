@@ -1,41 +1,59 @@
-import {v4 as uuidv4} from 'uuid';
+import {v4 as uuid} from 'uuid';
 import assert from 'assert';
 import moment from 'moment';
 import pkg from 'lodash';
-import db from './helpers/db.js';
+import dbExtra from './helpers/db.js';
+import Knex from 'knex';
+import BaseModel from '../../schema/base-model.js';
+import Project from '../../schema/project.js';
+import Establishment from '../../schema/establishment.js';
+import Profile from '../../schema/profile.js';
+import ProjectVersion from '../../schema/project-version.js';
+import ProjectProfile from '../../schema/project-profile.js';
+import ProjectEstablishment from '../../schema/project-establishment.js';
+import { Model } from 'objection';
 
 const {every} = pkg;
 
 const ids = {
-  collaborator: uuidv4(),
-  collaborationProject: uuidv4(),
-  draftProject: uuidv4(),
-  draftProjectVersion: uuidv4(),
-  submittedDraft: uuidv4(),
-  vincentMalloy: uuidv4(),
-  sterlingArcher: uuidv4(),
-  ropsUser: uuidv4(),
+  collaborator: uuid(),
+  collaborationProject: uuid(),
+  draftProject: uuid(),
+  draftProjectVersion: uuid(),
+  submittedDraft: uuid(),
+  vincentMalloy: uuid(),
+  sterlingArcher: uuid(),
+  ropsUser: uuid(),
   establishmentId: 8201,
   additionalEstablishment: 8202,
   anotherEstablishment: 8203,
-  additionalProject: uuidv4(),
-  additionalVersion: uuidv4(),
-  draftAdditionalProject: uuidv4(),
-  draftAdditionalVersion: uuidv4(),
-  transferIn: uuidv4(),
-  transferOut: uuidv4()
+  additionalProject: uuid(),
+  additionalVersion: uuid(),
+  draftAdditionalProject: uuid(),
+  draftAdditionalVersion: uuid(),
+  transferIn: uuid(),
+  transferOut: uuid()
 };
+const { knexInstance: dbInstance } = dbExtra;
+
+const knexInstance = Knex({
+  ...dbInstance.client.config
+});
 
 describe('Project model', () => {
+  let model = null;
 
-  before(() => {
-    this.models = db.init();
+  before(async () => {
+    model = await dbExtra.init();
+    await dbExtra.clean(model);
+    Model.knex(knexInstance);
+    BaseModel.knex(knexInstance);
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => db.clean(this.models))
-      .then(() => this.models.Profile.query().insert([
+      .then(() => dbExtra.clean(model))
+      .then(() => Profile.query().insert([
         {
           id: ids.vincentMalloy,
           firstName: 'Vincent',
@@ -61,7 +79,7 @@ describe('Project model', () => {
           email: 'rops@example.com'
         }
       ]))
-      .then(() => this.models.Establishment.query().insert([
+      .then(() => Establishment.query().insert([
         {
           id: ids.establishmentId,
           name: 'An establishment'
@@ -75,7 +93,7 @@ describe('Project model', () => {
           name: 'Another establishment'
         }
       ]))
-      .then(() => this.models.Project.query().insert([
+      .then(() => Project.query().insert([
         {
           id: ids.draftProject,
           establishmentId: ids.establishmentId,
@@ -84,7 +102,7 @@ describe('Project model', () => {
           status: 'inactive'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Some expired research',
           issueDate: moment().subtract(66, 'M').format(),
@@ -100,7 +118,7 @@ describe('Project model', () => {
           status: 'inactive'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Some more expired research',
           issueDate: moment().subtract(61, 'M').format(),
@@ -109,7 +127,7 @@ describe('Project model', () => {
           status: 'expired'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.establishmentId,
           title: 'Hair loss prevention',
           issueDate: moment().subtract(54, 'M').format(),
@@ -145,7 +163,7 @@ describe('Project model', () => {
           status: 'active'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.anotherEstablishment,
           title: 'Revoked ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -155,7 +173,7 @@ describe('Project model', () => {
           revocationDate: '2022-01-10T12:00:00.000Z'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.anotherEstablishment,
           title: 'Expired ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -164,7 +182,7 @@ describe('Project model', () => {
           expiryDate: '2022-01-10T12:00:00.000Z'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           establishmentId: ids.anotherEstablishment,
           title: 'Active ROPs test',
           licenceHolderId: ids.ropsUser,
@@ -197,14 +215,14 @@ describe('Project model', () => {
           previousEstablishmentId: ids.establishmentId
         }
       ]))
-      .then(() => this.models.ProjectVersion.query().insert([
+      .then(() => ProjectVersion.query().insert([
         {
           id: ids.draftProjectVersion,
           projectId: ids.draftProject,
           status: 'draft'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           projectId: ids.submittedDraft,
           status: 'submitted'
         },
@@ -220,25 +238,23 @@ describe('Project model', () => {
         }
       ]))
       .then(() => {
-        return this.models.ProjectProfile.query().insert({
+        return ProjectProfile.query().insert({
           profileId: ids.collaborator,
           projectId: ids.collaborationProject
         });
       });
   });
 
-  afterEach(() => {
-    return db.clean(this.models);
-  });
-
-  after(() => {
-    return this.models.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbExtra.clean(model);
+    await knexInstance.destroy();
   });
 
   describe('whereIsCollaborator', () => {
     it('returns projects where provided profileId is a collaborator', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereIsCollaborator(ids.collaborator))
+        .then(() => Project.query().whereIsCollaborator(ids.collaborator))
         .then(projects => {
           assert.equal(projects.length, 1);
           assert.equal(projects[0].title, 'Collaboration');
@@ -253,7 +269,7 @@ describe('Project model', () => {
         'Some more expired research'
       ];
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereIsCollaborator(ids.vincentMalloy))
+        .then(() => Project.query().whereIsCollaborator(ids.vincentMalloy))
         .then(projects => {
           assert.equal(projects.length, 4);
           expectedTitles.forEach(title => {
@@ -271,7 +287,7 @@ describe('Project model', () => {
         status: 'inactive'
       };
       return Promise.resolve()
-        .then(() => this.models.Project.search(opts))
+        .then(() => Project.search(opts))
         .then(projects => {
           assert.deepEqual(projects.total, 1);
           assert.deepEqual(projects.results[0].title, 'Draft project');
@@ -285,7 +301,7 @@ describe('Project model', () => {
         status: 'expired'
       };
       return Promise.resolve()
-        .then(() => this.models.Project.search(opts))
+        .then(() => Project.search(opts))
         .then(projects => {
           assert.deepEqual(projects.total, 2);
           assert(
@@ -301,7 +317,7 @@ describe('Project model', () => {
         status: 'inactive'
       };
       return Promise.resolve()
-        .then(() => this.models.Project.search(opts))
+        .then(() => Project.search(opts))
         .then(projects => {
           assert.deepEqual(projects.total, 2);
           assert(
@@ -310,7 +326,7 @@ describe('Project model', () => {
         });
     });
 
-    it('includes aa in results', () => {
+    it('includes aa in results', async () => {
       const opts = {
         establishmentId: 8201,
         status: 'active',
@@ -324,19 +340,17 @@ describe('Project model', () => {
         versionId: ids.additionalVersion
       };
 
-      return Promise.resolve()
-        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
-        .then(() => this.models.Project.search(opts))
-        .then(results => results.results[0])
-        .then(project => {
-          const expected = [{
-            id: ids.additionalEstablishment,
-            name: 'Additional establishment',
-            status: 'active'
-          }];
+      await ProjectEstablishment.query().insert(projEst);
+      const results = await Project.search(opts);
+      const project = results.results[0];
 
-          assert.deepEqual(project.additionalEstablishments, expected);
-        });
+      const expected = [{
+        id: ids.additionalEstablishment,
+        name: 'Additional establishment',
+        status: 'active'
+      }];
+
+      assert.deepEqual(project.additionalEstablishments, expected);
     });
 
     it('does not include draft aa for active projects', () => {
@@ -354,8 +368,8 @@ describe('Project model', () => {
       };
 
       return Promise.resolve()
-        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
-        .then(() => this.models.Project.search(opts))
+        .then(() => ProjectEstablishment.query().insert(projEst))
+        .then(() => Project.search(opts))
         .then(results => results.results[0])
         .then(project => {
           const expected = [];
@@ -378,8 +392,8 @@ describe('Project model', () => {
       };
 
       return Promise.resolve()
-        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
-        .then(() => this.models.Project.search(opts))
+        .then(() => ProjectEstablishment.query().insert(projEst))
+        .then(() => Project.search(opts))
         .then(results => results.results[0])
         .then(project => {
           assert.equal(project.additionalEstablishments.length, 1);
@@ -408,8 +422,8 @@ describe('Project model', () => {
       };
 
       return Promise.resolve()
-        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
-        .then(() => this.models.Project.search(opts))
+        .then(() => ProjectEstablishment.query().insert(projEst))
+        .then(() => Project.search(opts))
         .then(results => results.results[0])
         .then(project => {
           assert.equal(project.additionalEstablishments.length, 1);
@@ -433,8 +447,8 @@ describe('Project model', () => {
       };
 
       return Promise.resolve()
-        .then(() => this.models.ProjectEstablishment.query().insert(projEst))
-        .then(() => this.models.Project.search(opts))
+        .then(() => ProjectEstablishment.query().insert(projEst))
+        .then(() => Project.search(opts))
         .then(results => results.results[0])
         .then(project => {
           const expected = [{
@@ -449,13 +463,13 @@ describe('Project model', () => {
 
   describe('scoped methods', () => {
     it('exports a scopeToParams method which exposes scoped getAll and getNamed methods', () => {
-      const projects = this.models.Project.scopeToParams({});
+      const projects = Project.scopeToParams({});
       assert.ok(projects.getOwn);
       assert.ok(projects.getAll);
     });
 
     it('exports a scopeSingle method which exposes scoped getAll and getNamed methods', () => {
-      const project = this.models.Project.scopeSingle({});
+      const project = Project.scopeSingle({});
       assert.ok(project.getOwn);
       assert.ok(project.get);
     });
@@ -472,7 +486,7 @@ describe('Project model', () => {
           'Hair loss prevention'
         ];
         return Promise.resolve()
-          .then(() => this.models.Project.getOwnProjects({
+          .then(() => Project.getOwnProjects({
             licenceHolderId: ids.vincentMalloy,
             establishmentId: 8201,
             status: 'inactive'
@@ -491,7 +505,7 @@ describe('Project model', () => {
 
       it('returns project where the provided profile id is a collaborator', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.getOwnProjects({
+          .then(() => Project.getOwnProjects({
             licenceHolderId: ids.collaborator,
             establishmentId: 8201,
             status: 'active'
@@ -507,9 +521,9 @@ describe('Project model', () => {
         const licenceHolderId = ids.vincentMalloy;
         const title = 'Draft project';
         return Promise.resolve()
-          .then(() => this.models.Project.query().where({ title }))
+          .then(() => Project.query().where({ title }))
           .then(projects => projects[0])
-          .then(({ id }) => this.models.Project.getOwn({
+          .then(({ id }) => Project.getOwn({
             licenceHolderId,
             establishmentId: 8201,
             id
@@ -524,9 +538,9 @@ describe('Project model', () => {
         const licenceHolderId = ids.vincentMalloy;
         const title = 'Hair loss prevention';
         return Promise.resolve()
-          .then(() => this.models.Project.query().where({ title }))
+          .then(() => Project.query().where({ title }))
           .then(projects => projects[0])
-          .then(({ id }) => this.models.Project.getOwn({
+          .then(({ id }) => Project.getOwn({
             licenceHolderId,
             establishmentId: 8201,
             id
@@ -545,7 +559,7 @@ describe('Project model', () => {
           isAsru: true
         };
         return Promise.resolve()
-          .then(() => this.models.Project.scopeToParams(params).getAll())
+          .then(() => Project.scopeToParams(params).getAll())
           .then(({ projects }) => {
             assert.equal(projects.results.length, 1);
             assert.equal(projects.results[0].title, 'Some more research', 'Only the project with a submitted version should be returned');
@@ -556,9 +570,9 @@ describe('Project model', () => {
     // regression
     it('eager loads deleted project when loading a version with queryWithDeleted', () => {
       return Promise.resolve()
-        .then(() => this.models.ProjectVersion.query().findById(ids.draftProjectVersion).delete())
-        .then(() => this.models.Project.query().findById(ids.draftProject).delete())
-        .then(() => this.models.ProjectVersion.queryWithDeleted().findById(ids.draftProjectVersion).withGraphFetched('project'))
+        .then(() => ProjectVersion.query().findById(ids.draftProjectVersion).delete())
+        .then(() => Project.query().findById(ids.draftProject).delete())
+        .then(() => ProjectVersion.queryWithDeleted().findById(ids.draftProjectVersion).withGraphFetched('project'))
         .then(version => {
           assert.ok(version.deleted, 'should fetch deleted version');
           assert.ok(version.project, 'should get linked project');
@@ -573,7 +587,7 @@ describe('Project model', () => {
       return Promise.resolve()
         .then(() => {
           // add an additional availability record
-          return this.models.ProjectEstablishment.query().insert([
+          return ProjectEstablishment.query().insert([
             {
               projectId: ids.draftProject,
               establishmentId: ids.additionalEstablishment,
@@ -598,7 +612,7 @@ describe('Project model', () => {
 
     it('returns projects with active additional availability', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereHasAvailability(ids.additionalEstablishment))
+        .then(() => Project.query().whereHasAvailability(ids.additionalEstablishment))
         .then(projects => {
           assert.equal(projects.length, 3);
           const titles = projects.map(p => p.title);
@@ -611,7 +625,7 @@ describe('Project model', () => {
 
     it('returns inactive projects with draft additional availability', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereHasAvailability(ids.additionalEstablishment))
+        .then(() => Project.query().whereHasAvailability(ids.additionalEstablishment))
         .then(projects => {
           assert.equal(projects.length, 3);
           const titles = projects.map(p => p.title);
@@ -624,7 +638,7 @@ describe('Project model', () => {
 
     it('does not include draft additional availability on active projects', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereHasAvailability(ids.establishmentId))
+        .then(() => Project.query().whereHasAvailability(ids.establishmentId))
         .then(projects => {
           const titles = projects.map(p => p.title);
           ['Draft additional availability']
@@ -636,7 +650,7 @@ describe('Project model', () => {
 
     it('returns own projects', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereHasAvailability(ids.establishmentId))
+        .then(() => Project.query().whereHasAvailability(ids.establishmentId))
         .then(projects => {
           assert.equal(projects.length, 8);
         });
@@ -648,7 +662,7 @@ describe('Project model', () => {
 
     it('does not include projects transferred in after the end of the year', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereRopsDue(2020))
+        .then(() => Project.query().whereRopsDue(2020))
         .then(projects => {
           return projects.map(project => project.id);
         })
@@ -659,7 +673,7 @@ describe('Project model', () => {
 
     it('does include projects transferred in during the year', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereRopsDue(2021))
+        .then(() => Project.query().whereRopsDue(2021))
         .then(projects => {
           return projects.map(project => project.id);
         })
@@ -670,7 +684,7 @@ describe('Project model', () => {
 
     it('does include projects transferred out after the end of the year', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereRopsDue(2020))
+        .then(() => Project.query().whereRopsDue(2020))
         .then(projects => {
           return projects.map(project => project.id);
         })
@@ -681,7 +695,7 @@ describe('Project model', () => {
 
     it('does not include projects transferred out during the year', () => {
       return Promise.resolve()
-        .then(() => this.models.Project.query().whereRopsDue(2021))
+        .then(() => Project.query().whereRopsDue(2021))
         .then(projects => {
           return projects.map(project => project.id);
         })
@@ -698,7 +712,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of 31st Jan if the project is active at the end of the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Active ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Active ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
           });
@@ -706,7 +720,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of expiry + 28 days if the project is going to expire during the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Active ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Active ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-08-07T23:59:59.999Z');
           });
@@ -718,7 +732,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of 31st Jan if the project expired after the end of the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Expired ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Expired ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
           });
@@ -726,7 +740,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of expiry + 28 days if the project expired during the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Expired ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Expired ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
           });
@@ -738,7 +752,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of 31st Jan if the project was revoked after the end of the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2021).where({ title: 'Revoked ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Revoked ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
           });
@@ -746,7 +760,7 @@ describe('Project model', () => {
 
       it('returns a ROPs due date of revocation + 28 days if the project was revoked during the year', () => {
         return Promise.resolve()
-          .then(() => this.models.Project.query().selectRopsDeadline(2022).where({ title: 'Revoked ROPs test' }).first())
+          .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Revoked ROPs test' }).first())
           .then(project => {
             assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
           });

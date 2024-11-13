@@ -366,7 +366,7 @@ class Project extends BaseModel {
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where(statusQuery(status, includeSuspended))
-      .leftJoinRelation('licenceHolder')
+      .leftJoinRelated('licenceHolder')
       .withGraphFetched(
         '[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]'
       )
