@@ -1,4 +1,5 @@
 import BaseModel from './base-model.js';
+import { trainingCoursePurpose } from '@ukhomeoffice/asl-constants';
 
 import regex from '../lib/regex-validation.js';
 import Establishment from './establishment.js';
@@ -6,6 +7,7 @@ import TrainingPil from './training-pil.js';
 import Project from './project.js';
 
 const {uuid, date} = regex;
+
 class TrainingCourse extends BaseModel {
   static get tableName() {
     return 'trainingCourses';
@@ -26,6 +28,7 @@ class TrainingCourse extends BaseModel {
         },
         startDate: { type: ['string', 'null'], pattern: date.yearMonthDay },
         title: { type: 'string' },
+        coursePurpose: { type: 'string', enum: Object.keys(trainingCoursePurpose) },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
         deleted: { type: ['string', 'null'] }
