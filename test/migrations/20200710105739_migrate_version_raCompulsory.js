@@ -91,9 +91,9 @@ describe('raCompulsory', () => {
     assert.equal(raCompulsory(version), false);
   });
 });
+const { knexInstance: dbInstance } = dbExtra;
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,

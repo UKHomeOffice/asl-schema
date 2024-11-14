@@ -54,9 +54,12 @@ describe('transform', () => {
 
 describe('up', () => {
   const { knexInstance: dbInstance } = dbExtra;
+  const client = dbInstance.client.config.client;
+  const connection = dbInstance.client.config.connection;
 
   const knexInstance = Knex({
-    ...dbInstance.client.config
+    client: client,
+    connection: connection
   });
 
   const ids = {

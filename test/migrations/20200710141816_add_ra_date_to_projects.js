@@ -111,15 +111,13 @@ describe('getRaDate', () => {
 });
 
 describe('up', () => {
-  // todo: get config from helper method.
+  const { knexInstance: dbInstance } = dbExtra;
+  const client = dbInstance.client.config.client;
+  const connection = dbInstance.client.config.connection;
+
   const knexInstance = Knex({
-    client: 'postgres',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'test-password',
-      database: 'asl-test'
-    }
+    client: client,
+    connection: connection
   });
 
   const ids = {
