@@ -113,7 +113,7 @@ describe('getRaDate', () => {
 describe('up', () => {
   // todo: get config from helper method.
   const knexInstance = Knex({
-    client: 'pg',
+    client: 'postgres',
     connection: {
       host: 'localhost',
       user: 'postgres',

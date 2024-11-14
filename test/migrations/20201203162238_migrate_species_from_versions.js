@@ -133,7 +133,7 @@ describe('getSpecies', () => {
 describe('up', () => {
   // todo: get the config from helper method.
   const knexInstance = Knex({
-    client: 'pg',
+    client: 'postgres',
     connection: {
       host: 'localhost',
       user: 'postgres',
