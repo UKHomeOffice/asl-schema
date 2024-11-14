@@ -17,11 +17,10 @@ const ids = {
 };
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
-
 describe('Billing queries model', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
 
   let model = null;
 

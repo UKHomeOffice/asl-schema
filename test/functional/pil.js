@@ -11,10 +11,10 @@ const ASRU_ID = uuidv4();
 
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
 describe('PIL model', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
 
   let model = null;
 

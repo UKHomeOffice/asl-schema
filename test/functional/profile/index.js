@@ -13,11 +13,10 @@ const TRAINEE_ID = uuidv4();
 
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
-
 describe('Profile model', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
 
   let model = null;
 

@@ -14,11 +14,11 @@ const validEstablishment = {
 
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
-
 describe('Establishment model', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
+
   let model = null;
 
   before(async () => {

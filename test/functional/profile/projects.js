@@ -8,6 +8,7 @@ import Permission from '../../../schema/permission.js';
 import Project from '../../../schema/project.js';
 import ProjectEstablishment from '../../../schema/project-establishment.js';
 import { Model } from 'objection';
+import BaseModel from '../../../schema/base-model.js';
 
 const ids = {
   profile: {
@@ -27,17 +28,17 @@ const ids = {
 };
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
-
 describe('Profile Projects', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
   let model = null;
 
   before(async () => {
     model = await dbExtra.init();
     await dbExtra.clean(model);
     Model.knex(knexInstance);
+    BaseModel.knex(knexInstance);
     try {
       await Establishment.query().insert([
         {

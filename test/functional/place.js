@@ -7,6 +7,8 @@ import Establishment from '../../schema/establishment.js';
 import Place from '../../schema/place.js';
 import PlaceRole from '../../schema/place-role.js';
 
+const { knexInstance: dbInstance } = dbExtra;
+
 describe('Place model', () => {
   const nacwo1 = uuid();
   const nacwo2 = uuid();
@@ -17,8 +19,6 @@ describe('Place model', () => {
   const nvsRoleId = uuid();
   const sqpId = uuid();
   const sqpRoleId = uuid();
-
-  const { knexInstance: dbInstance } = dbExtra;
 
   const knexInstance = Knex({
     ...dbInstance.client.config

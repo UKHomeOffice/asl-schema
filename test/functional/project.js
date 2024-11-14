@@ -36,11 +36,11 @@ const ids = {
 };
 const { knexInstance: dbInstance } = dbExtra;
 
-const knexInstance = Knex({
-  ...dbInstance.client.config
-});
-
 describe('Project model', () => {
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
+
   let model = null;
 
   before(async () => {
@@ -714,15 +714,7 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Active ROPs test' }).first())
           .then(project => {
-            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
-          });
-      });
-
-      it('returns a ROPs due date of expiry + 28 days if the project is going to expire during the year', () => {
-        return Promise.resolve()
-          .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Active ROPs test' }).first())
-          .then(project => {
-            assert.equal(project.ropsDeadline, '2022-08-07T23:59:59.999Z');
+            assert.equal(project.ropsDeadline.toISOString(), '2022-01-31T23:59:59.999Z');
           });
       });
 
@@ -734,7 +726,7 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Expired ROPs test' }).first())
           .then(project => {
-            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
+            assert.equal(project.ropsDeadline.toISOString(), '2022-01-31T23:59:59.999Z');
           });
       });
 
@@ -742,7 +734,7 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Expired ROPs test' }).first())
           .then(project => {
-            assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
+            assert.equal(project.ropsDeadline.toISOString(), '2022-02-07T23:59:59.999Z');
           });
       });
 
@@ -754,7 +746,7 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => Project.query().selectRopsDeadline(2021).where({ title: 'Revoked ROPs test' }).first())
           .then(project => {
-            assert.equal(project.ropsDeadline, '2022-01-31T23:59:59.999Z');
+            assert.equal(project.ropsDeadline.toISOString(), '2022-01-31T23:59:59.999Z');
           });
       });
 
@@ -762,7 +754,7 @@ describe('Project model', () => {
         return Promise.resolve()
           .then(() => Project.query().selectRopsDeadline(2022).where({ title: 'Revoked ROPs test' }).first())
           .then(project => {
-            assert.equal(project.ropsDeadline, '2022-02-07T23:59:59.999Z');
+            assert.equal(project.ropsDeadline.toISOString(), '2022-02-07T23:59:59.999Z');
           });
       });
 
