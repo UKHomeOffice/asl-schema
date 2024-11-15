@@ -1,5 +1,5 @@
 import assert from 'assert';
-import dbExtra from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Knex from 'knex';
 import Establishment from '../../schema/establishment.js';
@@ -12,7 +12,7 @@ const validEstablishment = {
   address: '123 Somwhere Street'
 };
 
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Establishment model', () => {
   const knexInstance = Knex({
@@ -22,17 +22,17 @@ describe('Establishment model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
   });
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

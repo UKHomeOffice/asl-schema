@@ -4,7 +4,7 @@ import pkg from 'lodash';
 import assert from 'assert';
 import {transform, up} from '../../migrations/20200803150819_migrate_exemptions_to_certs.js';
 import Knex from 'knex';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 
 const {isMatch} = pkg;
 describe('transform', () => {
@@ -86,7 +86,7 @@ describe('transform', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -154,11 +154,11 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await knexInstance('profiles').insert(profiles);
       await knexInstance('exemptions').insert(exemptions);
@@ -169,7 +169,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { v4 as uuid } from 'uuid';
-import dbExtra from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import Knex from 'knex';
 import BaseModel from '../../schema/base-model.js';
 import Profile from '../../schema/profile.js';
@@ -15,7 +15,7 @@ const ids = {
   pils: [uuid()],
   ppl: uuid()
 };
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Billing queries model', () => {
   const knexInstance = Knex({
@@ -25,14 +25,14 @@ describe('Billing queries model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     BaseModel.knex(knexInstance);
   });
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

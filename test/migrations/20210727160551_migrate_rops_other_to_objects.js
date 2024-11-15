@@ -3,7 +3,7 @@ import pkg from 'lodash';
 import {v4 as uuid} from 'uuid';
 import isUuid from 'uuid-validate';
 import {up, transformRop, transformProc} from '../../migrations/20210727160551_migrate_rops_other_to_objects.js';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import Knex from 'knex';
 
 const {isEmpty, omit} = pkg;
@@ -279,7 +279,7 @@ describe('transformProc', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -410,11 +410,11 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       // Insert the related records in the correct order
       await knexInstance('establishments').insert(establishment);
@@ -431,7 +431,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

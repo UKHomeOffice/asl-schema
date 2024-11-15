@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import assert from 'assert';
 import {transform, up} from '../../migrations/20200803123703_flatten_certificate_modules.js';
 import Knex from 'knex';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 
 describe('transform', () => {
   it('returns undefined if called without modules', () => {
@@ -53,7 +53,7 @@ describe('transform', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -140,11 +140,11 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await knexInstance('profiles').insert(profiles);
       await knexInstance('certificates').insert(certificates);
@@ -155,7 +155,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

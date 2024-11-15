@@ -6,7 +6,7 @@ import pkg from 'lodash';
 import diff from 'deep-diff';
 import Knex from 'knex';
 import moment from 'moment';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import {transform, up} from '../../migrations/20200323140559_speciesdetails_ids.js';
 import Project from '../../schema/project.js';
 import BaseModel from '../../schema/base-model.js';
@@ -170,7 +170,7 @@ describe('transform', () => {
 
 describe('up', () => {
 
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,
@@ -355,14 +355,14 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Profile.query().insert(profile);
       await Establishment.query().insert(establishment);
@@ -377,7 +377,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

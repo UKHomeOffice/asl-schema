@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import assert from 'assert';
-import dbExtra from '../helpers/db.js';
+import dbHelper from '../helpers/db.js';
 import Knex from 'knex';
 import BaseModel from '../../../schema/base-model.js';
 import Establishment from '../../../schema/establishment.js';
@@ -11,7 +11,7 @@ import Profile from '../../../schema/profile.js';
 const PROJECT_ID = uuidv4();
 const TRAINEE_ID = uuidv4();
 
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Profile model', () => {
   const knexInstance = Knex({
@@ -21,14 +21,14 @@ describe('Profile model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Establishment.query().insertGraph([
         {
@@ -205,7 +205,7 @@ describe('Profile model', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

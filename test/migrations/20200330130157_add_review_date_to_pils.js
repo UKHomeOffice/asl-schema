@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import assert from 'assert';
 import Knex from 'knex';
 import objection from 'objection';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Establishment from '../../schema/establishment.js';
 import Profile from '../../schema/profile.js';
@@ -22,7 +22,7 @@ function isSame(timestamp1, timestamp2) {
 const { knexSnakeCaseMappers } = objection;
 
 describe('Add review date migration', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,
@@ -73,14 +73,14 @@ describe('Add review date migration', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Establishment.query().insert(establishment);
       await Profile.query().insert(profiles);
@@ -93,7 +93,7 @@ describe('Add review date migration', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

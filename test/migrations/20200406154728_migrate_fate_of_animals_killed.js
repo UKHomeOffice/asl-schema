@@ -2,7 +2,7 @@ import assert from 'assert';
 import { v4 as uuid } from 'uuid';
 import pkg from 'lodash';
 import {transform, up} from '../../migrations/20200406154728_migrate_fate_of_animals_killed.js';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Knex from 'knex';
 import { knexSnakeCaseMappers } from 'objection';
@@ -71,7 +71,7 @@ describe('transform', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,
@@ -194,14 +194,14 @@ describe('up', () => {
 
   let model = null;
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Establishment.query().insert(establishment);
       await Profile.query().insert(licenceHolder);
@@ -215,7 +215,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

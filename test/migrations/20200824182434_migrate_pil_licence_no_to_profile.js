@@ -3,10 +3,10 @@ import moment from 'moment';
 import assert from 'assert';
 import {up} from '../../migrations/20200824182434_migrate_pil_licence_no_to_profile.js';
 import Knex from 'knex';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -71,11 +71,11 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await knexInstance('establishments').insert(establishment);
       await knexInstance('profiles').insert(profile);
@@ -89,7 +89,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

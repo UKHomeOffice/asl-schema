@@ -3,7 +3,7 @@ import assert from 'assert';
 import moment from 'moment';
 import {getRaDate, up} from '../../migrations/20200710141816_add_ra_date_to_projects.js';
 import Knex from 'knex';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 
 describe('getRaDate', () => {
   it('returns null if no version', () => {
@@ -111,7 +111,7 @@ describe('getRaDate', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -323,11 +323,11 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await knexInstance('establishments').insert(establishment);
       await knexInstance('profiles').insert(licenceHolder);
@@ -340,7 +340,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

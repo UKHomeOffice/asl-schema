@@ -2,7 +2,7 @@ import {v4 as uuid} from 'uuid';
 import assert from 'assert';
 import moment from 'moment';
 import pkg from 'lodash';
-import dbExtra from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import Knex from 'knex';
 import BaseModel from '../../schema/base-model.js';
 import Project from '../../schema/project.js';
@@ -34,7 +34,7 @@ const ids = {
   transferIn: uuid(),
   transferOut: uuid()
 };
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Project model', () => {
   const knexInstance = Knex({
@@ -44,15 +44,15 @@ describe('Project model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     Model.knex(knexInstance);
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => dbExtra.clean(model))
+      .then(() => dbHelper.clean(model))
       .then(() => Profile.query().insert([
         {
           id: ids.vincentMalloy,
@@ -247,7 +247,7 @@ describe('Project model', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

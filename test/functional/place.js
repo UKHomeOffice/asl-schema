@@ -1,13 +1,13 @@
 import assert from 'assert';
 import {v4 as uuid} from 'uuid';
-import dbExtra from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import Knex from 'knex';
 import BaseModel from '../../schema/base-model.js';
 import Establishment from '../../schema/establishment.js';
 import Place from '../../schema/place.js';
 import PlaceRole from '../../schema/place-role.js';
 
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Place model', () => {
   const nacwo1 = uuid();
@@ -27,14 +27,14 @@ describe('Place model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => dbExtra.clean(model))
+      .then(() => dbHelper.clean(model))
       .then(() => Establishment.query().insertGraph([
         {
           id: 8201,
@@ -174,7 +174,7 @@ describe('Place model', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

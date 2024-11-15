@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import assert from 'assert';
-import dbExtra from '../helpers/db.js';
+import dbHelper from '../helpers/db.js';
 import Knex from 'knex';
 import Establishment from '../../../schema/establishment.js';
 import Profile from '../../../schema/profile.js';
@@ -26,7 +26,7 @@ const ids = {
     grantedAdditional: uuid()
   }
 };
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Profile Projects', () => {
   const knexInstance = Knex({
@@ -35,8 +35,8 @@ describe('Profile Projects', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     Model.knex(knexInstance);
     BaseModel.knex(knexInstance);
     try {
@@ -170,7 +170,7 @@ describe('Profile Projects', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

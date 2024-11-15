@@ -3,7 +3,7 @@ import assert from 'assert';
 import {raCompulsory, up} from '../../migrations/20200710105739_migrate_version_raCompulsory.js';
 import Knex from 'knex';
 import { knexSnakeCaseMappers } from 'objection';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Establishment from '../../schema/establishment.js';
 import Profile from '../../schema/profile.js';
@@ -91,7 +91,7 @@ describe('raCompulsory', () => {
     assert.equal(raCompulsory(version), false);
   });
 });
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('up', () => {
 
@@ -201,14 +201,14 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Establishment.query().insert(establishment);
       await Profile.query().insert(licenceHolder);
@@ -222,7 +222,7 @@ describe('up', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

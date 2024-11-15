@@ -3,10 +3,10 @@ import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import {up} from '../../migrations/20200921121510_assign_missing_pil_licence_numbers.js';
 import Knex from 'knex';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 
 describe('generateLicenceNumber', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
   const client = dbInstance.client.config.client;
   const connection = dbInstance.client.config.connection;
 
@@ -83,11 +83,11 @@ describe('generateLicenceNumber', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
+    model = await dbHelper.init();
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await knexInstance('establishments').insert(establishment);
       await knexInstance('profiles').insert(profiles);
@@ -99,7 +99,7 @@ describe('generateLicenceNumber', () => {
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

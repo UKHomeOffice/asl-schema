@@ -3,7 +3,7 @@ import assert from 'assert';
 import isUuid from 'uuid-validate';
 import diff from 'deep-diff';
 import {up, transform} from '../../migrations/20200501141527_assign_ids_to_continuation.js';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 import Knex from 'knex';
 import { knexSnakeCaseMappers } from 'objection';
@@ -58,7 +58,7 @@ describe('transform', () => {
 });
 
 describe('up', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,
@@ -148,14 +148,14 @@ describe('up', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     await knexInstance.migrate.latest();
     BaseModel.knex(knexInstance);
   });
 
   beforeEach(async () => {
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     try {
       await Establishment.query().insert(establishment);
       await Profile.query().insert(licenceHolder);

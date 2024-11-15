@@ -2,7 +2,7 @@ import moment from 'moment';
 import assert from 'assert';
 import knex from 'knex';
 import {test} from '../../knexfile.js';
-import db from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import BaseModel from '../../schema/base-model.js';
 
 const settings = test;
@@ -11,7 +11,7 @@ let Model;
 
 describe('Base Model', () => {
   before(() => {
-    db.init();
+    dbHelper.init();
     Model = class extends BaseModel {
       static get tableName() {
         return 'authorisations';
@@ -20,7 +20,7 @@ describe('Base Model', () => {
     Model = Model.bindKnex(knex(settings));
   });
 
-  after(() => db.clean(BaseModel));
+  after(() => dbHelper.clean(BaseModel));
 
   beforeEach(async () => {
     await Model.queryWithDeleted().hardDelete();

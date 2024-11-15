@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {v4 as uuidv4} from 'uuid';
-import dbExtra from './helpers/db.js';
+import dbHelper from './helpers/db.js';
 import Knex from 'knex';
 import BaseModel from '../../schema/base-model.js';
 import Profile from '../../schema/profile.js';
@@ -9,7 +9,7 @@ import PIL from '../../schema/pil.js';
 
 const ASRU_ID = uuidv4();
 
-const { knexInstance: dbInstance } = dbExtra;
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('PIL model', () => {
   const knexInstance = Knex({
@@ -19,14 +19,14 @@ describe('PIL model', () => {
   let model = null;
 
   before(async () => {
-    model = await dbExtra.init();
-    await dbExtra.clean(model);
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
     BaseModel.knex(knexInstance);
   });
 
   after(async () => {
     // Destroy the database connection after cleanup.
-    await dbExtra.clean(model);
+    await dbHelper.clean(model);
     await knexInstance.destroy();
   });
 

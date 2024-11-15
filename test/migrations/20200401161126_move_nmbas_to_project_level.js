@@ -2,7 +2,7 @@ import assert from 'assert';
 import pkg from 'lodash';
 import { v4 as uuid } from 'uuid';
 import diff from 'deep-diff';
-import dbExtra from '../functional/helpers/db.js';
+import dbHelper from '../functional/helpers/db.js';
 import {transform, up} from '../../migrations/20200401161126_move_nmbas_to_project_level.js';
 import BaseModel from '../../schema/base-model.js';
 import Knex from 'knex';
@@ -14,7 +14,7 @@ import Project from '../../schema/project.js';
 
 const {cloneDeep} = pkg;
 describe('Move NMBAs to project level', () => {
-  const { knexInstance: dbInstance } = dbExtra;
+  const { knexInstance: dbInstance } = dbHelper;
 
   const knexInstance = Knex({
     ...dbInstance.client.config,
@@ -386,14 +386,14 @@ describe('Move NMBAs to project level', () => {
     let model = null;
 
     before(async () => {
-      model = await dbExtra.init();
-      await dbExtra.clean(model);
+      model = await dbHelper.init();
+      await dbHelper.clean(model);
       await knexInstance.migrate.latest();
       BaseModel.knex(knexInstance);
     });
 
     beforeEach(async () => {
-      await dbExtra.clean(model);
+      await dbHelper.clean(model);
       try {
         await Establishment.query().insert(establishment);
         await Profile.query().insert(licenceHolder);
@@ -407,7 +407,7 @@ describe('Move NMBAs to project level', () => {
 
     after(async () => {
       // Destroy the database connection after cleanup.
-      await dbExtra.clean(model);
+      await dbHelper.clean(model);
       await knexInstance.destroy();
     });
 
