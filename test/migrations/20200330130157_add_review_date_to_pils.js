@@ -105,10 +105,6 @@ describe('Add review date migration', () => {
     const reviewSet = results.find(p => p.id === ids.reviewSet);
     const reviewNotSet = results.find(p => p.id === ids.reviewNotSet);
 
-    console.log('updated_at:', pils[1].updatedAt);
-    console.log('updated_at + 5 = expected:', expected);
-    console.log('reviewNotSet:', reviewNotSet.reviewDate);
-
     assert.ok(
       isSame(new Date(reviewSet.reviewDate).toISOString(), new Date(pils[0].reviewDate).toISOString()),
       'It doesn\'t update the review_date if already set'
