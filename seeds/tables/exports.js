@@ -1,4 +1,4 @@
-const moment = require('moment');
+import moment from 'moment';
 
 const generateExports = () => {
   const earliest = moment('2021-05-01');
@@ -23,7 +23,7 @@ const generateExports = () => {
   return dataExports;
 };
 
-module.exports = {
+export default {
   populate: knex => knex('exports').insert(generateExports()),
   delete: knex => knex('exports').del()
 };

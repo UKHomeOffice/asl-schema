@@ -89,7 +89,7 @@ export function up(knex, Promise) {
       table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('migrated_id');
       table.enum('status', ['active', 'pending', 'inactive', 'expired', 'revoked']).defaultsTo('inactive');
-      table.string('title').notNull();
+      table.string('title');
       table.dateTime('issueDate');
       table.dateTime('expiryDate');
       table.dateTime('revocationDate');

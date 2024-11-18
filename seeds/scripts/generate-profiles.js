@@ -1,7 +1,7 @@
-const faker = require('faker');
-const uuid = require('uuid');
+import faker from 'faker';
+import { v4 as uuid } from 'uuid';
 
-module.exports = ({ count, establishmentIds = [8202], roles = ['basic'], locale = 'en_GB' }) => {
+export default ({ count, establishmentIds = [8202], roles = ['basic'], locale = 'en_GB' }) => {
   if (locale) {
     faker.locale = locale;
   }

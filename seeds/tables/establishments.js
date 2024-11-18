@@ -1,6 +1,6 @@
-const establishments = require('../data/establishments.json');
+import establishments from '../data/establishments.js';
 
-module.exports = {
+export default {
   populate: knex => knex('establishments').insert(establishments.reduce((ests, e) => {
     ests.push({
       ...e,

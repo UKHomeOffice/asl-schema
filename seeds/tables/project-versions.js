@@ -1,7 +1,8 @@
-const projectVersions = require('../data/project-versions');
-const { merge } = require('lodash');
-const uuid = require('uuid/v4');
+import pkg from 'lodash';
+import { v4 as uuid } from 'uuid';
+import projectVersions from '../data/project-versions.js';
 
+const {merge} = pkg;
 const defaults = {
   'poles': false,
   'protocols': [
@@ -63,7 +64,7 @@ const defaults = {
   'training-complete': true
 };
 
-module.exports = {
+export default {
   populate: knex => {
     return Promise.resolve()
       .then(() => knex('projects'))

@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     // no flags
     id: '870ce6f1-0b4f-404b-ac7a-214e76c801db',

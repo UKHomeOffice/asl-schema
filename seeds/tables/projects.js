@@ -1,10 +1,11 @@
-const { omit } = require('lodash');
-const projects = require('../data/projects.json');
-const getNonRandomProject = require('./utils/get-non-random-item');
+import pkg from 'lodash';
+import projects from '../data/projects.js';
+import getNonRandomProject from './utils/get-non-random-item.js';
 
+const {omit} = pkg;
 const nopes = ['Basic', 'Read', 'Ella', 'Unaffiliated', 'AA'];
 
-module.exports = {
+export default {
   populate: knex => {
     return Promise.all(
       projects.filter(p => !p.licenceHolderId).map(project => {
