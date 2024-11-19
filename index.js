@@ -1,9 +1,8 @@
-const { knexSnakeCaseMappers, transaction } = require('objection');
-const Knex = require('knex');
-const Schema = require('./schema');
-
-const types = require('pg').types;
-const moment = require('moment');
+import {knexSnakeCaseMappers, transaction} from 'objection';
+import Knex from 'knex';
+import {types} from 'pg';
+import moment from 'moment';
+import Schema from './schema/index.js';
 
 const TIMESTAMPTZ_OID = 1184;
 const TIMESTAMP_OID = 1114;
@@ -31,7 +30,7 @@ types.setTypeParser(DATE_OID, dateParseFn);
 types.setTypeParser(INT4_OID, intParseFn);
 types.setTypeParser(INT8_OID, intParseFn);
 
-module.exports = connection => {
+export default connection => {
 
   if (connection.username && !connection.user) {
     connection.user = connection.username;
