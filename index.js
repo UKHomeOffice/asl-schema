@@ -1,9 +1,10 @@
 import {knexSnakeCaseMappers, transaction} from 'objection';
 import Knex from 'knex';
-import {types} from 'pg';
+import pkg from 'pg';
 import moment from 'moment';
 import Schema from './schema/index.js';
 
+const {types} = pkg;
 const TIMESTAMPTZ_OID = 1184;
 const TIMESTAMP_OID = 1114;
 const DATE_OID = 1082;
