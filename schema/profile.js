@@ -1,13 +1,24 @@
-const { ref } = require('objection');
-const { compact, remove } = require('lodash');
-const BaseModel = require('./base-model');
-const Changelog = require('./changelog');
-const TrainingPil = require('./training-pil');
-const Role = require('./role');
-const Permission = require('./permission');
-const { date, uuid } = require('../lib/regex-validation');
+import {ref} from 'objection';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import Changelog from './changelog.js';
+import TrainingPil from './training-pil.js';
+import Role from './role.js';
+import Permission from './permission.js';
+import regex from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
+import Place from './place.js';
+import FeeWaiver from './fee-waiver.js';
+import Project from './project.js';
+import EmailPreferences from './email-preferences.js';
+import Certificate from './certificate.js';
+import Exemption from './exemption.js';
+import Establishment from './establishment.js';
+import Pil from './pil.js';
+import Notification from './notification.js';
 
-const QueryBuilder = require('./query-builder');
+const { uuid, date } = regex;
+const {compact, remove} = pkg;
 
 class ProfileQueryBuilder extends QueryBuilder {
 
@@ -23,7 +34,7 @@ class ProfileQueryBuilder extends QueryBuilder {
   }
 
   whereHasBillablePIL({ establishmentId, start, end }) {
-    const year = parseInt(start.substr(0, 4), 10);
+    const year = parseInt(start.substring(0, 4), 10);
     this.context({ establishmentId, start, end, year });
     return this
       .where(builder => {
@@ -35,7 +46,7 @@ class ProfileQueryBuilder extends QueryBuilder {
           .orWhereExists(
             Profile
               .relatedQuery('trainingPils')
-              .joinRelation('trainingCourse')
+              .joinRelated('trainingCourse')
               .where('trainingCourse.establishmentId', establishmentId)
               .where('issueDate', '<', end)
               .where(builder => {
@@ -161,7 +172,7 @@ class Profile extends BaseModel {
           builder.select([
             'pils.*',
             'profile.pilLicenceNumber as licenceNumber'
-          ]).joinRelation('profile');
+          ]).joinRelated('profile');
         },
         constrainEstParams: builder => builder.select('id', 'name')
       });
@@ -200,7 +211,7 @@ class Profile extends BaseModel {
 
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
-      .joinRelation('roles')
+      .joinRelated('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
   }
@@ -230,7 +241,7 @@ class Profile extends BaseModel {
     query
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
-      .leftJoinRelation('[pil, projects, roles, trainingPils]')
+      .leftJoinRelated('[pil, projects, roles, trainingPils]')
       .withGraphFetched('[pil.establishment(constrainEstParams), projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {
@@ -431,7 +442,7 @@ class Profile extends BaseModel {
     return {
       roles: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/role`,
+        modelClass: Role,
         join: {
           from: 'profiles.id',
           to: 'roles.profileId'
@@ -440,11 +451,11 @@ class Profile extends BaseModel {
       },
       places: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/place`,
+        modelClass: Place,
         join: {
           from: 'profiles.id',
           through: {
-            modelClass: `${__dirname}/role`,
+            modelClass: Role,
             from: 'roles.profileId',
             to: 'roles.id'
           },
@@ -453,7 +464,7 @@ class Profile extends BaseModel {
       },
       certificates: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/certificate`,
+        modelClass: Certificate,
         join: {
           from: 'profiles.id',
           to: 'certificates.profileId'
@@ -461,7 +472,7 @@ class Profile extends BaseModel {
       },
       exemptions: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/exemption`,
+        modelClass: Exemption,
         join: {
           from: 'profiles.id',
           to: 'exemptions.profileId'
@@ -469,7 +480,7 @@ class Profile extends BaseModel {
       },
       establishments: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'profiles.id',
           through: {
@@ -483,7 +494,7 @@ class Profile extends BaseModel {
       },
       invitations: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'profiles.id',
           through: {
@@ -497,7 +508,7 @@ class Profile extends BaseModel {
       },
       pil: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'profiles.id',
           to: 'pils.profileId'
@@ -508,7 +519,7 @@ class Profile extends BaseModel {
       },
       trainingPils: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/training-pil`,
+        modelClass: TrainingPil,
         join: {
           from: 'profiles.id',
           to: 'trainingPils.profileId'
@@ -516,7 +527,7 @@ class Profile extends BaseModel {
       },
       feeWaivers: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/fee-waiver`,
+        modelClass: FeeWaiver,
         join: {
           from: 'profiles.id',
           to: 'pilFeeWaivers.profileId'
@@ -524,7 +535,7 @@ class Profile extends BaseModel {
       },
       projects: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'profiles.id',
           to: 'projects.licenceHolderId'
@@ -538,7 +549,7 @@ class Profile extends BaseModel {
       },
       asru: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'profiles.id',
           through: {
@@ -550,7 +561,7 @@ class Profile extends BaseModel {
       },
       emailPreferences: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/email-preferences`,
+        modelClass: EmailPreferences,
         join: {
           from: 'profiles.id',
           to: 'emailPreferences.profileId'
@@ -558,7 +569,7 @@ class Profile extends BaseModel {
       },
       notifications: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/notification`,
+        modelClass: Notification,
         join: {
           from: 'profiles.id',
           to: 'notifications.profileId'
@@ -568,4 +579,4 @@ class Profile extends BaseModel {
   }
 }
 
-module.exports = Profile;
+export default Profile;

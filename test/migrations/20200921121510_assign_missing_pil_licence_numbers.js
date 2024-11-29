@@ -1,10 +1,20 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const moment = require('moment');
-const { up } = require('../../migrations/20200921121510_assign_missing_pil_licence_numbers');
-const db = require('./helpers/db');
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+import {up} from '../../migrations/20200921121510_assign_missing_pil_licence_numbers.js';
+import Knex from 'knex';
+import dbHelper from '../functional/helpers/db.js';
 
 describe('generateLicenceNumber', () => {
+  const { knexInstance: dbInstance } = dbHelper;
+  const client = dbInstance.client.config.client;
+  const connection = dbInstance.client.config.connection;
+
+  const knexInstance = Knex({
+    client: client,
+    connection: connection
+  });
+
   const ids = {
     hasLicenceNumber: uuid(),
     missingLicenceNumber: uuid(),
@@ -70,30 +80,33 @@ describe('generateLicenceNumber', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbHelper.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(profiles))
-      .then(() => this.knex('pils').insert(pils));
+  beforeEach(async () => {
+    await dbHelper.clean(model);
+    try {
+      await knexInstance('establishments').insert(establishment);
+      await knexInstance('profiles').insert(profiles);
+      await knexInstance('pils').insert(pils);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('skips profiles that already have a pilLicenceNumber', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('profiles').where('id', ids.hasLicenceNumber).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('profiles').where('id', ids.hasLicenceNumber).first())
       .then(profile => {
         assert.equal(profile.pil_licence_number, 'EXISTING');
       });
@@ -101,8 +114,8 @@ describe('generateLicenceNumber', () => {
 
   it('assigns a new pilLicenceNumber if missing, and has active pil', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('profiles').where('id', ids.missingLicenceNumber).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('profiles').where('id', ids.missingLicenceNumber).first())
       .then(profile => {
         assert.ok(profile.pil_licence_number);
         assert.equal(profile.pil_licence_number.charAt(0), 'I');
@@ -111,8 +124,8 @@ describe('generateLicenceNumber', () => {
 
   it('doesn\'t assign licence number to profile with no pil', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('profiles').where('id', ids.missingLicenceNumberNoPil).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('profiles').where('id', ids.missingLicenceNumberNoPil).first())
       .then(profile => {
         assert.equal(profile.pil_licence_number, null);
       });
@@ -120,8 +133,8 @@ describe('generateLicenceNumber', () => {
 
   it('doesn\'t assign licence number to profile with inactive', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('profiles').where('id', ids.hasInactivePil).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('profiles').where('id', ids.hasInactivePil).first())
       .then(profile => {
         assert.equal(profile.pil_licence_number, null);
       });

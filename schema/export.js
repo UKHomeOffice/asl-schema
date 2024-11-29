@@ -1,6 +1,8 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
 
+const {uuid} = regex;
 class Export extends BaseModel {
   static get tableName() {
     return 'exports';
@@ -28,7 +30,7 @@ class Export extends BaseModel {
     return {
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'exports.profileId',
           to: 'profiles.id'
@@ -39,4 +41,4 @@ class Export extends BaseModel {
 
 }
 
-module.exports = Export;
+export default Export;

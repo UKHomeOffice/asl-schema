@@ -1,20 +1,20 @@
-const expect = require('chai').expect;
-const ProjectVersion = require('../../schema/project-version');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import ProjectVersion from '../../schema/project-version.js';
 
 describe('ProjectVersion', () => {
   it('throws a validation error when invalid values are provided', () => {
     const badJson = {
       data: ['array', 'of', 'values']
     };
-    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /data: should be object,null/);
+    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /data: must be object,null/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       unknown: 'example'
     };
-    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

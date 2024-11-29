@@ -1,4 +1,4 @@
-const BaseModel = require('./base-model');
+import BaseModel from './base-model.js';
 
 class AsruEstablishment extends BaseModel {
   static get tableName() {
@@ -25,4 +25,4 @@ class AsruEstablishment extends BaseModel {
   }
 }
 
-module.exports = AsruEstablishment;
+export default AsruEstablishment;

@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const Invitation = require('../../schema/invitation');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import Invitation from '../../schema/invitation.js';
 
 describe('Invitation', () => {
   it('throws a validation error when required properties are missing', () => {
@@ -29,7 +29,7 @@ describe('Invitation', () => {
       email: 'test@example.com',
       unknown: 'example'
     };
-    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

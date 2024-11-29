@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const Permission = require('../../schema/permission');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import Permission from '../../schema/permission.js';
 
 describe('Permission', () => {
   it('throws a validation error when required properties are missing', () => {
@@ -27,7 +27,7 @@ describe('Permission', () => {
       profileId: '1234567',
       unknown: 'example'
     };
-    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

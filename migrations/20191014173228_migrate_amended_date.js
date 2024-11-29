@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.raw(`UPDATE projects p
     SET amended_date = (
         SELECT MAX(pv.updated_at)
@@ -10,8 +10,8 @@ exports.up = function(knex, Promise) {
         HAVING COUNT(*) > 1
     )
   `);
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex('projects').update({ amended_date: null });
-};
+}

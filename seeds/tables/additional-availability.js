@@ -1,6 +1,6 @@
-const projects = require('../data/projects.json');
+import projects from '../data/projects.js';
 
-module.exports = {
+export default {
   populate: knex => {
     const aa = projects
       .filter(p => p.additionalEstablishments)

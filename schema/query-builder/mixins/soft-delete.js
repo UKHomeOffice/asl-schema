@@ -1,4 +1,4 @@
-module.exports = (Base) => {
+export default (Base) => {
 
   class Mixed extends Base {
     delete() {

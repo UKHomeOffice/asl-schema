@@ -1,6 +1,7 @@
-const { omit } = require('lodash');
-const rops = require('../data/rops');
+import pkg from 'lodash';
+import rops from '../data/rops.js';
 
+const {omit} = pkg;
 const defaults = {
   basicSubpurposes: JSON.stringify([ 'oncology' ]),
   endangered: false,
@@ -19,7 +20,7 @@ const defaults = {
   species: JSON.stringify({ precoded: ['mice'], otherSpecies: [] })
 };
 
-module.exports = {
+export default {
   populate: knex => {
     return knex('rops').insert(
       rops.map(rop => ({

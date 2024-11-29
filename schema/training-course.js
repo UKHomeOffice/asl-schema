@@ -1,6 +1,12 @@
-const BaseModel = require('./base-model');
-const { uuid, date } = require('../lib/regex-validation');
-const { trainingCoursePurpose } = require('@ukhomeoffice/asl-constants');
+import BaseModel from './base-model.js';
+import { trainingCoursePurpose } from '@ukhomeoffice/asl-constants';
+
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+import TrainingPil from './training-pil.js';
+import Project from './project.js';
+
+const {uuid, date} = regex;
 
 class TrainingCourse extends BaseModel {
   static get tableName() {
@@ -59,7 +65,7 @@ class TrainingCourse extends BaseModel {
     return {
       project: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'trainingCourses.projectId',
           to: 'projects.id'
@@ -67,7 +73,7 @@ class TrainingCourse extends BaseModel {
       },
       trainingPils: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/training-pil`,
+        modelClass: TrainingPil,
         join: {
           from: 'trainingCourses.id',
           to: 'trainingPils.trainingCourseId'
@@ -75,7 +81,7 @@ class TrainingCourse extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'trainingCourses.establishmentId',
           to: 'establishments.id'
@@ -85,4 +91,4 @@ class TrainingCourse extends BaseModel {
   }
 }
 
-module.exports = TrainingCourse;
+export default TrainingCourse;

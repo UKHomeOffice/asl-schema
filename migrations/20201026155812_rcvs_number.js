@@ -1,12 +1,12 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex.schema.table('profiles', table => {
     table.string('rcvs_number');
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.table('profiles', table => {
     table.dropColumn('rcvs_number');
   });
-};
+}

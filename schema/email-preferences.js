@@ -1,6 +1,8 @@
-const { Model } = require('objection');
-const { uuid } = require('../lib/regex-validation');
+import {Model} from 'objection';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
 
+const { uuid } = regex;
 class EmailPreferences extends Model {
   static get tableName() {
     return 'emailPreferences';
@@ -29,7 +31,7 @@ class EmailPreferences extends Model {
     return {
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'emailPreferences.profileId',
           to: 'profiles.id'
@@ -39,4 +41,4 @@ class EmailPreferences extends Model {
   }
 }
 
-module.exports = EmailPreferences;
+export default EmailPreferences;

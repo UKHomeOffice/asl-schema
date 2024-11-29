@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+import { v4 as uuidv4 } from 'uuid';
 
 const transform = version => {
   if (!version) {
@@ -15,21 +15,21 @@ const transform = version => {
       if (!species) {
         return;
       }
-      species.id = species.id || uuid();
+      species.id = species.id || uuidv4();
     });
   });
   return version;
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex
         .select('id')
         .from('projects')
-        .where({ 'schema_version': 1 })
+        .where({ 'schema_version': 1 });
     })
     .then(projects => {
       return projects.reduce((promise, project) => {
@@ -58,8 +58,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   // lolno
-};
+}

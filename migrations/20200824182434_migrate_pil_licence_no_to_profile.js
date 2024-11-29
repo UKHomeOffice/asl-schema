@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     // get all profilesIds with a pil
     .then(() => knex('pils').distinct('profile_id'))
@@ -31,8 +31,8 @@ exports.up = function(knex) {
       }, Promise.resolve());
     });
 
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex('profiles').update('pil_licence_number', null);
-};
+}

@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.dropTableIfExists('project_profiles')
     .createTable('project_profiles', table => {
       table.uuid('project_id').references('id').inTable('projects').notNull();
@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
       table.timestamps(false, true);
       table.unique(['project_id','profile_id']);
     });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema.dropTable('project_profiles');
-};
+}

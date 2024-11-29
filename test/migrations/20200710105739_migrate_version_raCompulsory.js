@@ -1,7 +1,14 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { raCompulsory, up } = require('../../migrations/20200710105739_migrate_version_raCompulsory');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import {raCompulsory, up} from '../../migrations/20200710105739_migrate_version_raCompulsory.js';
+import Knex from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
+import dbHelper from '../functional/helpers/db.js';
+import BaseModel from '../../schema/base-model.js';
+import Establishment from '../../schema/establishment.js';
+import Profile from '../../schema/profile.js';
+import Project from '../../schema/project.js';
+import ProjectVersion from '../../schema/project-version.js';
 
 describe('raCompulsory', () => {
   it('is false if no version', () => {
@@ -84,8 +91,15 @@ describe('raCompulsory', () => {
     assert.equal(raCompulsory(version), false);
   });
 });
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('up', () => {
+
+  const knexInstance = Knex({
+    ...dbInstance.client.config,
+    ...knexSnakeCaseMappers()
+  });
+
   const ids = {
     project: {
       active: uuid(),
@@ -101,8 +115,8 @@ describe('up', () => {
 
   const licenceHolder = {
     id: uuid(),
-    first_name: 'Licence',
-    last_name: 'Holder',
+    firstName: 'Licence',
+    lastName: 'Holder',
     email: 'test@example.com'
   };
 
@@ -117,24 +131,26 @@ describe('up', () => {
   const projects = [
     {
       id: ids.project.active,
+      establishmentId: establishment.id,
       title: 'Test project',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 1
+      schemaVersion: 1
     },
     {
       id: ids.project.legacy,
+      establishmentId: establishment.id,
       title: 'Legacy Project',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 0
+      schemaVersion: 0
     }
   ];
 
   const versions = [
     {
       id: ids.version.legacyDraftNoRa,
-      project_id: ids.project.legacy,
+      projectId: ids.project.legacy,
       status: 'draft',
       data: {
         title: 'Legacy no RA'
@@ -142,7 +158,7 @@ describe('up', () => {
     },
     {
       id: ids.version.legacyGrantedRA,
-      project_id: ids.project.legacy,
+      projectId: ids.project.legacy,
       status: 'granted',
       data: {
         title: 'Legacy RA',
@@ -153,7 +169,7 @@ describe('up', () => {
     },
     {
       id: ids.version.activeRA,
-      project_id: ids.project.active,
+      projectId: ids.project.active,
       status: 'granted',
       data: {
         title: 'Granted RA',
@@ -163,11 +179,11 @@ describe('up', () => {
             severity: 'severe'
           }
         ]
-      },
+      }
     },
     {
       id: ids.version.activeNoRA,
-      project_id: ids.project.active,
+      projectId: ids.project.active,
       status: 'granted',
       data: {
         title: 'Granted no RA',
@@ -182,31 +198,38 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+
+  before(async () => {
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
+    await knexInstance.migrate.latest();
+    BaseModel.knex(knexInstance);
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions));
+  beforeEach(async () => {
+    await dbHelper.clean(model);
+    try {
+      await Establishment.query().insert(establishment);
+      await Profile.query().insert(licenceHolder);
+      await Project.query().insert(projects);
+      await ProjectVersion.query().insert(versions);
+      console.log('Data inserted successfully');
+    } catch (error) {
+      console.error('Error inserting data in beforeEach:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('sets ra_compulsory to true for versions where RA is required', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('project_versions').where('ra_compulsory', true))
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('project_versions').where('ra_compulsory', true))
       .then(versions => {
         const expected = [
           ids.version.legacyGrantedRA,
@@ -221,8 +244,8 @@ describe('up', () => {
 
   it('sets ra_compulsory to true for versions where RA is required', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('project_versions').where('ra_compulsory', false))
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('project_versions').where('ra_compulsory', false))
       .then(versions => {
         const expected = [
           ids.version.legacyDraftNoRa,

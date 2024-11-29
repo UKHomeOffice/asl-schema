@@ -3,9 +3,9 @@
 // ./bin/dump-profiles 50 --dry
 // ./bin/dump-profiles 5000 --estIds 8201,8202 --roles admin,basic --locale en_US --path somewhere/else/profiles.js
 
-const minimist = require('minimist');
-const fs = require('fs');
-const generateProfiles = require('../seeds/scripts/generate-profiles');
+import minimist from 'minimist';
+import fs from 'fs';
+import generateProfiles from '../seeds/scripts/generate-profiles.js';
 
 const args = minimist(process.argv.slice(2));
 

@@ -1,6 +1,9 @@
-const BaseModel = require('./base-model');
-const { externalPermissions } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {externalPermissions} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+
+const { uuid } = regex;
 
 class Invitation extends BaseModel {
   static get tableName() {
@@ -14,7 +17,7 @@ class Invitation extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        token: { type: ['string', null] },
+        token: { type: ['string', 'null'] },
         role: { type: 'string', enum: externalPermissions },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
@@ -56,7 +59,7 @@ class Invitation extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'invitations.establishmentId',
           to: 'establishments.id'
@@ -66,4 +69,4 @@ class Invitation extends BaseModel {
   }
 }
 
-module.exports = Invitation;
+export default Invitation;

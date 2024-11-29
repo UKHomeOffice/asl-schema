@@ -1,9 +1,17 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const { cloneDeep, omit } = require('lodash');
-const diff = require('deep-diff');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200406154728_migrate_fate_of_animals_killed');
+import assert from 'assert';
+import { v4 as uuid } from 'uuid';
+import pkg from 'lodash';
+import {transform, up} from '../../migrations/20200406154728_migrate_fate_of_animals_killed.js';
+import dbHelper from '../functional/helpers/db.js';
+import BaseModel from '../../schema/base-model.js';
+import Knex from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
+import Establishment from '../../schema/establishment.js';
+import Profile from '../../schema/profile.js';
+import Project from '../../schema/project.js';
+import ProjectVersion from '../../schema/project-version.js';
+
+const {cloneDeep} = pkg;
 
 function getVersion(versions, title) {
   return versions.find(v => v.data.title === title);
@@ -63,6 +71,12 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const { knexInstance: dbInstance } = dbHelper;
+
+  const knexInstance = Knex({
+    ...dbInstance.client.config,
+    ...knexSnakeCaseMappers()
+  });
 
   const ids = {
     active: uuid(),
@@ -72,8 +86,8 @@ describe('up', () => {
 
   const licenceHolder = {
     id: uuid(),
-    first_name: 'Licence',
-    last_name: 'Holder',
+    firstName: 'Licence',
+    lastName: 'Holder',
     email: 'test@example.com'
   };
 
@@ -88,30 +102,33 @@ describe('up', () => {
   const projects = [
     {
       id: ids.active,
+      establishmentId: establishment.id,
       title: 'Project with granted versions',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 1
+      schemaVersion: 1
     },
     {
       id: ids.draft,
+      establishmentId: establishment.id,
       title: 'Project draft',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'inactive',
-      schema_version: 1
+      schemaVersion: 1
     },
     {
       id: ids.legacy,
+      establishmentId: establishment.id,
       title: 'Legacy Project',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 0
+      schemaVersion: 0
     }
   ];
 
   const versions = [
     {
-      project_id: ids.legacy,
+      projectId: ids.legacy,
       status: 'granted',
       data: {
         title: 'should not alter',
@@ -122,7 +139,7 @@ describe('up', () => {
       }
     },
     {
-      project_id: ids.active,
+      projectId: ids.active,
       status: 'granted',
       data: {
         title: 'should not add killed',
@@ -133,7 +150,7 @@ describe('up', () => {
       }
     },
     {
-      project_id: ids.active,
+      projectId: ids.active,
       status: 'granted',
       data: {
         title: 'should add killed, fate undefined',
@@ -141,7 +158,7 @@ describe('up', () => {
       }
     },
     {
-      project_id: ids.active,
+      projectId: ids.active,
       status: 'granted',
       data: {
         title: 'should not add killed twice',
@@ -152,7 +169,7 @@ describe('up', () => {
       }
     },
     {
-      project_id: ids.active,
+      projectId: ids.active,
       status: 'draft',
       data: {
         title: 'Should add killed, existing fate',
@@ -163,7 +180,7 @@ describe('up', () => {
       }
     },
     {
-      project_id: ids.draft,
+      projectId: ids.draft,
       status: 'draft',
       data: {
         title: 'should add killed draft',
@@ -175,25 +192,31 @@ describe('up', () => {
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  let model = null;
+  before(async () => {
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
+    await knexInstance.migrate.latest();
+    BaseModel.knex(knexInstance);
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions))
+  beforeEach(async () => {
+    await dbHelper.clean(model);
+    try {
+      await Establishment.query().insert(establishment);
+      await Profile.query().insert(licenceHolder);
+      await Project.query().insert(projects);
+      await ProjectVersion.query().insert(versions);
+      console.log('Data inserted successfully');
+    } catch (error) {
+      console.error('Error inserting data in beforeEach:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('is ok', () => {
@@ -203,17 +226,17 @@ describe('up', () => {
   it('doesn\'t touch legacy versions', () => {
     return Promise.resolve()
       .then(() => {
-        return this.knex('project_versions')
-          .where('project_id', ids.legacy)
+        return knexInstance('project_versions')
+          .where('project_id', ids.legacy);
       })
       .then(before => {
         return Promise.resolve()
           .then(() => {
-            return up(this.knex);
+            return up(knexInstance);
           })
           .then(() => {
-            return this.knex('project_versions')
-              .where('project_id', ids.legacy)
+            return knexInstance('project_versions')
+              .where('project_id', ids.legacy);
           })
           .then(after => {
             assert.deepEqual(before, after);
@@ -224,12 +247,12 @@ describe('up', () => {
   it('updates draft versions', () => {
     return Promise.resolve()
       .then(() => {
-        return up(this.knex);
+        return up(knexInstance);
       })
       .then(() => {
-        return this.knex('project_versions')
+        return knexInstance('project_versions')
           .where('project_id', ids.draft)
-          .first()
+          .first();
       })
       .then(version => {
         const expected = [
@@ -243,17 +266,17 @@ describe('up', () => {
   it('updates active project granted and previous versions', () => {
     return Promise.resolve()
       .then(() => {
-        return this.knex('project_versions')
-          .where('project_id', ids.active)
+        return knexInstance('project_versions')
+          .where('project_id', ids.active);
       })
       .then(before => {
         return Promise.resolve()
           .then(() => {
-            return up(this.knex);
+            return up(knexInstance);
           })
           .then(() => {
-            return this.knex('project_versions')
-              .where('project_id', ids.active)
+            return knexInstance('project_versions')
+              .where('project_id', ids.active);
           })
           .then(after => {
             assert.deepEqual(

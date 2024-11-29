@@ -1,6 +1,9 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Project from './project.js';
+import Procedure from './procedure.js';
 
+const {uuid} = regex;
 const ropStatuses = [
   'draft',
   'submitted'
@@ -169,7 +172,7 @@ class Rops extends BaseModel {
     return {
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'rops.projectId',
           to: 'projects.id'
@@ -177,7 +180,7 @@ class Rops extends BaseModel {
       },
       procedures: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/procedure`,
+        modelClass: Procedure,
         join: {
           from: 'rops.id',
           to: 'procedures.ropId'
@@ -188,4 +191,4 @@ class Rops extends BaseModel {
 
 }
 
-module.exports = Rops;
+export default Rops;

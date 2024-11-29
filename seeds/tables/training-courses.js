@@ -1,27 +1,27 @@
-const { omit } = require('lodash');
-const trainingCourses = require('../data/training-courses.json');
+import pkg from 'lodash';
+import trainingCourses from '../data/training-courses.js';
 
-module.exports = {
-  populate: knex => {
-    return trainingCourses.reduce((promise, course) => {
-      return Promise.resolve()
-        .then(() => {
-          return knex('training_courses').insert({
-            ...omit(course, 'participants'),
-            species: JSON.stringify(course.species)
-          }).returning('id');
-        })
-        .then(([id]) => {
-          const participants = (course.participants || []).map(participant => {
-            return {
-              ...participant,
-              training_course_id: id
-            };
-          });
-          if (participants.length > 0) {
-            return knex('training_pils').insert(participants);
-          }
-        });
-    }, Promise.resolve());
+const {omit} = pkg;
+
+export default {
+  populate: async (knex) => {
+    for (const course of trainingCourses) {
+      // Insert the training course and get the inserted ID
+      const [id] = await knex('training_courses').insert({
+        ...omit(course, 'participants'),
+        species: JSON.stringify(course.species)
+      }).returning('id');
+
+      const _id = id.id;
+      // Map participants to include the training_course_id
+      const participants = (course.participants || []).map(participant => ({
+        ...participant,
+        training_course_id: _id // Use the actual ID for the participants
+      }));
+      // If there are participants, insert them into training_pils
+      if (participants.length > 0) {
+        await knex('training_pils').insert(participants);
+      }
+    }
   }
 };

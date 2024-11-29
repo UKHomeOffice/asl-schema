@@ -22,4 +22,4 @@ const toRichText = (...strings) => {
   };
 };
 
-module.exports = toRichText;
+export default toRichText;

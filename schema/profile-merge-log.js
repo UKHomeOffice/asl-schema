@@ -1,6 +1,8 @@
-const { Model } = require('objection');
-const { uuid } = require('../lib/regex-validation');
+import {Model} from 'objection';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
 
+const {uuid} = regex;
 class ProfileMergeLog extends Model {
   static get tableName() {
     return 'profileMergeLog';
@@ -31,7 +33,7 @@ class ProfileMergeLog extends Model {
     return {
       fromProfile: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'profileMergeLog.fromProfileId',
           to: 'profiles.id'
@@ -39,7 +41,7 @@ class ProfileMergeLog extends Model {
       },
       toProfile: {
         relation: this.HasOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'profileMergeLog.toProfileId',
           to: 'profiles.id'
@@ -49,4 +51,4 @@ class ProfileMergeLog extends Model {
   }
 }
 
-module.exports = ProfileMergeLog;
+export default ProfileMergeLog;

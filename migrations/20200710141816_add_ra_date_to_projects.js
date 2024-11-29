@@ -1,5 +1,5 @@
-const moment = require('moment');
-const { addedByAsru } = require('../lib/retrospective-assessment');
+import moment from 'moment';
+import {addedByAsru} from '../lib/retrospective-assessment.js';
 
 function getRaDate(version, project) {
   if (!version || !project || !version.data) {
@@ -16,17 +16,17 @@ function getRaDate(version, project) {
   return moment(date).add(6, 'months').toISOString();
 }
 
-exports.getRaDate = getRaDate;
+export {getRaDate};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('projects')
         .select('id', 'expiry_date', 'revocation_date', 'status')
-        .whereIn('status', ['active', 'revoked', 'expired'])
+        .whereIn('status', ['active', 'revoked', 'expired']);
     })
     .then(projects => {
-      console.log(`found ${projects.length} projects`)
+      console.log(`found ${projects.length} projects`);
       return projects.reduce((promise, project, index) => {
         return promise
           .then(() => {
@@ -47,7 +47,7 @@ exports.up = function(knex) {
               })
               .then(() => {
                 console.log(`finshed patching project: ${project.id}, ${index + 1} of ${projects.length}`);
-              })
+              });
           })
           .catch(e => {
             console.error(`Failed to update project: ${project.id}`);
@@ -56,8 +56,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

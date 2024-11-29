@@ -1,6 +1,8 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import EnforcementSubject from './enforcement-subject.js';
 
+const { uuid } = regex;
 class EnforcementCase extends BaseModel {
 
   static get tableName() {
@@ -25,7 +27,7 @@ class EnforcementCase extends BaseModel {
     return {
       subjects: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/enforcement-subject`,
+        modelClass: EnforcementSubject,
         join: {
           from: 'enforcementCases.id',
           to: 'enforcementSubjects.caseId'
@@ -42,4 +44,4 @@ class EnforcementCase extends BaseModel {
 
 }
 
-module.exports = EnforcementCase;
+export default EnforcementCase;

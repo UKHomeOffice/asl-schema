@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema.table('projects', table => {
     table.dateTime('transferred_in').nullable();
     table.dateTime('transferred_out').nullable();
@@ -8,9 +8,9 @@ exports.up = function(knex) {
     table.uuid('transfer_project_id').references('id').inTable('projects').nullable();
     table.integer('transfer_establishment_id').references('id').inTable('establishments').nullable();
   });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema.table('projects', table => {
     table.dropColumn('transferred_in');
     table.dropColumn('transferred_out');
@@ -19,4 +19,4 @@ exports.down = function(knex) {
     table.dropColumn('transfer_project_id');
     table.dropColumn('transfer_establishment_id');
   });
-};
+}

@@ -1,7 +1,12 @@
-const BaseModel = require('./base-model');
-const { pilStatuses } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
-const QueryBuilder = require('./query-builder');
+import {pilStatuses} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
+import PilTransfer from './pil-transfer.js';
+import Establishment from './establishment.js';
+import Profile from './profile.js';
+
+const { uuid } = regex;
 
 class PILQueryBuilder extends QueryBuilder {
   whereBillable({ establishmentId, start, end }) {
@@ -115,9 +120,9 @@ class PIL extends BaseModel {
         'profile.lastName',
         'profile.pilLicenceNumber as licenceNumber'
       )
-      .leftJoinRelation('profile')
+      .leftJoinRelated('profile')
       .where({ 'pils.establishmentId': establishmentId })
-      .eager('profile')
+      .withGraphFetched('profile')
       .where({ status: 'active' })
       .where((builder) => {
         if (search) {
@@ -143,7 +148,7 @@ class PIL extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'pils.establishmentId',
           to: 'establishments.id'
@@ -151,7 +156,7 @@ class PIL extends BaseModel {
       },
       pilTransfers: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/pil-transfer`,
+        modelClass: PilTransfer,
         join: {
           from: 'pils.id',
           to: 'pilTransfers.pilId'
@@ -159,7 +164,7 @@ class PIL extends BaseModel {
       },
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'pils.profileId',
           to: 'profiles.id'
@@ -169,4 +174,4 @@ class PIL extends BaseModel {
   }
 }
 
-module.exports = PIL;
+export default PIL;

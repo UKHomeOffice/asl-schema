@@ -1,5 +1,5 @@
-const moment = require('moment');
-const { Model } = require('objection');
+import moment from 'moment';
+import {Model} from 'objection';
 
 class DocumentCache extends Model {
 
@@ -75,4 +75,4 @@ class DocumentCache extends Model {
   }
 }
 
-module.exports = DocumentCache;
+export default DocumentCache;

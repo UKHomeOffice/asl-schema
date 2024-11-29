@@ -1,7 +1,7 @@
-const uuid = require('uuid/v4');
-const toRichText = require('../tables/utils/to-rich-text');
+import { v4 as uuid } from 'uuid';
+import toRichText from '../tables/utils/to-rich-text.js';
 
-module.exports = [
+export default [
   {
     id: '5760be36-6234-43e2-a0fe-f2cb244ba30a',
     'projectId': '519eb1d6-e8f0-4d9c-8628-8da4394c2d2e',

@@ -1,5 +1,8 @@
-const assert = require('assert');
-const db = require('./helpers/db');
+import assert from 'assert';
+import dbHelper from './helpers/db.js';
+import BaseModel from '../../schema/base-model.js';
+import Knex from 'knex';
+import Establishment from '../../schema/establishment.js';
 
 const validEstablishment = {
   id: 8201,
@@ -9,34 +12,38 @@ const validEstablishment = {
   address: '123 Somwhere Street'
 };
 
+const { knexInstance: dbInstance } = dbHelper;
+
 describe('Establishment model', () => {
-
-  before(() => {
-    this.models = db.init();
+  const knexInstance = Knex({
+    ...dbInstance.client.config
   });
 
-  beforeEach(() => {
-    return db.clean(this.models);
+  let model = null;
+
+  before(async () => {
+    model = await dbHelper.init();
+    BaseModel.knex(knexInstance);
   });
 
-  afterEach(() => {
-    return db.clean(this.models);
+  beforeEach(async () => {
+    await dbHelper.clean(model);
   });
 
-  after(() => {
-    return this.models.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   describe('Validation', () => {
     it('throws an error if validation fails', () => {
-      const { Establishment } = this.models;
       return assert.rejects(() => Establishment.query().insert({ id: 8201 }), {
         name: 'ValidationError'
       });
     });
 
     it('doesn\'t throw if establishment is valid', () => {
-      const { Establishment } = this.models;
       return assert.doesNotReject(() => {
         return Establishment.query().insert(validEstablishment);
       });
