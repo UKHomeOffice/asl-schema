@@ -1,14 +1,14 @@
 
-exports.up = function (knex, Promise) {
-    return knex.schema
-        .table('places', table => {
-            table.renameColumn('notes', 'restrictions');
-        });
-};
+export function up(knex, Promise) {
+  return knex.schema
+    .table('places', table => {
+      table.renameColumn('notes', 'restrictions');
+    });
+}
 
-exports.down = function (knex, Promise) {
-    return knex.schema
-        .table('places', table => {
-            table.renameColumn('restrictions', 'notes');
-        });
-};
+export function down(knex, Promise) {
+  return knex.schema
+    .table('places', table => {
+      table.renameColumn('restrictions', 'notes');
+    });
+}

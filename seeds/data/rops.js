@@ -1,5 +1,6 @@
 const now = new Date();
-module.exports = [
+
+export default [
   {
     projectId: 'b978c34f-d3bf-4747-ab03-97e44e2a80d8',
     year: '2020',

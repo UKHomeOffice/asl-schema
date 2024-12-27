@@ -1,7 +1,7 @@
-const tsquery = require('pg-tsquery');
+import tsquery from 'pg-tsquery';
 const parse = tsquery();
 
-module.exports = (Base) => {
+export default (Base) => {
 
   class NameSearch extends Base {
     whereNameMatch(search, prefix = 'profiles') {

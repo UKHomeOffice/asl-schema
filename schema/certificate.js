@@ -1,7 +1,8 @@
-const BaseModel = require('./base-model');
-const { date, uuid } = require('../lib/regex-validation');
-const { moduleCodes } = require('@ukhomeoffice/asl-constants');
+import {moduleCodes} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid, date } = regex;
 class Certificate extends BaseModel {
   static get tableName() {
     return 'certificates';
@@ -39,4 +40,4 @@ class Certificate extends BaseModel {
   }
 }
 
-module.exports = Certificate;
+export default Certificate;

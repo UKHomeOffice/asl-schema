@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex('project_versions')
     .where({
       ra_compulsory: false
@@ -8,8 +8,8 @@ exports.up = function(knex) {
     .update({
       ra_compulsory: true
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

@@ -1,14 +1,18 @@
-const uuid = require('uuid/v4');
-const { mapValues, omit, flatten, isEmpty, concat } = require('lodash');
-const { suitabilityCodes, holdingCodes } = require('@ukhomeoffice/asl-constants');
-const places = require('../data/places.json').map((p) => ({
+import { v4 as uuid } from 'uuid';
+import pkg from 'lodash';
+import {suitabilityCodes, holdingCodes} from '@ukhomeoffice/asl-constants';
+import getNonRandomRole from './utils/get-non-random-item.js';
+import placesData from '../data/places.js';
+
+const {mapValues, omit, flatten, isEmpty, concat} = pkg;
+
+// Mapping over the places data after importing
+const places = placesData.map((p) => ({
   id: uuid(),
   ...p
 }));
 
-const getNonRandomRole = require('./utils/get-non-random-item');
-
-module.exports = {
+export default {
   populate: (knex) => {
     return Promise.resolve()
       .then(() => {

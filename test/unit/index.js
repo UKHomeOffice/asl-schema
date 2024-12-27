@@ -1,5 +1,5 @@
-const assert = require('assert');
-const Schema = require('../../');
+import assert from 'assert';
+import Schema from '../../schema/index.js';
 
 describe('Schema', () => {
 

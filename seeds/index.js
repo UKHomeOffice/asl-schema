@@ -1,15 +1,15 @@
-const establishments = require('./tables/establishments');
-const profiles = require('./tables/profiles');
-const places = require('./tables/places');
-const projects = require('./tables/projects');
-const projectVersions = require('./tables/project-versions');
-const additionalAvailability = require('./tables/additional-availability');
-const trainingCourses = require('./tables/training-courses');
-const rops = require('./tables/rops');
-const dataExports = require('./tables/exports');
-const enforcementCases = require('./tables/enforcement-cases');
+import establishments from './tables/establishments.js';
+import profiles from './tables/profiles.js';
+import places from './tables/places.js';
+import projects from './tables/projects.js';
+import projectVersions from './tables/project-versions.js';
+import additionalAvailability from './tables/additional-availability.js';
+import trainingCourses from './tables/training-courses.js';
+import rops from './tables/rops.js';
+import dataExports from './tables/exports.js';
+import enforcementCases from './tables/enforcement-cases.js';
 
-exports.seed = async knex => {
+export async function seed(knex) {
   const tables = await knex.select('table_name')
     .from('information_schema.tables')
     .whereRaw('table_schema = current_schema()')
@@ -17,6 +17,7 @@ exports.seed = async knex => {
     .then(results => results.map(r => r.tableName).filter(tableName => !tableName.includes('knex_')));
 
   await Promise.all(tables.map(table => knex.raw(`TRUNCATE TABLE ${table} CASCADE`)));
+  console.log('DB truncated successfully!!!');
 
   await establishments.populate(knex);
   await profiles.populate(knex);
@@ -28,4 +29,6 @@ exports.seed = async knex => {
   await rops.populate(knex);
   await enforcementCases.populate(knex);
   await dataExports.populate(knex);
-};
+
+  console.log('Done DB SEED successfully!!!');
+}

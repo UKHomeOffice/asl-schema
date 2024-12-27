@@ -1,22 +1,22 @@
 const transform = data => {
   const isTrainingLicence = data['training-licence'] || (data['permissible-purpose'] || []).includes('higher-education');
-  return { ['training-licence']: isTrainingLicence, ...data };
+  return { 'training-licence': isTrainingLicence, ...data };
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
         .select('project_versions.id')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 })
+        .where({ 'schema_version': 1 })
         .whereNotNull('data')
         .whereRaw('data->>\'training-licence\' IS NULL');
     })
     .then(versions => {
-      console.log(`found ${versions.length} versions`)
+      console.log(`found ${versions.length} versions`);
       return versions.reduce((promise, version, index) => {
         return promise
           .then(() => {
@@ -39,8 +39,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

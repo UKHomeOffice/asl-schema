@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const Authorisation = require('../../schema/authorisation');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import Authorisation from '../../schema/authorisation.js';
 
 describe('Authorisation', () => {
   it('throws a validation error when empty', () => {
@@ -33,7 +33,7 @@ describe('Authorisation', () => {
       description: 'Rehome in a certified sanctuary',
       establishmentId: 100
     };
-    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /id: should match pattern/);
+    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /id: must match pattern/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -44,7 +44,7 @@ describe('Authorisation', () => {
       establishmentId: 100,
       unknown: 'example'
     };
-    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Authorisation.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

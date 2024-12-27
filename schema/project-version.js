@@ -1,6 +1,9 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Project from './project.js';
+import Profile from './profile.js';
 
+const { uuid } = regex;
 const projectVersionStatuses = ['draft', 'granted', 'submitted', 'withdrawn'];
 
 class ProjectVersion extends BaseModel {
@@ -37,7 +40,7 @@ class ProjectVersion extends BaseModel {
     return {
       project: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/project`,
+        modelClass: Project,
         join: {
           from: 'projectVersions.projectId',
           to: 'projects.id'
@@ -45,7 +48,7 @@ class ProjectVersion extends BaseModel {
       },
       licenceHolder: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'projectVersions.licenceHolderId',
           to: 'profiles.id'
@@ -55,4 +58,4 @@ class ProjectVersion extends BaseModel {
   }
 }
 
-module.exports = ProjectVersion;
+export default ProjectVersion;

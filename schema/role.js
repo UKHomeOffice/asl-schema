@@ -1,5 +1,8 @@
-const BaseModel = require('./base-model');
-const { roles } = require('@ukhomeoffice/asl-constants');
+import {roles} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
+import Establishment from './establishment.js';
+import Profile from './profile.js';
+import Place from './place.js';
 
 class Role extends BaseModel {
   static get tableName() {
@@ -31,7 +34,7 @@ class Role extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'roles.establishmentId',
           to: 'establishments.id'
@@ -39,7 +42,7 @@ class Role extends BaseModel {
       },
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'roles.profileId',
           to: 'profiles.id'
@@ -47,7 +50,7 @@ class Role extends BaseModel {
       },
       places: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/place`,
+        modelClass: Place,
         join: {
           from: 'roles.id',
           through: {
@@ -65,4 +68,4 @@ class Role extends BaseModel {
   }
 }
 
-module.exports = Role;
+export default Role;

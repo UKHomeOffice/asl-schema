@@ -1,11 +1,23 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const isuuid = require('uuid-validate');
-const { cloneDeep, omit } = require('lodash');
-const diff = require('deep-diff');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200323140559_speciesdetails_ids');
+import assert from 'assert';
+import objection from 'objection';
+import { v4 as uuid } from 'uuid';
+import isuuid from 'uuid-validate';
+import pkg from 'lodash';
+import diff from 'deep-diff';
+import Knex from 'knex';
+import moment from 'moment';
+import dbHelper from '../functional/helpers/db.js';
+import {transform, up} from '../../migrations/20200323140559_speciesdetails_ids.js';
+import Project from '../../schema/project.js';
+import BaseModel from '../../schema/base-model.js';
+import Establishment from '../../schema/establishment.js';
+import ProjectVersion from '../../schema/project-version.js';
+import Pil from '../../schema/pil.js';
+import Profile from '../../schema/profile.js';
 
+const { knexSnakeCaseMappers } = objection;
+
+const {cloneDeep, omit} = pkg;
 describe('transform', () => {
 
   it('returns undefined if passed a falsy data blob', () => {
@@ -158,17 +170,25 @@ describe('transform', () => {
 
 describe('up', () => {
 
+  const { knexInstance: dbInstance } = dbHelper;
+
+  const knexInstance = Knex({
+    ...dbInstance.client.config,
+    ...knexSnakeCaseMappers()
+  });
+
   const ids = {
     versions: uuid(),
     draft: uuid(),
     legacy: uuid(),
-    noprotocols: uuid()
+    noprotocols: uuid(),
+    profile: uuid()
   };
 
   const licenceHolder = {
-    id: uuid(),
-    first_name: 'Licence',
-    last_name: 'Holder',
+    id: ids.profile,
+    firstName: 'Licence',
+    lastName: 'Holder',
     email: 'test@example.com'
   };
 
@@ -184,63 +204,67 @@ describe('up', () => {
     {
       id: ids.versions,
       title: 'Project with granted versions',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 1
+      schemaVersion: 1,
+      establishmentId: 100
     },
     {
       id: ids.draft,
       title: 'Project draft',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'inactive',
-      schema_version: 1
+      schemaVersion: 1,
+      establishmentId: 100
     },
     {
       id: ids.legacy,
       title: 'Legacy Project',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'active',
-      schema_version: 0
+      schemaVersion: 0,
+      establishmentId: 100
     },
     {
       id: ids.noprotocols,
       title: 'No protocols',
-      licence_holder_id: licenceHolder.id,
+      licenceHolderId: licenceHolder.id,
       status: 'inactive',
-      schema_version: 1
+      schemaVersion: 1,
+      establishmentId: 100
     }
   ];
 
-  const versions = [
+  const projectVersions = [
     {
-      project_id: ids.noprotocols,
+      projectId: ids.noprotocols,
       status: 'draft',
       data: {
         title: 'No protocols'
       }
     },
     {
-      project_id: ids.legacy,
+      projectId: ids.legacy,
       status: 'granted',
       data: {
         protocols: [
           { title: 'protocol 1' }
         ]
       },
-      created_at: '2019-01-01T12:00:00.000Z'
+      createdAt: '2019-01-01T12:00:00.000Z'
     },
     {
-      project_id: ids.legacy,
+      projectId: ids.legacy,
       status: 'granted',
       data: {
         protocols: [
           { title: 'protocol 1 edited' }
         ]
       },
-      created_at: '2019-02-01T12:00:00.000Z'
+      createdAt: '2019-02-01T12:00:00.000Z'
     },
     {
-      project_id: ids.versions,
+      projectId: ids.versions,
       status: 'granted',
       data: {
         protocols: [
@@ -251,10 +275,10 @@ describe('up', () => {
           }
         ]
       },
-      created_at: '2019-01-01T12:00:00.000Z'
+      createdAt: '2019-01-01T12:00:00.000Z'
     },
     {
-      project_id: ids.versions,
+      projectId: ids.versions,
       status: 'granted',
       data: {
         protocols: [
@@ -265,10 +289,10 @@ describe('up', () => {
           }
         ]
       },
-      created_at: '2019-02-01T12:00:00.000Z'
+      createdAt: '2019-02-01T12:00:00.000Z'
     },
     {
-      project_id: ids.versions,
+      projectId: ids.versions,
       status: 'draft',
       data: {
         protocols: [
@@ -279,10 +303,10 @@ describe('up', () => {
           }
         ]
       },
-      created_at: '2019-03-01T12:00:00.000Z'
+      createdAt: '2019-03-01T12:00:00.000Z'
     },
     {
-      project_id: ids.draft,
+      projectId: ids.draft,
       status: 'submitted',
       data: {
         protocols: [
@@ -293,10 +317,10 @@ describe('up', () => {
           }
         ]
       },
-      created_at: '2019-01-01T12:00:00.000Z'
+      createdAt: '2019-01-01T12:00:00.000Z'
     },
     {
-      project_id: ids.draft,
+      projectId: ids.draft,
       status: 'draft',
       data: {
         protocols: [
@@ -307,29 +331,54 @@ describe('up', () => {
           }
         ]
       },
-      created_at: '2019-02-01T12:00:00.000Z'
+      createdAt: '2019-02-01T12:00:00.000Z'
     }
   ];
 
-  before(() => {
-    this.knex = db.init();
+  const profile = {
+    id: ids.profile,
+    firstName: 'Holc',
+    lastName: 'Hogan',
+    email: 'holc@hogan.com'
+  };
+
+  const LICENCE_NUMBER = 'SN123456';
+
+  const pils = {
+    status: 'active',
+    establishmentId: 100,
+    profileId: ids.profile,
+    licenceNumber: LICENCE_NUMBER,
+    issueDate: moment().subtract(1, 'month').toISOString()
+  };
+
+  let model = null;
+
+  before(async () => {
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
+    await knexInstance.migrate.latest();
+    BaseModel.knex(knexInstance);
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('establishments').insert(establishment))
-      .then(() => this.knex('profiles').insert(licenceHolder))
-      .then(() => this.knex('projects').insert(projects))
-      .then(() => this.knex('project_versions').insert(versions));
+  beforeEach(async () => {
+    await dbHelper.clean(model);
+    try {
+      await Profile.query().insert(profile);
+      await Establishment.query().insert(establishment);
+      await Pil.query().insert(pils);
+      await Project.query().insert(projects);
+      await ProjectVersion.query().insert(projectVersions);
+      console.log('Data inserted successfully');
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('is ok', () => {
@@ -339,7 +388,9 @@ describe('up', () => {
   it('does not change any properties, only adds new ids', () => {
     return Promise.resolve()
       .then(() => {
-        return this.knex('projects')
+        // its is objection model ('projects')= Project
+        return knexInstance('projects')
+          // its is objection model ('project_versions') = ProjectVersion
           .leftJoin('project_versions', 'projects.id', 'project_versions.project_id')
           .orderBy('projects.title', 'asc')
           .orderBy('project_versions.created_at', 'asc');
@@ -347,10 +398,10 @@ describe('up', () => {
       .then(before => {
         return Promise.resolve()
           .then(() => {
-            return up(this.knex)
+            return up(knexInstance);
           })
           .then(() => {
-            return this.knex('projects')
+            return knexInstance('projects')
               .select('*')
               .leftJoin('project_versions', 'projects.id', 'project_versions.project_id')
               .orderBy('projects.title', 'asc')
@@ -361,14 +412,14 @@ describe('up', () => {
             assert.ok(changes.every(change => {
               return change.kind === 'N' && change.path.pop() === 'id';
             }));
-          })
+          });
       });
   });
 
   it('adds missing id properties only to the latest version', () => {
-    return up(this.knex)
+    return up(knexInstance)
       .then(() => {
-        return this.knex('project_versions')
+        return knexInstance('project_versions')
           .where('project_id', ids.versions)
           .orderBy('created_at', 'asc');
       })
@@ -388,9 +439,9 @@ describe('up', () => {
   });
 
   it('adds missing id properties to drafts', () => {
-    return up(this.knex)
+    return up(knexInstance)
       .then(() => {
-        return this.knex('project_versions')
+        return knexInstance('project_versions')
           .where('project_id', ids.draft)
           .orderBy('created_at', 'asc');
       })

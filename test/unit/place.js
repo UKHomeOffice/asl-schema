@@ -1,6 +1,6 @@
-const expect = require('chai').expect;
-const Place = require('../../schema/place');
-const { ValidationError } = require('objection');
+import {expect} from 'chai';
+import {ValidationError} from 'objection';
+import Place from '../../schema/place.js';
 
 describe('Place', () => {
   it('throws a validation error when invalid array values are provided', () => {
@@ -11,7 +11,7 @@ describe('Place', () => {
       holding: ['STH', 'LTH'],
       establishmentId: 100
     };
-    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /should be string/);
+    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /must be equal to one of the allowed values/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -23,7 +23,7 @@ describe('Place', () => {
       establishmentId: 100,
       unknown: 'example'
     };
-    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

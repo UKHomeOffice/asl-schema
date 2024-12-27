@@ -1,4 +1,5 @@
-const { uniq } = require('lodash');
+import pkg from 'lodash';
+const {uniq} = pkg;
 
 function transform(certificate) {
   if (!certificate.modules || !certificate.modules.length) {
@@ -12,9 +13,9 @@ function transform(certificate) {
   };
 }
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return knex('certificates')
     .select('id', 'species', 'modules')
     .then(certs => {
@@ -34,8 +35,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

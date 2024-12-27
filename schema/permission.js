@@ -1,5 +1,5 @@
-const BaseModel = require('./base-model');
-const { externalPermissions } = require('@ukhomeoffice/asl-constants');
+import {externalPermissions} from '@ukhomeoffice/asl-constants';
+import BaseModel from './base-model.js';
 
 class Permission extends BaseModel {
   static get tableName() {
@@ -23,4 +23,4 @@ class Permission extends BaseModel {
   }
 }
 
-module.exports = Permission;
+export default Permission;

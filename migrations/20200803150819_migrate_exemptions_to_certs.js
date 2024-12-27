@@ -1,4 +1,5 @@
-const { uniq } = require('lodash');
+import pkg from 'lodash';
+const {uniq} = pkg;
 
 function uniqConcat(a, b) {
   return uniq([
@@ -25,9 +26,9 @@ function transform(exemptions) {
   }, {});
 }
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('exemptions')
@@ -58,8 +59,8 @@ exports.up = function(knex) {
         });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex('certificates').where('is_exemption', true).delete();
-};
+}

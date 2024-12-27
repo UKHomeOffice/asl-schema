@@ -1,4 +1,4 @@
-const { isRequired } = require('../lib/retrospective-assessment');
+import {isRequired} from '../lib/retrospective-assessment.js';
 
 function raCompulsory(version) {
   if (!version || !version.data) {
@@ -7,16 +7,16 @@ function raCompulsory(version) {
   return isRequired(version.data);
 }
 
-exports.raCompulsory = raCompulsory;
+export {raCompulsory};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
         .select('id');
     })
     .then(versions => {
-      console.log(`found ${versions.length} versions`)
+      console.log(`found ${versions.length} versions`);
       return versions.reduce((promise, version, index) => {
         return promise
           .then(() => {
@@ -35,7 +35,7 @@ exports.up = function(knex) {
               })
               .then(() => {
                 console.log(`finshed patching version: ${version.id}, ${index + 1} of ${versions.length}`);
-              })
+              });
           })
           .catch(e => {
             console.error(`Failed to update project version: ${version.id}`);
@@ -44,8 +44,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

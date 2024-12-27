@@ -1,12 +1,12 @@
 
-exports.up = function(knex, Promise) {
+export function up(knex, Promise) {
   return knex.schema.table('exemptions', table => {
     table.jsonb('species');
   });
-};
+}
 
-exports.down = function(knex, Promise) {
+export function down(knex, Promise) {
   return knex.schema.table('exemptions', table => {
     table.dropColumn('species');
   });
-};
+}

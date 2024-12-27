@@ -9,8 +9,7 @@ const alterEnumColumn = (tableName, columnName, enums, nullable = true) => {
   ].join('\n');
 };
 
-
-exports.up = async function up(knex) {
+export async function up(knex, Promise) {
   await knex.raw(
     alterEnumColumn('establishments', 'country', ['england', 'scotland', 'wales', 'ni'], true)
   );
@@ -19,9 +18,9 @@ exports.up = async function up(knex) {
     table.string('address').nullable().alter();
     table.string('email').nullable().alter();
   });
-};
+}
 
-exports.down = async function down(knex) {
+export async function down(knex, Promise) {
   await knex.raw(
     alterEnumColumn('establishments', 'country', ['england', 'scotland', 'wales', 'ni'], false)
   );
@@ -30,4 +29,4 @@ exports.down = async function down(knex) {
     table.string('address').notNullable().alter();
     table.string('email').notNullable().alter();
   });
-};
+}

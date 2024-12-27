@@ -1,11 +1,19 @@
-const BaseModel = require('./base-model');
-const { projectStatuses } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
-const moment = require('moment');
-const { get } = require('lodash');
+import {projectStatuses} from '@ukhomeoffice/asl-constants';
+import moment from 'moment';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import QueryBuilder from './query-builder/index.js';
+import Reminder from './reminder.js';
+import Rop from './rop.js';
+import Profile from './profile.js';
+import RetrospectiveAssessment from './retrospective-assessment.js';
+import ProjectVersion from './project-version.js';
+import ProjectEstablishment from './project-establishment.js';
+import Establishment from './establishment.js';
 
-const QueryBuilder = require('./query-builder');
-
+const {uuid} = regex;
+const {get} = pkg;
 const statusQuery =
   (status, includeSuspended = false) =>
     (query) => {
@@ -267,7 +275,7 @@ class Project extends BaseModel {
     return this.query()
       .where({ establishmentId })
       .findById(id)
-      .eager('licenceHolder');
+      .withGraphFetched('licenceHolder');
   }
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
@@ -275,7 +283,7 @@ class Project extends BaseModel {
       .where({ establishmentId })
       .whereIsCollaborator(licenceHolderId)
       .findById(id)
-      .eager('licenceHolder');
+      .withGraphFetched('licenceHolder');
   }
 
   static getOwnProjects({ licenceHolderId, ...props }) {
@@ -298,7 +306,7 @@ class Project extends BaseModel {
   }
 
   static filterUnsubmittedDrafts(query) {
-    return query.joinRelation('version').where('version.status', '!=', 'draft');
+    return query.joinRelated('version').where('version.status', '!=', 'draft');
   }
 
   static count({
@@ -358,7 +366,7 @@ class Project extends BaseModel {
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where(statusQuery(status, includeSuspended))
-      .leftJoinRelation('licenceHolder')
+      .leftJoinRelated('licenceHolder')
       .withGraphFetched(
         '[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]'
       )
@@ -429,7 +437,7 @@ class Project extends BaseModel {
     return {
       licenceHolder: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'projects.licenceHolderId',
           to: 'profiles.id'
@@ -437,7 +445,7 @@ class Project extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'projects.establishmentId',
           to: 'establishments.id'
@@ -445,7 +453,7 @@ class Project extends BaseModel {
       },
       projectEstablishments: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/project-establishment`,
+        modelClass: ProjectEstablishment,
         join: {
           from: 'projects.id',
           to: 'projectEstablishments.projectId'
@@ -453,7 +461,7 @@ class Project extends BaseModel {
       },
       additionalEstablishments: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'projects.id',
           through: {
@@ -466,7 +474,7 @@ class Project extends BaseModel {
       },
       version: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/project-version`,
+        modelClass: ProjectVersion,
         join: {
           from: 'projects.id',
           to: 'projectVersions.projectId'
@@ -474,7 +482,7 @@ class Project extends BaseModel {
       },
       retrospectiveAssessments: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/retrospective-assessment`,
+        modelClass: RetrospectiveAssessment,
         join: {
           from: 'projects.id',
           to: 'retrospectiveAssessments.projectId'
@@ -482,7 +490,7 @@ class Project extends BaseModel {
       },
       collaborators: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'projects.id',
           through: {
@@ -495,7 +503,7 @@ class Project extends BaseModel {
       },
       rops: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/rop`,
+        modelClass: Rop,
         join: {
           from: 'projects.id',
           to: 'rops.projectId'
@@ -503,7 +511,7 @@ class Project extends BaseModel {
       },
       reminders: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/reminder`,
+        modelClass: Reminder,
         join: {
           from: 'projects.id',
           to: 'reminders.modelId'
@@ -513,4 +521,4 @@ class Project extends BaseModel {
   }
 }
 
-module.exports = Project;
+export default Project;

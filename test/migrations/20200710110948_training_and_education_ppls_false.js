@@ -1,5 +1,5 @@
-const assert = require('assert');
-const { transform } = require('../../migrations/20200710110948_training_and_education_ppls_false');
+import assert from 'assert';
+import {transform} from '../../migrations/20200710110948_training_and_education_ppls_false.js';
 
 describe('Training PPLs migration', () => {
 

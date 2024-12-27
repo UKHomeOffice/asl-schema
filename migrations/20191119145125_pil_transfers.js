@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema
     .dropTableIfExists('pil_transfers')
     .createTable('pil_transfers', table => {
@@ -14,8 +14,8 @@ exports.up = function(knex) {
       table.timestamps(false, true);
       table.dateTime('deleted');
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema.dropTableIfExists('pil_transfers');
-};
+}

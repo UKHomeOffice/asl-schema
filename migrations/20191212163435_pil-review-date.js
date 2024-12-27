@@ -1,10 +1,10 @@
 
-exports.up = function(knex) {
+export function up(knex, Promise) {
   return knex.schema
-    .table('pils', table => { table.dateTime('review_date') });
-};
+    .table('pils', table => { table.dateTime('review_date'); });
+}
 
-exports.down = function(knex) {
+export function down(knex, Promise) {
   return knex.schema
-    .table('pils', table => { table.dropColumn('review_date') });
-};
+    .table('pils', table => { table.dropColumn('review_date'); });
+}

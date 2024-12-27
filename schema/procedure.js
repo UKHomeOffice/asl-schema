@@ -1,6 +1,8 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Rop from './rop.js';
 
+const {uuid} = regex;
 class Procedure extends BaseModel {
   static get tableName() {
     return 'procedures';
@@ -78,7 +80,7 @@ class Procedure extends BaseModel {
     return {
       rop: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/rop`,
+        modelClass: Rop,
         join: {
           from: 'procedures.ropId',
           to: 'rops.id'
@@ -112,4 +114,4 @@ class Procedure extends BaseModel {
 
 }
 
-module.exports = Procedure;
+export default Procedure;

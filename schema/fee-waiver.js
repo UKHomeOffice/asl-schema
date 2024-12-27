@@ -1,6 +1,9 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Profile from './profile.js';
+import Establishment from './establishment.js';
 
+const {uuid} = regex;
 class FeeWaiver extends BaseModel {
   static get tableName() {
     return 'pilFeeWaivers';
@@ -16,7 +19,7 @@ class FeeWaiver extends BaseModel {
         profileId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
         year: { type: 'integer' },
-        comment: { type: 'text' },
+        comment: { type: 'string' },
         waivedById: { type: 'string', pattern: uuid.v4 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' }
@@ -28,7 +31,7 @@ class FeeWaiver extends BaseModel {
     return {
       profile: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'pilFeeWaivers.profileId',
           to: 'profiles.id'
@@ -36,7 +39,7 @@ class FeeWaiver extends BaseModel {
       },
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'pilFeeWaivers.establishmentId',
           to: 'establishments.id'
@@ -44,7 +47,7 @@ class FeeWaiver extends BaseModel {
       },
       waivedBy: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/profile`,
+        modelClass: Profile,
         join: {
           from: 'pilFeeWaivers.waivedById',
           to: 'profiles.id'
@@ -54,4 +57,4 @@ class FeeWaiver extends BaseModel {
   }
 }
 
-module.exports = FeeWaiver;
+export default FeeWaiver;

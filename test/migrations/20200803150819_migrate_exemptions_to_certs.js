@@ -1,10 +1,12 @@
-const uuid = require('uuid/v4');
-const moment = require('moment');
-const { isMatch } = require('lodash');
-const assert = require('assert');
-const db = require('./helpers/db');
-const { transform, up } = require('../../migrations/20200803150819_migrate_exemptions_to_certs');
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+import pkg from 'lodash';
+import assert from 'assert';
+import {transform, up} from '../../migrations/20200803150819_migrate_exemptions_to_certs.js';
+import Knex from 'knex';
+import dbHelper from '../functional/helpers/db.js';
 
+const {isMatch} = pkg;
 describe('transform', () => {
   it('returns an empty object if called with an empty array', () => {
     assert.deepEqual(transform([]), {});
@@ -84,6 +86,14 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  const { knexInstance: dbInstance } = dbHelper;
+  const client = dbInstance.client.config.client;
+  const connection = dbInstance.client.config.connection;
+
+  const knexInstance = Knex({
+    client: client,
+    connection: connection
+  });
 
   const ids = {
     profile: {
@@ -141,30 +151,32 @@ describe('up', () => {
       updated_at: moment().subtract(2, 'months').toISOString()
     }
   ];
+  let model = null;
 
-  before(() => {
-    this.knex = db.init();
+  before(async () => {
+    model = await dbHelper.init();
   });
 
-  beforeEach(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.knex))
-      .then(() => this.knex('profiles').insert(profiles))
-      .then(() => this.knex('exemptions').insert(exemptions));
+  beforeEach(async () => {
+    await dbHelper.clean(model);
+    try {
+      await knexInstance('profiles').insert(profiles);
+      await knexInstance('exemptions').insert(exemptions);
+    } catch (error) {
+      console.error('Error inserting data:', error);
+    }
   });
 
-  afterEach(() => {
-    return db.clean(this.knex);
-  });
-
-  after(() => {
-    return this.knex.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('combines exemptions for holc', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('certificates').where('profile_id', ids.profile.holc).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('certificates').where('profile_id', ids.profile.holc).first())
       .then(certificate => {
         const expected = {
           profile_id: ids.profile.holc,
@@ -179,8 +191,8 @@ describe('up', () => {
 
   it('combines exemptions for other profile', () => {
     return Promise.resolve()
-      .then(() => up(this.knex))
-      .then(() => this.knex('certificates').where('profile_id', ids.profile.archer).first())
+      .then(() => up(knexInstance))
+      .then(() => knexInstance('certificates').where('profile_id', ids.profile.archer).first())
       .then(certificate => {
         const expected = {
           profile_id: ids.profile.archer,

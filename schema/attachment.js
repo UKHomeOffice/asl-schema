@@ -1,6 +1,7 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid } = regex;
 class Attachment extends BaseModel {
   static get tableName() {
     return 'attachments';
@@ -24,4 +25,4 @@ class Attachment extends BaseModel {
   }
 }
 
-module.exports = Attachment;
+export default Attachment;

@@ -1,8 +1,13 @@
-const { uniq, flatten } = require('lodash');
-const BaseModel = require('./base-model');
-const { suitabilityCodes, holdingCodes } = require('@ukhomeoffice/asl-constants');
-const { uuid } = require('../lib/regex-validation');
+import {suitabilityCodes, holdingCodes} from '@ukhomeoffice/asl-constants';
+import pkg from 'lodash';
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Establishment from './establishment.js';
+import PlaceRole from './place-role.js';
+import Role from './role.js';
 
+const { uuid } = regex;
+const {uniq, flatten} = pkg;
 class PlaceQueryBuilder extends BaseModel.QueryBuilder {
   joinRoles() {
     return this.leftJoinRelated('roles.profile')
@@ -105,7 +110,7 @@ class Place extends BaseModel {
       .distinct('places.id')
       .where({ 'places.establishmentId': establishmentId })
       // we need to query the join table directly to avoid filtering on deleted associations
-      .leftJoinRelation('roleJoins')
+      .leftJoinRelated('roleJoins')
       .joinRoles();
 
     if (filters.site) {
@@ -146,7 +151,7 @@ class Place extends BaseModel {
     return {
       establishment: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'places.establishmentId',
           to: 'establishments.id'
@@ -154,7 +159,7 @@ class Place extends BaseModel {
       },
       roleJoins: {
         relation: this.HasManyRelation,
-        modelClass: `${__dirname}/place-role`,
+        modelClass: PlaceRole,
         join: {
           from: 'places.id',
           to: 'placeRoles.placeId'
@@ -162,7 +167,7 @@ class Place extends BaseModel {
       },
       roles: {
         relation: this.ManyToManyRelation,
-        modelClass: `${__dirname}/role`,
+        modelClass: Role,
         join: {
           from: 'places.id',
           through: {
@@ -176,4 +181,4 @@ class Place extends BaseModel {
   }
 }
 
-module.exports = Place;
+export default Place;

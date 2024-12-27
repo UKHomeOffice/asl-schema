@@ -22,9 +22,9 @@ const transform = version => {
   return version;
 };
 
-exports.transform = transform;
+export {transform};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('project_versions')
@@ -67,8 +67,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

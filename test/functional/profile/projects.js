@@ -1,6 +1,14 @@
-const uuid = require('uuid/v4');
-const assert = require('assert');
-const db = require('../helpers/db');
+import { v4 as uuid } from 'uuid';
+import assert from 'assert';
+import dbHelper from '../helpers/db.js';
+import Knex from 'knex';
+import Establishment from '../../../schema/establishment.js';
+import Profile from '../../../schema/profile.js';
+import Permission from '../../../schema/permission.js';
+import Project from '../../../schema/project.js';
+import ProjectEstablishment from '../../../schema/project-establishment.js';
+import { Model } from 'objection';
+import BaseModel from '../../../schema/base-model.js';
 
 const ids = {
   profile: {
@@ -18,17 +26,21 @@ const ids = {
     grantedAdditional: uuid()
   }
 };
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Profile Projects', () => {
-
-  before(() => {
-    this.models = db.init();
+  const knexInstance = Knex({
+    ...dbInstance.client.config
   });
+  let model = null;
 
-  before(() => {
-    return Promise.resolve()
-      .then(() => db.clean(this.models))
-      .then(() => this.models.Establishment.query().insert([
+  before(async () => {
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
+    Model.knex(knexInstance);
+    BaseModel.knex(knexInstance);
+    try {
+      await Establishment.query().insert([
         {
           id: 111,
           name: 'An establishment'
@@ -41,8 +53,8 @@ describe('Profile Projects', () => {
           id: 333,
           name: 'A third establishment'
         }
-      ]))
-      .then(() => this.models.Profile.query().insert([
+      ]);
+      await Profile.query().insert([
         {
           id: ids.profile.regular,
           firstName: 'Project',
@@ -55,8 +67,8 @@ describe('Profile Projects', () => {
           lastName: 'Holder',
           email: 'ah@example.com'
         }
-      ]))
-      .then(() => this.models.Permission.query().insert([
+      ]);
+      await Permission.query().insert([
         {
           profileId: ids.profile.regular,
           establishmentId: 111,
@@ -82,8 +94,8 @@ describe('Profile Projects', () => {
           establishmentId: 333,
           role: 'basic'
         }
-      ]).returning('*'))
-      .then(() => this.models.Project.query().insertGraph([
+      ]).returning('*');
+      await Project.query().insertGraph([
         {
           id: ids.project.regular,
           licenceHolderId: ids.profile.regular,
@@ -128,8 +140,8 @@ describe('Profile Projects', () => {
             }
           ]
         }
-      ]))
-      .then(() => this.models.ProjectEstablishment.query().insert([
+      ]);
+      await ProjectEstablishment.query().insert([
         {
           projectId: ids.project.draftAdditional,
           establishmentId: 222,
@@ -148,33 +160,36 @@ describe('Profile Projects', () => {
           versionId: ids.version.grantedAdditional,
           status: 'active'
         }
-      ]));
+      ]);
+
+      console.log('Data insert successfully!!!');
+    } catch (error) {
+      console.log('insert unsuccessful: ', error);
+    }
   });
 
-  after(() => {
-    return db.clean(this.models);
-  });
-
-  after(() => {
-    return this.models.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   it('shows projects held at the scoped establishment', () => {
-    return this.models.Profile.get({ establishmentId: 111, id: ids.profile.regular })
+    return Profile.get({ establishmentId: 111, id: ids.profile.regular })
       .then(profile => {
         assert.deepEqual(profile.projects.map(p => p.title), ['Ordinary project']);
       });
   });
 
   it('does not show projects held other than at the scoped establishment', () => {
-    return this.models.Profile.get({ establishmentId: 222, id: ids.profile.regular })
+    return Profile.get({ establishmentId: 222, id: ids.profile.regular })
       .then(profile => {
         assert.deepEqual(profile.projects.map(p => p.title), []);
       });
   });
 
   it('shows projects with additional availability at the scoped establishment', () => {
-    return this.models.Profile.get({ establishmentId: 111, id: ids.profile.additional })
+    return Profile.get({ establishmentId: 111, id: ids.profile.additional })
       .then(profile => {
         assert.deepEqual(profile.projects.map(p => p.title), [
           'Draft additional project',
@@ -184,7 +199,7 @@ describe('Profile Projects', () => {
   });
 
   it('does not show projects with draft amendments to add additional availability', () => {
-    return this.models.Profile.get({ establishmentId: 222, id: ids.profile.additional })
+    return Profile.get({ establishmentId: 222, id: ids.profile.additional })
       .then(profile => {
         assert.deepEqual(profile.projects.map(p => p.title), [
           'Granted additional project'
@@ -193,7 +208,7 @@ describe('Profile Projects', () => {
   });
 
   it('shows all projects when not scoped to an establishment', () => {
-    return this.models.Profile.get({ id: ids.profile.additional })
+    return Profile.get({ id: ids.profile.additional })
       .then(profile => {
         assert.deepEqual(profile.projects.map(p => p.title), [
           'Another ordinary project',
@@ -206,7 +221,7 @@ describe('Profile Projects', () => {
   it('includes additional establishment data on projects only for the establishments are in scope', () => {
     return Promise.resolve()
       .then(() => {
-        return this.models.Profile.get({ establishmentId: 111, id: ids.profile.additional });
+        return Profile.get({ establishmentId: 111, id: ids.profile.additional });
       })
       .then(profile => {
         const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);
@@ -215,7 +230,7 @@ describe('Profile Projects', () => {
         assert.deepEqual(project.additionalEstablishments[0], { id: 111, name: 'An establishment', status: 'active' });
       })
       .then(() => {
-        return this.models.Profile.get({ establishmentId: 333, id: ids.profile.additional });
+        return Profile.get({ establishmentId: 333, id: ids.profile.additional });
       })
       .then(profile => {
         const project = profile.projects.find(p => p.id === ids.project.grantedAdditional);

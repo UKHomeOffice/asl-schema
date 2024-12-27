@@ -1,5 +1,5 @@
-const moment = require('moment');
-const { addedByAsru } = require('../lib/retrospective-assessment');
+import moment from 'moment';
+import {addedByAsru} from '../lib/retrospective-assessment.js';
 
 function getRaDate(version, project) {
   if (!version || !project || !version.data) {
@@ -16,9 +16,9 @@ function getRaDate(version, project) {
   return moment(date).add(6, 'months').toISOString();
 }
 
-exports.getRaDate = getRaDate;
+export {getRaDate};
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex('projects')
@@ -58,8 +58,8 @@ exports.up = function(knex) {
           });
       }, Promise.resolve());
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return Promise.resolve();
-};
+}

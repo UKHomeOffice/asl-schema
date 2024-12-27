@@ -3,7 +3,7 @@
   passed as a second argument
 */
 
-module.exports = (list, str) => {
+export default (list, str) => {
   const i = str.split('').reduce((n, c) => n + c.charAt(0), 0) % list.length;
   if (isNaN(i)) {
     return list[0].id;

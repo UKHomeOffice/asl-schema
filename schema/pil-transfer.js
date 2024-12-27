@@ -1,6 +1,9 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
+import Pil from './pil.js';
+import Establishment from './establishment.js';
 
+const {uuid} = regex;
 class PilTransfer extends BaseModel {
   static get tableName() {
     return 'pilTransfers';
@@ -26,7 +29,7 @@ class PilTransfer extends BaseModel {
     return {
       pil: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/pil`,
+        modelClass: Pil,
         join: {
           from: 'pilTransfers.pilId',
           to: 'pils.id'
@@ -34,7 +37,7 @@ class PilTransfer extends BaseModel {
       },
       from: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'pilTransfers.fromEstablishmentId',
           to: 'establishments.id'
@@ -42,7 +45,7 @@ class PilTransfer extends BaseModel {
       },
       to: {
         relation: this.BelongsToOneRelation,
-        modelClass: `${__dirname}/establishment`,
+        modelClass: Establishment,
         join: {
           from: 'pilTransfers.toEstablishmentId',
           to: 'establishments.id'
@@ -52,4 +55,4 @@ class PilTransfer extends BaseModel {
   }
 }
 
-module.exports = PilTransfer;
+export default PilTransfer;

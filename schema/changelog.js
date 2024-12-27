@@ -1,6 +1,7 @@
-const BaseModel = require('./base-model');
-const { uuid } = require('../lib/regex-validation');
+import BaseModel from './base-model.js';
+import regex from '../lib/regex-validation.js';
 
+const { uuid } = regex;
 class Changelog extends BaseModel {
   static get tableName() {
     return 'changelog';
@@ -25,10 +26,10 @@ class Changelog extends BaseModel {
         state: { type: 'object' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
-        deleted: { type: ['string', 'null'], formate: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }
 }
 
-module.exports = Changelog;
+export default Changelog;

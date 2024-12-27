@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   return Promise.resolve()
     .then(() => {
       return knex.schema
@@ -42,8 +42,8 @@ exports.up = function(knex) {
         return knex('pil_fee_waivers').insert(waivers);
       }
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   return knex.schema.dropTableIfExists('pil_fee_waivers');
-};
+}

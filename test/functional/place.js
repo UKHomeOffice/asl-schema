@@ -1,6 +1,13 @@
-const assert = require('assert');
-const uuid = require('uuid/v4');
-const db = require('./helpers/db');
+import assert from 'assert';
+import {v4 as uuid} from 'uuid';
+import dbHelper from './helpers/db.js';
+import Knex from 'knex';
+import BaseModel from '../../schema/base-model.js';
+import Establishment from '../../schema/establishment.js';
+import Place from '../../schema/place.js';
+import PlaceRole from '../../schema/place-role.js';
+
+const { knexInstance: dbInstance } = dbHelper;
 
 describe('Place model', () => {
   const nacwo1 = uuid();
@@ -13,14 +20,22 @@ describe('Place model', () => {
   const sqpId = uuid();
   const sqpRoleId = uuid();
 
-  before(() => {
-    this.models = db.init();
+  const knexInstance = Knex({
+    ...dbInstance.client.config
+  });
+
+  let model = null;
+
+  before(async () => {
+    model = await dbHelper.init();
+    await dbHelper.clean(model);
+    BaseModel.knex(knexInstance);
   });
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => db.clean(this.models))
-      .then(() => this.models.Establishment.query().insertGraph([
+      .then(() => dbHelper.clean(model))
+      .then(() => Establishment.query().insertGraph([
         {
           id: 8201,
           name: 'An establishment',
@@ -82,7 +97,7 @@ describe('Place model', () => {
           ]
         }
       ]))
-      .then(() => this.models.Place.query().insertGraph([
+      .then(() => Place.query().insertGraph([
         {
           id: placeId1,
           site: 'A site',
@@ -157,18 +172,16 @@ describe('Place model', () => {
       { relate: true }));
   });
 
-  afterEach(() => {
-    return db.clean(this.models);
-  });
-
-  after(() => {
-    return this.models.destroy();
+  after(async () => {
+    // Destroy the database connection after cleanup.
+    await dbHelper.clean(model);
+    await knexInstance.destroy();
   });
 
   describe('getFilterOptions', () => {
     it('returns a map of unique sites, holding codes, suitability codes and roles', () => {
       return Promise.resolve()
-        .then(() => this.models.Place.getFilterOptions(8201))
+        .then(() => Place.getFilterOptions(8201))
         .then(filters => {
           assert.deepEqual(filters.map(f => ({ ...f, values: f.values.sort() })), [{
             key: 'site',
@@ -209,7 +222,7 @@ describe('Place model', () => {
 
     it('returns a map of unique sites, holding codes, suitability codes and roles', () => {
       return Promise.resolve()
-        .then(() => this.models.Place.getFilterOptions(8202))
+        .then(() => Place.getFilterOptions(8202))
         .then(filters => {
           assert.deepEqual(filters, [{
             key: 'site',
@@ -240,7 +253,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
           assert.deepEqual(places.results[0].site, 'A site');
@@ -255,7 +268,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
           assert.deepEqual(places.results[0].site, 'A site');
@@ -270,7 +283,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 2);
         });
@@ -285,7 +298,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
           assert.deepEqual(places.results[0].site, 'C site');
@@ -300,7 +313,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           const expected = [
             'A name',
@@ -319,7 +332,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           const expected = [
             'B name'
@@ -337,7 +350,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           const expected = [
             'A name',
@@ -358,7 +371,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           const expected = [
             'A name',
@@ -376,7 +389,7 @@ describe('Place model', () => {
         offset: 1
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 4);
           assert.deepEqual(places.results.length, 2);
@@ -391,7 +404,7 @@ describe('Place model', () => {
         limit: 'all'
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 4);
           assert.deepEqual(places.results.length, 4);
@@ -407,7 +420,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 4);
           assert.deepEqual(places.results.length, 4);
@@ -427,7 +440,7 @@ describe('Place model', () => {
         }
       };
       return Promise.resolve()
-        .then(() => this.models.Place.filter(opts))
+        .then(() => Place.filter(opts))
         .then(places => {
           assert.deepEqual(places.total, 1);
           const nacwos = places.results[0].roles.filter(r => r.type === 'nacwo');
@@ -438,14 +451,14 @@ describe('Place model', () => {
 
   describe('Uniqueness constraints', () => {
     it('prevents the same role being assigned to the same place more than once', () => {
-      assert.rejects(async () => this.models.PlaceRole.query().insert({
+      assert.rejects(async () => PlaceRole.query().insert({
         placeId: placeId1,
         roleId: nacwoRoleId1 // relation already exists
       }));
     });
 
     it('allows multiple soft-deleted same role at same place to exist', () => {
-      return assert.ok(async () => this.models.PlaceRole.query().insert([
+      return assert.ok(async () => PlaceRole.query().insert([
         {
           placeId: placeId1,
           roleId: nacwoRoleId1,

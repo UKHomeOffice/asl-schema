@@ -1,17 +1,15 @@
-const { Model } = require('objection');
-
-const SoftDelete = require('./mixins/soft-delete');
-const NameSearch = require('./mixins/name-search');
+import { Model } from 'objection';
+import SoftDelete from './mixins/soft-delete.js';
+import NameSearch from './mixins/name-search.js';
 
 class QueryBuilder extends Model.QueryBuilder {
-
   static mixin(mx) {
     return mx(this);
   }
 
   scopeToEstablishment(column, establishmentId, role) {
     const query = this.context({ establishmentId })
-      .joinRelation('establishments')
+      .joinRelated('establishments')
       .where(column, establishmentId);
 
     if (role) {
@@ -24,4 +22,4 @@ class QueryBuilder extends Model.QueryBuilder {
 
 QueryBuilder.NameSearch = NameSearch;
 
-module.exports = QueryBuilder.mixin(SoftDelete);
+export default QueryBuilder.mixin(SoftDelete);

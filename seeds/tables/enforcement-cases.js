@@ -1,16 +1,18 @@
-const { omit } = require('lodash');
-const enforcementCases = require('../data/enforcement-cases');
+import pkg from 'lodash';
+import enforcementCases from '../data/enforcement-cases.js';
 
-module.exports = {
+const {omit} = pkg;
+
+export default {
   populate: async knex => {
     for (const enforcementCase of enforcementCases) {
-      const caseId = await knex('enforcement_cases')
+      const {id: caseId} = await knex('enforcement_cases')
         .insert(omit(enforcementCase, 'subjects'))
         .returning('id')
         .then(c => c[0]);
 
       for (const enforcementSubject of enforcementCase.subjects) {
-        const subjectId = await knex('enforcement_subjects')
+        const {id: subjectId} = await knex('enforcement_subjects')
           .insert({ ...omit(enforcementSubject, 'flags'), caseId })
           .returning('id')
           .then(s => s[0]);

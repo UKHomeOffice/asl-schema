@@ -1,5 +1,5 @@
 
-exports.up = function(knex) {
+export function up(knex) {
   const changeLicenceHolderQuery = () => knex('changelog')
     .where({ model_type: 'project', action: 'update' })
     .orderBy('updated_at', 'desc');
@@ -55,9 +55,9 @@ exports.up = function(knex) {
 
       return Promise.all(promises);
     });
-};
+}
 
-exports.down = function(knex) {
+export function down(knex) {
   // revert back to the licence holder from the project
   return knex.raw(`
     UPDATE project_versions
@@ -65,4 +65,4 @@ exports.down = function(knex) {
     FROM projects
     WHERE projects.id = project_versions.project_id
   `);
-};
+}
