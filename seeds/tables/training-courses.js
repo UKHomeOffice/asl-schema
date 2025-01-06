@@ -1,5 +1,5 @@
 const { omit } = require('lodash');
-const trainingCourses = require('../data/training-courses.json');
+const trainingCourses = require('../data/training-courses.js');
 
 module.exports = {
   populate: knex => {
