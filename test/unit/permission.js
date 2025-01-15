@@ -27,7 +27,7 @@ describe('Permission', () => {
       profileId: '1234567',
       unknown: 'example'
     };
-    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Permission.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

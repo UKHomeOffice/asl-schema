@@ -29,7 +29,7 @@ describe('Invitation', () => {
       email: 'test@example.com',
       unknown: 'example'
     };
-    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Invitation.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

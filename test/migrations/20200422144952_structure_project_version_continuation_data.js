@@ -2,7 +2,6 @@ const sinon = require('sinon');
 const moment = require('moment');
 const uuid = require('uuid');
 const assert = require('assert');
-const diff = require('deep-diff');
 const { get, map } = require('lodash');
 const db = require('./helpers/db');
 const { up, transform } = require('../../migrations/20200422144952_structure_project_version_continuation_data');
@@ -140,7 +139,7 @@ describe('transform', () => {
           'expiry-date': '2020-02-27'
         }
       ]
-    }
+    };
     assert.deepEqual(transform(data, versionId), expected);
   });
 
@@ -170,7 +169,7 @@ describe('transform', () => {
               'expiry-date': null
             }
           ]
-        }
+        };
         assert.deepEqual(transform(data, versionId), expected, `Expected ${licenceNumber} to be parsed successfully`);
       });
     });
@@ -223,7 +222,7 @@ describe('transform', () => {
               'expiry-date': '2020-01-01'
             }
           ]
-        }
+        };
         assert.deepEqual(transform(data, versionId), expected, `Expected ${expiryDate} to be parsed successfully`);
       });
     });
@@ -269,6 +268,9 @@ describe('transform', () => {
 });
 
 describe('up', () => {
+  // Utility function to validate UUID format
+  const isValidUUID = (uuid) => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(uuid);
+
   const licenceHolder = {
     id: uuid(),
     first_name: 'Licence',
@@ -291,7 +293,7 @@ describe('up', () => {
     INVALID_LICENCE_NUMBER: uuid(),
     MULTIPLE_LICENCE_NUMBERS: uuid(),
     LEGACY_SLATE_FORMAT: uuid()
-  }
+  };
 
   const continuations = {
     [ids.VALID_INPUT]: slateify('70/8123 valid until 20/04/2020'),
@@ -312,7 +314,7 @@ describe('up', () => {
       .then(() => this.knex('establishments').insert(establishment))
       .then(() => this.knex('profiles').insert(licenceHolder))
       .then(() => {
-        let index = 0
+        let index = 0;
         return Promise.all(map(continuations, (continuation, id) => {
           const project = {
             establishment_id: establishment.id,
@@ -328,9 +330,15 @@ describe('up', () => {
               'expiring-yes': continuation
             }
           };
+
           return this.knex('projects').insert(project).returning('id')
             .then(ids => ids[0])
-            .then(id => this.knex('project_versions').insert({ ...projectVersion, project_id: id }))
+            .then((projectId) => {
+              if (!isValidUUID(projectId) && projectId.id) {
+                projectId = projectId.id;
+              }
+              return this.knex('project_versions').insert({ ...projectVersion, project_id: projectId });
+            });
         }));
       });
   });
@@ -347,7 +355,7 @@ describe('up', () => {
               'expiry-date': '2020-04-20'
             }
           ]
-        }
+        };
         return Promise.resolve()
           .then(() => up(this.knex))
           .then(() => this.knex('project_versions').where({ id: ids.VALID_INPUT }).first())
@@ -405,7 +413,7 @@ describe('up', () => {
               'expiry-date': '2020-01-26'
             }
           ]
-        }
+        };
         return Promise.resolve()
           .then(() => up(this.knex))
           .then(() => this.knex('project_versions').where({ id: ids.INVALID_LICENCE_NUMBER }).first())
@@ -427,7 +435,7 @@ describe('up', () => {
               'expiry-date': '2020-01-20'
             }
           ]
-        }
+        };
         return Promise.resolve()
           .then(() => up(this.knex))
           .then(() => this.knex('project_versions').where({ id: ids.MULTIPLE_LICENCE_NUMBERS }).first())
@@ -449,7 +457,7 @@ describe('up', () => {
               'expiry-date': '2020-02-27'
             }
           ]
-        }
+        };
         return Promise.resolve()
           .then(() => up(this.knex))
           .then(() => this.knex('project_versions').where({ id: ids.LEGACY_SLATE_FORMAT }).first())

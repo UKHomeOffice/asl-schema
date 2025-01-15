@@ -15,7 +15,7 @@ module.exports = {
           const participants = (course.participants || []).map(participant => {
             return {
               ...participant,
-              training_course_id: id
+              training_course_id: (id.id ? id.id : id)
             };
           });
           if (participants.length > 0) {

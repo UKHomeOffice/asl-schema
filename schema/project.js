@@ -267,7 +267,7 @@ class Project extends BaseModel {
     return this.query()
       .where({ establishmentId })
       .findById(id)
-      .eager('licenceHolder');
+      .withGraphFetched('licenceHolder');
   }
 
   static getOwn({ establishmentId, id, licenceHolderId }) {
@@ -275,7 +275,7 @@ class Project extends BaseModel {
       .where({ establishmentId })
       .whereIsCollaborator(licenceHolderId)
       .findById(id)
-      .eager('licenceHolder');
+      .withGraphFetched('licenceHolder');
   }
 
   static getOwnProjects({ licenceHolderId, ...props }) {
@@ -298,7 +298,7 @@ class Project extends BaseModel {
   }
 
   static filterUnsubmittedDrafts(query) {
-    return query.joinRelation('version').where('version.status', '!=', 'draft');
+    return query.joinRelated('version').where('version.status', '!=', 'draft');
   }
 
   static count({
@@ -358,7 +358,7 @@ class Project extends BaseModel {
     query
       .distinct('projects.*', 'licenceHolder.lastName')
       .where(statusQuery(status, includeSuspended))
-      .leftJoinRelation('licenceHolder')
+      .leftJoinRelated('licenceHolder')
       .withGraphFetched(
         '[licenceHolder, additionalEstablishments(constrainAAParams), establishment(constrainEstParams)]'
       )

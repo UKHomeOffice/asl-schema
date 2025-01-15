@@ -30,7 +30,7 @@ class ProjectVersion extends BaseModel {
   }
 
   static get(id) {
-    return this.query().findById(id).eager('project');
+    return this.query().findById(id).withGraphFetched('project');
   }
 
   static get relationMappings() {

@@ -105,7 +105,7 @@ class Place extends BaseModel {
       .distinct('places.id')
       .where({ 'places.establishmentId': establishmentId })
       // we need to query the join table directly to avoid filtering on deleted associations
-      .leftJoinRelation('roleJoins')
+      .leftJoinRelated('roleJoins')
       .joinRoles();
 
     if (filters.site) {

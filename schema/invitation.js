@@ -14,7 +14,7 @@ class Invitation extends BaseModel {
       additionalProperties: false,
       properties: {
         id: { type: 'string', pattern: uuid.v4 },
-        token: { type: ['string', null] },
+        token: { type: ['string', 'null'] },
         role: { type: 'string', enum: externalPermissions },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },

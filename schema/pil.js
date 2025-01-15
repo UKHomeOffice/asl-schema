@@ -115,9 +115,9 @@ class PIL extends BaseModel {
         'profile.lastName',
         'profile.pilLicenceNumber as licenceNumber'
       )
-      .leftJoinRelation('profile')
+      .leftJoinRelated('profile')
       .where({ 'pils.establishmentId': establishmentId })
-      .eager('profile')
+      .withGraphFetched('profile')
       .where({ status: 'active' })
       .where((builder) => {
         if (search) {

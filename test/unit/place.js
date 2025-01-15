@@ -11,7 +11,7 @@ describe('Place', () => {
       holding: ['STH', 'LTH'],
       establishmentId: 100
     };
-    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /should be string/);
+    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /must be string/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -23,7 +23,7 @@ describe('Place', () => {
       establishmentId: 100,
       unknown: 'example'
     };
-    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Place.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

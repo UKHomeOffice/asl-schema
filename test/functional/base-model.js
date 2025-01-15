@@ -1,171 +1,128 @@
 const moment = require('moment');
 const assert = require('assert');
-const Knex = require('knex');
-const settings = require('../../knexfile').test;
-const db = require('./helpers/db');
-const BaseModel = require('../../schema/base-model');
+const knex = require('knex');
+const {test} = require('../../knexfile.js');
+const dbHelper = require('./helpers/db.js');
+const BaseModel = require('../../schema/base-model.js');
+
+const settings = test;
+
+let Model;
 
 describe('Base Model', () => {
-
-  describe('Custom methods', () => {
-    before(() => {
-      class Model extends BaseModel {
-        static get tableName() {
-          return 'authorisations';
-        }
+  before(() => {
+    dbHelper.init();
+    Model = class extends BaseModel {
+      static get tableName() {
+        return 'authorisations';
       }
-      this.db = db.init();
-      this.Model = Model.bindKnex(Knex(settings));
+    };
+    Model = Model.bindKnex(knex(settings));
+  });
+
+  after(() => dbHelper.clean(BaseModel));
+
+  beforeEach(async () => {
+    await Model.queryWithDeleted().hardDelete();
+    await Model.query(dbHelper.init().knex).insert([
+      {
+        id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
+        type: 'killing',
+        method: 'captive bolt',
+        updatedAt: '2019-10-01T12:00:00.000Z'
+      },
+      {
+        id: '561dfe21-fc2a-420f-8bb6-100b1f1e2735',
+        type: 'rehomes',
+        updatedAt: '2019-10-01T12:00:00.000Z'
+      }
+    ]);
+  });
+
+  describe('soft delete', () => {
+    it('ignores soft deleted models using query()', async () => {
+      await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete();
+      const models = await Model.query(dbHelper.init().knex);
+      assert.strictEqual(models.length, 1);
+      assert.strictEqual(models[0].id, '561dfe21-fc2a-420f-8bb6-100b1f1e2735');
     });
 
-    beforeEach(() => {
-      return Promise.resolve()
-        .then(() => this.Model.queryWithDeleted().hardDelete())
-        .then(() => {
-          return this.Model.query().insert([
-            {
-              id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
-              type: 'killing',
-              method: 'captive bolt',
-              updatedAt: '2019-10-01T12:00:00.000Z'
-            },
-            {
-              id: '561dfe21-fc2a-420f-8bb6-100b1f1e2735',
-              type: 'rehomes',
-              updatedAt: '2019-10-01T12:00:00.000Z'
-            }
-          ]);
-        });
+    it('returns only deleted models on queryDeleted', async () => {
+      await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete();
+      const models = await Model.queryDeleted();
+      assert.strictEqual(models.length, 1);
+      assert.strictEqual(models[0].id, '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
     });
 
-    after(() => {
-      return this.db.destroy();
+    it('returns all models including deleted on queryWithDeleted', async () => {
+      await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete();
+      const models = await Model.queryWithDeleted();
+      assert.strictEqual(models.length, 2);
     });
 
-    describe('soft delete', () => {
-      it('ignores soft deleted models using query()', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
-          .then(() => this.Model.query())
-          .then(models => {
-            assert.deepEqual(models.length, 1);
-            assert.deepEqual(models[0].id, '561dfe21-fc2a-420f-8bb6-100b1f1e2735');
-          });
-      });
-
-      it('returns only deleted models on queryDeleted', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
-          .then(() => this.Model.queryDeleted())
-          .then(models => {
-            assert.deepEqual(models.length, 1);
-            assert.deepEqual(models[0].id, '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
-          });
-      });
-
-      it('returns all models including deleted on queryWithDeleted', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
-          .then(() => this.Model.queryWithDeleted())
-          .then(models => {
-            assert.deepEqual(models.length, 2);
-          });
-      });
-
-      it('marks the entry with a deleted timestamp', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
-          .then(() => this.Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert(moment(model.deleted).isValid());
-          });
-      });
-
-      it('has an undelete method which resores the model', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete())
-          .then(() => this.Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').undelete())
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert(model.id, '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
-          });
-      });
-
-      it('has a hardDelete method which deletes the model', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').hardDelete())
-          .then(() => this.Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert.deepEqual(model, undefined);
-          });
-      });
+    it('marks the entry with a deleted timestamp', async () => {
+      await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete();
+      const model = await Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      assert(moment(model.deleted).isValid());
     });
 
-    describe('preserveUpdatedAt', () => {
-
-      it('updates the `updatedAt` timestamp to now by default', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' }))
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert.equal(model.updatedAt.split('T')[0], new Date().toISOString().split('T')[0]);
-          });
-      });
-
-      it('preserves the `updatedAt` timestamp if `preserveUpdatedAt` context is set', () => {
-        return Promise.resolve()
-          .then(() => this.Model.query().context({ preserveUpdatedAt: true }).update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' }))
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert.equal(model.updatedAt.split('T')[0], '2019-10-01');
-          });
-      });
-
+    it('has an undelete method which restores the model', async () => {
+      await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').delete();
+      await Model.queryWithDeleted(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').undelete();
+      const model = await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      assert.strictEqual(model.id, '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
     });
 
-    describe('upsert', () => {
-      it('updates a model if found by id', () => {
-        return Promise.resolve()
-          .then(() => this.Model.upsert({
-            id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
-            type: 'rehomes'
-          }))
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert.deepEqual(model.type, 'rehomes');
-          });
-      });
+    it('has a hardDelete method which deletes the model', async () => {
+      await Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2').hardDelete();
+      const model = await Model.queryWithDeleted().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      assert.strictEqual(model, undefined);
+    });
+  });
 
-      it('updates a model if found by where clause', () => {
-        return Promise.resolve()
-          .then(() => this.Model.upsert({
-            type: 'rehomes'
-          }, {
-            type: 'killing'
-          }))
-          .then(() => this.Model.query().findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2'))
-          .then(model => {
-            assert.deepEqual(model.type, 'rehomes');
-          });
-      });
+  describe('preserveUpdatedAt', () => {
+    it('updates the `updatedAt` timestamp to now by default', async () => {
+      await Model.query(dbHelper.init().knex).update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' });
+      const model = await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      const updatedAtDate = new Date(model.updatedAt);
+      const now = new Date();
+      assert.strictEqual(updatedAtDate.toISOString().split('T')[0], now.toISOString().split('T')[0]);
+    });
 
-      it('inserts a model if no id or where clause provided', () => {
-        return Promise.resolve()
-          .then(() => this.Model.upsert({ type: 'rehomes' }))
-          .then(() => this.Model.query())
-          .then(models => {
-            assert.deepEqual(models.length, 3);
-          });
-      });
+    it('preserves the `updatedAt` timestamp if `preserveUpdatedAt` context is set', async () => {
+      await Model.query(dbHelper.init().knex).context({ preserveUpdatedAt: true }).update({ type: 'rehomes' }).where({ id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2' });
+      const model = await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      const updatedAtString = model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt;
+      assert.strictEqual(updatedAtString.split('T')[0], '2019-10-01');
+    });
+  });
 
-      it('inserts a model if no model found with where clause', () => {
-        return Promise.resolve()
-          .then(() => this.Model.upsert({ type: 'killing' }, { method: 'bazooka' }))
-          .then(() => this.Model.query())
-          .then(models => {
-            assert.deepEqual(models.length, 3);
-          });
-      });
+  describe('upsert', () => {
+    it('updates a model if found by id', async () => {
+      await Model.upsert({
+        id: '6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2',
+        type: 'rehomes'
+      }, null, dbHelper.init().knex);
+      const model = await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      assert.strictEqual(model.type, 'rehomes');
+    });
+
+    it('updates a model if found by where clause', async () => {
+      await Model.upsert({ type: 'rehomes' }, { type: 'killing' }, dbHelper.init().knex);
+      const model = await Model.query(dbHelper.init().knex).findById('6d9c921f-ac0d-401b-ace4-e4d55b4ea2d2');
+      assert.strictEqual(model.type, 'rehomes');
+    });
+
+    it('inserts a model if no id or where clause provided', async () => {
+      await Model.upsert({ type: 'rehomes' });
+      const models = await Model.query();
+      assert.strictEqual(models.length, 3);
+    });
+
+    it('inserts a model if no model found with where clause', async () => {
+      await Model.upsert({ type: 'killing' }, { method: 'bazooka' }, dbHelper.init().knex);
+      const models = await Model.query(dbHelper.init().knex);
+      assert.strictEqual(models.length, 3);
     });
   });
 });

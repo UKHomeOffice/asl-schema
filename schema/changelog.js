@@ -25,7 +25,7 @@ class Changelog extends BaseModel {
         state: { type: 'object' },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
-        deleted: { type: ['string', 'null'], formate: 'date-time' }
+        deleted: { type: ['string', 'null'], format: 'date-time' }
       }
     };
   }
