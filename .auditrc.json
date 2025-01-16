@@ -1,8 +1,6 @@
 {
   "comments": [
-    { "eslint^5.16.0": "CVE-2024-21538 | GHSA-3xgq-45jj-v275, Regular Expression Denial of Service (ReDoS) in cross-spawn" }
   ],
   "allowlist": [
-    "GHSA-3xgq-45jj-v275"
   ]
 }
