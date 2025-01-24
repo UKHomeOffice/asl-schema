@@ -101,7 +101,7 @@ const transform = (data, versionId, writeCsvLine) => {
         'expiry-date': date ? date.format('YYYY-MM-DD') : null
       }
     ]
-  }
+  };
 };
 
 exports.transform = transform;
@@ -114,11 +114,11 @@ exports.up = function(knex) {
       return knex('project_versions')
         .select('project_versions.id', 'data')
         .join('projects', 'project_versions.project_id', 'projects.id')
-        .where({ 'schema_version':  1 })
-        .whereRaw('cast(data->>\'transfer-expiring\' as boolean) IS TRUE')
+        .where({ 'schema_version': 1 })
+        .whereRaw('cast(data->>\'transfer-expiring\' as boolean) IS TRUE');
     })
     .then(versions => {
-      console.log(`found ${versions.length} versions`)
+      console.log(`found ${versions.length} versions`);
       return versions.reduce((promise, version, index) => {
         return promise
           .then(() => {
@@ -145,7 +145,7 @@ exports.up = function(knex) {
 
                 const data = transform(version.data, version.id, writeCsvLine);
                 if (!data) {
-                  console.log(`Skipping ${version.id}.`)
+                  console.log(`Skipping ${version.id}.`);
                   return Promise.resolve();
                 }
                 return knex('project_versions')
@@ -161,13 +161,13 @@ exports.up = function(knex) {
             console.error(e.stack);
             throw e;
           });
-      }, Promise.resolve())
+      }, Promise.resolve());
     })
     .then(() => {
       stringifier.pipe(process.stdout);
       stringifier.end();
     })
-    .catch(() => stringifier.end())
+    .catch(() => stringifier.end());
 };
 
 exports.down = function(knex) {

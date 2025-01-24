@@ -20,7 +20,7 @@ describe('Changelog', () => {
         b: 'field'
       }
     };
-    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /modelType: should be string/);
+    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /modelType: must be string/);
   });
 
   it('throws a validation error when an invalid messageId is provided', () => {
@@ -35,7 +35,7 @@ describe('Changelog', () => {
         b: 'field'
       }
     };
-    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /messageId: should match pattern/);
+    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /messageId: must match pattern/);
   });
 
   it('throws a validation error when unknown values are provided', () => {
@@ -51,7 +51,7 @@ describe('Changelog', () => {
       },
       unknown: 'field'
     };
-    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Changelog.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

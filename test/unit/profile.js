@@ -19,7 +19,7 @@ describe('Profile', () => {
       email: 'jane@example.com',
       telephone: 123456789
     };
-    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should be string/);
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /must be string/);
   });
 
   it('throws a validation error when invalid email is provided', () => {
@@ -29,7 +29,7 @@ describe('Profile', () => {
       email: 'jane.com',
       dob: '2000-40-89'
     };
-    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should match pattern/);
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /must match pattern/);
   });
 
   it('throws a validation error when invalid dob is provided', () => {
@@ -39,7 +39,7 @@ describe('Profile', () => {
       email: 'jane@example.com',
       dob: '2000-40-89'
     };
-    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /should match pattern/);
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /must match pattern/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
@@ -49,7 +49,7 @@ describe('Profile', () => {
       email: 'jane@example.com',
       unknown: 'example'
     };
-    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Profile.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

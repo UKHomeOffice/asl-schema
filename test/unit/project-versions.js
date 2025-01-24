@@ -7,14 +7,14 @@ describe('ProjectVersion', () => {
     const badJson = {
       data: ['array', 'of', 'values']
     };
-    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /data: should be object,null/);
+    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /data: must be object,null/);
   });
 
   it('throws a validation error when unknown properties are provided', () => {
     const badJson = {
       unknown: 'example'
     };
-    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => ProjectVersion.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

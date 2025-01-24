@@ -7,13 +7,13 @@ module.exports = {
       const caseId = await knex('enforcement_cases')
         .insert(omit(enforcementCase, 'subjects'))
         .returning('id')
-        .then(c => c[0]);
+        .then(c => c[0].id);
 
       for (const enforcementSubject of enforcementCase.subjects) {
         const subjectId = await knex('enforcement_subjects')
           .insert({ ...omit(enforcementSubject, 'flags'), caseId })
           .returning('id')
-          .then(s => s[0]);
+          .then(s => s[0].id);
 
         const flags = enforcementSubject.flags.map(f => ({ ...f, subjectId }));
         await knex('enforcement_flags').insert(flags);

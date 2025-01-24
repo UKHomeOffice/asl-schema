@@ -16,7 +16,7 @@ class FeeWaiver extends BaseModel {
         profileId: { type: 'string', pattern: uuid.v4 },
         establishmentId: { type: 'integer' },
         year: { type: 'integer' },
-        comment: { type: 'text' },
+        comment: { type: 'string' },
         waivedById: { type: 'string', pattern: uuid.v4 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' }

@@ -35,7 +35,7 @@ class ProfileQueryBuilder extends QueryBuilder {
           .orWhereExists(
             Profile
               .relatedQuery('trainingPils')
-              .joinRelation('trainingCourse')
+              .joinRelated('trainingCourse')
               .where('trainingCourse.establishmentId', establishmentId)
               .where('issueDate', '<', end)
               .where(builder => {
@@ -161,7 +161,7 @@ class Profile extends BaseModel {
           builder.select([
             'pils.*',
             'profile.pilLicenceNumber as licenceNumber'
-          ]).joinRelation('profile');
+          ]).joinRelated('profile');
         },
         constrainEstParams: builder => builder.select('id', 'name')
       });
@@ -200,7 +200,7 @@ class Profile extends BaseModel {
 
     return query
       .scopeToEstablishment('establishments.id', establishmentId)
-      .joinRelation('roles')
+      .joinRelated('roles')
       .distinct('roles.type')
       .then(roles => roles.map(r => r.type));
   }
@@ -230,7 +230,7 @@ class Profile extends BaseModel {
     query
       .distinct('profiles.*')
       .scopeToEstablishment('establishments.id', establishmentId, role)
-      .leftJoinRelation('[pil, projects, roles, trainingPils]')
+      .leftJoinRelated('[pil, projects, roles, trainingPils]')
       .withGraphFetched('[pil.establishment(constrainEstParams), projects, establishments, roles, trainingPils]')
       .where(builder => {
         if (search) {

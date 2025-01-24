@@ -32,7 +32,7 @@ describe('Establishment', () => {
       country: 'england',
       issueDate: '2018-47-92T18:00:00Z'
     };
-    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /issueDate: should match format/);
+    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /issueDate: must match format/);
   });
 
   it('throws a validation error when unknown values are provided', () => {
@@ -44,7 +44,7 @@ describe('Establishment', () => {
       country: 'england',
       unknown: 'example'
     };
-    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Establishment.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {

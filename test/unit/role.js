@@ -27,7 +27,7 @@ describe('Role', () => {
       type: 'pelh',
       unknown: 'example'
     };
-    expect(() => Role.fromJson(badJson)).to.throw(ValidationError, /invalid additional property/);
+    expect(() => Role.fromJson(badJson)).to.throw(ValidationError, /must NOT have additional properties/);
   });
 
   it('successfully instantiates when given a valid schema', () => {
