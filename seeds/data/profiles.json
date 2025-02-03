@@ -277,6 +277,112 @@
     ]
   },
   {
+    "id": "8d44d98c-ea1d-4d76-8145-f1685afd1cbd",
+    "userId": "104aef3a-2d75-45ab-8306-f13bada78c09",
+    "title": "Dr",
+    "firstName": "Named",
+    "lastName": "Person",
+    "dob": "1970-04-23",
+    "position": "University Vice-Chancellor",
+    "qualifications": "BLib",
+    "certifications": "",
+    "address": "Lunar House\nSydenham Road,\nCroydon\nLondon",
+    "postcode": "CR0 2YF",
+    "email": "holc-np@example.com",
+    "telephone": "01840 345 678",
+    "notes": "",
+    "certificates": [
+      {
+        "modules": [
+          "PILA (theory)",
+          "PILA (skills)"
+        ],
+        "species": [
+          "Mice",
+          "Rats"
+        ],
+        "passDate": "2015-06-04",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "12345",
+        "createdAt": "2020-09-10T10:40:30.000Z"
+      },
+      {
+        "modules": [
+          "L"
+        ],
+        "species": null,
+        "passDate": "2015-06-05",
+        "accreditingBody": "Royal Society of Biology",
+        "certificateNumber": "1234567890",
+        "createdAt": "2020-09-10T10:45:30.000Z"
+      }
+    ],
+    "roles": [
+      {
+        "establishmentId": 8201,
+        "type": "pelh"
+      },
+      {
+        "establishmentId": 8201,
+        "type": "holc"
+      },
+      {
+        "establishmentId": 8202,
+        "type": "nprc"
+      },
+      {
+        "establishmentId": 30001,
+        "type": "holc"
+      },
+      {
+        "establishmentId": 30002,
+        "type": "holc"
+      },
+      {
+        "establishmentId": 9999,
+        "type": "pelh"
+      }
+    ],
+    "permissions": [
+      {
+        "establishmentId": 8201,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 8202,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 30001,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 30002,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 9999,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 10264,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 10267,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 10268,
+        "role": "admin"
+      },
+      {
+        "establishmentId": 10269,
+        "role": "admin"
+      }
+    ]
+  },
+  {
     "id": "0b2d1c52-f8e4-4d16-b58c-0ce80ca58d0c",
     "userId": "ba836eae-28b7-408e-99e5-dae65d40db4d",
     "title": "Dr",
